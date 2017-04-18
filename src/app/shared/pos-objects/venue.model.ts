@@ -7,5 +7,7 @@ export class Venue {
               public Address2: string,
               public City: string,
               public State: string,
-              public PostalCode: string) {}
+              public PostalCode: string,
+              public Phone1: string,
+              public Phone2: string) {}
 }

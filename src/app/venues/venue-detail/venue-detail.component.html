@@ -1,6 +1,109 @@
 <h3>
-  Location Detail:{{ venue.Name}}
+  Location Detail
 </h3>
-<h4>{{ venue.Address1}}
-</h4>
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="venueDetailForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="venueName">Name</label>
+            <input
+              type="text"
+              id="venueName"
+              formControlName="venueName"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="address1">Address 1</label>
+            <input
+              type="text"
+              id="address1"
+              formControlName="address1"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="address2">Address 2</label>
+            <input
+              type="text"
+              id="address2"
+              formControlName="address2"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="city">City</label>
+            <input
+              type="text"
+              id="city"
+              formControlName="city"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="city">State</label>
+            <input
+              type="text"
+              id="state"
+              formControlName="state"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="city">Postal Code</label>
+            <input
+              type="text"
+              id="postalCode"
+              formControlName="postalCode"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="phone1">Phone 1</label>
+            <input
+              type="text"
+              id="phone1"
+              formControlName="phone1"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="phone2">Phone 2</label>
+            <input
+              type="text"
+              id="phone2"
+              formControlName="phone2"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
 
