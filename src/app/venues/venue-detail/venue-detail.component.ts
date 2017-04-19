@@ -1,17 +1,19 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {VenueService} from '../venue.service';
 import {Venue} from '../../shared/pos-objects/venue.model';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {FormGroup, Validators, FormControl} from '@angular/forms';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-venue-detail',
   templateUrl: './venue-detail.component.html'
 })
-export class VenueDetailComponent implements OnInit {
+export class VenueDetailComponent implements OnInit, OnDestroy {
   private venue: Venue;
   venueDetailForm: FormGroup;
   id: number;
+  subscription: Subscription;
 
   constructor(private venueService: VenueService,
               private route: ActivatedRoute) { }
@@ -23,6 +25,9 @@ export class VenueDetailComponent implements OnInit {
           this.id = +params['id'];
           this.venue = this.venueService.getVenue(this.id);
           this.initForm();
+          this.subscription = this.venueDetailForm.valueChanges.subscribe(
+            (value) => this.venueService.updateVenue(this.id, this.venueDetailForm.value)
+          );
         }
       );
   }
@@ -38,16 +43,20 @@ export class VenueDetailComponent implements OnInit {
     let phone2 = this.venue.Phone2;
     this.venueDetailForm = new FormGroup(
       {
-        'venueName': new FormControl(venueName, Validators.required),
-        'address1': new FormControl(address1, Validators.required),
-        'address2': new FormControl(address2),
-        'city': new FormControl(city, Validators.required),
-        'state': new FormControl(state, Validators.required),
-        'postalCode': new FormControl(postalCode, Validators.required),
-        'phone1': new FormControl(phone1, Validators.required),
-        'phone2': new FormControl(phone2),
+        'Name': new FormControl(venueName, Validators.required),
+        'Address1': new FormControl(address1, Validators.required),
+        'Address2': new FormControl(address2),
+        'City': new FormControl(city, Validators.required),
+        'State': new FormControl(state, Validators.required),
+        'PostalCode': new FormControl(postalCode, Validators.required),
+        'Phone1': new FormControl(phone1, Validators.required),
+        'Phone2': new FormControl(phone2),
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

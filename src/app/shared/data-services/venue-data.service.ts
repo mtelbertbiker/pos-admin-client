@@ -14,6 +14,7 @@ export class VenueDataService {
       .map(
         (response: Response) => {
           const venues: Venue[] = response.json();
+          console.log('Venues follow:');
           console.log(venues);
           return venues;
         }

@@ -1,7 +1,7 @@
 export class Venue {
-  constructor(public LicId: number,
-              public BId: number,
-              public LId: number,
+  constructor(public licId: number,
+              public bId: number,
+              public lId: number,
               public Name: string,
               public Address1: string,
               public Address2: string,

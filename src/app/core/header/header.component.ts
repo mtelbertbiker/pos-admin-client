@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {VenueService} from '../../venues/venue.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Venue} from '../../shared/pos-objects/venue.model';
@@ -7,7 +7,7 @@ import {Venue} from '../../shared/pos-objects/venue.model';
   selector: 'app-header',
   templateUrl: './header.component.html',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   venues: Venue[];
   subscription: Subscription;
 
@@ -25,5 +25,9 @@ export class HeaderComponent implements OnInit {
 
   onGetLocations() {
     this.venueService.getVenues();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
