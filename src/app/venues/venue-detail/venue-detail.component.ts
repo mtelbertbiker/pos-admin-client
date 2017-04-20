@@ -4,6 +4,8 @@ import {Venue} from '../../shared/pos-objects/venue.model';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {FormGroup, Validators, FormControl} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
+import {VenueDataService} from '../../shared/data-services/venue-data.service';
+import {Response} from '@angular/http';
 
 @Component({
   selector: 'app-venue-detail',
@@ -16,6 +18,7 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(private venueService: VenueService,
+              private venueDataService: VenueDataService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -54,7 +57,18 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
       }
     );
   }
+  onSubmit() {
+    this.venueDataService.putVenue(this.id)
+      .subscribe(
+        (response: Response) => {
+          console.log(response);
+        }
+      );
+  }
 
+  edited() {
+    return this.venueService.venuesChanged;
+  }
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

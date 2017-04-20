@@ -25,5 +25,23 @@ export class VenueDataService {
         }
       );
   }
+  putVenue(index: number) {
+    const venue =  this.venueService.getVenue(index);
+    const location = {
+      'LicId': venue['LicId'],
+      'BId': venue['BId'],
+      'LId': venue['LId'],
+      'Name': venue.Name,
+      'Address1': venue.Address1,
+      'Address2': venue.Address2,
+      'City': venue.City,
+      'State': venue.State,
+      'PostalCode': venue.PostalCode,
+      'Phone1': venue.Phone1,
+      'Phone2': venue.Phone2
+    }
+    return this.http.put('http://localhost:41000/api/Locations/0',
+      location);
+  }
 
 }

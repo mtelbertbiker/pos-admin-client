@@ -23,8 +23,6 @@ setVenues(venues: Venue[]) {
 }
 
 updateVenue(index: number, newVenue: Venue) {
-  console.log('the new venue:');
-  console.log(newVenue);
   this.venues[index].Name = newVenue.Name;
   this.venues[index].Address1 = newVenue.Address1;
   this.venues[index].Address2 = newVenue.Address2;
