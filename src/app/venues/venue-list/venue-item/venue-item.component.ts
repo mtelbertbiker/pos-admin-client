@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Venue} from '../../../shared/pos-objects/venue.model';
+import {Venue} from '../../../shared/pos-models/venue.model';
 
 @Component({
   selector: 'app-venue-item',

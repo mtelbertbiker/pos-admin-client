@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Venue} from '../../shared/pos-objects/venue.model';
+import {Venue} from '../../shared/pos-models/venue.model';
 import {Subscription} from 'rxjs/Subscription';
 import {VenueService} from '../venue.service';
 

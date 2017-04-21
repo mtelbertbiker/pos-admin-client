@@ -1,7 +1,7 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {VenueService} from '../venue.service';
-import {Venue} from '../../shared/pos-objects/venue.model';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import {Venue} from '../../shared/pos-models/venue.model';
+import {ActivatedRoute, Params} from '@angular/router';
 import {FormGroup, Validators, FormControl} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {VenueDataService} from '../../shared/data-services/venue-data.service';
@@ -36,14 +36,14 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
   }
 
   private initForm() {
-    let venueName = this.venue.Name;
-    let address1 = this.venue.Address1;
-    let address2 = this.venue.Address2;
-    let city = this.venue.City;
-    let state = this.venue.State;
-    let postalCode = this.venue.PostalCode;
-    let phone1 = this.venue.Phone1;
-    let phone2 = this.venue.Phone2;
+    const venueName = this.venue.Name;
+    const address1 = this.venue.Address1;
+    const address2 = this.venue.Address2;
+    const city = this.venue.City;
+    const state = this.venue.State;
+    const postalCode = this.venue.PostalCode;
+    const phone1 = this.venue.Phone1;
+    const phone2 = this.venue.Phone2;
     this.venueDetailForm = new FormGroup(
       {
         'Name': new FormControl(venueName, Validators.required),

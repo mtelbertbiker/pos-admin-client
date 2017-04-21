@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Venue } from '../shared/pos-objects/venue.model';
+import { Venue } from '../shared/pos-models/venue.model';
 import {Subject} from 'rxjs/Subject';
 
 @Injectable()

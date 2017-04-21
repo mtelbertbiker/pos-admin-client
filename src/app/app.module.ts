@@ -18,6 +18,8 @@ import { FeegroupListComponent } from './posconfig/fees/feegroups/feegroup-list/
 import { FeeitemListComponent } from './posconfig/fees/feeitems/feeitem-list/feeitem-list.component';
 import { FeeTesterComponent } from './posconfig/fees/feetester/feetester.component';
 import { VenueDetailComponent } from './venues/venue-detail/venue-detail.component';
+import {ConstantsService} from './shared/data-services/constants.service';
+import {SessionService} from './shared/data-services/session.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,7 @@ import { VenueDetailComponent } from './venues/venue-detail/venue-detail.compone
   ],
   exports: [
   ],
-  providers: [VenueService, VenueDataService],
+  providers: [VenueService, VenueDataService, ConstantsService, SessionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

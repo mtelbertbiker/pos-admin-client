@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {VenueService} from '../../venues/venue.service';
 import {Subscription} from 'rxjs/Subscription';
-import {Venue} from '../../shared/pos-objects/venue.model';
+import {Venue} from '../../shared/pos-models/venue.model';
 
 @Component({
   selector: 'app-header',

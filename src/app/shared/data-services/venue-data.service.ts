@@ -1,21 +1,27 @@
 import { Injectable } from '@angular/core';
 import { VenueService } from '../../venues/venue.service';
 import {Http, Response} from '@angular/http';
-import {Venue} from '../pos-objects/venue.model';
+import {Venue} from '../pos-models/venue.model';
 import 'rxjs/Rx';
+import {ConstantsService} from './constants.service';
+import {SessionService} from './session.service';
 
 @Injectable()
 export class VenueDataService {
 
-  constructor(private http: Http, private venueService: VenueService) { }
+  constructor(private http: Http,
+              private venueService: VenueService,
+              private consts: ConstantsService,
+              private session: SessionService) { }
 
   getVenues() {
-    this.http.get('http://localhost:41000/api/Locations/LicenseeLocations/1/2')
+    this.http.get(this.consts.AdminBaseUri +
+      this.consts.AdminLicenseeLocationsUri +
+      this.session.LicenseeId + '/' +
+      this.session.BrandId )
       .map(
         (response: Response) => {
           const venues: Venue[] = response.json();
-          console.log('Venues follow:');
-          console.log(venues);
           return venues;
         }
       )
@@ -39,8 +45,9 @@ export class VenueDataService {
       'PostalCode': venue.PostalCode,
       'Phone1': venue.Phone1,
       'Phone2': venue.Phone2
-    }
-    return this.http.put('http://localhost:41000/api/Locations/0',
+    };
+    // Change the '/0' to the location Id when adding new location
+    return this.http.put(this.consts.AdminBaseUri + this.consts.AdminLocationsUri + '/0',
       location);
   }
 
