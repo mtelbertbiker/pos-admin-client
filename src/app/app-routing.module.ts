@@ -6,10 +6,15 @@ import {FeegroupListComponent} from './posconfig/fees/feegroups/feegroup-list/fe
 import {FeeitemListComponent} from './posconfig/fees/feeitems/feeitem-list/feeitem-list.component';
 import {FeeTesterComponent} from './posconfig/fees/feetester/feetester.component';
 import {VenueDetailComponent} from './venues/venue-detail/venue-detail.component';
+import {RentalItemDetailComponent} from './posconfig/rentals/rental-item-detail/rental-item-detail.component';
+import {RentalItemComponent} from './posconfig/rentals/rental-list/rental-item/rental-item.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'rentals', component: RentalListComponent},
+  { path: 'rentals/:id', component: RentalListComponent, children: [
+    { path: ':id', component: RentalItemDetailComponent }
+    ]
+  },
   { path: 'feegroups', component: FeegroupListComponent},
   { path: 'feeitems', component: FeeitemListComponent},
   { path: 'feetester', component: FeeTesterComponent},

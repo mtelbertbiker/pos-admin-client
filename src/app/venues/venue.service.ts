@@ -34,4 +34,11 @@ updateVenue(index: number, newVenue: Venue) {
   this.venuesChanged.next(this.venues.slice());
 }
 
+  updateVenueDetail(index: number, newVenue: Venue) {
+    this.venues[index].ItemImages = newVenue.ItemImages;
+    this.venues[index].FeeGroups = newVenue.FeeGroups;
+    this.venues[index].RentalItems = newVenue.RentalItems;
+    this.venuesChanged.next(this.venues.slice());
+  }
+
 }

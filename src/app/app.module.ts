@@ -4,8 +4,6 @@ import { ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { VenueItemComponent } from './venues/venue-list/venue-item/venue-item.component';
-import {VenueListComponent} from './venues/venue-list/venue-list.component';
 import {VenueService} from './venues/venue.service';
 import {VenueDataService} from './shared/data-services/venue-data.service';
 import { HeaderComponent } from './core/header/header.component';
@@ -20,12 +18,11 @@ import { FeeTesterComponent } from './posconfig/fees/feetester/feetester.compone
 import { VenueDetailComponent } from './venues/venue-detail/venue-detail.component';
 import {ConstantsService} from './shared/data-services/constants.service';
 import {SessionService} from './shared/data-services/session.service';
+import { RentalItemDetailComponent } from './posconfig/rentals/rental-item-detail/rental-item-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    VenueListComponent,
-    VenueItemComponent,
     HeaderComponent,
     DropdownDirective,
     RentalListComponent,
@@ -34,7 +31,8 @@ import {SessionService} from './shared/data-services/session.service';
     FeegroupListComponent,
     FeeitemListComponent,
     FeeTesterComponent,
-    VenueDetailComponent
+    VenueDetailComponent,
+    RentalItemDetailComponent
   ],
   imports: [
     BrowserModule,

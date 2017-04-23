@@ -33,6 +33,7 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
           );
         }
       );
+    this.venueDataService.getVenueDetail(this.id);
   }
 
   private initForm() {

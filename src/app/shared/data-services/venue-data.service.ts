@@ -50,5 +50,24 @@ export class VenueDataService {
     return this.http.put(this.consts.AdminBaseUri + this.consts.AdminLocationsUri + '/0',
       location);
   }
+  getVenueDetail(index: number) {
+    let venue =  this.venueService.getVenue(index);
+    this.http.get(this.consts.AdminBaseUri +
+      this.consts.AdminLocationDetailUri +
+      venue['LicId'] + '/' +
+      venue['BId'] + '/' +
+      venue['LId'])
+      .map(
+        (response: Response) => {
+          venue = response.json();
+          return venue;
+        }
+      )
+      .subscribe(
+        (thevenue: Venue) => {
+          this.venueService.updateVenueDetail(index, thevenue);
+        }
+      );
+  }
 
 }

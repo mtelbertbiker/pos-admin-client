@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {RentalItem} from '../../../../shared/pos-models/rental-item.model';
 
 @Component({
   selector: 'app-rental-item',
   templateUrl: './rental-item.component.html',
-  styleUrls: ['./rental-item.component.css']
 })
 export class RentalItemComponent implements OnInit {
-
-  constructor() { }
+  @Input() rentalItem: RentalItem;
+  @Input() index: number;
+  @Input() vid: number;
+  combo: string;
 
   ngOnInit() {
+    this.combo = this.vid + '-' + this.index;
   }
 
 }
