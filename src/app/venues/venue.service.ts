@@ -38,7 +38,7 @@ updateVenue(index: number, newVenue: Venue) {
     this.venues[index].ItemImages = newVenue.ItemImages;
     this.venues[index].FeeGroups = newVenue.FeeGroups;
     this.venues[index].RentalItems = newVenue.RentalItems;
+    this.venues[index].LocationRentalTypes = newVenue.LocationRentalTypes;
     this.venuesChanged.next(this.venues.slice());
   }
-
 }

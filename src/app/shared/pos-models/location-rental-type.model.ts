@@ -1,4 +1,5 @@
 export class LocationRentalType {
   constructor(public LId: number,
-              RentalTypeId: number) {}
+              RentalTypeId: number,
+              Desc: string) {}
 }

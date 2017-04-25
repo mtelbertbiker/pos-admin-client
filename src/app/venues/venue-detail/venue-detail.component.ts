@@ -57,15 +57,15 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
         'Phone2': new FormControl(phone2),
       }
     );
-  }
-  onSubmit() {
-    this.venueDataService.putVenue(this.id)
-      .subscribe(
-        (response: Response) => {
-          console.log(response);
-        }
-      );
-  }
+  }  onSubmit() {
+  this.venueDataService.putVenue(this.id)
+    .subscribe(
+      (response: Response) => {
+        console.log(response);
+      }
+    );
+}
+
 
   edited() {
     return this.venueService.venuesChanged;

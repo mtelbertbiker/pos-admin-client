@@ -1,6 +1,7 @@
 import {ItemImage} from './item-image.model';
 import {FeeGroup} from './fee-group.model';
 import {RentalItem} from './rental-item.model';
+import {LocationRentalType} from './location-rental-type.model';
 export class Venue {
   constructor(public licId: number,
               public bId: number,
@@ -15,5 +16,8 @@ export class Venue {
               public Phone2: string,
               public ItemImages: ItemImage[],
               public FeeGroups: FeeGroup[],
-              public RentalItems: RentalItem[]) {}
+              public RentalItems: RentalItem[],
+              public LocationRentalTypes: LocationRentalType[],
+              public UpdateCount: number,
+              public LastUpdated: string) {}
 }
