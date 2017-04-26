@@ -35,22 +35,27 @@ export class RentalItemDetailComponent implements OnInit {
   }
   private initForm() {
     const Name = this.rentalItem.Name;
+    const RentalType = this.rentalItem.RentalTypeId;
     this.rentalItemDetailForm = new FormGroup(
       {
         'Name': new FormControl(Name, Validators.required),
+        'RentalType': new FormControl(RentalType, Validators.required),
       }
     );
   }
 
-  getRentalTypeDesc(typeId: number) {
-    for (let locationRentalType of this.venue['LocationRentalTypes']) {
-      if (locationRentalType['RentalTypeId'] === typeId) {
-        return locationRentalType['Desc'];
+  getFeeGroupDesc(groupId: number) {
+    for (const feeGroup of this.venue['FeeGroups']) {
+      if (feeGroup['FGId'] === groupId) {
+        return feeGroup.Name;
       }
 
     }
   }
 
-  onSubmit() {
-  }
+  onAddFeeGroup() {}
+
+  onDeleteFeeGroup(index: number) {}
+
+  onSubmit() {}
 }

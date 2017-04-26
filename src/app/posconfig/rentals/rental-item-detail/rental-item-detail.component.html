@@ -15,15 +15,69 @@
           </div>
         </div>
       </div>
-      <select class="form-control">
-        <option value="{{rentalItem.RentalTypeId}}">{{getRentalTypeDesc(rentalItem.RentalTypeId)}}</option>
-        <option value="two">Two</option>
-      </select>
-      <div>
-
+      <div class="row">
+        <div class="col-xs-12">
+          <label for="RentalType">Rental Type</label>
+          <select id="RentalType" name="RentalType" class="form-control">
+            <option  *ngFor="let rentalType of venue.LocationRentalTypes"
+                     [ngValue]='rentalType.RentalTypeId'
+                     [attr.selected]="rentalType.RentalTypeId == rentalItem.RentalTypeId ? true : null">
+                      {{rentalType.Desc}}</option>
+          </select>
+        </div>
       </div>
-
-
+      <br>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <label>Selected Fee Groups</label>
+            </div>
+            <div class="panel-body">
+              <div
+                class="row"
+                *ngFor="let feeGroup of rentalItem.RentalItemFeeGroups; let i = index"
+                style="margin-top: 10px;">
+                <div class="col-xs-8">
+                  <label>{{getFeeGroupDesc(feeGroup.FGId)}}</label>
+                </div>
+                <div class="col-xs-2">
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    (click)="onDeleteFeeGroup(feeGroup.FGId)">X</button>
+                </div>
+              </div>
+              <hr>
+            </div>
+          </div>
+        </div>
+          <div class="col-md-6">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <label>Available Fee Groups</label>
+              </div>
+              <div class="panel-body">
+                <div
+                class="row"
+                *ngFor="let feeGroup of rentalItem.RentalItemFeeGroups; let i = index"
+                style="margin-top: 10px;">
+                <div class="col-xs-8">
+                  <label>{{getFeeGroupDesc(feeGroup.FGId)}}</label>
+                </div>
+                <div class="col-xs-2">
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    (click)="onDeleteFeeGroup(feeGroup.FGId)">X</button>
+                </div>
+              </div>
+              <hr>
+            </div>
+            </div>
+          </div>
+        </div>
+      <br>
       <div class="row">
         <div class="col-xs-12">
           <button
