@@ -17,8 +17,8 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <label for="RentalType">Rental Type</label>
-          <select id="RentalType" name="RentalType" class="form-control">
+          <label for="RentalTypeId">Rental Type</label>
+          <select id="RentalTypeId" name="RentalTypeId" class="form-control">
             <option  *ngFor="let rentalType of venue.LocationRentalTypes"
                      [ngValue]='rentalType.RentalTypeId'
                      [attr.selected]="rentalType.RentalTypeId == rentalItem.RentalTypeId ? true : null">
@@ -60,7 +60,7 @@
               <div class="panel-body">
                 <div
                 class="row"
-                *ngFor="let feeGroup of rentalItem.RentalItemFeeGroups; let i = index"
+                *ngFor="let feeGroup of getAvailableFeeGroups(); let i = index"
                 style="margin-top: 10px;">
                 <div class="col-xs-8">
                   <label>{{getFeeGroupDesc(feeGroup.FGId)}}</label>
@@ -68,8 +68,8 @@
                 <div class="col-xs-2">
                   <button
                     type="button"
-                    class="btn btn-danger"
-                    (click)="onDeleteFeeGroup(feeGroup.FGId)">X</button>
+                    class="btn btn-success"
+                    (click)="onAddFeeGroup(feeGroup.FGId)">+</button>
                 </div>
               </div>
               <hr>
