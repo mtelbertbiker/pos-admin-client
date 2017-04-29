@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {RentalItem} from '../../../shared/pos-models/rental-item.model';
 import {VenueService} from '../../../venues/venue.service';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Venue} from '../../../shared/pos-models/venue.model';
 import {RentalItemFeeGroup} from '../../../shared/pos-models/rental-item-fee-group.model';
@@ -22,7 +22,8 @@ export class RentalItemDetailComponent implements OnInit {
 
   constructor(private venueService: VenueService,
               private route: ActivatedRoute,
-              private sessionService: SessionService) { }
+              private sessionService: SessionService,
+              private router: Router) { }
 
   ngOnInit() {
     this.route.params
@@ -50,15 +51,6 @@ export class RentalItemDetailComponent implements OnInit {
     );
   }
 
-  getFeeGroupDesc(groupId: number) {
-    for (const feeGroup of this.venue['FeeGroups']) {
-      if (feeGroup['FGId'] === groupId) {
-        return feeGroup.Name;
-      }
-
-    }
-  }
-
   onAddFeeGroup(fgId: number) {
     this.venue.FeeGroups.forEach((feeGroup) => {
       if (feeGroup.FGId === fgId) {
@@ -80,6 +72,14 @@ export class RentalItemDetailComponent implements OnInit {
 
   onSubmit() {}
 
+  getFeeGroupDesc(groupId: number) {
+    for (const feeGroup of this.venue['FeeGroups']) {
+      if (feeGroup['FGId'] === groupId) {
+        return feeGroup.Name;
+      }
+    }
+  }
+
   getAvailableFeeGroups() {
     const availableFeeGroups = [];
     this.venue.FeeGroups.forEach((feeGroup) => {
@@ -96,14 +96,16 @@ export class RentalItemDetailComponent implements OnInit {
     return availableFeeGroups;
   }
   updateRentalItem(newRentalItem: RentalItem) {
-    console.log(newRentalItem);
     this.rentalItem.Name = newRentalItem.Name;
     this.rentalItem.RentalTypeId = newRentalItem.RentalTypeId;
   }
   onSelectChange(rentalTypeId: number) {
     this.rentalItem.RentalTypeId = rentalTypeId;
   }
-  onDeleteRentalItem() {
-
+  onDeleteRentalItem(index: number) {
+    if (confirm('Delete this Rental Item?') === true) {
+      this.venue.RentalItems.splice(index, 1);
+      this.router.navigate(['..'], {relativeTo: this.route});
+    };
   }
 }

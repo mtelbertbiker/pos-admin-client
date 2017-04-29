@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Venue} from '../../../shared/pos-models/venue.model';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {VenueService} from '../../../venues/venue.service';
+import {RentalItem} from '../../../shared/pos-models/rental-item.model';
 
 @Component({
   selector: 'app-rental-list',
@@ -12,7 +13,8 @@ export class RentalListComponent implements OnInit {
   id: number;
 
   constructor(private venueService: VenueService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     this.route.params
@@ -25,6 +27,10 @@ export class RentalListComponent implements OnInit {
       );
   }
 
+  onAddRentalItem() {
+    this.venue.RentalItems.push(new RentalItem(0, 0, '', 0, []));
+    this.router.navigate([this.venue.RentalItems.length - 1], {relativeTo: this.route});
+  }
   private initForm() {}
 
 }
