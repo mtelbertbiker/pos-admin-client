@@ -6,6 +6,7 @@ import {FormGroup, Validators, FormControl} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {VenueDataService} from '../../shared/data-services/venue-data.service';
 import {Response} from '@angular/http';
+import {SessionService} from '../../shared/data-services/session.service';
 
 @Component({
   selector: 'app-venue-detail',
@@ -19,13 +20,15 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
 
   constructor(private venueService: VenueService,
               private venueDataService: VenueDataService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private sessionService: SessionService) { }
 
   ngOnInit() {
     this.route.params
       .subscribe(
         (params: Params) => {
-          this.id = +params['id'];
+          this.id = +params['vid'];
+          this.sessionService.setCurrentVenueIndex(this.id);
           this.venue = this.venueService.getVenue(this.id);
           this.initForm();
           this.subscription = this.venueDetailForm.valueChanges.subscribe(

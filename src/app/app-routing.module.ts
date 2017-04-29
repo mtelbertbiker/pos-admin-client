@@ -11,14 +11,14 @@ import {RentalItemComponent} from './posconfig/rentals/rental-list/rental-item/r
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'rentals/:id', component: RentalListComponent, children: [
+  { path: 'location/:vid/rentals', component: RentalListComponent, children: [
     { path: ':id', component: RentalItemDetailComponent }
     ]
   },
   { path: 'feegroups', component: FeegroupListComponent},
   { path: 'feeitems', component: FeeitemListComponent},
   { path: 'feetester', component: FeeTesterComponent},
-  { path: 'venuedetail/:id', component: VenueDetailComponent}
+  { path: 'location/:vid', component: VenueDetailComponent}
 ];
 
 @NgModule({

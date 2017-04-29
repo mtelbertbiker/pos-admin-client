@@ -6,7 +6,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Venue} from '../../../shared/pos-models/venue.model';
 import {RentalItemFeeGroup} from '../../../shared/pos-models/rental-item-fee-group.model';
 import {Subscription} from 'rxjs/Subscription';
-import {LocationRentalType} from '../../../shared/pos-models/location-rental-type.model';
+import {SessionService} from '../../../shared/data-services/session.service';
 
 @Component({
   selector: 'app-rental-item-detail',
@@ -21,16 +21,15 @@ export class RentalItemDetailComponent implements OnInit {
   subscription: Subscription;
 
   constructor(private venueService: VenueService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private sessionService: SessionService) { }
 
   ngOnInit() {
     this.route.params
       .subscribe(
         (params: Params) => {
-          console.log(params);
-          const valpair = params['id'].split('-');
-          this.vid = +valpair[0];
-          this.index =  +valpair[1];
+          this.index =  +params['id'];
+          this.vid = this.sessionService.getCurrentVenueIndex();
           this.venue = this.venueService.getVenue(this.vid);
           this.rentalItem = this.venue.RentalItems[this.index];
           this.initForm();
@@ -103,5 +102,8 @@ export class RentalItemDetailComponent implements OnInit {
   }
   onSelectChange(rentalTypeId: number) {
     this.rentalItem.RentalTypeId = rentalTypeId;
+  }
+  onDeleteRentalItem() {
+
   }
 }

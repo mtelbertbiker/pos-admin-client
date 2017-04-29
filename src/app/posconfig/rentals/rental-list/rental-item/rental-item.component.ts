@@ -9,10 +9,8 @@ export class RentalItemComponent implements OnInit {
   @Input() rentalItem: RentalItem;
   @Input() index: number;
   @Input() vid: number;
-  combo: string;
 
   ngOnInit() {
-    this.combo = this.vid + '-' + this.index;
   }
 
 }

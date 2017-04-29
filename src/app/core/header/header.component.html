@@ -17,7 +17,7 @@
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Locations<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li *ngFor="let venue of venues; let i = index">
-              <a routerLink="/venuedetail/{{i}}">{{venue.Name}}, {{venue.Address1}}, {{venue.City}}</a>
+              <a routerLink="/location/{{i}}">{{venue.Name}}, {{venue.Address1}}, {{venue.City}}</a>
             </li>
           </ul>
         </li>

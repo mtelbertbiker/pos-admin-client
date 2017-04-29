@@ -84,6 +84,9 @@
             type="submit"
             class="btn btn-success"
             [disabled]="!rentalItemDetailForm.valid">Save</button>
+          <button
+            type="submit"
+            class="btn btn-danger" (click)="onDeleteRentalItem()" >Delete</button>
         </div>
       </div>
     </form>

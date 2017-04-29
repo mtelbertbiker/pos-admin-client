@@ -18,7 +18,7 @@ export class RentalListComponent implements OnInit {
     this.route.params
       .subscribe(
         (params: Params) => {
-          this.id = +params['id'];
+          this.id = +params['vid'];
           this.venue = this.venueService.getVenue(this.id);
           this.initForm();
         }
