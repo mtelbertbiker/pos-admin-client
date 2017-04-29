@@ -4,10 +4,9 @@ import {VenueService} from '../../../venues/venue.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Venue} from '../../../shared/pos-models/venue.model';
-import {forEach} from '@angular/router/src/utils/collection';
-import {FeeGroup} from '../../../shared/pos-models/fee-group.model';
 import {RentalItemFeeGroup} from '../../../shared/pos-models/rental-item-fee-group.model';
-import {Subscription} from 'rxjs';
+import {Subscription} from 'rxjs/Subscription';
+import {LocationRentalType} from '../../../shared/pos-models/location-rental-type.model';
 
 @Component({
   selector: 'app-rental-item-detail',
@@ -98,7 +97,11 @@ export class RentalItemDetailComponent implements OnInit {
     return availableFeeGroups;
   }
   updateRentalItem(newRentalItem: RentalItem) {
+    console.log(newRentalItem);
     this.rentalItem.Name = newRentalItem.Name;
     this.rentalItem.RentalTypeId = newRentalItem.RentalTypeId;
+  }
+  onSelectChange(rentalTypeId: number) {
+    this.rentalItem.RentalTypeId = rentalTypeId;
   }
 }

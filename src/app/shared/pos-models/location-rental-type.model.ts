@@ -1,5 +1,3 @@
 export class LocationRentalType {
-  constructor(public LId: number,
-              RentalTypeId: number,
-              Desc: string) {}
+  constructor(public LId: number, public RentalTypeId: number, public Desc: string) {}
 }
