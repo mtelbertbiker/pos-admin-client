@@ -15,9 +15,9 @@ const appRoutes: Routes = [
     { path: ':id', component: RentalItemDetailComponent }
     ]
   },
-  { path: 'feegroups', component: FeegroupListComponent},
-  { path: 'feeitems', component: FeeitemListComponent},
-  { path: 'feetester', component: FeeTesterComponent},
+  { path: 'location/:vid/feegroups', component: FeegroupListComponent},
+  { path: 'location/:vid/fees', component: FeeitemListComponent},
+  { path: 'location/:vid/feetester', component: FeeTesterComponent},
   { path: 'location/:vid', component: VenueDetailComponent}
 ];
 
