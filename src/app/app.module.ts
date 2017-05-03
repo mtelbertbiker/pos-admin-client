@@ -20,6 +20,8 @@ import {ConstantsService} from './shared/data-services/constants.service';
 import {SessionService} from './shared/data-services/session.service';
 import { RentalItemDetailComponent } from './posconfig/rentals/rental-item-detail/rental-item-detail.component';
 import { VenueDetailNavigationComponent } from './venues/venue-detail/venue-detail-navigation/venue-detail-navigation.component';
+import { FeegroupItemComponent } from './posconfig/fees/feegroups/feegroup-list/feegroup-item/feegroup-item.component';
+import { FeeGroupDetailComponent } from './posconfig/fees/feegroups/feegroup-detail/feegroup-detail.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { VenueDetailNavigationComponent } from './venues/venue-detail/venue-deta
     VenueDetailComponent,
     RentalItemDetailComponent,
     VenueDetailNavigationComponent,
+    FeegroupItemComponent,
+    FeeGroupDetailComponent,
   ],
   imports: [
     BrowserModule,

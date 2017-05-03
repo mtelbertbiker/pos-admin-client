@@ -8,6 +8,7 @@ import {FeeTesterComponent} from './posconfig/fees/feetester/feetester.component
 import {VenueDetailComponent} from './venues/venue-detail/venue-detail.component';
 import {RentalItemDetailComponent} from './posconfig/rentals/rental-item-detail/rental-item-detail.component';
 import {RentalItemComponent} from './posconfig/rentals/rental-list/rental-item/rental-item.component';
+import {FeeGroupDetailComponent} from './posconfig/fees/feegroups/feegroup-detail/feegroup-detail.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,7 +16,9 @@ const appRoutes: Routes = [
     { path: ':id', component: RentalItemDetailComponent }
     ]
   },
-  { path: 'location/:vid/feegroups', component: FeegroupListComponent},
+  { path: 'location/:vid/feegroups', component: FeegroupListComponent, children: [
+    { path: ':id', component: FeeGroupDetailComponent }
+  ]},
   { path: 'location/:vid/fees', component: FeeitemListComponent},
   { path: 'location/:vid/feetester', component: FeeTesterComponent},
   { path: 'location/:vid', component: VenueDetailComponent}

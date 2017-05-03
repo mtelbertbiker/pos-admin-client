@@ -22,7 +22,6 @@ export class RentalListComponent implements OnInit {
         (params: Params) => {
           this.id = +params['vid'];
           this.venue = this.venueService.getVenue(this.id);
-          this.initForm();
         }
       );
   }
@@ -31,6 +30,4 @@ export class RentalListComponent implements OnInit {
     this.venue.RentalItems.push(new RentalItem(0, 0, '', 0, []));
     this.router.navigate([this.venue.RentalItems.length - 1], {relativeTo: this.route});
   }
-  private initForm() {}
-
 }

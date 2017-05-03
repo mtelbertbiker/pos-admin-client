@@ -1,4 +1,32 @@
 <app-venue-detail-navigation></app-venue-detail-navigation>
-<p>
-  feegroup-list works!
-</p>
+<div class="page-header">
+  <h4>Fee Groups: {{venue.Name}}, {{venue.Address1}}, {{venue.City}}</h4>
+</div>
+<table class="table">
+  <tbody>
+  <tr>
+    <td>
+      <div class="col-xs-12">
+        <app-feegroup-item
+          *ngFor="let feeGroup of venue.FeeGroups; let i = index"
+          [feeGroup]="feeGroup" [index]="i" [vid]="id">
+        </app-feegroup-item>
+      </div>
+    </td>
+    <td>
+      <div class="col-md-7">
+        <router-outlet></router-outlet>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="col-xs-12">
+        <button
+          type="submit"
+          class="btn btn-success" (click)="onAddFeeGroup()" >Add</button>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>

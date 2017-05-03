@@ -1,0 +1,88 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="feeGroupDetailForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="Name">Name</label>
+            <input
+              type="text"
+              id="Name"
+              formControlName="Name"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="RequiresUsers">Requires Users</label>
+            <input
+              type="checkbox"
+              id="RequiresUsers"
+              formControlName="RequiresUsers"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="MinUsers">Minimum Users</label>
+            <input
+              type="text"
+              id="MinUsers"
+              formControlName="MinUsers"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="MaxUsers">Maximum Users</label>
+            <input
+              type="text"
+              id="MaxUsers"
+              formControlName="MaxUsers"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="RequiredFee">Required Fee</label>
+            <input
+              type="text"
+              id="RequiredFee"
+              formControlName="RequiredFee"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="CondenseUserFees">Condense User Fees</label>
+            <input
+              type="checkbox"
+              id="CondenseUserFees"
+              formControlName="CondenseUserFees"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-xs-12">
+          <button
+            class="btn btn-danger" (click)="onDeleteFeeGroup(index)" >Delete</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
