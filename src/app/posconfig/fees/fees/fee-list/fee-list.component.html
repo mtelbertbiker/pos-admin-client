@@ -1,0 +1,54 @@
+<app-venue-detail-navigation></app-venue-detail-navigation>
+<div class="page-header">
+  <h4>Fees: {{venue.Name}}, {{venue.Address1}}, {{venue.City}}</h4>
+</div>
+<table class="table">
+  <tbody>
+  <tr>
+    <td>
+      <table class="table">
+        <tbody>
+        <tr *ngFor="let feegroup of venue.FeeGroups; let i = index">
+          <td>
+            <table class="table">
+              <thead>
+              <td><h4>Fee Group: {{feegroup.Name}}</h4></td>
+              </thead>
+              <tbody>
+              <tr>
+                <td>
+                  <div class="col-xs-12">
+                    <app-fee-item
+                      *ngFor="let fee of feegroup.Fees; let j = index"
+                      [fee]="fee" [feeGroup]="feegroup" [index]="i" [feeIndex]="j" [vid]="id">
+                    </app-fee-item>
+                  </div>
+                </td>
+
+              </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+    <td>
+      <div class="col-md-7">
+        <router-outlet></router-outlet>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="col-xs-12">
+        <button
+          type="submit"
+          class="btn btn-success" (click)="onAddFee()">Add
+        </button>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+

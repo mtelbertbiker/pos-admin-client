@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Venue } from '../shared/pos-models/venue.model';
 import {Subject} from 'rxjs/Subject';
+import {Fee} from '../shared/pos-models/fee.model';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Injectable()
 export class VenueService {
@@ -15,6 +17,17 @@ getVenues() {
 
 getVenue(index: number) {
     return this.venues[index];
+}
+
+getVenueFees(index: number) {
+  const fees: Fee[] = [];
+  this.venues[index].FeeGroups.forEach(function(feeGroup) {
+    feeGroup.Fees.forEach(function(fee) {
+      fee.FGId = feeGroup.FGId;
+      fees.push(fee);
+    });
+  });
+  return fees;
 }
 
 setVenues(venues: Venue[]) {

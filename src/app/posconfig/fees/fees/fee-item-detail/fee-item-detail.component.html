@@ -1,0 +1,234 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="feeItemDetailForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="Name">Name</label>
+            <input
+              type="text"
+              id="Name"
+              formControlName="Name"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="Enabled">Enabled?</label>
+            <input
+              type="checkbox"
+              id="Enabled"
+              formControlName="Enabled"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <label>Fee Amount</label>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="form-group">
+                <label for="FeeAmt">Amount</label>
+                <input
+                  type="text"
+                  id="FeeAmt"
+                  formControlName="FeeAmt"
+                  class="form-control">
+                <label for="PerUser">Charge Per User?</label>
+                <input
+                  type="checkbox"
+                  id="PerUser"
+                  formControlName="PerUser"
+                  class="form-control">
+                <label for="AlwaysInc">Always Include this fee?</label>
+                <input
+                  type="checkbox"
+                  id="AlwaysInc"
+                  formControlName="AlwaysInc"
+                  class="form-control">
+                <label for="FlatRate">Flat Rate</label>
+                <input
+                  type="checkbox"
+                  id="FlatRate"
+                  formControlName="FlatRate"
+                  class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <label>Fee Times</label>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="form-group">
+                <label for="BeginTime">Begin</label>
+                <input
+                  type="text"
+                  id="BeginTime"
+                  formControlName="BeginTime"
+                  class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="form-group">
+                <label for="EndTime">End</label>
+                <input
+                  type="text"
+                  id="EndTime"
+                  formControlName="EndTime"
+                  class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <label>Fee Duration (Minutes)</label>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="form-group">
+                <label for="MinDur">Minimum</label>
+                <input
+                  type="text"
+                  id="MinDur"
+                  formControlName="MinDur"
+                  class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="form-group">
+                <label for="MaxDur">Maximum</label>
+                <input
+                  type="text"
+                  id="MaxDur"
+                  formControlName="MaxDur"
+                  class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="form-group">
+                <label for="IncDur">Incremental</label>
+                <input
+                  type="text"
+                  id="IncDur"
+                  formControlName="IncDur"
+                  class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <label>Users</label>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="form-group">
+                <label for="MinUsers">Minimum</label>
+                <input
+                  type="text"
+                  id="MinUsers"
+                  formControlName="MinUsers"
+                  class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="form-group">
+                <label for="MaxUsers">Maximum</label>
+                <input
+                  type="text"
+                  id="MaxUsers"
+                  formControlName="MaxUsers"
+                  class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <label>Days of Week</label>
+        </div>
+        <div class="panel-body">
+          <label for="Mon">Monday</label>
+          <input
+            type="checkbox"
+            id="Mon"
+            formControlName="Mon"
+            class="form-control">
+          <label for="Tue">Tuesday</label>
+          <input
+            type="checkbox"
+            id="Tue"
+            formControlName="Tue"
+            class="form-control">
+          <label for="Wed">Wednesday</label>
+          <input
+            type="checkbox"
+            id="Wed"
+            formControlName="Wed"
+            class="form-control">
+          <label for="Thu">Thursday</label>
+          <input
+            type="checkbox"
+            id="Thu"
+            formControlName="Thu"
+            class="form-control">
+          <label for="Fri">Friday</label>
+          <input
+            type="checkbox"
+            id="Fri"
+            formControlName="Fri"
+            class="form-control">
+          <label for="Sat">Saturday</label>
+          <input
+            type="checkbox"
+            id="Sat"
+            formControlName="Sat"
+            class="form-control">
+          <label for="Sun">Sunday</label>
+          <input
+            type="checkbox"
+            id="Sun"
+            formControlName="Sun"
+            class="form-control">
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="col-xs-12">
+          <button
+            class="btn btn-danger" (click)="onDeleteFee(index)">Delete
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+

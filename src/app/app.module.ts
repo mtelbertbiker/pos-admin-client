@@ -13,7 +13,7 @@ import { RentalItemComponent } from './posconfig/rentals/rental-list/rental-item
 import { HomeComponent } from './core/home/home.component';
 import {AppRoutingModule} from './app-routing.module';
 import { FeegroupListComponent } from './posconfig/fees/feegroups/feegroup-list/feegroup-list.component';
-import { FeeitemListComponent } from './posconfig/fees/feeitems/feeitem-list/feeitem-list.component';
+import { FeeListComponent } from './posconfig/fees/fees/fee-list/fee-list.component';
 import { FeeTesterComponent } from './posconfig/fees/feetester/feetester.component';
 import { VenueDetailComponent } from './venues/venue-detail/venue-detail.component';
 import {ConstantsService} from './shared/data-services/constants.service';
@@ -22,6 +22,8 @@ import { RentalItemDetailComponent } from './posconfig/rentals/rental-item-detai
 import { VenueDetailNavigationComponent } from './venues/venue-detail/venue-detail-navigation/venue-detail-navigation.component';
 import { FeegroupItemComponent } from './posconfig/fees/feegroups/feegroup-list/feegroup-item/feegroup-item.component';
 import { FeeGroupDetailComponent } from './posconfig/fees/feegroups/feegroup-detail/feegroup-detail.component';
+import { FeeItemComponent } from './posconfig/fees/fees/fee-list/fee-item/fee-item.component';
+import { FeeItemDetailComponent } from './posconfig/fees/fees/fee-item-detail/fee-item-detail.component';
 
 @NgModule({
   declarations: [
@@ -32,13 +34,15 @@ import { FeeGroupDetailComponent } from './posconfig/fees/feegroups/feegroup-det
     RentalItemComponent,
     HomeComponent,
     FeegroupListComponent,
-    FeeitemListComponent,
+    FeeListComponent,
     FeeTesterComponent,
     VenueDetailComponent,
     RentalItemDetailComponent,
     VenueDetailNavigationComponent,
     FeegroupItemComponent,
     FeeGroupDetailComponent,
+    FeeItemComponent,
+    FeeItemDetailComponent,
   ],
   imports: [
     BrowserModule,
