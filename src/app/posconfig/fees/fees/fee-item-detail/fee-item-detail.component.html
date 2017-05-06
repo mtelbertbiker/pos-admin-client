@@ -70,12 +70,8 @@
           <div class="row">
             <div class="col-xs-12">
               <div class="form-group">
-                <label for="BeginTime">Begin</label>
-                <input
-                  type="text"
-                  id="BeginTime"
-                  formControlName="BeginTime"
-                  class="form-control">
+                <label for="BeginTimeObject">Begin</label>
+                <ngb-timepicker id="BeginTimeObject" ([changeHour])="10" ([changeMinute])="30" [minuteStep]="5" [size]="small"></ngb-timepicker>
               </div>
             </div>
           </div>

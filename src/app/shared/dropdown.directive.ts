@@ -11,10 +11,11 @@ export class DropdownDirective {
   @HostListener('mouseenter') open() {
     this.isOpen = true;
   }
-  @HostListener('click') clickopen() {
-    this.isOpen = true;
-  }
   @HostListener('mouseleave') close() {
     this.isOpen = false;
   }
+  @HostListener('click') clickopen() {
+    this.isOpen = true;
+  }
+
 }

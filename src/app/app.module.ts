@@ -24,6 +24,7 @@ import { FeegroupItemComponent } from './posconfig/fees/feegroups/feegroup-list/
 import { FeeGroupDetailComponent } from './posconfig/fees/feegroups/feegroup-detail/feegroup-detail.component';
 import { FeeItemComponent } from './posconfig/fees/fees/fee-list/fee-item/fee-item.component';
 import { FeeItemDetailComponent } from './posconfig/fees/fees/fee-item-detail/fee-item-detail.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { FeeItemDetailComponent } from './posconfig/fees/fees/fee-item-detail/fe
     BrowserModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule.forRoot()
   ],
   exports: [
   ],

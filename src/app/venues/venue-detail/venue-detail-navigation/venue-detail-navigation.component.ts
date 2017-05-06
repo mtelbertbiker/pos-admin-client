@@ -7,6 +7,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 })
 export class VenueDetailNavigationComponent implements OnInit {
   id: number;
+  isCollapsed = false;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -17,6 +18,10 @@ export class VenueDetailNavigationComponent implements OnInit {
           this.id = +params['vid'];
         }
       );
+  }
+
+  toggleCollapseState() {
+    this.isCollapsed = !this.isCollapsed;
   }
 
 }

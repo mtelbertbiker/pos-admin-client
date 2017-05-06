@@ -66,10 +66,11 @@ export class FeeItemDetailComponent implements OnInit {
     const Thu = this.fee.Thu;
     const Fri = this.fee.Fri;
     const Sat = this.fee.Sat;
+    const BeginTimeObject = {hour: 13, minute: 30};
     this.feeItemDetailForm = new FormGroup(
       {
         'Name': new FormControl(Name, Validators.required),
-        'BeginTime': new FormControl(BeginTime, Validators.required),
+        'BeginTimeObject': new FormControl(BeginTimeObject, Validators.required),
         'EndTime': new FormControl(EndTime, Validators.required),
         'MinDur': new FormControl(MinDur, Validators.required),
         'MaxDur': new FormControl(MaxDur, Validators.required),

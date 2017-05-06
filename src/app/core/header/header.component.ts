@@ -8,6 +8,9 @@ import {Venue} from '../../shared/pos-models/venue.model';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  isCollapsed = false;
+  isVenueDroppedDown = false;
+  isOtherDroppedDown = false;
   venues: Venue[];
   subscription: Subscription;
 
@@ -24,10 +27,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onGetLocations() {
+    console.log('onGetLocations');
     this.venueService.getVenues();
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  toggleCollapseState() {
+    this.isCollapsed = !this.isCollapsed;
+  }
+  toggleVenueDropDownState() {
+    this.isVenueDroppedDown = !this.isVenueDroppedDown;
+  }
+  toggleOtherDropDownState() {
+    this.isOtherDroppedDown = !this.isOtherDroppedDown;
   }
 }
