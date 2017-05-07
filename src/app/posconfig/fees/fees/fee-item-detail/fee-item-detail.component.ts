@@ -21,6 +21,7 @@ export class FeeItemDetailComponent implements OnInit {
   fid: number;
   index: number;
   subscription: Subscription;
+  BeginTimeObject = {};
 
   constructor(private venueService: VenueService,
               private route: ActivatedRoute,
@@ -47,7 +48,7 @@ export class FeeItemDetailComponent implements OnInit {
 
   private initForm() {
     const Name = this.fee.Name;
-    const BeginTime = this.fee.BeginTime;
+    const BeginTime = new Date(this.fee.BeginTime);
     const EndTime = this.fee.EndTime;
     const MinDur = this.fee.MinDur;
     const MaxDur = this.fee.MaxDur;
@@ -66,11 +67,10 @@ export class FeeItemDetailComponent implements OnInit {
     const Thu = this.fee.Thu;
     const Fri = this.fee.Fri;
     const Sat = this.fee.Sat;
-    const BeginTimeObject = {hour: 13, minute: 30};
+    this.BeginTimeObject = {hour: BeginTime.getHours(), minute: BeginTime.getMinutes()};
     this.feeItemDetailForm = new FormGroup(
       {
         'Name': new FormControl(Name, Validators.required),
-        'BeginTimeObject': new FormControl(BeginTimeObject, Validators.required),
         'EndTime': new FormControl(EndTime, Validators.required),
         'MinDur': new FormControl(MinDur, Validators.required),
         'MaxDur': new FormControl(MaxDur, Validators.required),

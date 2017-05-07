@@ -70,8 +70,8 @@
           <div class="row">
             <div class="col-xs-12">
               <div class="form-group">
-                <label for="BeginTimeObject">Begin</label>
-                <ngb-timepicker id="BeginTimeObject" ([changeHour])="10" ([changeMinute])="30" [minuteStep]="5" [size]="small"></ngb-timepicker>
+                <label>Begin</label>
+                <app-fee-timepicker id="BeginTimeObject" [feeTime]="BeginTimeObject"></app-fee-timepicker>
               </div>
             </div>
           </div>
@@ -80,7 +80,7 @@
               <div class="form-group">
                 <label for="EndTime">End</label>
                 <input
-                  type="text"
+                  type="time"
                   id="EndTime"
                   formControlName="EndTime"
                   class="form-control">

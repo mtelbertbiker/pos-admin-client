@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -25,6 +25,7 @@ import { FeeGroupDetailComponent } from './posconfig/fees/feegroups/feegroup-det
 import { FeeItemComponent } from './posconfig/fees/fees/fee-list/fee-item/fee-item.component';
 import { FeeItemDetailComponent } from './posconfig/fees/fees/fee-item-detail/fee-item-detail.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { FeeTimePickerComponent } from './posconfig/fees/fees/fee-item-detail/fee-timepicker/fee-timepicker.component';
 
 @NgModule({
   declarations: [
@@ -44,9 +45,11 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     FeeGroupDetailComponent,
     FeeItemComponent,
     FeeItemDetailComponent,
+    FeeTimePickerComponent,
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
