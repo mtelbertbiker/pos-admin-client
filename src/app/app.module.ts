@@ -25,7 +25,6 @@ import { FeeGroupDetailComponent } from './posconfig/fees/feegroups/feegroup-det
 import { FeeItemComponent } from './posconfig/fees/fees/fee-list/fee-item/fee-item.component';
 import { FeeItemDetailComponent } from './posconfig/fees/fees/fee-item-detail/fee-item-detail.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { FeeTimePickerComponent } from './posconfig/fees/fees/fee-item-detail/fee-timepicker/fee-timepicker.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +44,6 @@ import { FeeTimePickerComponent } from './posconfig/fees/fees/fee-item-detail/fe
     FeeGroupDetailComponent,
     FeeItemComponent,
     FeeItemDetailComponent,
-    FeeTimePickerComponent,
   ],
   imports: [
     BrowserModule,

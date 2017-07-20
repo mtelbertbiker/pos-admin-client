@@ -71,25 +71,20 @@
             <div class="col-xs-12">
               <div class="form-group">
                 <label>Begin</label>
-                <app-fee-timepicker id="BeginTimeObject" [feeTime]="BeginTimeObject"></app-fee-timepicker>
+                <ngb-timepicker formControlName="BeginTime" [minuteStep]="5" [size]="small" ></ngb-timepicker>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-xs-12">
               <div class="form-group">
-                <label for="EndTime">End</label>
-                <input
-                  type="time"
-                  id="EndTime"
-                  formControlName="EndTime"
-                  class="form-control">
+                <label>End</label>
+                <ngb-timepicker formControlName="EndTime" [minuteStep]="5" [size]="small" ></ngb-timepicker>
               </div>
             </div>
           </div>
         </div>
       </div>
-
       <div class="panel panel-info">
         <div class="panel-heading">
           <label>Fee Duration (Minutes)</label>

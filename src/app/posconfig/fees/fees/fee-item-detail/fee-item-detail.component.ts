@@ -21,7 +21,6 @@ export class FeeItemDetailComponent implements OnInit {
   fid: number;
   index: number;
   subscription: Subscription;
-  BeginTimeObject = {};
 
   constructor(private venueService: VenueService,
               private route: ActivatedRoute,
@@ -48,8 +47,8 @@ export class FeeItemDetailComponent implements OnInit {
 
   private initForm() {
     const Name = this.fee.Name;
-    const BeginTime = new Date(this.fee.BeginTime);
-    const EndTime = this.fee.EndTime;
+    const BeginTime = {hour: new Date(this.fee.BeginTime).getHours(), minute: new Date(this.fee.BeginTime).getMinutes()};
+    const EndTime = {hour: new Date(this.fee.EndTime).getHours(), minute: new Date(this.fee.EndTime).getMinutes()};
     const MinDur = this.fee.MinDur;
     const MaxDur = this.fee.MaxDur;
     const IncDur = this.fee.IncDur;
@@ -67,10 +66,10 @@ export class FeeItemDetailComponent implements OnInit {
     const Thu = this.fee.Thu;
     const Fri = this.fee.Fri;
     const Sat = this.fee.Sat;
-    this.BeginTimeObject = {hour: BeginTime.getHours(), minute: BeginTime.getMinutes()};
     this.feeItemDetailForm = new FormGroup(
       {
         'Name': new FormControl(Name, Validators.required),
+        'BeginTime': new FormControl(BeginTime, Validators.required),
         'EndTime': new FormControl(EndTime, Validators.required),
         'MinDur': new FormControl(MinDur, Validators.required),
         'MaxDur': new FormControl(MaxDur, Validators.required),
@@ -93,10 +92,16 @@ export class FeeItemDetailComponent implements OnInit {
     );
   }
 
+  pad(n) {
+    return (n < 10) ? ('0' + n) : n;
+  }
+
   updateFee(newFee: Fee) {
     this.fee.Name = newFee.Name;
-    this.fee.BeginTime = newFee.BeginTime;
-    this.fee.EndTime = newFee.EndTime;
+    const beginTime = '0001-01-01T' + this.pad(newFee.BeginTime.hour) + ':' + this.pad(newFee.BeginTime.minute) + ':00';
+    this.fee.BeginTime = new Date(beginTime);
+    const endTime = '0001-01-01T' + this.pad(newFee.EndTime.hour) + ':' + this.pad(newFee.EndTime.minute) + ':00';
+    this.fee.EndTime = new Date(endTime);
     this.fee.MinDur = newFee.MinDur;
     this.fee.MaxDur = newFee.MaxDur;
     this.fee.IncDur = newFee.IncDur;
