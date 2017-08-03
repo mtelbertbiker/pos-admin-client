@@ -22,6 +22,12 @@
                       *ngFor="let fee of feegroup.Fees; let j = index"
                       [fee]="fee" [feeGroup]="feegroup" [index]="i" [feeIndex]="j" [vid]="id">
                     </app-fee-item>
+                    <div class="col-xs-12">
+                      <button
+                        type="submit"
+                        class="btn btn-success" (click)="onAddFee(i)">Add Fee
+                      </button>
+                    </div>
                   </div>
                 </td>
 
@@ -36,16 +42,6 @@
     <td>
       <div class="col-md-7">
         <router-outlet></router-outlet>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <div class="col-xs-12">
-        <button
-          type="submit"
-          class="btn btn-success" (click)="onAddFee()">Add
-        </button>
       </div>
     </td>
   </tr>

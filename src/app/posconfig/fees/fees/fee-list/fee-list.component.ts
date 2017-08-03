@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Venue} from '../../../../shared/pos-models/venue.model';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {VenueService} from '../../../../venues/venue.service';
+import {Fee} from '../../../../shared/pos-models/fee.model';
 
 @Component({
   selector: 'app-feeitem-list',
@@ -25,5 +26,35 @@ export class FeeListComponent implements OnInit {
       );
   }
 
+  onAddFee(index: number) {
+    const newFee: Fee = new Fee(0,
+      0,
+      0,
+      'New Fee',
+      '',
+      '',
+      new Date('0001-01-01T00:00:00'),
+      new Date('0001-01-01T00:00:00'),
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      0,
+      0,
+      0,
+      0,
+      false,
+      0,
+      0,
+      false,
+      false,
+      false);
+    this.venue.FeeGroups[index].Fees.push(newFee);
+    this.router.navigate([index, this.venue.FeeGroups[index].Fees.length - 1], {relativeTo: this.route});
+  }
 
 }

@@ -9,43 +9,43 @@ export class VenueService {
   venuesChanged = new Subject<Venue[]>();
   private venues: Venue[] = [];
 
-constructor() { }
+  constructor() { }
 
-getVenues() {
-  return this.venues.slice();
-}
+  getVenues() {
+    return this.venues.slice();
+  }
 
-getVenue(index: number) {
+  getVenue(index: number) {
     return this.venues[index];
-}
+  }
 
-getVenueFees(index: number) {
-  const fees: Fee[] = [];
-  this.venues[index].FeeGroups.forEach(function(feeGroup) {
-    feeGroup.Fees.forEach(function(fee) {
-      fee.FGId = feeGroup.FGId;
-      fees.push(fee);
+  getVenueFees(index: number) {
+    const fees: Fee[] = [];
+    this.venues[index].FeeGroups.forEach(function(feeGroup) {
+      feeGroup.Fees.forEach(function(fee) {
+        fee.FGId = feeGroup.FGId;
+        fees.push(fee);
+      });
     });
-  });
-  return fees;
-}
+    return fees;
+  }
 
-setVenues(venues: Venue[]) {
-  this.venues = venues;
-  this.venuesChanged.next(this.venues.slice());
-}
+  setVenues(venues: Venue[]) {
+    this.venues = venues;
+    this.venuesChanged.next(this.venues.slice());
+  }
 
-updateVenue(index: number, newVenue: Venue) {
-  this.venues[index].Name = newVenue.Name;
-  this.venues[index].Address1 = newVenue.Address1;
-  this.venues[index].Address2 = newVenue.Address2;
-  this.venues[index].City = newVenue.City;
-  this.venues[index].State = newVenue.State;
-  this.venues[index].PostalCode = newVenue.PostalCode;
-  this.venues[index].Phone1 = newVenue.Phone1;
-  this.venues[index].Phone2 = newVenue.Phone2;
-  this.venuesChanged.next(this.venues.slice());
-}
+  updateVenue(index: number, newVenue: Venue) {
+    this.venues[index].Name = newVenue.Name;
+    this.venues[index].Address1 = newVenue.Address1;
+    this.venues[index].Address2 = newVenue.Address2;
+    this.venues[index].City = newVenue.City;
+    this.venues[index].State = newVenue.State;
+    this.venues[index].PostalCode = newVenue.PostalCode;
+    this.venues[index].Phone1 = newVenue.Phone1;
+    this.venues[index].Phone2 = newVenue.Phone2;
+    this.venuesChanged.next(this.venues.slice());
+  }
 
   updateVenueDetail(index: number, newVenue: Venue) {
     this.venues[index].ItemImages = newVenue.ItemImages;

@@ -44,7 +44,9 @@ export class VenueDataService {
       'State': venue.State,
       'PostalCode': venue.PostalCode,
       'Phone1': venue.Phone1,
-      'Phone2': venue.Phone2
+      'Phone2': venue.Phone2,
+      'FeeGroups': venue.FeeGroups,
+      'RentalItems' : venue.RentalItems
     };
     // Change the '/0' to the location Id when adding new location
     return this.http.put(this.consts.AdminBaseUri + this.consts.AdminLocationsUri + '/0',
