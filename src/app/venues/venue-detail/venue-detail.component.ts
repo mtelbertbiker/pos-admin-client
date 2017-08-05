@@ -16,6 +16,7 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
   private venue: Venue;
   venueDetailForm: FormGroup;
   id: number;
+  detailed: number;
   subscription: Subscription;
 
   constructor(private venueService: VenueService,
@@ -28,6 +29,10 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
       .subscribe(
         (params: Params) => {
           this.id = +params['vid'];
+          this.detailed = +params['detail'];
+          if (this.detailed === 1) {
+              this.venueDataService.getVenueDetail(this.id);
+          }
           this.sessionService.setCurrentVenueIndex(this.id);
           this.venue = this.venueService.getVenue(this.id);
           this.initForm();
@@ -36,7 +41,6 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
           );
         }
       );
-    this.venueDataService.getVenueDetail(this.id);
   }
 
   private initForm() {
@@ -60,14 +64,16 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
         'Phone2': new FormControl(phone2),
       }
     );
-  }  onSubmit() {
-  this.venueDataService.putVenue(this.id)
-    .subscribe(
-      (response: Response) => {
-        console.log(response);
-      }
-    );
-}
+  }
+
+  onSubmit() {
+    this.venueDataService.putVenue(this.id)
+      .subscribe(
+        (response: Response) => {
+          console.log(response);
+        }
+      );
+  }
 
 
   edited() {

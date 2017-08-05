@@ -59,13 +59,14 @@ export class FeeGroupDetailComponent implements OnInit {
     );
   }
 
-  updateFeeGroup(newFeeGroup: FeeGroup) {
-    this.feeGroup.Name = newFeeGroup.Name;
-    this.feeGroup.MinUsers = newFeeGroup.MinUsers;
-    this.feeGroup.MaxUsers = newFeeGroup.MaxUsers;
-    this.feeGroup.RequiredFee = newFeeGroup.RequiredFee;
-    this.feeGroup.RequiresUsers = newFeeGroup.RequiresUsers;
-    this.feeGroup.CondenseUserFees = newFeeGroup.CondenseUserFees;
+  updateFeeGroup(updatedFeeGroup: FeeGroup) {
+    this.feeGroup.Name = updatedFeeGroup.Name;
+    this.feeGroup.MinUsers = updatedFeeGroup.MinUsers;
+    this.feeGroup.MaxUsers = updatedFeeGroup.MaxUsers;
+    this.feeGroup.RequiredFee = updatedFeeGroup.RequiredFee;
+    this.feeGroup.RequiresUsers = updatedFeeGroup.RequiresUsers;
+    this.feeGroup.CondenseUserFees = updatedFeeGroup.CondenseUserFees;
+    this.venueService.updateVenueDetail(this.vid, this.venue);
   }
 
   onDeleteFeeGroup(index: number) {

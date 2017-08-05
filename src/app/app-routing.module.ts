@@ -24,7 +24,8 @@ const appRoutes: Routes = [
     { path: ':id/:fid', component: FeeItemDetailComponent }
   ]},
   { path: 'location/:vid/feetester', component: FeeTesterComponent},
-  { path: 'location/:vid', component: VenueDetailComponent}
+  { path: 'location/:vid', component: VenueDetailComponent},
+  { path: 'location/:vid/:detail', component: VenueDetailComponent}
 ];
 
 @NgModule({
