@@ -48,6 +48,8 @@ export class VenueDataService {
       'FeeGroups': venue.FeeGroups,
       'RentalItems' : venue.RentalItems
     };
+    console.log('PUT>>');
+    console.log(location);
     // Change the '/0' to the location Id when adding new location
     return this.http.put(this.consts.AdminBaseUri + this.consts.AdminLocationsUri + '/0',
       location);

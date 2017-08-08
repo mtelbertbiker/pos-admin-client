@@ -71,6 +71,13 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
       .subscribe(
         (response: Response) => {
           console.log(response);
+          if (response.ok) {
+            const venue = response.json();
+            this.venueService.updateVenue(this.id, venue);
+            alert('Location Saved');
+          } else {
+            alert('Save Request failed: ' + response.statusText);
+          }
         }
       );
   }

@@ -98,10 +98,8 @@ export class FeeItemDetailComponent implements OnInit {
 
   updateFee(newFee: Fee) {
     this.fee.Name = newFee.Name;
-    const beginTime = '0001-01-01T' + this.pad(newFee.BeginTime.hour) + ':' + this.pad(newFee.BeginTime.minute) + ':00';
-    this.fee.BeginTime = new Date(beginTime);
-    const endTime = '0001-01-01T' + this.pad(newFee.EndTime.hour) + ':' + this.pad(newFee.EndTime.minute) + ':00';
-    this.fee.EndTime = new Date(endTime);
+    this.fee.BeginTime = new Date(1970, 1, 1, newFee.BeginTime.hour, newFee.BeginTime.minute, 0, 0);
+    this.fee.EndTime =  new Date(1970, 1, 1, newFee.EndTime.hour, newFee.EndTime.minute, 0, 0);
     this.fee.MinDur = newFee.MinDur;
     this.fee.MaxDur = newFee.MaxDur;
     this.fee.IncDur = newFee.IncDur;
