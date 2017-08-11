@@ -64,6 +64,8 @@ export class VenueDataService {
       .map(
         (response: Response) => {
           venue = response.json();
+          console.log('Get>>');
+          console.log(venue);
           return venue;
         }
       )

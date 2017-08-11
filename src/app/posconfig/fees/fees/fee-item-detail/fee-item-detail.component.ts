@@ -47,8 +47,8 @@ export class FeeItemDetailComponent implements OnInit {
 
   private initForm() {
     const Name = this.fee.Name;
-    const BeginTime = {hour: new Date(this.fee.BeginTime).getHours(), minute: new Date(this.fee.BeginTime).getMinutes()};
-    const EndTime = {hour: new Date(this.fee.EndTime).getHours(), minute: new Date(this.fee.EndTime).getMinutes()};
+    const BeginTime = {hour: new Date(this.fee.BeginTime).getUTCHours(), minute: new Date(this.fee.BeginTime).getMinutes()};
+    const EndTime = {hour: new Date(this.fee.EndTime).getUTCHours(), minute: new Date(this.fee.EndTime).getMinutes()};
     const MinDur = this.fee.MinDur;
     const MaxDur = this.fee.MaxDur;
     const IncDur = this.fee.IncDur;
@@ -96,33 +96,35 @@ export class FeeItemDetailComponent implements OnInit {
     return (n < 10) ? ('0' + n) : n;
   }
 
-  updateFee(newFee: Fee) {
-    this.fee.Name = newFee.Name;
-    this.fee.BeginTime = new Date(1970, 1, 1, newFee.BeginTime.hour, newFee.BeginTime.minute, 0, 0);
-    this.fee.EndTime =  new Date(1970, 1, 1, newFee.EndTime.hour, newFee.EndTime.minute, 0, 0);
-    this.fee.MinDur = newFee.MinDur;
-    this.fee.MaxDur = newFee.MaxDur;
-    this.fee.IncDur = newFee.IncDur;
-    this.fee.FeeAmt = newFee.FeeAmt;
-    this.fee.PerUser = newFee.PerUser;
-    this.fee.AlwaysInc = newFee.AlwaysInc;
-    this.fee.MinUsers = newFee.MinUsers;
-    this.fee.MaxUsers = newFee.MaxUsers;
-    this.fee.Enabled = newFee.Enabled;
-    this.fee.FlatRate = newFee.FlatRate;
-    this.fee.Sun = newFee.Sun;
-    this.fee.Mon = newFee.Mon;
-    this.fee.Tue = newFee.Tue;
-    this.fee.Wed = newFee.Wed;
-    this.fee.Thu = newFee.Thu;
-    this.fee.Fri = newFee.Fri;
-    this.fee.Sat = newFee.Sat;
+  updateFee(updatedFee: Fee) {
+    this.fee.Name = updatedFee.Name;
+    this.fee.BeginTime = new Date('0001-01-01 ' + this.pad(updatedFee.BeginTime.hour) + ':' +
+      this.pad(updatedFee.BeginTime.minute) + ':00 UTC');
+    this.fee.EndTime = new Date('0001-01-01 ' + this.pad(updatedFee.EndTime.hour) + ':' +
+      this.pad(updatedFee.EndTime.minute) + ':00 UTC');
+    this.fee.MinDur = updatedFee.MinDur;
+    this.fee.MaxDur = updatedFee.MaxDur;
+    this.fee.IncDur = updatedFee.IncDur;
+    this.fee.FeeAmt = updatedFee.FeeAmt;
+    this.fee.PerUser = updatedFee.PerUser;
+    this.fee.AlwaysInc = updatedFee.AlwaysInc;
+    this.fee.MinUsers = updatedFee.MinUsers;
+    this.fee.MaxUsers = updatedFee.MaxUsers;
+    this.fee.Enabled = updatedFee.Enabled;
+    this.fee.FlatRate = updatedFee.FlatRate;
+    this.fee.Sun = updatedFee.Sun;
+    this.fee.Mon = updatedFee.Mon;
+    this.fee.Tue = updatedFee.Tue;
+    this.fee.Wed = updatedFee.Wed;
+    this.fee.Thu = updatedFee.Thu;
+    this.fee.Fri = updatedFee.Fri;
+    this.fee.Sat = updatedFee.Sat;
   }
 
   onDeleteFee(index: number) {
-    if (confirm('Delete this Fee?') === true) {
+    if (confirm('Delete Fee ' + this.fee.Name + '?') === true) {
       this.feeGroup.Fees.splice(index, 1);
-      this.router.navigate(['..'], {relativeTo: this.route});
+      this.router.navigate(['../..'], {relativeTo: this.route});
     };
   }
 
