@@ -44,7 +44,6 @@ export class VenueService {
     this.venues[index].PostalCode = updatedVenue.PostalCode;
     this.venues[index].Phone1 = updatedVenue.Phone1;
     this.venues[index].Phone2 = updatedVenue.Phone2;
-    this.updateVenueDetail(index, updatedVenue);
     this.venuesChanged.next(this.venues.slice());
   }
 

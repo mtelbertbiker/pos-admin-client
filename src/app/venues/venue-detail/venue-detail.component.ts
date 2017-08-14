@@ -5,7 +5,6 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {FormGroup, Validators, FormControl} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {VenueDataService} from '../../shared/data-services/venue-data.service';
-import {Response} from '@angular/http';
 import {SessionService} from '../../shared/data-services/session.service';
 
 @Component({
@@ -65,23 +64,6 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
       }
     );
   }
-
-  onSubmit() {
-    this.venueDataService.putVenue(this.id)
-      .subscribe(
-        (response: Response) => {
-          console.log(response);
-          if (response.ok) {
-            const venue = response.json();
-            this.venueService.updateVenue(this.id, venue);
-            alert('Location Saved');
-          } else {
-            alert('Save Request failed: ' + response.statusText);
-          }
-        }
-      );
-  }
-
 
   edited() {
     return this.venueService.venuesChanged;
