@@ -1,4 +1,113 @@
 <app-venue-detail-navigation></app-venue-detail-navigation>
-<p>
-  feetester works!
-</p>
+<div class="row">
+  <div class="col-xs-12">
+    <h4>Fee Calculation Tester</h4>
+    <form [formGroup]="feeTesterForm" (ngSubmit)="onSubmit()">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <label>Fee Calc Inputs</label>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label for="FeeGroup">Fee Group</label>
+                      <input
+                        type="select"
+                        id="FeeGroup"
+                        formControlName="FeeGroup"
+                        class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label for="DayOfWeek">Day of Week</label>
+                      <input
+                        type="select"
+                        id="DayOfWeek"
+                        formControlName="DayOfWeek"
+                        class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label for="Users">Users</label>
+                      <input
+                        type="select"
+                        id="Users"
+                        formControlName="Users"
+                        class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label>Begin Time</label>
+                      <ngb-timepicker formControlName="BeginTime" [minuteStep]="1" [size]="small" ></ngb-timepicker>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label>End Time</label>
+                      <ngb-timepicker formControlName="EndTime" [minuteStep]="1" [size]="small" ></ngb-timepicker>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <button
+                      class="btn btn-success" (click)="onTestFeeCalc(fid)">Test Fee Calc
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">Fee Calc Results
+            <div class="panel">
+              <div class="panel-heading">
+                <label>Summary</label>
+              </div>
+              <div class="panel-body">
+                <label>Success: {{success}}</label><br>
+                <label>Total Time: {{totalTime}}</label><br>
+                <label>Total Fee: {{totalFee}}</label>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-heading">
+                <label>Fee List</label>
+              </div>
+              <div class="panel-body">
+                Fee List Body
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="panel">
+              <div class="panel-heading">
+                <label>Log</label>
+              </div>
+              <div class="panel-body">
+                Log Body
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </form>
+</div>
+</div>
+
+
+
