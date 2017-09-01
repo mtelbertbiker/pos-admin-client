@@ -5,6 +5,10 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FeeGroup} from '../../../shared/pos-models/fee-group.model';
 import {Subscription} from 'rxjs/Subscription';
+import {FeecalcDataService} from '../../../shared/data-services/feecalc-data.service';
+import {TimedFeeCalcWebRequest} from '../../../shared/feecalc-models/timefeecalcwebrequest.model';
+import {Response} from '@angular/http';
+import {SessionService} from '../../../shared/data-services/session.service';
 
 @Component({
   selector: 'app-feetester',
@@ -15,14 +19,7 @@ export class FeeTesterComponent implements OnInit {
   venue: Venue;
   id: number;
   feeGroup: FeeGroup;
-  fgid = 0;
   feeTesterForm: FormGroup;
-  dayOfWeek = 0;
-  users = 0;
-  beginHour = 0;
-  beginMinute = 0;
-  endHour = 23;
-  endMinute = 59;
   subscription: Subscription;
 
   public dayList = [
@@ -36,7 +33,9 @@ export class FeeTesterComponent implements OnInit {
   ];
 
   constructor(private venueService: VenueService,
+              private feeCalcService: FeecalcDataService,
               private route: ActivatedRoute,
+              private session: SessionService,
               private router: Router) { }
 
   ngOnInit() {
@@ -55,10 +54,10 @@ export class FeeTesterComponent implements OnInit {
 
   private initForm() {
     const feeGroup = this.feeGroup;
-    const dayOfWeek = this.dayOfWeek;
-    const users = this.users;
-    const beginTime = {hour: this.beginHour, minute: this.beginMinute};
-    const endTime = {hour: this.endHour, minute: this.endMinute};
+    const dayOfWeek = this.session.FeeCalcTest.dayOfWeek;
+    const users = this.session.FeeCalcTest.users;
+    const beginTime = {hour: this.session.FeeCalcTest.beginHour, minute: this.session.FeeCalcTest.beginMinute};
+    const endTime = {hour: this.session.FeeCalcTest.endHour, minute: this.session.FeeCalcTest.endMinute};
     this.feeTesterForm = new FormGroup(
       {
         'FeeGroup': new FormControl(feeGroup, Validators.required),
@@ -71,15 +70,69 @@ export class FeeTesterComponent implements OnInit {
   }
 
   updateFeeCalc(feeCalcForm) {
-    this.fgid = feeCalcForm.FeeGroup;
-    this.users = feeCalcForm.Users;
-    this.dayOfWeek = feeCalcForm.DayOfWeek;
-    this.beginHour = feeCalcForm.BeginTime.hour;
-    this.beginMinute = feeCalcForm.BeginTime.minute;
-    this.endHour = feeCalcForm.EndTime.hour;
-    this.endMinute = feeCalcForm.EndTime.minute;
+    this.session.FeeCalcTest.fgid = feeCalcForm.FeeGroup;
+    this.session.FeeCalcTest.users = feeCalcForm.Users;
+    this.session.FeeCalcTest.dayOfWeek = feeCalcForm.DayOfWeek;
+    this.session.FeeCalcTest.beginHour = feeCalcForm.BeginTime.hour;
+    this.session.FeeCalcTest.beginMinute = feeCalcForm.BeginTime.minute;
+    this.session.FeeCalcTest.endHour = feeCalcForm.EndTime.hour;
+    this.session.FeeCalcTest.endMinute = feeCalcForm.EndTime.minute;
+  }
+
+  private getNextWeekDay(d) {
+    if (d) {
+      const next = new Date();
+      next.setDate(next.getDate() - next.getDay() + 7 + d);
+      return next;
+    }
+  }
+
+  pad(n) {
+    return (n < 10) ? ('0' + n) : n;
+  }
+
+  apiDateTimeString(thisDate) {
+    return thisDate.getFullYear() + '-' +
+      (this.pad(thisDate.getMonth() + 1)) + '-' +
+      this.pad(thisDate.getDate()) + 'T' +
+      this.pad(thisDate.getHours()) + ':' + this.pad(thisDate.getMinutes()) + ':00';
   }
 
   onTestFeeCalc() {
+    const startDate = this.getNextWeekDay(this.session.FeeCalcTest.dayOfWeek);
+    const startDateTime = startDate.setHours(this.session.FeeCalcTest.beginHour, this.session.FeeCalcTest.beginMinute, 0, 0);
+    let stopDate;
+    let stopDateTime;
+    if (this.session.FeeCalcTest.endHour < this.session.FeeCalcTest.beginHour) {  // rental ends on next calendar day
+      if (this.session.FeeCalcTest.dayOfWeek === 6) {
+        stopDate = startDate;
+        stopDate.setHours(24);
+        stopDateTime = stopDate.setHours(this.session.FeeCalcTest.endHour, this.session.FeeCalcTest.endMinute, 0, 0);
+      } else {
+      }
+    } else {
+      stopDateTime = startDate.setHours(this.session.FeeCalcTest.endHour, this.session.FeeCalcTest.endMinute, 0, 0);
+    }
+    const timedFeeCalcRequest = new TimedFeeCalcWebRequest({
+      LicenseeId : this.venue.LicId,
+      BrandId : this.venue.BId,
+      LocationId : this.venue.LId,
+      FeeGroupId : this.session.FeeCalcTest.fgid,
+      Users : this.session.FeeCalcTest.users,
+      StartTime : this.apiDateTimeString(new Date(startDateTime)),
+      StopTime : this.apiDateTimeString(new Date(stopDateTime))
+    });
+    this.feeCalcService.FeeCalc(timedFeeCalcRequest)
+      .subscribe(
+        (response: Response) => {
+          console.log(response);
+          if (response.ok) {
+            const timedFeeCalcResponse = response.json();
+            alert('Fee Calc worked');
+          } else {
+            alert('Fee Calc failed: ' + response.statusText);
+          }
+        }
+      );
   }
 }

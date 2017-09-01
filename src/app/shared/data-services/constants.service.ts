@@ -6,6 +6,7 @@ export class ConstantsService {
   AdminLicenseeLocationsUri = '/Locations/LicenseeLocations/';
   AdminLocationsUri = '/Locations/';
   AdminLocationDetailUri = '/Locations/LocationDetail/';
+  FeeCalcBaseUri = 'http://192.168.0.61:51447/FeeCalc';
 
   constructor() { }
 

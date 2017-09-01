@@ -3,9 +3,9 @@ import {FeeGroup} from './fee-group.model';
 import {RentalItem} from './rental-item.model';
 import {LocationRentalType} from './location-rental-type.model';
 export class Venue {
-  constructor(public licId: number,
-              public bId: number,
-              public lId: number,
+  constructor(public LicId: number,
+              public BId: number,
+              public LId: number,
               public Name: string,
               public Address1: string,
               public Address2: string,

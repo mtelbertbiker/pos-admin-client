@@ -54,7 +54,7 @@ export class RentalItemDetailComponent implements OnInit {
   onAddFeeGroup(fgId: number) {
     this.venue.FeeGroups.forEach((feeGroup) => {
       if (feeGroup.FGId === fgId) {
-        const rentalFeeGroup = new RentalItemFeeGroup(this.rentalItem.RId, fgId, this.venue.lId);
+        const rentalFeeGroup = new RentalItemFeeGroup(this.rentalItem.RId, fgId, this.venue.LId);
         this.rentalItem.RentalItemFeeGroups.push(rentalFeeGroup);
       }
     });

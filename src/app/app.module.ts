@@ -25,6 +25,7 @@ import { FeeGroupDetailComponent } from './posconfig/fees/feegroups/feegroup-det
 import { FeeItemComponent } from './posconfig/fees/fees/fee-list/fee-item/fee-item.component';
 import { FeeItemDetailComponent } from './posconfig/fees/fees/fee-item-detail/fee-item-detail.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {FeecalcDataService} from './shared/data-services/feecalc-data.service';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
   ],
   exports: [
   ],
-  providers: [VenueService, VenueDataService, ConstantsService, SessionService],
+  providers: [VenueService, VenueDataService, ConstantsService, SessionService, FeecalcDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
