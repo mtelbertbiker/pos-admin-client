@@ -6,7 +6,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FeeGroup} from '../../../shared/pos-models/fee-group.model';
 import {Subscription} from 'rxjs/Subscription';
 import {FeecalcDataService} from '../../../shared/data-services/feecalc-data.service';
-import {TimedFeeCalcWebRequest} from '../../../shared/feecalc-models/timefeecalcwebrequest.model';
+import {TimedFeeCalcWebRequest} from '../../../shared/feecalc-models/timedfeecalcwebrequest.model';
 import {Response} from '@angular/http';
 import {SessionService} from '../../../shared/data-services/session.service';
 
@@ -128,7 +128,6 @@ export class FeeTesterComponent implements OnInit {
           console.log(response);
           if (response.ok) {
             const timedFeeCalcResponse = response.json();
-            alert('Fee Calc worked');
           } else {
             alert('Fee Calc failed: ' + response.statusText);
           }

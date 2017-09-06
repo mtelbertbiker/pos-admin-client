@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {ConstantsService} from './constants.service';
 import {Http} from '@angular/http';
-import {TimedFeeCalcWebRequest} from '../feecalc-models/timefeecalcwebrequest.model';
+import {TimedFeeCalcWebRequest} from '../feecalc-models/timedfeecalcwebrequest.model';
 
 @Injectable()
 export class FeecalcDataService {
