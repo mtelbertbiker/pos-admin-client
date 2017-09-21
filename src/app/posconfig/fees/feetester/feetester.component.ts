@@ -9,6 +9,7 @@ import {FeecalcDataService} from '../../../shared/data-services/feecalc-data.ser
 import {TimedFeeCalcWebRequest} from '../../../shared/feecalc-models/timedfeecalcwebrequest.model';
 import {Response} from '@angular/http';
 import {SessionService} from '../../../shared/data-services/session.service';
+import {TimedFeeCalcResponse} from '../../../shared/feecalc-models/timedfeecalcresponse.model';
 
 @Component({
   selector: 'app-feetester',
@@ -21,6 +22,7 @@ export class FeeTesterComponent implements OnInit {
   feeGroup: FeeGroup;
   feeTesterForm: FormGroup;
   subscription: Subscription;
+  timedFeeCalcResponse: TimedFeeCalcResponse;
 
   public dayList = [
     { value: 0, name: 'Sunday'},
@@ -39,6 +41,7 @@ export class FeeTesterComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    this.timedFeeCalcResponse = { Ok: false, TotalFee: 0, TotalTime: 0, LogMessages: [], FeeList: [], MsgLevel: 0 };
     this.route.params
       .subscribe(
         (params: Params) => {
@@ -127,7 +130,8 @@ export class FeeTesterComponent implements OnInit {
         (response: Response) => {
           console.log(response);
           if (response.ok) {
-            const timedFeeCalcResponse = response.json();
+            this.timedFeeCalcResponse = response.json();
+            this.router.navigate(['response'], {relativeTo: this.route});
           } else {
             alert('Fee Calc failed: ' + response.statusText);
           }

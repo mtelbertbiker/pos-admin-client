@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import {TimedFeeCalcResponse} from '../../../../shared/feecalc-models/timedfeecalcresponse.model';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-feecalctester-response',
   templateUrl: './feecalctester-response.component.html',
 })
-export class FeecalctesterResponseComponent implements OnInit {
-
-  constructor() { }
+export class FeeCalcTesterResponseComponent implements OnInit {
+  @Input() timedFeeCalcResponse: TimedFeeCalcResponse;
 
   ngOnInit() {
   }

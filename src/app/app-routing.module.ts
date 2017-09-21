@@ -10,6 +10,7 @@ import {RentalItemDetailComponent} from './posconfig/rentals/rental-item-detail/
 import {RentalItemComponent} from './posconfig/rentals/rental-list/rental-item/rental-item.component';
 import {FeeGroupDetailComponent} from './posconfig/fees/feegroups/feegroup-detail/feegroup-detail.component';
 import {FeeItemDetailComponent} from './posconfig/fees/fees/fee-item-detail/fee-item-detail.component';
+import {FeeCalcTesterResponseComponent} from './posconfig/fees/feetester/feecalctester-response/feecalctester-response.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,7 +24,9 @@ const appRoutes: Routes = [
   { path: 'location/:vid/fees', component: FeeListComponent, children: [
     { path: ':id/:fid', component: FeeItemDetailComponent }
   ]},
-  { path: 'location/:vid/feetester', component: FeeTesterComponent},
+  { path: 'location/:vid/feetester', component: FeeTesterComponent, children: [
+    { path: 'response', component: FeeCalcTesterResponseComponent }
+  ]},
   { path: 'location/:vid', component: VenueDetailComponent},
   { path: 'location/:vid/:detail', component: VenueDetailComponent}
 ];

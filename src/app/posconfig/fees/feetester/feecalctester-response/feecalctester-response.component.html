@@ -1,5 +1,19 @@
-<p>
-  feecalctester-response works!
-</p>
-<app-feecalc-feelist></app-feecalc-feelist>
-<app-feecalc-logmsg></app-feecalc-logmsg>
+<div class="col">Fee Calc Results
+  <div class="panel">
+    <div class="panel-heading">
+      <label>Summary</label>
+    </div>
+    <div class="panel-body">
+      <label>Success: {{timedFeeCalcResponse.Ok}}</label><br>
+      <label>Total Time: {{timedFeeCalcResponse.TotalTime}}</label><br>
+      <label>Total Fee: {{timedFeeCalcResponse.TotalFee}}</label>
+    </div>
+  </div>
+  <div class="panel">
+    <app-feecalc-feelist></app-feecalc-feelist>
+  </div>
+  <div class="panel">
+    <app-feecalc-logmsg></app-feecalc-logmsg>
+  </div>
+</div>
+
