@@ -10,10 +10,11 @@
     </div>
   </div>
   <div class="panel">
-    <app-feecalc-feelist></app-feecalc-feelist>
+    <app-feecalc-feelist [timedFeeCalcResponse]="timedFeeCalcResponse"></app-feecalc-feelist>
   </div>
   <div class="panel">
-    <app-feecalc-logmsg></app-feecalc-logmsg>
+    <app-feecalc-logmsg [timedFeeCalcResponse]="timedFeeCalcResponse"></app-feecalc-logmsg>
   </div>
+  <router-outlet></router-outlet>
 </div>
 

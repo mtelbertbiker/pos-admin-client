@@ -131,7 +131,6 @@ export class FeeTesterComponent implements OnInit {
           console.log(response);
           if (response.ok) {
             this.timedFeeCalcResponse = response.json();
-            this.router.navigate(['response'], {relativeTo: this.route});
           } else {
             alert('Fee Calc failed: ' + response.statusText);
           }
