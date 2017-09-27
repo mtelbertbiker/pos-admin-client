@@ -42,6 +42,7 @@ export class FeeGroupDetailComponent implements OnInit {
 
   private initForm() {
     const Name = this.feeGroup.Name;
+    const ItemId = this.feeGroup.ItemId;
     const MinUsers = this.feeGroup.MinUsers;
     const MaxUsers = this.feeGroup.MaxUsers;
     const RequiredFee = this.feeGroup.RequiredFee;
@@ -53,6 +54,7 @@ export class FeeGroupDetailComponent implements OnInit {
         'MinUsers': new FormControl(MinUsers, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]),
         'MaxUsers': new FormControl(MaxUsers, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]),
         'RequiredFee': new FormControl(RequiredFee, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]),
+        'ItemId': new FormControl(ItemId, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]),
         'RequiresUsers': new FormControl(RequiresUsers),
         'CondenseUserFees': new FormControl(CondenseUserFees),
       }
@@ -61,6 +63,7 @@ export class FeeGroupDetailComponent implements OnInit {
 
   updateFeeGroup(updatedFeeGroup: FeeGroup) {
     this.feeGroup.Name = updatedFeeGroup.Name;
+    this.feeGroup.ItemId = updatedFeeGroup.ItemId;
     this.feeGroup.MinUsers = updatedFeeGroup.MinUsers;
     this.feeGroup.MaxUsers = updatedFeeGroup.MaxUsers;
     this.feeGroup.RequiredFee = updatedFeeGroup.RequiredFee;

@@ -9,6 +9,7 @@ export class FeeGroup {
               public MaxUsers: number,
               public RequiredFee: number,
               public CondenseUserFees: boolean,
+              public ItemId: number,
               public Fees: Fee[]
               ) {}
 }
