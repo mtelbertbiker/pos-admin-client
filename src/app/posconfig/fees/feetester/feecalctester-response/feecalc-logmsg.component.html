@@ -1,3 +1,5 @@
-<p>
-  feecalc-logmsg works!
-</p>
+<p>CALCULATOR MESSAGES</p>
+<app-feecalc-logmsg-item
+  *ngFor="let logMsg of timedFeeCalcResponse.LogMessages"
+  [logmsg]="logMsg">
+</app-feecalc-logmsg-item>

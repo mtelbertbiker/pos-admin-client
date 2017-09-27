@@ -1,4 +1,5 @@
-<p>
-  feecalc-feelist works!
-</p>
-<!--<p [ngFor]="let feeListItem of timedFeeCalcResponse.FeeList">{{feeListItem.Desc}}]</p>-->
+<p>FEES</p>
+<app-feecalc-feelist-item
+  *ngFor="let chargedFee of timedFeeCalcResponse.FeeList"
+  [chargedFee]="chargedFee">
+</app-feecalc-feelist-item>

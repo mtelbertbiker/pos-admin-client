@@ -29,6 +29,8 @@ import {FeecalcDataService} from './shared/data-services/feecalc-data.service';
 import { FeeCalcTesterResponseComponent } from './posconfig/fees/feetester/feecalctester-response/feecalctester-response.component';
 import { FeecalcLogmsgComponent } from './posconfig/fees/feetester/feecalctester-response/feecalc-logmsg.component';
 import { FeecalcFeelistComponent } from './posconfig/fees/feetester/feecalctester-response/feecalc-feelist.component';
+import { FeecalcFeelistItemComponent } from './posconfig/fees/feetester/feecalctester-response/feecalc-feelist-item.component';
+import { FeecalcLogmsgItemComponent } from './posconfig/fees/feetester/feecalctester-response/feecalc-logmsg-item.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import { FeecalcFeelistComponent } from './posconfig/fees/feetester/feecalcteste
     FeeCalcTesterResponseComponent,
     FeecalcLogmsgComponent,
     FeecalcFeelistComponent,
+    FeecalcFeelistItemComponent,
+    FeecalcLogmsgItemComponent,
   ],
   imports: [
     BrowserModule,
