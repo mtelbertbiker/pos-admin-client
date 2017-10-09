@@ -66,6 +66,7 @@ export class FeeItemDetailComponent implements OnInit {
     const Thu = this.fee.Thu;
     const Fri = this.fee.Fri;
     const Sat = this.fee.Sat;
+    const ItemId = this.fee.ItemId;
     this.feeItemDetailForm = new FormGroup(
       {
         'Name': new FormControl(Name, Validators.required),
@@ -88,6 +89,7 @@ export class FeeItemDetailComponent implements OnInit {
         'Thu': new FormControl(Thu, Validators.required),
         'Fri': new FormControl(Fri, Validators.required),
         'Sat': new FormControl(Sat, Validators.required),
+        'ItemId': new FormControl(ItemId, Validators.required),
       }
     );
   }
@@ -119,6 +121,7 @@ export class FeeItemDetailComponent implements OnInit {
     this.fee.Thu = updatedFee.Thu;
     this.fee.Fri = updatedFee.Fri;
     this.fee.Sat = updatedFee.Sat;
+    this.fee.ItemId = updatedFee.ItemId;
   }
 
   onDeleteFee(index: number) {

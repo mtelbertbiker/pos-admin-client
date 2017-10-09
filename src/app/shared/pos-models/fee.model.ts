@@ -24,5 +24,6 @@ export class Fee {
               public MaxUsers: number,
               public PerUser: boolean,
               public AlwaysInc: boolean,
-              public FlatRate: boolean) {}
+              public FlatRate: boolean,
+              public ItemId: number) {}
 }

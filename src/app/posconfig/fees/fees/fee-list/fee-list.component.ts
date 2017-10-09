@@ -52,7 +52,8 @@ export class FeeListComponent implements OnInit {
       0,
       false,
       false,
-      false);
+      false,
+      0);
     this.venue.FeeGroups[index].Fees.push(newFee);
     this.router.navigate([index, this.venue.FeeGroups[index].Fees.length - 1], {relativeTo: this.route});
   }
