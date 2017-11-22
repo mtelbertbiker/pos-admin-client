@@ -34,8 +34,8 @@ export class VenueDataService {
   putVenue(index: number) {
     const venue =  this.venueService.getVenue(index);
     const location = {
-      'LicId': venue['LicId'],
-      'BId': venue['BId'],
+      'LicId': this.session.LicenseeId,
+      'BId': this.session.BrandId,
       'LId': venue['LId'],
       'Name': venue.Name,
       'Address1': venue.Address1,

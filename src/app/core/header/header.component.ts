@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {VenueService} from '../../venues/venue.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Venue} from '../../shared/pos-models/venue.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   venues: Venue[];
   subscription: Subscription;
 
-  constructor(private venueService: VenueService) { }
+  constructor(private venueService: VenueService, private router: Router) { }
 
   ngOnInit() {
     this.subscription = this.venueService.venuesChanged
@@ -29,6 +30,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onGetLocations() {
     console.log('onGetLocations');
     this.venueService.getVenues();
+  }
+
+  onAddLocation() {
+    console.log('onAddLocation');
+    const newVenue = new Venue (0, 0, 0, 'New Location', '', '', '', '', '', '', '', [], [], [], [], 0, '');
+    const index = this.venueService.addVenue(newVenue);
+    this.router.navigate(['location/' + index + '/1']);
+  }
+
+  onDuplicateLocation() {
+    console.log('onDuplicateLocation');
   }
 
   ngOnDestroy() {
