@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isCollapsed = false;
   isVenueDroppedDown = false;
   isOtherDroppedDown = false;
+  isResellerDroppedDown = false;
   venues: Venue[];
   subscription: Subscription;
 
@@ -39,6 +40,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['location/' + index + '/1']);
   }
 
+  onShowLicensees() {
+    console.log('onShowLicensees');
+    this.router.navigate(['reseller/licensees']);
+  }
+
   onDuplicateLocation() {
     console.log('onDuplicateLocation');
   }
@@ -52,6 +58,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   toggleVenueDropDownState() {
     this.isVenueDroppedDown = !this.isVenueDroppedDown;
+  }
+
+  toggleResellerDropDownState() {
+    this.isResellerDroppedDown = !this.isResellerDroppedDown;
   }
   toggleOtherDropDownState() {
     this.isOtherDroppedDown = !this.isOtherDroppedDown;

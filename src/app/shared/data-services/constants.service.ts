@@ -7,6 +7,9 @@ export class ConstantsService {
   AdminLicenseeLocationsUri = '/Locations/LicenseeLocations/';
   AdminLocationsUri = '/Locations/';
   AdminLocationDetailUri = '/Locations/LocationDetail/';
+  AdminResellerLicenseesUri = '/Resellers/Licensees/';
+  AdminResellerLocationsUri = '/Resellers/Locations/';
+  AdminLicenseesUri = '/Licensees/';
   FeeCalcBaseUri = this.BaseUri + ':51447/FeeCalc';
 
   constructor() { }

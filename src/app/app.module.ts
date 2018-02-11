@@ -31,6 +31,17 @@ import { FeecalcLogmsgComponent } from './posconfig/fees/feetester/feecalctester
 import { FeecalcFeelistComponent } from './posconfig/fees/feetester/feecalctester-response/feecalc-feelist.component';
 import { FeecalcFeelistItemComponent } from './posconfig/fees/feetester/feecalctester-response/feecalc-feelist-item.component';
 import { FeecalcLogmsgItemComponent } from './posconfig/fees/feetester/feecalctester-response/feecalc-logmsg-item.component';
+import { LicenseeListComponent } from './posconfig/licensees/licensee-list/licensee-list.component';
+import { ResellerListComponent } from './resellers/reseller-list/reseller-list.component';
+import { ResellerDetailComponent } from './resellers/reseller-detail/reseller-detail.component';
+import { ResellerLicenseeListComponent } from './resellers/reseller-detail/reseller-licensee-list/reseller-licensee-list.component';
+import { ResellerLicenseeItemComponent } from './resellers/reseller-detail/reseller-licensee-item/reseller-licensee-item.component';
+import { LicenseeListItemComponent } from './posconfig/licensees/licensee-list/licensee-item/licensee-list-item.component';
+import {ResellerDataService} from './shared/data-services/reseller-data.service';
+import {ResellerService} from './resellers/reseller.service';
+import { LicenseeItemDetailComponent } from './posconfig/licensees/licensee-item-detail/licensee-item-detail.component';
+import { ResellerVenueListComponent } from './resellers/reseller-venue-list/reseller-venue-list.component';
+import { ResellerVenueItemComponent } from './resellers/reseller-venue-list/reseller-venue-list-item/reseller-venue-list-item.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +66,15 @@ import { FeecalcLogmsgItemComponent } from './posconfig/fees/feetester/feecalcte
     FeecalcFeelistComponent,
     FeecalcFeelistItemComponent,
     FeecalcLogmsgItemComponent,
+    LicenseeListComponent,
+    ResellerListComponent,
+    ResellerDetailComponent,
+    ResellerLicenseeListComponent,
+    ResellerLicenseeItemComponent,
+    LicenseeListItemComponent,
+    LicenseeItemDetailComponent,
+    ResellerVenueListComponent,
+    ResellerVenueItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +86,7 @@ import { FeecalcLogmsgItemComponent } from './posconfig/fees/feetester/feecalcte
   ],
   exports: [
   ],
-  providers: [VenueService, VenueDataService, ConstantsService, SessionService, FeecalcDataService],
+  providers: [VenueService, VenueDataService, ConstantsService, SessionService, FeecalcDataService, ResellerService, ResellerDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

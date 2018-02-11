@@ -20,11 +20,18 @@
           </div>
         </li>
         <li class="nav-item dropdown" [ngClass]="{ 'show': isOtherDroppedDown }" (click)="toggleOtherDropDownState()" >
-          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownAdminMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownAdminMenuLink">
             <a class="dropdown-item" (click)="onGetLocations()">Get Locations</a>
             <a class="dropdown-item" (click)="onAddLocation()">Add Location</a>
             <a class="dropdown-item" (click)="onDuplicateLocation()">Duplicate this Location</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown" [ngClass]="{ 'show': isResellerDroppedDown }" (click)="toggleResellerDropDownState()" >
+          <a class="nav-link dropdown-toggle" id="navbarDropdownResellerMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reseller</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownResellerMenuLink">
+            <a class="dropdown-item" (click)="onShowLicensees()">Licensees</a>
+            <a class="dropdown-item" >Users</a>
           </div>
         </li>
       </ul>

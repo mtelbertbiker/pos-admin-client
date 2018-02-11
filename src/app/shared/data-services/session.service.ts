@@ -14,6 +14,7 @@ export class SessionService {
     endHour : 15,
     endMinute : 30
   };
+  rsid = 1;
 
   constructor() { }
 

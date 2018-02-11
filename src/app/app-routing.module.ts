@@ -11,6 +11,9 @@ import {RentalItemComponent} from './posconfig/rentals/rental-list/rental-item/r
 import {FeeGroupDetailComponent} from './posconfig/fees/feegroups/feegroup-detail/feegroup-detail.component';
 import {FeeItemDetailComponent} from './posconfig/fees/fees/fee-item-detail/fee-item-detail.component';
 import {FeeCalcTesterResponseComponent} from './posconfig/fees/feetester/feecalctester-response/feecalctester-response.component';
+import {LicenseeListComponent} from './posconfig/licensees/licensee-list/licensee-list.component';
+import {ResellerDetailComponent} from './resellers/reseller-detail/reseller-detail.component';
+import {LicenseeItemDetailComponent} from './posconfig/licensees/licensee-item-detail/licensee-item-detail.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -28,7 +31,10 @@ const appRoutes: Routes = [
     { path: 'response', component: FeeCalcTesterResponseComponent }
   ]},
   { path: 'location/:vid', component: VenueDetailComponent},
-  { path: 'location/:vid/:detail', component: VenueDetailComponent}
+  { path: 'location/:vid/:detail', component: VenueDetailComponent},
+  { path: 'reseller/licensees', component: LicenseeListComponent , children: [
+      { path: ':id', component: LicenseeItemDetailComponent }
+    ]},
 ];
 
 @NgModule({
