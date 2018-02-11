@@ -1,0 +1,31 @@
+<div class="page-header">
+  <h4>Licensees</h4>
+</div>
+<table class="table">
+  <tbody>
+  <tr>
+    <td>
+      <div class="col-xs-12">
+        <app-licensee-list-item
+          *ngFor="let licensee of licensees; let i = index"
+          [licensee]="licensee" [index]="i" [rsid]="rsid">
+        </app-licensee-list-item>
+      </div>
+    </td>
+    <td>
+      <div class="col-md-7">
+        <router-outlet></router-outlet>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="col-xs-12">
+        <button
+          type="submit"
+          class="btn btn-success" (click)="onAddLicensee()" >Add Licensee</button>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>

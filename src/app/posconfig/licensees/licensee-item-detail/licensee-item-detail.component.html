@@ -1,0 +1,164 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="licenseeItemDetailForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="Name">Licensee Name</label>
+            <input
+              type="text"
+              id="Name"
+              formControlName="Name"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="ContactFirstName">Contact First Name</label>
+            <input
+              type="text"
+              id="ContactFirstName"
+              formControlName="ContactFirstName"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="ContactLastName">Contact Last Name</label>
+            <input
+              type="text"
+              id="ContactLastName"
+              formControlName="ContactLastName"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="Address1">Address 1</label>
+            <input
+              type="text"
+              id="Address1"
+              formControlName="Address1"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="Address2">Address 2</label>
+            <input
+              type="text"
+              id="Address2"
+              formControlName="Address2"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="City">City</label>
+            <input
+              type="text"
+              id="City"
+              formControlName="City"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="State">State</label>
+            <input
+              type="text"
+              id="State"
+              formControlName="State"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="PostalCode">Postal Code</label>
+            <input
+              type="text"
+              id="PostalCode"
+              formControlName="PostalCode"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="Phone1">Phone 1</label>
+            <input
+              type="text"
+              id="Phone1"
+              formControlName="Phone1"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="Phone2">Phone 2</label>
+            <input
+              type="text"
+              id="Phone2"
+              formControlName="Phone2"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="Email">Email</label>
+            <input
+              type="text"
+              id="Email"
+              formControlName="Email"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="Website">Website</label>
+            <input
+              type="text"
+              id="Website"
+              formControlName="Website"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <br>
+      <tr>
+        <td>
+          <div class="col-xs-12">
+            <button
+              type="submit"
+              class="btn btn-success"
+              [disabled]="!licenseeItemDetailForm.valid">Save</button>
+          </div>
+        </td>
+      </tr>
+    </form>
+  </div>
+</div>
+

@@ -1,0 +1,22 @@
+<div class="page-header">
+  <h4>Licensee Locations: </h4>
+</div>
+<table class="table">
+  <tbody>
+  <tr>
+    <td>
+      <div class="col-xs-12">
+        <app-reseller-venue-list-item
+          *ngFor="let venue of venues; let i = index"
+          [venue]="venue" [index]="i" [licid]="licid">
+        </app-reseller-venue-list-item>
+      </div>
+    </td>
+    <td>
+      <div class="col-md-7">
+        <router-outlet></router-outlet>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
