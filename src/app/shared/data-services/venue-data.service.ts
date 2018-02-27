@@ -1,24 +1,42 @@
 import { Injectable } from '@angular/core';
 import { VenueService } from '../../venues/venue.service';
-import {Http, Response} from '@angular/http';
+import { Response} from '@angular/http';
 import {Venue} from '../pos-models/venue.model';
 import 'rxjs/Rx';
 import {ConstantsService} from './constants.service';
 import {SessionService} from './session.service';
+import {OidcSecurityService} from 'angular-auth-oidc-client';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable()
 export class VenueDataService {
 
-  constructor(private http: Http,
+  venues: any;
+
+  constructor(private http: HttpClient,
               private venueService: VenueService,
               private consts: ConstantsService,
-              private session: SessionService) { }
+              private session: SessionService,
+              private oidcSecurityService: OidcSecurityService) { }
 
   getVenues() {
-    this.http.get(this.consts.AdminBaseUri +
+    const token = this.oidcSecurityService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const apiUrl = this.consts.AdminBaseUri +
       this.consts.AdminLicenseeLocationsUri +
       this.session.LicenseeId + '/' +
-      this.session.BrandId )
+      this.session.BrandId;
+
+    this.http.get(apiUrl, { headers: headers } )
+      .subscribe(
+        response => {
+          this.venues = response;
+          this.venueService.setVenues(this.venues);
+        },
+        error => console.log(error)
+      );
+/*
+    this.http.get(apiUrl, { headers: headers } )
       .map(
         (response: Response) => {
           const venues: Venue[] = response.json();
@@ -30,6 +48,7 @@ export class VenueDataService {
           this.venueService.setVenues(venues);
         }
       );
+      */
   }
   putVenue(index: number) {
     const venue =  this.venueService.getVenue(index);

@@ -14,9 +14,12 @@ import {FeeCalcTesterResponseComponent} from './posconfig/fees/feetester/feecalc
 import {LicenseeListComponent} from './posconfig/licensees/licensee-list/licensee-list.component';
 import {ResellerDetailComponent} from './resellers/reseller-detail/reseller-detail.component';
 import {LicenseeItemDetailComponent} from './posconfig/licensees/licensee-item-detail/licensee-item-detail.component';
+import {RedirectComponent} from './redirect/redirect/redirect.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'redirect.html', component: RedirectComponent },
   { path: 'location/:vid/rentals', component: RentalListComponent, children: [
     { path: ':id', component: RentalItemDetailComponent }
     ]

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class SessionService {
-  LicenseeId = '10000';
-  BrandId = '20000';
+  LicenseeId = '0';
+  BrandId = '0';
   vid: number;
   FeeCalcTest = {
     fgid : 0,
