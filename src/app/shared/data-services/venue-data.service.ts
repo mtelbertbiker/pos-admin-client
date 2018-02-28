@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { VenueService } from '../../venues/venue.service';
-import { Response} from '@angular/http';
-import {Venue} from '../pos-models/venue.model';
 import 'rxjs/Rx';
 import {ConstantsService} from './constants.service';
 import {SessionService} from './session.service';
@@ -12,6 +10,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 export class VenueDataService {
 
   venues: any;
+  venue: any;
 
   constructor(private http: HttpClient,
               private venueService: VenueService,
@@ -35,20 +34,6 @@ export class VenueDataService {
         },
         error => console.log(error)
       );
-/*
-    this.http.get(apiUrl, { headers: headers } )
-      .map(
-        (response: Response) => {
-          const venues: Venue[] = response.json();
-          return venues;
-        }
-      )
-      .subscribe(
-        (venues: Venue[]) => {
-          this.venueService.setVenues(venues);
-        }
-      );
-      */
   }
   putVenue(index: number) {
     const venue =  this.venueService.getVenue(index);
@@ -67,32 +52,46 @@ export class VenueDataService {
       'FeeGroups': venue.FeeGroups,
       'RentalItems' : venue.RentalItems
     };
-    console.log('POS Admin PUT>>');
-    console.log(location);
+    const token = this.oidcSecurityService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     // Change the '/0' to the location Id when adding new location
-    return this.http.put(this.consts.AdminBaseUri + this.consts.AdminLocationsUri + '/0',
-      location);
+    const apiUrl = this.consts.AdminBaseUri + this.consts.AdminLocationsUri + '/0';
+    console.log('putVenue>>');
+    return this.http.put(apiUrl, location, { headers: headers });
   }
   getVenueDetail(index: number) {
-    let venue =  this.venueService.getVenue(index);
-    this.http.get(this.consts.AdminBaseUri +
+    const token = this.oidcSecurityService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    this.venue =  this.venueService.getVenue(index);
+    const apiUrl = this.consts.AdminBaseUri +
       this.consts.AdminLocationDetailUri +
-      venue['LicId'] + '/' +
-      venue['BId'] + '/' +
-      venue['LId'])
-      .map(
-        (response: Response) => {
-          venue = response.json();
-          console.log('getVenueDetail - Get>>');
-          console.log(venue);
-          return venue;
-        }
-      )
+      this.venue['LicId'] + '/' +
+      this.venue['BId'] + '/' +
+      this.venue['LId'];
+    this.http.get(apiUrl, { headers: headers } )
       .subscribe(
-        (thevenue: Venue) => {
-          this.venueService.updateVenueDetail(index, thevenue);
-        }
+        response => {
+          this.venue = response;
+          console.log('getVenueDetail - Get>>');
+          console.log(this.venue);
+          this.venueService.updateVenue(index, this.venue);
+          this.venueService.updateVenueDetail(index, this.venue);
+          return this.venue;
+        },
+        error => console.log(error)
       );
+  }
+
+  deleteVenue(licId: number, bId: number, lId: number) {
+    const token = this.oidcSecurityService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const apiUrl = this.consts.AdminBaseUri +
+      this.consts.AdminLocationsUri + 'Remove/' +
+      licId + '/' +
+      bId + '/' +
+      lId;
+
+    return this.http.get(apiUrl, { headers: headers } );
   }
 
 }

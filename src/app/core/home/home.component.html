@@ -1,21 +1,30 @@
-<h2></h2>
-<div class="page-header">
-  <h4>Licensee: {{licensee.Name}} {{licensee.Address1}} {{licensee.City}}</h4>
+<div *ngIf="isAuthorized" class="page-header">
+  <h4>Licensee: {{licensee.Name}} - Address: {{licensee.Address1}} - City: {{licensee.City}}</h4>
 </div>
 <table class="table">
   <tbody>
-  <tr>
+  <tr *ngIf="isAuthorized">
     <td>
       <div class="col-xs-12">
         <app-venue-list-item
           *ngFor="let venue of venues; let i = index"
-          [venue]="venue" [index]="i" >
+          [venue]="venue" [index]="i">
         </app-venue-list-item>
       </div>
     </td>
     <td>
       <div class="col-md-7">
         <router-outlet></router-outlet>
+      </div>
+    </td>
+  </tr>
+  <tr *ngIf="isAuthorized">
+    <td>
+      <div class="col-xs-12">
+        <button
+          type="submit"
+          class="btn btn-success" (click)="onAddLocation()">Add Location
+        </button>
       </div>
     </td>
   </tr>

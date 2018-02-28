@@ -47,8 +47,8 @@ import { environment } from './../environments/environment';
 import { RedirectComponent } from './redirect/redirect/redirect.component';
 import { VenueListComponent } from './venues/venue-list/venue-list.component';
 import { VenueListItemComponent } from './venues/venue-list/venue-list-item/venue-list-item.component';
-import {LicenseeDataService} from "./shared/data-services/licensee-data.service";
-import {LicenseeService} from "./shared/licensee.service";
+import {LicenseeDataService} from './shared/data-services/licensee-data.service';
+import {LicenseeService} from './shared/licensee.service';
 
 @NgModule({
   declarations: [
@@ -116,7 +116,7 @@ export class AppModule {
     openIDImplicitFlowConfiguration.client_id = 'eb3fb956-a476-4329-99ca-0666bec47d65';
     openIDImplicitFlowConfiguration.response_type = 'id_token token';
     // openIDImplicitFlowConfiguration.scope = 'openid https://feemachine.onmicrosoft.com/api/demo.read';
-    openIDImplicitFlowConfiguration.scope = 'openid https://feemachines.com/posadmin/readPosAdmin';
+    openIDImplicitFlowConfiguration.scope = 'openid https://feemachines.com/posadmin/readPosAdmin https://feemachines.com/posadmin/writePosAdmin';
     openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'http://localhost:65328';
     openIDImplicitFlowConfiguration.post_login_route = '/home';
     openIDImplicitFlowConfiguration.forbidden_route = '/home';

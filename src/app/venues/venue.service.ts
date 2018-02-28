@@ -57,4 +57,8 @@ export class VenueService {
     this.venues.push(newVenue);
     return this.venues.length - 1;
   }
+
+  removeVenue(index: number) {
+    this.venues.splice(index);
+  }
 }

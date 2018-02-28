@@ -4,7 +4,6 @@ import {Subscription} from 'rxjs/Subscription';
 import {FormGroup} from '@angular/forms';
 import {VenueService} from '../../venue.service';
 import {VenueDataService} from '../../../shared/data-services/venue-data.service';
-import {Response} from '@angular/http';
 
 @Component({
   selector: 'app-venue-detail-navigation',
@@ -38,6 +37,7 @@ export class VenueDetailNavigationComponent implements OnInit {
   }
 
   onSubmit() {
+    /*
     this.venueDataService.putVenue(this.id)
       .subscribe(
         (response: Response) => {
@@ -49,6 +49,20 @@ export class VenueDetailNavigationComponent implements OnInit {
           } else {
             alert('Save Request failed: ' + response.statusText);
           }
+        }
+      );
+      */
+    this.venueDataService.putVenue(this.id)
+      .subscribe(
+        val => {
+          let venue: any;
+          venue = val;
+          this.venueService.updateVenue(this.id, venue);
+          alert('Location Saved');
+        },
+        response => {
+          console.log(response);
+          alert('Save Request failed: ' + response.message);
         }
       );
   }

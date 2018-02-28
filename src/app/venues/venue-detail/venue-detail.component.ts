@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {VenueService} from '../venue.service';
 import {Venue} from '../../shared/pos-models/venue.model';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {FormGroup, Validators, FormControl} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {VenueDataService} from '../../shared/data-services/venue-data.service';
@@ -15,12 +15,12 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
   private venue: Venue;
   venueDetailForm: FormGroup;
   id: number;
-  detailed: number;
   subscription: Subscription;
 
   constructor(private venueService: VenueService,
               private venueDataService: VenueDataService,
               private route: ActivatedRoute,
+              private router: Router,
               private sessionService: SessionService) { }
 
   ngOnInit() {
@@ -28,12 +28,11 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
       .subscribe(
         (params: Params) => {
           this.id = +params['vid'];
-          this.detailed = +params['detail'];
-          if (this.detailed === 1) {
-              this.venueDataService.getVenueDetail(this.id);
-          }
+          this.venueDataService.getVenueDetail(this.id);
           this.sessionService.setCurrentVenueIndex(this.id);
           this.venue = this.venueService.getVenue(this.id);
+          this.sessionService.setLicenseeId(this.venue.LicId);
+          this.sessionService.setBrandId(this.venue.BId);
           this.initForm();
           this.subscription = this.venueDetailForm.valueChanges.subscribe(
             (value) => this.venueService.updateVenue(this.id, this.venueDetailForm.value)
@@ -63,6 +62,26 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
         'Phone2': new FormControl(phone2),
       }
     );
+  }
+
+  onDeleteLocation(index: number) {
+    if (confirm('Delete this Location? This will also delete all Rental Items and Fees associated with the location.') === true) {
+      this.venue = this.venueService.getVenue(index);
+      this.venueDataService.deleteVenue(this.venue.LicId, this.venue.BId, this.venue.LId)
+        .subscribe(
+          val => {
+            let venue: any;
+            venue = val;
+            this.venueService.removeVenue(index);
+            alert('Location Deleted');
+            this.router.navigate(['home']);
+          },
+          response => {
+            console.log(response);
+            alert('Delete Request failed: ' + response.message);
+          }
+        );
+    };
   }
 
   edited() {

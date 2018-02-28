@@ -21,6 +21,18 @@ export class SessionService {
   setCurrentVenueIndex(index: number) {
     this.vid = index;
   }
+
+  setLicenseeId(licId: any) {
+    this.LicenseeId = licId;
+  }
+
+  getLicenseeId() {
+    return Number(this.LicenseeId);
+  }
+
+  setBrandId(bId: any) {
+    this.BrandId = bId;
+  }
   getCurrentVenueIndex() {
     return this.vid;
   }
