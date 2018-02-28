@@ -1,4 +1,7 @@
 <app-venue-detail-navigation></app-venue-detail-navigation>
+<div class="page-header">
+  <h4><b>Fee Tester for:</b> {{venue.Name}}, {{venue.Address1}}, {{venue.City}}</h4>
+</div>
 <div class="row">
   <div class="col-xs-12">
     <h4>Fee Calculation Tester</h4>
@@ -8,7 +11,7 @@
           <div class="col">
             <div class="panel panel-info">
               <div class="panel-heading">
-                <label>Fee Calc Inputs</label>
+                <label>Fee Calculation Inputs</label>
               </div>
               <div class="panel-body">
                 <div class="row">
@@ -16,12 +19,11 @@
                     <div class="form-group">
                       <label for="FeeGroup">Fee Group</label>
                       <select id="FeeGroup" formControlName="FeeGroup">
-                        <option *ngFor="let feeGroup of venue.FeeGroups" [value]="feeGroup.FGId">{{feeGroup.Name}}</option>
+                        <option *ngFor="let feeGroup of venue.FeeGroups" [value]="feeGroup.FGId"  [selected]="feeGroup.FGId == feeGroup.FGId" >{{feeGroup.Name}}</option>
                       </select>
                     </div>
                   </div>
                 </div>
-
                 <div class="row">
                   <div class="col-xs-12">
                     <div class="form-group">
@@ -37,10 +39,10 @@
                     <div class="form-group">
                       <label for="Users">Users</label>
                       <input
-                        type="text"
+                        type="number"
                         id="Users"
                         formControlName="Users"
-                        class="form-control">
+                        class="form-control" maxlength="4" size="4">
                     </div>
                   </div>
                 </div>
@@ -70,12 +72,15 @@
               </div>
             </div>
           </div>
-          <app-feecalctester-response [timedFeeCalcResponse]="timedFeeCalcResponse" ></app-feecalctester-response>
+          <div class="col-sm">
+            <app-feecalctester-response [timedFeeCalcResponse]="timedFeeCalcResponse" ></app-feecalctester-response>
+          </div>
         </div>
       </div>
     </form>
   </div>
 </div>
+
 
 
 

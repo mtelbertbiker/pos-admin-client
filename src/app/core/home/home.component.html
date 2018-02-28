@@ -1,8 +1,13 @@
-<div *ngIf="isAuthorized" class="page-header">
-  <h4>Licensee: {{licensee.Name}} - Address: {{licensee.Address1}} - City: {{licensee.City}}</h4>
+<div *ngIf="!isAuthorized" class="col-xs-12">
+  <h3><b>Welcome to Fee Machine Admin!  Please sign in.</b></h3>
 </div>
+<div *ngIf="isAuthorized" class="page-header">
+  <h4><b>Licensee:</b> {{licensee.Name}} - Address: {{licensee.Address1}} - City: {{licensee.City}}</h4>
+</div>
+
 <table class="table">
   <tbody>
+  <h4 *ngIf="isAuthorized"><b>Locations</b></h4>
   <tr *ngIf="isAuthorized">
     <td>
       <div class="col-xs-12">
@@ -10,11 +15,6 @@
           *ngFor="let venue of venues; let i = index"
           [venue]="venue" [index]="i">
         </app-venue-list-item>
-      </div>
-    </td>
-    <td>
-      <div class="col-md-7">
-        <router-outlet></router-outlet>
       </div>
     </td>
   </tr>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {FormGroup} from '@angular/forms';
 import {VenueService} from '../../venue.service';
@@ -17,6 +17,7 @@ export class VenueDetailNavigationComponent implements OnInit {
 
   constructor(private venueService: VenueService,
               private venueDataService: VenueDataService,
+              private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -69,6 +70,12 @@ export class VenueDetailNavigationComponent implements OnInit {
 
   toggleCollapseState() {
     this.isCollapsed = !this.isCollapsed;
+  }
+
+  onSelectLocation() {
+    if (confirm('Are you sure?  Any changes not saved will be lost.')) {
+      this.router.navigate(['home']);
+    }
   }
 
 }
