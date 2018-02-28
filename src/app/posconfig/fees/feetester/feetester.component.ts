@@ -7,7 +7,6 @@ import {FeeGroup} from '../../../shared/pos-models/fee-group.model';
 import {Subscription} from 'rxjs/Subscription';
 import {FeecalcDataService} from '../../../shared/data-services/feecalc-data.service';
 import {TimedFeeCalcWebRequest} from '../../../shared/feecalc-models/timedfeecalcwebrequest.model';
-import {Response} from '@angular/http';
 import {SessionService} from '../../../shared/data-services/session.service';
 import {TimedFeeCalcResponse} from '../../../shared/feecalc-models/timedfeecalcresponse.model';
 
@@ -127,6 +126,18 @@ export class FeeTesterComponent implements OnInit {
     });
     this.feeCalcService.FeeCalc(timedFeeCalcRequest)
       .subscribe(
+        val => {
+          let feeCalcResponse: any;
+          feeCalcResponse = val;
+          this.timedFeeCalcResponse = feeCalcResponse;
+        },
+        response => {
+          console.log(response);
+          alert('Fee Calc failed: ' + response.message);
+        }
+      );
+    /*
+      .subscribe(
         (response: Response) => {
           console.log(response);
           if (response.ok) {
@@ -136,5 +147,6 @@ export class FeeTesterComponent implements OnInit {
           }
         }
       );
+      */
   }
 }

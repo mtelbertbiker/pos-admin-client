@@ -10,7 +10,7 @@ export class ConstantsService {
   AdminResellerLicenseesUri = '/Resellers/Licensees/';
   AdminResellerLocationsUri = '/Resellers/Locations/';
   AdminLicenseesUri = '/Licensees/';
-  FeeCalcBaseUri = this.BaseUri + ':51447/FeeCalc';
+  FeeCalcBaseUri = this.BaseUri + ':44318/FeeCalc';  // Connect to Fee Calc API via Web Admin API
 
   constructor() { }
 
