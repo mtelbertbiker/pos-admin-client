@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {Licensee} from '../../../shared/licensee.model';
@@ -6,20 +6,22 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {SessionService} from '../../../shared/data-services/session.service';
 import {ResellerService} from '../../../resellers/reseller.service';
 import {ResellerDataService} from '../../../shared/data-services/reseller-data.service';
-import {Response} from "@angular/http";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {LicenseeDataService} from '../../../shared/data-services/licensee-data.service';
 
 @Component({
   selector: 'app-licensee-item-detail',
   templateUrl: './licensee-item-detail.component.html'
 })
 export class LicenseeItemDetailComponent implements OnInit {
-  licensee: Licensee;
+  @Input() licensee: Licensee;
   licenseeItemDetailForm: FormGroup;
   index: number;
   subscription: Subscription;
 
   constructor(private resellerService: ResellerService,
               private resellerDataService: ResellerDataService,
+              private licenseeDataService: LicenseeDataService,
               private route: ActivatedRoute,
               private sessionService: SessionService,
               private router: Router) { }
@@ -29,8 +31,8 @@ export class LicenseeItemDetailComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.index =  +params['id'];
-          this.licensee = this.resellerService.getLicensee(this.index);
-          this.resellerDataService.getResellerLicenseeLocations(this.licensee.LicId);
+          this.licensee = this.sessionService.getLicensee();
+         // this.resellerDataService.getResellerLicenseeLocations(this.licensee.LicId);
           this.initForm();
           this.subscription = this.licenseeItemDetailForm.valueChanges.subscribe(
             (value) => this.updateLicensee(this.licenseeItemDetailForm.value)
@@ -83,24 +85,29 @@ export class LicenseeItemDetailComponent implements OnInit {
     this.licensee.Email = updatedLicensee.Email;
     this.licensee.Website = updatedLicensee.Website;
     this.licensee.UpdatedUtc = new Date().toDateString();
+    this.sessionService.setLicensee(this.licensee);
   }
 
   onSubmit() {
-    this.resellerDataService.putLicensee(this.index)
+    this.licenseeDataService.putLicensee(this.licensee)
       .subscribe(
         (response: Response) => {
           console.log(response);
-          if (response.ok) {
-            const licensee = response.json();
-            this.resellerService.updateLicensee(this.index, licensee);
-            this.resellerDataService.assignLicenseeToReseller(1, licensee.LicId)
-              .subscribe((resp: Response) => {});
+            let licensee: any;
+            licensee = response;
+            this.sessionService.setLicensee(licensee);
             alert('Licensee Saved');
-          } else {
-            alert('Save Request failed: ' + response.statusText);
-          }
+            this.router.navigate(['home']);
+          },
+        response => {
+          console.log(response);
+          alert('Save Request failed: ' + response.message);
         }
       );
+  }
+
+  onCancel() {
+    this.router.navigate(['home']);
   }
 
 }

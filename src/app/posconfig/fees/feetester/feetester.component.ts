@@ -46,6 +46,10 @@ export class FeeTesterComponent implements OnInit {
         (params: Params) => {
           this.id = +params['vid'];
           this.venue = this.venueService.getVenue(this.id);
+          if (this.venue.FeeGroups.length > 0) {
+            this.session.FeeCalcTest.fgid = this.venue.FeeGroups[0].FGId;
+            this.feeGroup = this.venue.FeeGroups[0];
+          }
           this.initForm();
           this.subscription = this.feeTesterForm.valueChanges.subscribe(
             (value) => this.updateFeeCalc(this.feeTesterForm.value)

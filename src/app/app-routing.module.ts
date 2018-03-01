@@ -19,6 +19,8 @@ import {RedirectComponent} from './redirect/redirect/redirect.component';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'licensee/:id', component: LicenseeItemDetailComponent},
+  { path: 'home/licensee/:id', component: LicenseeItemDetailComponent},
   { path: 'redirect.html', component: RedirectComponent },
   { path: 'location/:vid/rentals', component: RentalListComponent, children: [
     { path: ':id', component: RentalItemDetailComponent }
@@ -33,6 +35,7 @@ const appRoutes: Routes = [
   { path: 'location/:vid/feetester', component: FeeTesterComponent, children: [
     { path: 'response', component: FeeCalcTesterResponseComponent }
   ]},
+
   { path: 'location/:vid', component: VenueDetailComponent},
   { path: 'location/:vid/:detail', component: VenueDetailComponent},
   { path: 'reseller/licensees', component: LicenseeListComponent , children: [

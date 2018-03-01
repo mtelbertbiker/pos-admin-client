@@ -8,7 +8,7 @@ import {Licensee} from '../../shared/licensee.model';
 import {LicenseeService} from '../../shared/licensee.service';
 import {SessionService} from '../../shared/data-services/session.service';
 import {Router} from '@angular/router';
-import {OidcSecurityService} from "angular-auth-oidc-client";
+import {OidcSecurityService} from 'angular-auth-oidc-client';
 
 @Component({
   selector: 'app-home',
@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
       .subscribe(
         (licensees: Licensee[]) => {
           this.licensee = licensees[0];
-          this.sessionService.setLicenseeId(this.licensee.LicId);
+          this.sessionService.setLicensee(this.licensee);
         }
       );
     this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()

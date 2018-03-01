@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+import {Licensee} from '../licensee.model';
 
 @Injectable()
 export class SessionService {
   LicenseeId = '0';
+  licensee: Licensee;
   BrandId = '0';
   vid: number;
   FeeCalcTest = {
@@ -22,12 +24,17 @@ export class SessionService {
     this.vid = index;
   }
 
-  setLicenseeId(licId: any) {
-    this.LicenseeId = licId;
+
+  setLicensee(lic: Licensee) {
+    this.licensee = lic;
+  }
+
+  getLicensee() {
+    return this.licensee;
   }
 
   getLicenseeId() {
-    return Number(this.LicenseeId);
+    return Number(this.licensee.LicId);
   }
 
   setBrandId(bId: any) {

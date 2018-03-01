@@ -19,7 +19,9 @@
                     <div class="form-group">
                       <label for="FeeGroup">Fee Group</label>
                       <select id="FeeGroup" formControlName="FeeGroup">
-                        <option *ngFor="let feeGroup of venue.FeeGroups" [value]="feeGroup.FGId"  [selected]="feeGroup.FGId == feeGroup.FGId" >{{feeGroup.Name}}</option>
+                        <option *ngFor="let fg of venue.FeeGroups"
+                                [value]="fg.FGId"
+                                [selected]="fg.FGId == feeGroup.FGId">{{fg.Name}}</option>
                       </select>
                     </div>
                   </div>

@@ -4,6 +4,7 @@ import {SessionService} from './session.service';
 import {LicenseeService} from '../licensee.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
+import {Licensee} from "../licensee.model";
 
 
 @Injectable()
@@ -32,5 +33,13 @@ export class LicenseeDataService {
         },
         error => console.log(error)
       );
+  }
+
+  putLicensee(licensee: Licensee) {
+    const token = this.oidcSecurityService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const apiUrl = this.consts.AdminBaseUri + this.consts.AdminLicenseesUri + '/0';
+    console.log('putLicensee>>');
+    return this.http.put(apiUrl, licensee, { headers: headers });
   }
 }

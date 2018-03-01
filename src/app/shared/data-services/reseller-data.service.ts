@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
 import { ResellerService } from '../../resellers/reseller.service';
-import {Http, Response} from '@angular/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Licensee } from '../../shared/licensee.model';
 import 'rxjs/Rx';
 import {ConstantsService} from './constants.service';
 import {SessionService} from './session.service';
-import {Venue} from "../pos-models/venue.model";
+import {Venue} from '../pos-models/venue.model';
 
 @Injectable()
 export class ResellerDataService {
 
-  constructor(private http: Http,
+  constructor(private http: HttpClient,
               private resellerService: ResellerService,
               private consts: ConstantsService,
               private session: SessionService) { }
 
+              /*
   getResellerLicensees() {
     this.http.get(this.consts.AdminBaseUri +
       this.consts.AdminResellerLicenseesUri +
@@ -52,7 +53,7 @@ export class ResellerDataService {
         }
       );
   }
-
+*/
   putLicensee(index: number) {
     const licensee =  this.resellerService.getLicensee(index);
     console.log('POS Admin PUT Licensee>>');

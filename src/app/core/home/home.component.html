@@ -2,9 +2,16 @@
   <h3><b>Welcome to Fee Machine Admin!  Please sign in.</b></h3>
 </div>
 <div *ngIf="isAuthorized" class="page-header">
-  <h4><b>Licensee:</b> {{licensee.Name}} - Address: {{licensee.Address1}} - City: {{licensee.City}}</h4>
+  <a
+    style="cursor: pointer;"
+    [routerLink]="['licensee/' + licensee.LicId]"
+    routerLinkActive="active"
+    class="list-group-item clearfix">
+    <div class="pull-left">
+      <h4 class="list-group-item-heading"><b>Licensee:</b> {{ licensee.Name }} <b>ID:</b> {{licensee.LicId}} <b>Email:</b> {{licensee.Email}}</h4>
+    </div>
+  </a>
 </div>
-
 <table class="table">
   <tbody>
   <h4 *ngIf="isAuthorized"><b>Locations</b></h4>
