@@ -19,10 +19,10 @@
         <div class="col-xs-12">
           <label for="RentalTypeId">Rental Type</label>
           <select #select id="RentalTypeId" (change)="onSelectChange(select.value)">
-            <option *ngFor="let rentalType of venue.LocationRentalTypes"
-                    [value]="rentalType.RentalTypeId"
-                    [selected]="rentalType.RentalTypeId == rentalItem.RentalTypeId"
-            >{{rentalType.Desc}}</option>
+            <option *ngFor="let rentalType of constantsService.SupportedRentalTypes"
+                    [value]="rentalType.Id"
+                    [selected]="rentalType.Id == rentalItem.RentalTypeId"
+            >{{rentalType.Name}}</option>
           </select>
         </div>
       </div>

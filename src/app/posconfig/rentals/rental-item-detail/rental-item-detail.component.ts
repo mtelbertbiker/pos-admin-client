@@ -7,6 +7,7 @@ import {Venue} from '../../../shared/pos-models/venue.model';
 import {RentalItemFeeGroup} from '../../../shared/pos-models/rental-item-fee-group.model';
 import {Subscription} from 'rxjs/Subscription';
 import {SessionService} from '../../../shared/data-services/session.service';
+import {ConstantsService} from '../../../shared/data-services/constants.service';
 
 @Component({
   selector: 'app-rental-item-detail',
@@ -23,6 +24,7 @@ export class RentalItemDetailComponent implements OnInit {
   constructor(private venueService: VenueService,
               private route: ActivatedRoute,
               private sessionService: SessionService,
+              private constantsService: ConstantsService,
               private router: Router) { }
 
   ngOnInit() {
