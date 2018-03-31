@@ -49,6 +49,7 @@ import { VenueListComponent } from './venues/venue-list/venue-list.component';
 import { VenueListItemComponent } from './venues/venue-list/venue-list-item/venue-list-item.component';
 import {LicenseeDataService} from './shared/data-services/licensee-data.service';
 import {LicenseeService} from './shared/licensee.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -105,18 +106,21 @@ import {LicenseeService} from './shared/licensee.service';
     ResellerService,
     ResellerDataService,
     LicenseeDataService,
-    LicenseeService],
+    LicenseeService,
+    CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor(oidcSecurityService: OidcSecurityService) {
     const openIDImplicitFlowConfiguration = new OpenIDImplicitFlowConfiguration();
-    openIDImplicitFlowConfiguration.stsServer = 'https://login.microsoftonline.com/tfp/feemachines.onmicrosoft.com/b2c_1_susin/oauth2/v2.0/';
+    openIDImplicitFlowConfiguration.stsServer =
+      'https://login.microsoftonline.com/tfp/feemachines.onmicrosoft.com/b2c_1_susin/oauth2/v2.0/';
     openIDImplicitFlowConfiguration.redirect_url = 'http://localhost:65328/redirect.html';
     openIDImplicitFlowConfiguration.client_id = 'eb3fb956-a476-4329-99ca-0666bec47d65';
     openIDImplicitFlowConfiguration.response_type = 'id_token token';
     // openIDImplicitFlowConfiguration.scope = 'openid https://feemachine.onmicrosoft.com/api/demo.read';
-    openIDImplicitFlowConfiguration.scope = 'openid https://feemachines.com/posadmin/readPosAdmin https://feemachines.com/posadmin/writePosAdmin';
+    openIDImplicitFlowConfiguration.scope =
+      'openid https://feemachines.com/posadmin/readPosAdmin https://feemachines.com/posadmin/writePosAdmin';
     openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'http://localhost:65328';
     openIDImplicitFlowConfiguration.post_login_route = '/home';
     openIDImplicitFlowConfiguration.forbidden_route = '/home';
@@ -126,7 +130,8 @@ export class AppModule {
     openIDImplicitFlowConfiguration.log_console_debug_active = !environment.production;
     openIDImplicitFlowConfiguration.max_id_token_iat_offset_allowed_in_seconds = 10;
     openIDImplicitFlowConfiguration.override_well_known_configuration = true;
-    openIDImplicitFlowConfiguration.override_well_known_configuration_url = 'https://login.microsoftonline.com/feemachines.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=b2c_1_susin';
+    openIDImplicitFlowConfiguration.override_well_known_configuration_url =
+      'https://login.microsoftonline.com/feemachines.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=b2c_1_susin';
 
     oidcSecurityService.setupModule(openIDImplicitFlowConfiguration);
   }

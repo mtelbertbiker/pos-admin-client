@@ -20,7 +20,9 @@ export class VenueDataService {
 
   getVenues() {
     const token = this.oidcSecurityService.getToken();
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`)
+      .set('ClientId', this.session.ClientId);
     const apiUrl = this.consts.AdminBaseUri +
       this.consts.AdminLicenseeLocationsUri +
       this.session.LicenseeId + '/' +
@@ -53,7 +55,9 @@ export class VenueDataService {
       'RentalItems' : venue.RentalItems
     };
     const token = this.oidcSecurityService.getToken();
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`)
+      .set('ClientId', this.session.ClientId);
     // Change the '/0' to the location Id when adding new location
     const apiUrl = this.consts.AdminBaseUri + this.consts.AdminLocationsUri + '/0';
     console.log('putVenue>>');
@@ -61,7 +65,9 @@ export class VenueDataService {
   }
   getVenueDetail(index: number) {
     const token = this.oidcSecurityService.getToken();
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`)
+      .set('ClientId', this.session.ClientId);
     this.venue =  this.venueService.getVenue(index);
     const apiUrl = this.consts.AdminBaseUri +
       this.consts.AdminLocationDetailUri +
@@ -84,7 +90,9 @@ export class VenueDataService {
 
   deleteVenue(licId: number, bId: number, lId: number) {
     const token = this.oidcSecurityService.getToken();
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`)
+      .set('ClientId', this.session.ClientId);
     const apiUrl = this.consts.AdminBaseUri +
       this.consts.AdminLocationsUri + 'Remove/' +
       licId + '/' +
