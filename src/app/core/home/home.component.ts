@@ -16,7 +16,7 @@ import {OidcSecurityService} from 'angular-auth-oidc-client';
 })
 export class HomeComponent implements OnInit {
   venues: Venue[];
-  licensee: Licensee = new Licensee(0,'','','','','','','','','','','','','',null, false,'');
+  licensee: Licensee = new Licensee(0, '', '', '', '', '', '', '', '', '', '', '', '', '', null, false, '');
   venueSubscription: Subscription;
   licenseeSubscription: Subscription;
   isAuthorizedSubscription: Subscription;
@@ -35,19 +35,19 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     console.log('HomeComponent onInit');
-    this.venueDataService.getVenues();
     this.licenseeDataService.getLicensee(0);
-    this.venueSubscription = this.venueService.venuesChanged
-      .subscribe(
-        (venues: Venue[]) => {
-          this.venues = venues;
-        }
-      );
     this.licenseeSubscription = this.licenseeService.licenseesChanged
       .subscribe(
         (licensees: Licensee[]) => {
           this.licensee = licensees[0];
           this.sessionService.setLicensee(this.licensee);
+        }
+      );
+    this.venueDataService.getVenues();
+    this.venueSubscription = this.venueService.venuesChanged
+      .subscribe(
+        (venues: Venue[]) => {
+          this.venues = venues;
         }
       );
     this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()
@@ -56,7 +56,10 @@ export class HomeComponent implements OnInit {
 
   onAddLocation() {
     console.log('onAddLocation');
-    const newVenue = new Venue (this.sessionService.getLicenseeId(), 0, 0, 'New Location', '', '', '', '', '', '', '', [], [], [], [], 0, '');
+    const newVenue = new Venue (this.sessionService.getLicenseeId(),
+      0, 0, 'New Location',
+      '', '', '', '', '', '', '',
+      [], [], [], [], 0, '');
     const index = this.venueService.addVenue(newVenue);
     this.router.navigate(['location/' + index + '/1']);
   }

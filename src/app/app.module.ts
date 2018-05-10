@@ -50,6 +50,8 @@ import { VenueListItemComponent } from './venues/venue-list/venue-list-item/venu
 import {LicenseeDataService} from './shared/data-services/licensee-data.service';
 import {LicenseeService} from './shared/licensee.service';
 import { CookieService } from 'ngx-cookie-service';
+import { TelerikReportingModule } from '@progress/telerik-angular-report-viewer';
+import { ItemusageviewerComponent } from './reports/venuereports/itemusageviewer/itemusageviewer.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +88,7 @@ import { CookieService } from 'ngx-cookie-service';
     RedirectComponent,
     VenueListComponent,
     VenueListItemComponent,
+    ItemusageviewerComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,6 +96,7 @@ import { CookieService } from 'ngx-cookie-service';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
+    TelerikReportingModule,
     NgbModule.forRoot(),
     AuthModule.forRoot(),
   ],

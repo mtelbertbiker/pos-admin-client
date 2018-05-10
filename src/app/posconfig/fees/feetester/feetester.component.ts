@@ -36,8 +36,7 @@ export class FeeTesterComponent implements OnInit {
   constructor(private venueService: VenueService,
               private feeCalcService: FeecalcDataService,
               private route: ActivatedRoute,
-              private session: SessionService,
-              private router: Router) { }
+              private session: SessionService) { }
 
   ngOnInit() {
     this.timedFeeCalcResponse = { Ok: false, TotalFee: 0, TotalTime: 0, LogMessages: [], FeeList: [], MsgLevel: 0 };
@@ -47,8 +46,8 @@ export class FeeTesterComponent implements OnInit {
           this.id = +params['vid'];
           this.venue = this.venueService.getVenue(this.id);
           if (this.venue.FeeGroups.length > 0) {
-            this.session.FeeCalcTest.fgid = this.venue.FeeGroups[0].FGId;
             this.feeGroup = this.venue.FeeGroups[0];
+            this.session.FeeCalcTest.fgid = this.feeGroup.FGId;
           }
           this.initForm();
           this.subscription = this.feeTesterForm.valueChanges.subscribe(
@@ -140,17 +139,5 @@ export class FeeTesterComponent implements OnInit {
           alert('Fee Calc failed: ' + response.message);
         }
       );
-    /*
-      .subscribe(
-        (response: Response) => {
-          console.log(response);
-          if (response.ok) {
-            this.timedFeeCalcResponse = response.json();
-          } else {
-            alert('Fee Calc failed: ' + response.statusText);
-          }
-        }
-      );
-      */
   }
 }
