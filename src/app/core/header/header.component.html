@@ -1,17 +1,8 @@
-
-
-  <nav class="navbar navbar-toggleable-md navbar-default">
+<nav class="navbar navbar-toggleable-md navbar-default">
     <div class="container-fluid">
-    <!--
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
-            (click)="toggleCollapseState()">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    -->
-    <a class="navbar-brand" routerLink="/">
-      <img alt="Brand" width="50%" src="../../../assets/images/FeeMachine-Color-Web2.jpg">
-    </a>
+      <a class="navbar-brand" routerLink="/">
+        <img alt="Brand" width="50%" src="../../../assets/images/FeeMachine-Color-Web2.jpg">
+      </a>
       <div class="nav navbar-right">
         <ul class="list-unstyled list-inline">
           <li><button class="btn btn-info sign-up-sign-in" *ngIf="!isAuthorized" (click)="signUp()">Sign Up / Sign in</button></li>
@@ -19,55 +10,6 @@
           <li><button class="btn btn-info sign-out" *ngIf="isAuthorized" (click)="signOut()">Sign Out</button></li>
         </ul>
       </div>
-    <!--
-    <div class="navbar-collapse" [ngClass]="{ 'collapse': isCollapsed }" id="navbarNav" >
-      <ul class="navbar-nav">
-        <li class="nav-item" >
-          <div class="dropdown" [ngClass]="{ 'show': isVenueDroppedDown }" (click)="toggleVenueDropDownState()" >
-            <a class="btn btn-primary dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Locations</a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" appDropdown>
-              <a class="dropdown-item"
-                 *ngFor="let venue of venues; let i = index"
-                 routerLink="/location/{{i}}/1">{{venue.Name}}, {{venue.Address1}}, {{venue.City}}</a>
-            </div>
-          </div>
-        </li>
-        <li class="nav-item dropdown" [ngClass]="{ 'show': isOtherDroppedDown }" (click)="toggleOtherDropDownState()" >
-          <a class="nav-link dropdown-toggle" id="navbarDropdownAdminMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownAdminMenuLink">
-            <a class="dropdown-item" (click)="onGetLocations()">Get Locations</a>
-            <a class="dropdown-item" (click)="onAddLocation()">Add Location</a>
-            <a class="dropdown-item" (click)="onDuplicateLocation()">Duplicate this Location</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown" [ngClass]="{ 'show': isResellerDroppedDown }" (click)="toggleResellerDropDownState()" >
-          <a class="nav-link dropdown-toggle" id="navbarDropdownResellerMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reseller</a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownResellerMenuLink">
-            <a class="dropdown-item" (click)="onShowLicensees()">Licensees</a>
-            <a class="dropdown-item" >Users</a>
-          </div>
-        </li>
-      </ul>
-    </div>
-    -->
-
-<!--
-    <div>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="nav-link" appDropdown>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-             aria-expanded="false">Actions<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a style="cursor: pointer;" (click)="onGetLocations()">Get Locations</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-
     </div><!-- /.container-fluid -->
   </nav>
 
