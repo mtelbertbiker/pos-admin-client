@@ -15,7 +15,8 @@ import {LicenseeListComponent} from './posconfig/licensees/licensee-list/license
 import {ResellerDetailComponent} from './resellers/reseller-detail/reseller-detail.component';
 import {LicenseeItemDetailComponent} from './posconfig/licensees/licensee-item-detail/licensee-item-detail.component';
 import {RedirectComponent} from './redirect/redirect/redirect.component';
-import {ItemusageviewerComponent} from './reports/venuereports/itemusageviewer/itemusageviewer.component';
+import {ItemUsageViewerComponent} from './reports/venuereports/itemusageviewer/itemusageviewer.component';
+import {TransactiondetailviewerComponent} from './reports/venuereports/transactiondetailviewer/transactiondetailviewer.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -36,7 +37,8 @@ const appRoutes: Routes = [
   { path: 'location/:vid/feetester', component: FeeTesterComponent, children: [
     { path: 'response', component: FeeCalcTesterResponseComponent }
   ]},
-  { path: 'location/:vid/reports', component: ItemusageviewerComponent},
+  { path: 'location/:vid/reports/RentalItemUsageReport1', component: ItemUsageViewerComponent},
+  { path: 'location/:vid/reports/ItemUseDetailReport2', component: TransactiondetailviewerComponent},
   { path: 'location/:vid', component: VenueDetailComponent},
   { path: 'location/:vid/:detail', component: VenueDetailComponent},
   { path: 'reseller/licensees', component: LicenseeListComponent , children: [

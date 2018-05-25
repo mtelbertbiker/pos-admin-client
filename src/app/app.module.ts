@@ -51,7 +51,9 @@ import {LicenseeDataService} from './shared/data-services/licensee-data.service'
 import {LicenseeService} from './shared/licensee.service';
 import { CookieService } from 'ngx-cookie-service';
 import { TelerikReportingModule } from '@progress/telerik-angular-report-viewer';
-import { ItemusageviewerComponent } from './reports/venuereports/itemusageviewer/itemusageviewer.component';
+import { ItemUsageViewerComponent } from './reports/venuereports/itemusageviewer/itemusageviewer.component';
+import { TransactiondetailviewerComponent } from './reports/venuereports/transactiondetailviewer/transactiondetailviewer.component';
+
 
 @NgModule({
   declarations: [
@@ -88,7 +90,8 @@ import { ItemusageviewerComponent } from './reports/venuereports/itemusageviewer
     RedirectComponent,
     VenueListComponent,
     VenueListItemComponent,
-    ItemusageviewerComponent,
+    ItemUsageViewerComponent,
+    TransactiondetailviewerComponent,
   ],
   imports: [
     BrowserModule,
