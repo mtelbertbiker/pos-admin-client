@@ -24,7 +24,7 @@ export class RentalItemDetailComponent implements OnInit {
   constructor(private venueService: VenueService,
               private route: ActivatedRoute,
               private sessionService: SessionService,
-              private constantsService: ConstantsService,
+              public constantsService: ConstantsService,
               private router: Router) { }
 
   ngOnInit() {
