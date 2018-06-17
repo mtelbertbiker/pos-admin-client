@@ -123,14 +123,16 @@ export class AppModule {
     openIDImplicitFlowConfiguration.stsServer =
       'https://login.microsoftonline.com/tfp/feemachines.onmicrosoft.com/b2c_1_susin/oauth2/v2.0/';
     // openIDImplicitFlowConfiguration.redirect_url = 'http://localhost:65328/redirect.html';
-    openIDImplicitFlowConfiguration.redirect_url = 'https://fm-posadminclientprod1.azurewebsites.net/redirect.html';
+    openIDImplicitFlowConfiguration.redirect_url = 'https://www.feemachine.com/redirect.html';
+    // openIDImplicitFlowConfiguration.redirect_url = 'https://fm-posadminclientprod1.azurewebsites.net/redirect.html';
     openIDImplicitFlowConfiguration.client_id = 'eb3fb956-a476-4329-99ca-0666bec47d65';
     openIDImplicitFlowConfiguration.response_type = 'id_token token';
     // openIDImplicitFlowConfiguration.scope = 'openid https://feemachine.onmicrosoft.com/api/demo.read';
     openIDImplicitFlowConfiguration.scope =
       'openid https://feemachines.com/posadmin/readPosAdmin https://feemachines.com/posadmin/writePosAdmin';
+    openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'https://www.feemachine.com';
     // openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'http://localhost:65328';
-    openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'https://fm-posadminclientprod1.azurewebsites.net';
+    // openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'https://fm-posadminclientprod1.azurewebsites.net';
     openIDImplicitFlowConfiguration.post_login_route = '/home';
     openIDImplicitFlowConfiguration.forbidden_route = '/home';
     openIDImplicitFlowConfiguration.unauthorized_route = '/home';
