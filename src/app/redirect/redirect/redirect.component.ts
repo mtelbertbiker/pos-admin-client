@@ -10,7 +10,7 @@ export class RedirectComponent implements OnInit {
   constructor(private oidcSecurityService: OidcSecurityService) { }
 
   ngOnInit() {
-    this.oidcSecurityService.authorizedCallback();
+    this.oidcSecurityService.getIsAuthorized();
   }
 
 }

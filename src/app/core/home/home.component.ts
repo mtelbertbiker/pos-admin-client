@@ -20,7 +20,8 @@ export class HomeComponent implements OnInit {
   venueSubscription: Subscription;
   licenseeSubscription: Subscription;
   isAuthorizedSubscription: Subscription;
-  isAuthorized: boolean;
+  // isAuthorized: boolean;
+  isAuthorized = true;
 
   constructor(private venueDataService: VenueDataService,
               private venueService: VenueService,
@@ -50,8 +51,11 @@ export class HomeComponent implements OnInit {
           this.venues = venues;
         }
       );
+    /*
+    console.log('Next: oidcSecurityService.getIsAuthorized() ');
     this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()
       .subscribe(isAuthorized => this.isAuthorized = isAuthorized);
+      */
   }
 
   onAddLocation() {

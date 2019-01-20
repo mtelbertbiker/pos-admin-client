@@ -1,0 +1,14 @@
+:host {
+  display: block;
+  border: 1px solid black;
+  border-radius: 5px 5px 0 0;
+  padding: 20px;
+  width:300px;
+  text-align: center;
+}
+
+
+:host(.isFirst) {
+  border: 3px solid green;
+  padding: 18px;
+}

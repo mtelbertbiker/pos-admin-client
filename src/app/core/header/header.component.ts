@@ -5,6 +5,8 @@ import {Venue} from '../../shared/pos-models/venue.model';
 import {Router} from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import {filter, take} from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-header',
@@ -23,12 +25,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private venueService: VenueService,
               private router: Router,
               private oidcSecurityService: OidcSecurityService) {
-    this.isAuthorized = false;
+    this.isAuthorized = true;
   }
 
   ngOnInit() {
-    this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()
-      .subscribe(isAuthorized => this.isAuthorized = isAuthorized);
+    console.log('HeaderComponent onInit');
+    // this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()
+    //  .subscribe(isAuthorized => this.isAuthorized = isAuthorized);
     this.subscription = this.venueService.venuesChanged
       .subscribe(
         (venues: Venue[]) => {

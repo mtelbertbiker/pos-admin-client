@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -42,7 +42,13 @@ import { LicenseeItemDetailComponent } from './posconfig/licensees/licensee-item
 import { ResellerVenueListComponent } from './resellers/reseller-venue-list/reseller-venue-list.component';
 import { ResellerVenueItemComponent } from './resellers/reseller-venue-list/reseller-venue-list-item/reseller-venue-list-item.component';
 import {HttpClientModule} from '@angular/common/http';
-import { AuthModule, OidcSecurityService, OpenIDImplicitFlowConfiguration } from 'angular-auth-oidc-client';
+import {
+  AuthModule,
+  OidcSecurityService,
+  OpenIDImplicitFlowConfiguration,
+  OidcConfigService,
+  AuthWellKnownEndpoints
+} from 'angular-auth-oidc-client';
 import { environment } from './../environments/environment';
 import { RedirectComponent } from './redirect/redirect/redirect.component';
 import { VenueListComponent } from './venues/venue-list/venue-list.component';
@@ -54,6 +60,10 @@ import { TelerikReportingModule } from '@progress/telerik-angular-report-viewer'
 import { ItemUsageViewerComponent } from './reports/venuereports/itemusageviewer/itemusageviewer.component';
 import { TransactiondetailviewerComponent } from './reports/venuereports/transactiondetailviewer/transactiondetailviewer.component';
 
+export function loadConfig(oidcConfigService: OidcConfigService) {
+  console.log('APP_INITIALIZER STARTING');
+//  return () => oidcConfigService.load(`${window.location.origin}/api/ClientAppSettings`);
+}
 
 @NgModule({
   declarations: [
@@ -114,25 +124,78 @@ import { TransactiondetailviewerComponent } from './reports/venuereports/transac
     ResellerDataService,
     LicenseeDataService,
     LicenseeService,
-    CookieService],
+    CookieService,
+    /*
+    OidcConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: loadConfig,
+      deps: [OidcConfigService],
+      multi: true,
+    },
+    */
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(oidcSecurityService: OidcSecurityService) {
+  constructor(private oidcSecurityService: OidcSecurityService,
+              private oidcConfigService: OidcConfigService) {
+    /*
+    this.oidcConfigService.onConfigurationLoaded.subscribe(() => {
+      const openIDImplicitFlowConfiguration = new OpenIDImplicitFlowConfiguration();
+      openIDImplicitFlowConfiguration.stsServer = this.oidcConfigService.clientConfiguration.stsServer;
+      openIDImplicitFlowConfiguration.redirect_url = this.oidcConfigService.clientConfiguration.redirect_url;
+      // The Client MUST validate that the aud (audience) Claim contains its client_id value registered at the Issuer
+      // identified by the iss (issuer) Claim as an audience.
+      // The ID Token MUST be rejected if the ID Token does not list the Client as a valid audience,
+      // or if it contains additional audiences not trusted by the Client.
+      openIDImplicitFlowConfiguration.client_id = this.oidcConfigService.clientConfiguration.client_id;
+      openIDImplicitFlowConfiguration.response_type = this.oidcConfigService.clientConfiguration.response_type;
+      openIDImplicitFlowConfiguration.scope = this.oidcConfigService.clientConfiguration.scope;
+      openIDImplicitFlowConfiguration.post_logout_redirect_uri = this.oidcConfigService.clientConfiguration.post_logout_redirect_uri;
+      openIDImplicitFlowConfiguration.start_checksession = this.oidcConfigService.clientConfiguration.start_checksession;
+      openIDImplicitFlowConfiguration.silent_renew = this.oidcConfigService.clientConfiguration.silent_renew;
+      openIDImplicitFlowConfiguration.silent_renew_url = this.oidcConfigService.clientConfiguration.silent_renew_url;
+      openIDImplicitFlowConfiguration.post_login_route = this.oidcConfigService.clientConfiguration.startup_route;
+      // HTTP 403
+      openIDImplicitFlowConfiguration.forbidden_route = this.oidcConfigService.clientConfiguration.forbidden_route;
+      // HTTP 401
+      openIDImplicitFlowConfiguration.unauthorized_route = this.oidcConfigService.clientConfiguration.unauthorized_route;
+      openIDImplicitFlowConfiguration.log_console_warning_active = this.oidcConfigService.clientConfiguration.log_console_warning_active;
+      openIDImplicitFlowConfiguration.log_console_debug_active = this.oidcConfigService.clientConfiguration.log_console_debug_active;
+      // id_token C8: The iat Claim can be used to reject tokens that were issued too far away from the current time,
+      // limiting the amount of time that nonces need to be stored to prevent attacks.The acceptable range is Client specific.
+      openIDImplicitFlowConfiguration.max_id_token_iat_offset_allowed_in_seconds =
+        this.oidcConfigService.clientConfiguration.max_id_token_iat_offset_allowed_in_seconds;
+
+      const authWellKnownEndpoints = new AuthWellKnownEndpoints();
+      authWellKnownEndpoints.setWellKnownEndpoints(this.oidcConfigService.wellKnownEndpoints);
+
+      this.oidcSecurityService.setupModule(
+        openIDImplicitFlowConfiguration,
+        authWellKnownEndpoints
+      );
+    });
+    */
+
+    console.log('APP STARTING');
+    /*
     const openIDImplicitFlowConfiguration = new OpenIDImplicitFlowConfiguration();
     openIDImplicitFlowConfiguration.stsServer =
       'https://login.microsoftonline.com/tfp/feemachines.onmicrosoft.com/b2c_1_susin/oauth2/v2.0/';
-    // openIDImplicitFlowConfiguration.redirect_url = 'http://localhost:65328/redirect.html';
-    openIDImplicitFlowConfiguration.redirect_url = 'https://www.feemachine.com/redirect.html';
+     openIDImplicitFlowConfiguration.redirect_url = 'http://localhost:65328/redirect.html';
+    // openIDImplicitFlowConfiguration.redirect_url = 'https://www.feemachine.com/redirect.html';
     // openIDImplicitFlowConfiguration.redirect_url = 'https://fm-posadminclientprod1.azurewebsites.net/redirect.html';
     openIDImplicitFlowConfiguration.client_id = 'eb3fb956-a476-4329-99ca-0666bec47d65';
     openIDImplicitFlowConfiguration.response_type = 'id_token token';
     // openIDImplicitFlowConfiguration.scope = 'openid https://feemachine.onmicrosoft.com/api/demo.read';
     openIDImplicitFlowConfiguration.scope =
       'openid https://feemachines.com/posadmin/readPosAdmin https://feemachines.com/posadmin/writePosAdmin';
-    openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'https://www.feemachine.com';
-    // openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'http://localhost:65328';
+    // openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'https://www.feemachine.com';
+    openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'http://localhost:65328';
     // openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'https://fm-posadminclientprod1.azurewebsites.net';
+    openIDImplicitFlowConfiguration.start_checksession = false;
+    openIDImplicitFlowConfiguration.silent_renew = false;
     openIDImplicitFlowConfiguration.post_login_route = '/home';
     openIDImplicitFlowConfiguration.forbidden_route = '/home';
     openIDImplicitFlowConfiguration.unauthorized_route = '/home';
@@ -140,10 +203,26 @@ export class AppModule {
     openIDImplicitFlowConfiguration.log_console_warning_active = true;
     openIDImplicitFlowConfiguration.log_console_debug_active = !environment.production;
     openIDImplicitFlowConfiguration.max_id_token_iat_offset_allowed_in_seconds = 10;
-    openIDImplicitFlowConfiguration.override_well_known_configuration = true;
-    openIDImplicitFlowConfiguration.override_well_known_configuration_url =
-      'https://login.microsoftonline.com/feemachines.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=b2c_1_susin';
+    // openIDImplicitFlowConfiguration.override_well_known_configuration = true;
+    // openIDImplicitFlowConfiguration.override_well_known_configuration_url =
+    //  'https://login.microsoftonline.com/feemachines.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=b2c_1_susin';
 
-    oidcSecurityService.setupModule(openIDImplicitFlowConfiguration);
+    const authWellKnownEndpoints = new AuthWellKnownEndpoints();
+    authWellKnownEndpoints.issuer = 'https://localhost:65328';
+
+    authWellKnownEndpoints.jwks_uri =
+      'https://localhost:65328/.well-known/openid-configuration/jwks';
+    authWellKnownEndpoints.authorization_endpoint = 'https://localhost:65328/connect/authorize';
+    authWellKnownEndpoints.token_endpoint = 'https://localhost:65328/connect/token';
+    authWellKnownEndpoints.userinfo_endpoint = 'https://localhost:65328/connect/userinfo';
+    authWellKnownEndpoints.end_session_endpoint = 'https://localhost:65328/connect/endsession';
+    authWellKnownEndpoints.check_session_iframe =
+      'https://localhost:65328/connect/checksession';
+    authWellKnownEndpoints.revocation_endpoint = 'https://localhost:65328/connect/revocation';
+    authWellKnownEndpoints.introspection_endpoint =
+      'https://localhost:65328/connect/introspect';
+
+    oidcSecurityService.setupModule(openIDImplicitFlowConfiguration, authWellKnownEndpoints);
+    */
   }
 }

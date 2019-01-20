@@ -12,28 +12,7 @@
     </div>
   </a>
 </div>
-<table class="table">
-  <tbody>
-  <h4 *ngIf="isAuthorized"><b>Locations</b></h4>
-  <tr *ngIf="isAuthorized">
-    <td>
-      <div class="col-xs-12">
-        <app-venue-list-item
-          *ngFor="let venue of venues; let i = index"
-          [venue]="venue" [index]="i">
-        </app-venue-list-item>
-      </div>
-    </td>
-  </tr>
-  <tr *ngIf="isAuthorized">
-    <td>
-      <div class="col-xs-12">
-        <button
-          type="submit"
-          class="btn btn-success" (click)="onAddLocation()">Add Location
-        </button>
-      </div>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<div *ngIf="isAuthorized">
+  <app-venue-list [venues]=venues></app-venue-list>
+</div>
+

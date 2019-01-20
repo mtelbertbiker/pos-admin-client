@@ -1,3 +1,27 @@
-<p>
-  venue-list works!
-</p>
+<table class="table">
+  <tbody>
+  <h4 ><b>Locations</b></h4>
+  <tr>
+    <td>
+      <div class="col-xs-12">
+        <app-venue-list-item
+          *ngFor="let venue of venues; let i = index"
+          [venue]="venue"
+          [index]="i"
+          [ngClass]="{isFirst: i == 0 }">
+        </app-venue-list-item>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="col-xs-12">
+        <button
+          type="submit"
+          class="btn btn-success" (click)="onAddLocation()">Add Location
+        </button>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
