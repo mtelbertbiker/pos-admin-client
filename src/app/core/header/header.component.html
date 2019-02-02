@@ -1,13 +1,13 @@
 <nav class="navbar navbar-toggleable-md navbar-default">
-    <div class="container-fluid">
+    <div class="container">
       <a class="navbar-brand" routerLink="/">
         <img alt="Brand" width="50%" src="../../../assets/images/FeeMachine-Color-Web2.jpg">
       </a>
       <div class="nav navbar-right">
         <ul class="list-unstyled list-inline">
-          <li><button class="btn btn-info sign-up-sign-in" *ngIf="!isAuthorized" (click)="signUp()">Sign Up / Sign in</button></li>
-          <li><button class="btn btn-info edit-profile" disabled *ngIf="isAuthorized">Edit Profile</button></li>
-          <li><button class="btn btn-info sign-out" *ngIf="isAuthorized" (click)="signOut()">Sign Out</button></li>
+          <li class="list-inline-item"><button class="btn btn-info sign-up-sign-in" *ngIf="!isAuthorized" (click)="signUp()">Sign Up / Sign in</button></li>
+          <li class="list-inline-item"><button class="btn btn-info edit-profile" disabled *ngIf="isAuthorized">Edit Profile</button></li>
+          <li class="list-inline-item"><button class="btn btn-info sign-out" *ngIf="isAuthorized" (click)="signOut()">Sign Out</button></li>
         </ul>
       </div>
     </div><!-- /.container-fluid -->

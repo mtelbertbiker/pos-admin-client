@@ -6,7 +6,7 @@ import {RentalItem} from '../../../shared/pos-models/rental-item.model';
 
 @Component({
   selector: 'app-rental-list',
-  templateUrl: './rental-list.component.html',
+  templateUrl: './rental-list.component.html'
 })
 export class RentalListComponent implements OnInit {
   venue: Venue;

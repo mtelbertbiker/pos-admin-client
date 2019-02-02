@@ -1,29 +1,31 @@
-<div class="panel panel-info">
-  <div class="panel-heading">
-    <label>Fee Calculation Results</label>
+<div class="card bg-light">
+  <div class="card-header">
+    <h5>Fee Calculation Results</h5>
+  </div>
+  <div class="card-body">
+    <ngb-tabset>
+      <ngb-tab>
+        <ng-template ngbTabTitle><b>Summary</b></ng-template>
+        <ng-template ngbTabContent>
+          <p *ngIf="timedFeeCalcResponse.MsgLevel > 0">Success: {{timedFeeCalcResponse.Ok}}</p>
+          <p *ngIf="timedFeeCalcResponse.MsgLevel > 0">Total Time: {{timedFeeCalcResponse.TotalTime}}</p>
+          <p *ngIf="timedFeeCalcResponse.MsgLevel > 0">Total Fee: {{timedFeeCalcResponse.TotalFee}}</p>
+          <p *ngIf="timedFeeCalcResponse.MsgLevel === 0">No calculations performed.</p>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle><b>Fee List</b></ng-template>
+        <ng-template ngbTabContent>
+          <app-feecalc-feelist [timedFeeCalcResponse]="timedFeeCalcResponse"></app-feecalc-feelist>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle><b>Messages</b></ng-template>
+        <ng-template ngbTabContent>
+          <app-feecalc-logmsg [timedFeeCalcResponse]="timedFeeCalcResponse"></app-feecalc-logmsg>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+
   </div>
 </div>
-<ngb-tabset>
-  <ngb-tab>
-    <ng-template ngbTabTitle><b>Summary</b></ng-template>
-    <ng-template ngbTabContent>
-      <p *ngIf="timedFeeCalcResponse.MsgLevel > 0">Success: {{timedFeeCalcResponse.Ok}}</p>
-      <p *ngIf="timedFeeCalcResponse.MsgLevel > 0">Total Time: {{timedFeeCalcResponse.TotalTime}}</p>
-      <p *ngIf="timedFeeCalcResponse.MsgLevel > 0">Total Fee: {{timedFeeCalcResponse.TotalFee}}</p>
-      <p *ngIf="timedFeeCalcResponse.MsgLevel === 0">No calculations performed.</p>
-    </ng-template>
-  </ngb-tab>
-  <ngb-tab>
-    <ng-template ngbTabTitle><b>Fee List</b></ng-template>
-    <ng-template ngbTabContent>
-      <app-feecalc-feelist [timedFeeCalcResponse]="timedFeeCalcResponse"></app-feecalc-feelist>
-    </ng-template>
-  </ngb-tab>
-  <ngb-tab>
-    <ng-template ngbTabTitle><b>Messages</b></ng-template>
-    <ng-template ngbTabContent>
-      <app-feecalc-logmsg [timedFeeCalcResponse]="timedFeeCalcResponse"></app-feecalc-logmsg>
-    </ng-template>
-  </ngb-tab>
-</ngb-tabset>
-

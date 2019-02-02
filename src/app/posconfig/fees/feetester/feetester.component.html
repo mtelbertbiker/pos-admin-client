@@ -1,71 +1,57 @@
 <app-venue-detail-navigation></app-venue-detail-navigation>
-<div class="page-header">
-  <h4><b>Fee Tester for:</b> {{venue.Name}}, {{venue.Address1}}, {{venue.City}}</h4>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <h4>Fee Calculation Tester</h4>
+<div class="card bg-light">
+  <div class="card-header">
+    <h4><b>Fee Tester for:</b> {{venue.Name}}, {{venue.Address1}}, {{venue.City}}</h4>
+  </div>
+  <div class="card-body">
     <form [formGroup]="feeTesterForm">
       <div class="container">
         <div class="row">
           <div class="col">
-            <div class="panel panel-info">
-              <div class="panel-heading">
-                <label>Fee Calculation Inputs</label>
+            <div class="card bg-light">
+              <div class="card-header">
+                <h5>Fee Calculation Inputs</h5>
               </div>
-              <div class="panel-body">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <div class="form-group">
-                      <label for="FeeGroup">Fee Group</label>
-                      <select id="FeeGroup" formControlName="FeeGroup">
-                        <option *ngFor="let fg of venue.FeeGroups"
-                                [value]="fg.FGId"
-                                [selected]="fg.FGId == feeGroup.FGId">{{fg.Name}}</option>
-                      </select>
-                    </div>
+              <div class="card-body">
+                <div class="form-group row">
+                  <label class="col-form-label col-sm-3" for="FeeGroup">Fee Group</label>
+                  <select class="col-sm-6" id="FeeGroup" formControlName="FeeGroup">
+                    <option *ngFor="let fg of venue.FeeGroups"
+                            [value]="fg.FGId"
+                            [selected]="fg.FGId == feeGroup.FGId">{{fg.Name}}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group row">
+                  <label class="col-form-label col-sm-3" for="DayOfWeek">Day of Week</label>
+                  <select class="col-sm-6" id="DayOfWeek" formControlName="DayOfWeek">
+                    <option *ngFor="let day of dayList" [value]="day.value">{{day.name}}</option>
+                  </select>
+                </div>
+                <div class="form-group row">
+                  <label class="col-form-label col-sm-3" for="Users">Users</label>
+                  <div class="col-sm-6">
+                    <input
+                      type="number"
+                      id="Users"
+                      formControlName="Users"
+                      class="form-control" maxlength="4" size="4">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-form-label col-sm-3">Begin Time</label>
+                  <div class="col-sm-6">
+                    <ngb-timepicker formControlName="BeginTime" [minuteStep]="1"></ngb-timepicker>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-form-label col-sm-3">End Time</label>
+                  <div class="col-sm-6">
+                    <ngb-timepicker formControlName="EndTime" [minuteStep]="1"></ngb-timepicker>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-xs-12">
-                    <div class="form-group">
-                      <label for="DayOfWeek">Day of Week</label>
-                      <select id="DayOfWeek" formControlName="DayOfWeek">
-                        <option *ngFor="let day of dayList" [value]="day.value">{{day.name}}</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-12">
-                    <div class="form-group">
-                      <label for="Users">Users</label>
-                      <input
-                        type="number"
-                        id="Users"
-                        formControlName="Users"
-                        class="form-control" maxlength="4" size="4">
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-12">
-                    <div class="form-group">
-                      <label>Begin Time</label>
-                      <ngb-timepicker formControlName="BeginTime" [minuteStep]="1" ></ngb-timepicker>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-12">
-                    <div class="form-group">
-                      <label>End Time</label>
-                      <ngb-timepicker formControlName="EndTime" [minuteStep]="1" ></ngb-timepicker>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-12">
+                  <div class="col-sm-12">
                     <button
                       class="btn btn-success" (click)="onTestFeeCalc()">Test Fee Calc
                     </button>
@@ -74,8 +60,8 @@
               </div>
             </div>
           </div>
-          <div class="col-sm">
-            <app-feecalctester-response [timedFeeCalcResponse]="timedFeeCalcResponse" ></app-feecalctester-response>
+          <div class="col-sm-6">
+            <app-feecalctester-response [timedFeeCalcResponse]="timedFeeCalcResponse"></app-feecalctester-response>
           </div>
         </div>
       </div>

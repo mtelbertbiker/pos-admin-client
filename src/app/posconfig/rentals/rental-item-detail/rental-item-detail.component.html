@@ -1,89 +1,91 @@
-<div class="row">
-  <div class="col-xs-12">
-    <form [formGroup]="rentalItemDetailForm" (ngSubmit)="onSubmit()">
-      <div class="row">
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group">
-            <label for="Name">Name</label>
-            <input
-              type="text"
-              id="Name"
-              formControlName="Name"
-              class="form-control">
-          </div>
+<form [formGroup]="rentalItemDetailForm" (ngSubmit)="onSubmit()">
+  <div class="card bg-light">
+    <div class="card-header">
+      <h4>Rental Item Detail</h4>
+    </div>
+    <div class="card-body">
+      <div class="form-group row">
+        <label class="col-form-label col-sm-3" for="Name">Name</label>
+        <div class="col-sm-9">
+          <input
+            type="text"
+            id="Name"
+            formControlName="Name"
+            class="form-control">
         </div>
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <label for="RentalTypeId">Rental Type</label>
-          <select #select id="RentalTypeId" (change)="onSelectChange(select.value)">
-            <option *ngFor="let rentalType of constantsService.SupportedRentalTypes"
-                    [value]="rentalType.Id"
-                    [selected]="rentalType.Id == rentalItem.RentalTypeId"
-            >{{rentalType.Name}}</option>
-          </select>
-        </div>
+      <div class="form-group row">
+        <label class="col-sm-3" for="RentalTypeId">Rental Type</label>
+        <select #select id="RentalTypeId" (change)="onSelectChange(select.value)">
+          <option *ngFor="let rentalType of constantsService.SupportedRentalTypes"
+                  [value]="rentalType.Id"
+                  [selected]="rentalType.Id == rentalItem.RentalTypeId"
+          >{{rentalType.Name}}
+          </option>
+        </select>
       </div>
       <br>
       <div class="row">
-        <div class="col-md-6">
-          <div class="panel panel-primary">
-            <div class="panel-heading">
+        <div class="col-sm-6">
+          <div class="card bg-light">
+            <div class="card-header">
               <label>Selected Fee Groups</label>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
               <div
                 class="row"
                 *ngFor="let feeGroup of rentalItem.RentalItemFeeGroups; let i = index"
                 style="margin-top: 10px;">
-                <div class="col-xs-8">
+                <div class="col-sm-8">
                   <label>{{getFeeGroupDesc(feeGroup.FGId)}}</label>
                 </div>
-                <div class="col-xs-2">
+                <div class="col-sm-2">
                   <button
                     type="button"
                     class="btn btn-danger"
-                    (click)="onDeleteFeeGroup(feeGroup.FGId)">X</button>
+                    (click)="onDeleteFeeGroup(feeGroup.FGId)">X
+                  </button>
                 </div>
               </div>
               <hr>
             </div>
           </div>
         </div>
-          <div class="col-md-6">
-            <div class="panel panel-info">
-              <div class="panel-heading">
-                <label>Available Fee Groups</label>
-              </div>
-              <div class="panel-body">
-                <div
+        <div class="col-sm-6">
+          <div class="card bg-light">
+            <div class="card-header">
+              <label>Available Fee Groups</label>
+            </div>
+            <div class="card-body">
+              <div
                 class="row"
                 *ngFor="let feeGroup of getAvailableFeeGroups(); let i = index"
                 style="margin-top: 10px;">
-                <div class="col-xs-8">
+                <div class="col-sm-8">
                   <label>{{getFeeGroupDesc(feeGroup.FGId)}}</label>
                 </div>
-                <div class="col-xs-2">
+                <div class="col-sm-2">
                   <button
                     type="button"
                     class="btn btn-success"
-                    (click)="onAddFeeGroup(feeGroup.FGId)">+</button>
+                    (click)="onAddFeeGroup(feeGroup.FGId)">+
+                  </button>
                 </div>
               </div>
               <hr>
             </div>
-            </div>
           </div>
         </div>
+      </div>
       <br>
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-sm-6">
           <button
-            class="btn btn-danger" (click)="onDeleteRentalItem(index)" >Delete</button>
+            class="btn btn-danger" (click)="onDeleteRentalItem(index)">Delete
+          </button>
         </div>
       </div>
-    </form>
+    </div>
   </div>
-</div>
+</form>
+

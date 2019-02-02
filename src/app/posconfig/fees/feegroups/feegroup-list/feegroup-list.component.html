@@ -1,32 +1,25 @@
 <app-venue-detail-navigation></app-venue-detail-navigation>
-<div class="page-header">
-  <h4><b>Fee Groups for:</b> {{venue.Name}}, {{venue.Address1}}, {{venue.City}}</h4>
-</div>
-<table class="table">
-  <tbody>
-  <tr>
-    <td>
-      <div class="col-xs-12">
+<div class="card bg-light">
+  <div class="card-header">
+    <h4><b>Fee Groups for:</b> {{venue.Name}}, {{venue.Address1}}, {{venue.City}}</h4>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-6">
         <app-feegroup-item
           *ngFor="let feeGroup of venue.FeeGroups; let i = index"
           [feeGroup]="feeGroup" [index]="i" [vid]="id">
         </app-feegroup-item>
       </div>
-    </td>
-    <td>
-      <div class="col-md-7">
+      <div class="col-sm-6">
         <router-outlet></router-outlet>
       </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <div class="col-xs-12">
+      <div class="col-sm-6">
         <button
           type="submit"
-          class="btn btn-success" (click)="onAddFeeGroup()" >Add Fee Group</button>
+          class="btn btn-success" (click)="onAddFeeGroup()">Add Fee Group
+        </button>
       </div>
-    </td>
-  </tr>
-  </tbody>
-</table>
+    </div>
+  </div>
+</div>

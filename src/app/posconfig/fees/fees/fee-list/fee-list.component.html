@@ -1,50 +1,39 @@
 <app-venue-detail-navigation></app-venue-detail-navigation>
-<div class="page-header">
-  <h4><b>Fees for:</b> {{venue.Name}}, {{venue.Address1}}, {{venue.City}}</h4>
-</div>
-<table class="table">
-  <tbody>
-  <tr>
-    <td>
-      <table class="table">
-        <tbody>
-        <tr *ngFor="let feegroup of venue.FeeGroups; let i = index">
-          <td>
-            <table class="table">
-              <thead>
-              <td><h4>Fee Group: {{feegroup.Name}}</h4></td>
-              </thead>
-              <tbody>
-              <tr>
-                <td>
-                  <div class="col-xs-12">
-                    <app-fee-item
-                      *ngFor="let fee of feegroup.Fees; let j = index"
-                      [fee]="fee" [feeGroup]="feegroup" [index]="i" [feeIndex]="j" [vid]="id">
-                    </app-fee-item>
-                    <div class="col-xs-12">
-                      <button
-                        type="submit"
-                        class="btn btn-success" (click)="onAddFee(i)">Add Fee
-                      </button>
-                    </div>
-                  </div>
-                </td>
+<div class="card bg-light">
+  <div class="card-header">
+    <h4><b>Fees for:</b> {{venue.Name}}, {{venue.Address1}}, {{venue.City}}</h4>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-6">
+        <div *ngFor="let feegroup of venue.FeeGroups; let i = index">
+          <div class="card bg-light">
+            <div class="card-header">
+              <h4>Fee Group: {{feegroup.Name}}</h4>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div>
+                  <app-fee-item
+                    *ngFor="let fee of feegroup.Fees; let j = index"
+                    [fee]="fee" [feeGroup]="feegroup" [index]="i" [feeIndex]="j" [vid]="id">
+                  </app-fee-item>
 
-              </tr>
-              </tbody>
-            </table>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </td>
-    <td>
-      <div class="col-md-7">
+                </div>
+              </div>
+              <div class="row">
+                <button
+                  type="submit"
+                  class="btn btn-success" (click)="onAddFee(i)">Add Fee
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
         <router-outlet></router-outlet>
       </div>
-    </td>
-  </tr>
-  </tbody>
-</table>
-
+    </div>
+  </div>
+</div>

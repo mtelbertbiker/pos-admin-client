@@ -1,0 +1,7 @@
+
+:host-context(.isEven) {
+  background-color: blue;
+  border-bottom-color: greenyellow;
+  font-size: 25pt;
+  display: block;
+}

@@ -1,100 +1,84 @@
-<div class="row">
-  <div class="col-xs-12">
-    <form [formGroup]="feeGroupDetailForm">
-      <div class="row">
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group">
-            <label for="Name">Name</label>
-            <input
-              type="text"
-              id="Name"
-              formControlName="Name"
-              class="form-control">
-          </div>
+<form [formGroup]="feeGroupDetailForm">
+  <div class="card bg-light">
+    <div class="card-header">
+      <h4>Fee Group Detail</h4>
+    </div>
+    <div class="card-body">
+      <div class="form-group row">
+        <label class="col-form-label col-sm-3" for="Name">Name</label>
+        <div class="col-sm-6">
+          <input
+            type="text"
+            id="Name"
+            formControlName="Name"
+            class="form-control">
         </div>
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group">
-            <label for="RequiresUsers">Requires Users</label>
-            <input
-              type="checkbox"
-              id="RequiresUsers"
-              formControlName="RequiresUsers"
-              class="form-control">
-          </div>
+      <div class="form-group form-check row">
+        <label class="form-check-label col-sm-4" for="RequiresUsers">Requires Users</label>
+        <input
+          type="checkbox"
+          id="RequiresUsers"
+          formControlName="RequiresUsers"
+          class="form-check-input">
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-3" for="MinUsers">Minimum Users</label>
+        <div class="col-sm-6">
+          <input
+            type="text"
+            id="MinUsers"
+            formControlName="MinUsers"
+            class="form-control">
         </div>
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group">
-            <label for="MinUsers">Minimum Users</label>
-            <input
-              type="text"
-              id="MinUsers"
-              formControlName="MinUsers"
-              class="form-control">
-          </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-3" for="MaxUsers">Maximum Users</label>
+        <div class="col-sm-6">
+          <input
+            type="text"
+            id="MaxUsers"
+            formControlName="MaxUsers"
+            class="form-control">
         </div>
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group">
-            <label for="MaxUsers">Maximum Users</label>
-            <input
-              type="text"
-              id="MaxUsers"
-              formControlName="MaxUsers"
-              class="form-control">
-          </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-3" for="RequiredFee">Required Fee</label>
+        <div class="col-sm-6">
+          <input
+            type="text"
+            id="RequiredFee"
+            formControlName="RequiredFee"
+            class="form-control">
         </div>
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group">
-            <label for="RequiredFee">Required Fee</label>
-            <input
-              type="text"
-              id="RequiredFee"
-              formControlName="RequiredFee"
-              class="form-control">
-          </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-3" for="ItemId">POS Item Id</label>
+        <div class="col-sm-6">
+          <input
+            type="text"
+            id="ItemId"
+            formControlName="ItemId"
+            class="form-control">
         </div>
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group">
-            <label for="ItemId">POS Item Id</label>
-            <input
-              type="text"
-              id="ItemId"
-              formControlName="ItemId"
-              class="form-control">
-          </div>
-        </div>
+      <div class="form-group form-check row">
+        <label class="form-check-label col-sm-6" for="CondenseUserFees">Condense User Fees</label>
+        <input
+          type="checkbox"
+          id="CondenseUserFees"
+          formControlName="CondenseUserFees"
+          class="form-check-input">
       </div>
       <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group">
-            <label for="CondenseUserFees">Condense User Fees</label>
-            <input
-              type="checkbox"
-              id="CondenseUserFees"
-              formControlName="CondenseUserFees"
-              class="form-control">
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="row">
-        <div class="col-xs-12">
+        <div class="col-sm-6">
           <button
-            class="btn btn-danger" (click)="onDeleteFeeGroup(index)" >Delete</button>
+            class="btn btn-danger" (click)="onDeleteFeeGroup(index)">Delete
+          </button>
         </div>
       </div>
-    </form>
+    </div>
   </div>
-</div>
+</form>
+
 

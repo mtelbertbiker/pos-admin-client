@@ -1,20 +1,26 @@
+<link href="http://kendo.cdn.telerik.com/2016.3.914/styles/kendo.common.min.css" rel="stylesheet"/>
+<link href="http://kendo.cdn.telerik.com/2016.3.914/styles/kendo.blueopal.min.css" rel="stylesheet"/>
 <app-venue-detail-navigation></app-venue-detail-navigation>
-<div class="page-header">
-  <h4><b>Location:</b> {{venue.Name}}, {{venue.Address1}}, {{venue.City}}</h4>
-</div>
-<tr-viewer #viewer1
-  [containerStyle]="viewerContainerStyle"
-  [serviceUrl]="'https://localhost:44318/api/reports'"
-  [reportSource]="{
+<div class="card bg-light">
+  <div class="page-header">
+    <h4><b>Location:</b> {{venue.Name}}, {{venue.Address1}}, {{venue.City}}</h4>
+  </div>
+  <div class="card-body">
+    <tr-viewer #viewer1
+               [containerStyle]="viewerContainerStyle"
+               [serviceUrl]="'https://localhost:44318/api/reports'"
+               [reportSource]="{
         report:'BizTrans.Reports.Library.RentalItemUsageReport1,BizTrans.Reports.Library',
         parameters: {'licId':venue.LicId,
         'bId':venue.BId,
         'lId':venue.LId}
     }"
-  [viewMode]="'INTERACTIVE'"
-  [scaleMode]="'SPECIFIC'"
-  [ready]="ready"
-  [scale]="1.0"
-  [viewerToolTipOpening]="viewerToolTipOpening"
-  [enableAccessibility]="false">
-</tr-viewer>
+               [viewMode]="'INTERACTIVE'"
+               [scaleMode]="'SPECIFIC'"
+               [ready]="ready"
+               [scale]="1.0"
+               [viewerToolTipOpening]="viewerToolTipOpening"
+               [enableAccessibility]="false">
+    </tr-viewer>
+  </div>
+</div>
