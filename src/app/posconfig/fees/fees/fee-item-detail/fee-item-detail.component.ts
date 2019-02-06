@@ -11,6 +11,7 @@ import {VenueService} from '../../../../venues/venue.service';
 @Component({
   selector: 'app-fee-item-detail',
   templateUrl: './fee-item-detail.component.html',
+  styleUrls: ['./fee-item-detail.component.css']
 })
 export class FeeItemDetailComponent implements OnInit {
   fee: Fee;
@@ -69,17 +70,17 @@ export class FeeItemDetailComponent implements OnInit {
     const ItemId = this.fee.ItemId;
     this.feeItemDetailForm = new FormGroup(
       {
-        'Name': new FormControl(Name, Validators.required),
+        'Name': new FormControl(Name, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
         'BeginTime': new FormControl(BeginTime, Validators.required),
         'EndTime': new FormControl(EndTime, Validators.required),
-        'MinDur': new FormControl(MinDur, Validators.required),
-        'MaxDur': new FormControl(MaxDur, Validators.required),
-        'IncDur': new FormControl(IncDur, Validators.required),
-        'FeeAmt': new FormControl(FeeAmt, Validators.required),
+        'MinDur': new FormControl(MinDur, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
+        'MaxDur': new FormControl(MaxDur, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
+        'IncDur': new FormControl(IncDur, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
+        'FeeAmt': new FormControl(FeeAmt, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
         'PerUser': new FormControl(PerUser, Validators.required),
         'AlwaysInc': new FormControl(AlwaysInc, Validators.required),
-        'MinUsers': new FormControl(MinUsers, Validators.required),
-        'MaxUsers': new FormControl(MaxUsers, Validators.required),
+        'MinUsers': new FormControl(MinUsers, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
+        'MaxUsers': new FormControl(MaxUsers, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
         'Enabled': new FormControl(Enabled, Validators.required),
         'FlatRate': new FormControl(FlatRate, Validators.required),
         'Sun': new FormControl(Sun, Validators.required),
@@ -89,7 +90,7 @@ export class FeeItemDetailComponent implements OnInit {
         'Thu': new FormControl(Thu, Validators.required),
         'Fri': new FormControl(Fri, Validators.required),
         'Sat': new FormControl(Sat, Validators.required),
-        'ItemId': new FormControl(ItemId, Validators.required),
+        'ItemId': new FormControl(ItemId, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)])
       }
     );
   }

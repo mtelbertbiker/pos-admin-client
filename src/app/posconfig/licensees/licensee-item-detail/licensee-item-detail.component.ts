@@ -11,7 +11,8 @@ import {LicenseeDataService} from '../../../shared/data-services/licensee-data.s
 
 @Component({
   selector: 'app-licensee-item-detail',
-  templateUrl: './licensee-item-detail.component.html'
+  templateUrl: './licensee-item-detail.component.html',
+  styleUrls: ['./licensee-item-detail.component.css']
 })
 export class LicenseeItemDetailComponent implements OnInit {
   @Input() licensee: Licensee;
@@ -55,16 +56,16 @@ export class LicenseeItemDetailComponent implements OnInit {
     const website = this.licensee.Website;
     this.licenseeItemDetailForm = new FormGroup(
       {
-        'Name': new FormControl(name, Validators.required),
-        'Address1': new FormControl(address1, Validators.required),
+        'Name': new FormControl(name, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
+        'Address1': new FormControl(address1, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
         'Address2': new FormControl(address2),
-        'City': new FormControl(city, Validators.required),
-        'State': new FormControl(state, Validators.required),
+        'City': new FormControl(city, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
+        'State': new FormControl(state, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
         'PostalCode': new FormControl(postalCode, Validators.required),
         'Phone1': new FormControl(phone1, Validators.required),
         'Phone2': new FormControl(phone2),
-        'ContactFirstName': new FormControl(contactFirstName, Validators.required),
-        'ContactLastName': new FormControl(contactLastName, Validators.required),
+        'ContactFirstName': new FormControl(contactFirstName, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
+        'ContactLastName': new FormControl(contactLastName, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
         'Email': new FormControl(email, Validators.required),
         'Website': new FormControl(website),
       }

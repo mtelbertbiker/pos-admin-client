@@ -9,7 +9,8 @@ import {VenueService} from '../../../../venues/venue.service';
 
 @Component({
   selector: 'app-feegroup-detail',
-  templateUrl: './feegroup-detail.component.html'
+  templateUrl: './feegroup-detail.component.html',
+  styleUrls: ['./feegroup-detail.component.css']
 })
 export class FeeGroupDetailComponent implements OnInit {
   feeGroup: FeeGroup;
@@ -51,10 +52,10 @@ export class FeeGroupDetailComponent implements OnInit {
     this.feeGroupDetailForm = new FormGroup(
       {
         'Name': new FormControl(Name, Validators.required),
-        'MinUsers': new FormControl(MinUsers, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]),
-        'MaxUsers': new FormControl(MaxUsers, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]),
-        'RequiredFee': new FormControl(RequiredFee, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]),
-        'ItemId': new FormControl(ItemId, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]),
+        'MinUsers': new FormControl(MinUsers, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
+        'MaxUsers': new FormControl(MaxUsers, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
+        'RequiredFee': new FormControl(RequiredFee, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
+        'ItemId': new FormControl(ItemId, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
         'RequiresUsers': new FormControl(RequiresUsers),
         'CondenseUserFees': new FormControl(CondenseUserFees),
       }

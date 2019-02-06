@@ -9,7 +9,8 @@ import {SessionService} from '../../shared/data-services/session.service';
 
 @Component({
   selector: 'app-venue-detail',
-  templateUrl: './venue-detail.component.html'
+  templateUrl: './venue-detail.component.html',
+  styleUrls: ['./venue-detail.component.css']
 })
 export class VenueDetailComponent implements OnInit, OnDestroy {
   private venue: Venue;
@@ -51,11 +52,11 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
     const phone2 = this.venue.Phone2;
     this.venueDetailForm = new FormGroup(
       {
-        'Name': new FormControl(venueName, Validators.required),
-        'Address1': new FormControl(address1, Validators.required),
+        'Name': new FormControl(venueName, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
+        'Address1': new FormControl(address1, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
         'Address2': new FormControl(address2),
-        'City': new FormControl(city, Validators.required),
-        'State': new FormControl(state, Validators.required),
+        'City': new FormControl(city, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
+        'State': new FormControl(state, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
         'PostalCode': new FormControl(postalCode, Validators.required),
         'Phone1': new FormControl(phone1, Validators.required),
         'Phone2': new FormControl(phone2),

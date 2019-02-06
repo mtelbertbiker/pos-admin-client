@@ -12,6 +12,7 @@ import {ConstantsService} from '../../../shared/data-services/constants.service'
 @Component({
   selector: 'app-rental-item-detail',
   templateUrl: './rental-item-detail.component.html',
+  styleUrls: ['./rental-item-detail.component.css']
 })
 export class RentalItemDetailComponent implements OnInit {
   rentalItem: RentalItem;

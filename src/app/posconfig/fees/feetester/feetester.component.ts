@@ -12,7 +12,8 @@ import {TimedFeeCalcResponse} from '../../../shared/feecalc-models/timedfeecalcr
 
 @Component({
   selector: 'app-feetester',
-  templateUrl: './feetester.component.html'
+  templateUrl: './feetester.component.html',
+  styleUrls: ['./feetester.component.css']
 })
 
 export class FeeTesterComponent implements OnInit {
@@ -67,7 +68,7 @@ export class FeeTesterComponent implements OnInit {
       {
         'FeeGroup': new FormControl(feeGroup, Validators.required),
         'DayOfWeek': new FormControl(dayOfWeek, Validators.required),
-        'Users': new FormControl(users, Validators.required),
+        'Users': new FormControl(users, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
         'BeginTime': new FormControl(beginTime, Validators.required),
         'EndTime': new FormControl(endTime, Validators.required),
       }
