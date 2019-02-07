@@ -53,7 +53,7 @@
                 <div class="row">
                   <div class="col-sm-12">
                     <button
-                      class="btn btn-success" (click)="onTestFeeCalc()">Test Fee Calc
+                      class="btn btn-success" (click)="onTestFeeCalc()" [disabled]="!feeTesterForm.valid">Test Fee Calc
                     </button>
                   </div>
                 </div>

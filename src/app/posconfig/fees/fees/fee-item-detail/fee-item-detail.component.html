@@ -1,371 +1,53 @@
- <form [formGroup]="feeItemDetailForm">
-    <div class="card bg-light">
-      <div class="card-header">
-        <h4>Fee Detail</h4>
+<form [formGroup]="feeItemDetailForm">
+  <div class="card bg-light">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-sm-6">
+          <h4>Fee Detail</h4>
+        </div>
+        <div class="col-auto">
+          <button
+            class="btn btn-danger pull-right" (click)="onDeleteFee(fid)">-
+          </button>
+        </div>
       </div>
-      <div class="card-body">
-        <div class="row">
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="form-group row">
+          <label class="col-form-label col-sm-3" for="Name">Name</label>
+          <div class="col-sm-9">
+            <input
+              type="text"
+              id="Name"
+              formControlName="Name"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
           <div class="form-group row">
-            <label class="col-form-label col-sm-3" for="Name">Name</label>
-            <div class="col-sm-9">
+            <label class="col-form-label" for="Enabled">Enabled?</label>
+            <div class="col-sm-3">
               <input
-                type="text"
-                id="Name"
-                formControlName="Name"
+                type="checkbox"
+                id="Enabled"
+                formControlName="Enabled"
                 class="form-control">
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label class="col-form-label" for="Enabled">Enabled?</label>
-              <div class="col-sm-3">
-                <input
-                  type="checkbox"
-                  id="Enabled"
-                  formControlName="Enabled"
-                  class="form-control">
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
-    <div class="card bg-light">
-      <div class="card-header">
-        <label><b>Fee Amount</b></label>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label class="col-form-label" for="FeeAmt">Amount</label>
-              <div class="col-sm-3">
-                <input
-                  type="text"
-                  id="FeeAmt"
-                  formControlName="FeeAmt"
-                  class="form-control">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label class="col-form-label" for="PerUser">Charge Per User?</label>
-              <div class="col-sm-3">
-                <input
-                  type="checkbox"
-                  id="PerUser"
-                  formControlName="PerUser"
-                  class="form-control">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label class="col-form-label" for="AlwaysInc">Always Include?</label>
-              <div class="col-sm-3">
-                <input
-                  type="checkbox"
-                  id="AlwaysInc"
-                  formControlName="AlwaysInc"
-                  class="form-control">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label class="col-form-label" for="FlatRate">Flat Rate</label>
-              <div class="col-sm-3">
-                <input
-                  type="checkbox"
-                  id="FlatRate"
-                  formControlName="FlatRate"
-                  class="form-control">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card bg-light">
-      <div class="card-header">
-        <label><b>Fee Times</b></label>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-sm-10">
-            <div class="form-group row">
-              <label class="col-form-label">Begin</label>
-              <div class="col-sm-6">
-                <ngb-timepicker formControlName="BeginTime" [minuteStep]="5"></ngb-timepicker>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-10">
-            <div class="form-group row">
-              <label class="col-form-label">End</label>
-              <div class="col-sm-6">
-                <ngb-timepicker formControlName="EndTime" [minuteStep]="5"></ngb-timepicker>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card bg-light">
-      <div class="card-header">
-        <label><b>Fee Duration (Minutes)</b></label>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label class="col-form-label" for="MinDur">Minimum</label>
-              <div class="col-sm-3">
-                <input
-                  type="text"
-                  id="MinDur"
-                  formControlName="MinDur"
-                  class="form-control">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label class="col-form-label" for="MaxDur">Maximum</label>
-              <div class="col-sm-3">
-                <input
-                  type="text"
-                  id="MaxDur"
-                  formControlName="MaxDur"
-                  class="form-control">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label class="col-form-label" for="IncDur">Incremental</label>
-              <div class="col-sm-3">
-                <input
-                  type="text"
-                  id="IncDur"
-                  formControlName="IncDur"
-                  class="form-control">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card bg-light">
-      <div class="card-header">
-        <label><b>Users</b></label>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label class="col-form-label" for="MinUsers">Minimum</label>
-              <div class="col-sm-3">
-                <input
-                  type="text"
-                  id="MinUsers"
-                  formControlName="MinUsers"
-                  class="form-control">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label class="col-form-label" for="MaxUsers">Maximum</label>
-              <div class="col-sm-3">
-                <input
-                  type="text"
-                  id="MaxUsers"
-                  formControlName="MaxUsers"
-                  class="form-control">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card bg-light">
-      <div class="card-header">
-        <label><b>Days of Week</b></label>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label class="col-form-label" for="Mon">Monday</label>
-              <div class="col-sm-3">
-                <input
-                  type="checkbox"
-                  id="Mon"
-                  formControlName="Mon"
-                  class="form-control">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label class="col-form-label" for="Tue">Tuesday</label>
-              <div class="col-sm-3">
-                <input
-                  type="checkbox"
-                  id="Tue"
-                  formControlName="Tue"
-                  class="form-control">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label class="col-form-label" for="Wed">Wednesday</label>
-              <div class="col-sm-3">
-                <input
-                  type="checkbox"
-                  id="Wed"
-                  formControlName="Wed"
-                  class="form-control">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label class="col-form-label" for="Thu">Thursday</label>
-              <div class="col-sm-3">
-                <input
-                  type="checkbox"
-                  id="Thu"
-                  formControlName="Thu"
-                  class="form-control">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label class="col-form-label" for="Fri">Friday</label>
-              <div class="col-sm-3">
-                <input
-                  type="checkbox"
-                  id="Fri"
-                  formControlName="Fri"
-                  class="form-control">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label class="col-form-label" for="Sat">Saturday</label>
-              <div class="col-sm-3">
-                <input
-                  type="checkbox"
-                  id="Sat"
-                  formControlName="Sat"
-                  class="form-control">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label class="col-form-label" for="Sun">Sunday</label>
-              <div class="col-sm-3">
-                <input
-                  type="checkbox"
-                  id="Sun"
-                  formControlName="Sun"
-                  class="form-control">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card bg-light">
-        <div class="card-body">
-          <div class="row">
-            <div class="form-group row">
-              <label class="col-form-label col-sm-4" for="ItemId">POS Item Id</label>
-              <div class="col-sm-5">
-                <input
-                  type="text"
-                  id="ItemId"
-                  formControlName="ItemId"
-                  class="form-control">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-sm-6">
-        <button
-          class="btn btn-danger" (click)="onDeleteFee(fid)">Delete
-        </button>
-      </div>
-    </div>
-  </form>
-
-<!--
-<div>
-<form [formGroup]="feeItemDetailForm">
-  <div class="form-check">
-    <label class="col-form-label" for="Name">Name</label>
-    <div class="col-sm-6">
-      <input
-        type="text"
-        id="Name"
-        formControlName="Name"
-        class="form-control">
     </div>
   </div>
-  <div class="form-check">
-    <label class="form-check-label" for="Enabled">Enabled?</label>
-    <input
-      type="checkbox"
-      id="Enabled"
-      formControlName="Enabled"
-      class="form-check-input pull-right">
-
-  </div>
-  <div class="panel panel-info">
-    <div class="panel-heading">
-      <label>Fee Amount</label>
+  <div class="card bg-light">
+    <div class="card-header">
+      <label><b>Fee Amount</b></label>
     </div>
-    <div class="panel-body">
+    <div class="card-body">
       <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
           <div class="form-group row">
             <label class="col-form-label" for="FeeAmt">Amount</label>
             <div class="col-sm-3">
@@ -379,7 +61,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
           <div class="form-group row">
             <label class="col-form-label" for="PerUser">Charge Per User?</label>
             <div class="col-sm-3">
@@ -393,81 +75,74 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-12">
-          <div class="form-group row">
-            <label for="AlwaysInc">Always Include this fee?</label>
-            <input
-              type="checkbox"
-              id="AlwaysInc"
-              formControlName="AlwaysInc"
-              class="form-control">
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="form-group row">
-
-            <label for="FlatRate">Flat Rate</label>
-            <input
-              type="checkbox"
-              id="FlatRate"
-              formControlName="FlatRate"
-              class="form-control">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="form-group row">
-        <label class="col-form-label" for="ItemId">Item Id</label>
         <div class="col-sm-6">
-          <input
-            type="text"
-            id="ItemId"
-            formControlName="ItemId"
-            class="form-control">
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-info">
-    <div class="panel-heading">
-      <label>Fee Times</label>
-    </div>
-    <div class="panel-body">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="form-group">
-            <label>Begin</label>
-            <ngb-timepicker formControlName="BeginTime" [minuteStep]="5"></ngb-timepicker>
+          <div class="form-group row">
+            <label class="col-form-label" for="AlwaysInc">Always Include?</label>
+            <div class="col-sm-3">
+              <input
+                type="checkbox"
+                id="AlwaysInc"
+                formControlName="AlwaysInc"
+                class="form-control">
+            </div>
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-12">
-          <div class="form-group">
-            <label>End</label>
-            <ngb-timepicker formControlName="EndTime" [minuteStep]="5"></ngb-timepicker>
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label class="col-form-label" for="FlatRate">Flat Rate</label>
+            <div class="col-sm-3">
+              <input
+                type="checkbox"
+                id="FlatRate"
+                formControlName="FlatRate"
+                class="form-control">
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="panel panel-info">
-    <div class="panel-heading">
-      <label>Fee Duration (Minutes)</label>
+  <div class="card bg-light">
+    <div class="card-header">
+      <label><b>Fee Times</b></label>
     </div>
-    <div class="panel-body">
+    <div class="card-body">
       <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-10">
+          <div class="form-group row">
+            <label class="col-form-label">Begin</label>
+            <div class="col-sm-6">
+              <ngb-timepicker formControlName="BeginTime" [minuteStep]="5"></ngb-timepicker>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-10">
+          <div class="form-group row">
+            <label class="col-form-label">End</label>
+            <div class="col-sm-6">
+              <ngb-timepicker formControlName="EndTime" [minuteStep]="5"></ngb-timepicker>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card bg-light">
+    <div class="card-header">
+      <label><b>Fee Duration (Minutes)</b></label>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-6">
           <div class="form-group row">
             <label class="col-form-label" for="MinDur">Minimum</label>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
               <input
-                type="text"
+                type="number"
                 id="MinDur"
                 formControlName="MinDur"
                 class="form-control">
@@ -476,12 +151,12 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
           <div class="form-group row">
             <label class="col-form-label" for="MaxDur">Maximum</label>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
               <input
-                type="text"
+                type="number"
                 id="MaxDur"
                 formControlName="MaxDur"
                 class="form-control">
@@ -490,12 +165,12 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
           <div class="form-group row">
-            <label class="col-form-label" for="IncDur">Incremental</label>
-            <div class="col-sm-6">
+            <label class="col-form-label" for="IncDur">Increment</label>
+            <div class="col-sm-4">
               <input
-                type="text"
+                type="number"
                 id="IncDur"
                 formControlName="IncDur"
                 class="form-control">
@@ -505,16 +180,16 @@
       </div>
     </div>
   </div>
-  <div class="panel panel-info">
-    <div class="panel-heading">
-      <label>Users</label>
+  <div class="card bg-light">
+    <div class="card-header">
+      <label><b>Users</b></label>
     </div>
-    <div class="panel-body">
+    <div class="card-body">
       <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
           <div class="form-group row">
             <label class="col-form-label" for="MinUsers">Minimum</label>
-            <div class="col-sm-6">
+            <div class="col-sm-3">
               <input
                 type="text"
                 id="MinUsers"
@@ -525,10 +200,10 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
           <div class="form-group row">
             <label class="col-form-label" for="MaxUsers">Maximum</label>
-            <div class="col-sm-6">
+            <div class="col-sm-3">
               <input
                 type="text"
                 id="MaxUsers"
@@ -540,69 +215,128 @@
       </div>
     </div>
   </div>
-
-  <div class="panel panel-info">
-    <div class="panel-heading">
-      <label>Days of Week</label>
+  <div class="card bg-light">
+    <div class="card-header">
+      <label><b>Days of Week</b></label>
     </div>
-    <div class="panel-body">
-      <label for="Mon">Monday</label>
-      <input
-        type="checkbox"
-        id="Mon"
-        formControlName="Mon"
-        class="form-control">
-      <label for="Tue">Tuesday</label>
-      <input
-        type="checkbox"
-        id="Tue"
-        formControlName="Tue"
-        class="form-control">
-      <label for="Wed">Wednesday</label>
-      <input
-        type="checkbox"
-        id="Wed"
-        formControlName="Wed"
-        class="form-control">
-      <label for="Thu">Thursday</label>
-      <input
-        type="checkbox"
-        id="Thu"
-        formControlName="Thu"
-        class="form-control">
-      <label for="Fri">Friday</label>
-      <input
-        type="checkbox"
-        id="Fri"
-        formControlName="Fri"
-        class="form-control">
-      <label for="Sat">Saturday</label>
-      <input
-        type="checkbox"
-        id="Sat"
-        formControlName="Sat"
-        class="form-control">
-      <label for="Sun">Sunday</label>
-      <input
-        type="checkbox"
-        id="Sun"
-        formControlName="Sun"
-        class="form-control">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label class="col-form-label" for="Mon">Monday</label>
+            <div class="col-sm-3">
+              <input
+                type="checkbox"
+                id="Mon"
+                formControlName="Mon"
+                class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label class="col-form-label" for="Tue">Tuesday</label>
+            <div class="col-sm-3">
+              <input
+                type="checkbox"
+                id="Tue"
+                formControlName="Tue"
+                class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label class="col-form-label" for="Wed">Wednesday</label>
+            <div class="col-sm-3">
+              <input
+                type="checkbox"
+                id="Wed"
+                formControlName="Wed"
+                class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label class="col-form-label" for="Thu">Thursday</label>
+            <div class="col-sm-3">
+              <input
+                type="checkbox"
+                id="Thu"
+                formControlName="Thu"
+                class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label class="col-form-label" for="Fri">Friday</label>
+            <div class="col-sm-3">
+              <input
+                type="checkbox"
+                id="Fri"
+                formControlName="Fri"
+                class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label class="col-form-label" for="Sat">Saturday</label>
+            <div class="col-sm-3">
+              <input
+                type="checkbox"
+                id="Sat"
+                formControlName="Sat"
+                class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label class="col-form-label" for="Sun">Sunday</label>
+            <div class="col-sm-3">
+              <input
+                type="checkbox"
+                id="Sun"
+                formControlName="Sun"
+                class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <br>
-  <div class="row">
-    <div class="col-sm-12">
-      <button
-        class="btn btn-danger" (click)="onDeleteFee(fid)">Delete
-      </button>
+    <div class="card bg-light">
+      <div class="card-body">
+        <div class="row">
+          <div class="form-group row">
+            <label class="col-form-label col-sm-4" for="ItemId">POS Item Id</label>
+            <div class="col-sm-5">
+              <input
+                type="text"
+                id="ItemId"
+                formControlName="ItemId"
+                class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </form>
-</div>
--->
-
 
 
 

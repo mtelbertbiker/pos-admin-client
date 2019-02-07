@@ -6,18 +6,9 @@
   <div class="card-body">
     <div class="row">
       <div class="col-sm-6">
-        <!---
         <app-rental-item
           *ngFor="let rentalItem of venue.RentalItems; let i = index"
-          [rentalItem]="rentalItem" [index]="i" [vid]="id"
-          [ngClass]="{isEven: (i+1)%2 == 0}"
-          [ngStyle]="{'width.px': (i+1)%2 == 0 ? 400 : 400}"
-        >
-        -->
-        <app-rental-item
-          *ngFor="let rentalItem of venue.RentalItems; let i = index"
-          [rentalItem]="rentalItem" [index]="i" [vid]="id"
-        >
+          [rentalItem]="rentalItem" [index]="i" [vid]="id">
         </app-rental-item>
       </div>
       <div class="col-sm-6">
@@ -32,3 +23,30 @@
     </div>
   </div>
 </div>
+<!--
+<app-venue-detail-navigation></app-venue-detail-navigation>
+<div class="card bg-light">
+  <div class="card-header">
+    <h4><b>Rental Items for:</b> {{venue.Name}}, {{venue.Address1}}, {{venue.City}}</h4>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-6">
+        <app-rental-item
+          *ngFor="let rentalItem of venue.RentalItems; let i = index"
+          [rentalItem]="rentalItem" [index]="i" [vid]="id">
+        </app-rental-item>
+      </div>
+      <div class="col-sm-6">
+        <router-outlet></router-outlet>
+      </div>
+      <div class="col-sm-6">
+        <button
+          type="submit"
+          class="btn btn-success" (click)="onAddRentalItem()">Add Rental Item
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+-->
