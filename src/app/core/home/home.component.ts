@@ -57,15 +57,4 @@ export class HomeComponent implements OnInit {
       .subscribe(isAuthorized => this.isAuthorized = isAuthorized);
       */
   }
-
-  onAddLocation() {
-    console.log('onAddLocation');
-    const newVenue = new Venue (this.sessionService.getLicenseeId(),
-      0, 0, 'New Location',
-      '', '', '', '', '', '', '',
-      [], [], [], [], 0, '');
-    const index = this.venueService.addVenue(newVenue);
-    this.router.navigate(['location/' + index + '/1']);
-  }
-
 }

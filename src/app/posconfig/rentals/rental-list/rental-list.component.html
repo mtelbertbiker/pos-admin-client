@@ -1,52 +1,31 @@
 <app-venue-detail-navigation></app-venue-detail-navigation>
 <div class="card bg-light">
   <div class="card-header">
+    <div class="row">
     <h4><b>Rental Items for:</b> {{venue.Name}}, {{venue.Address1}}, {{venue.City}}</h4>
+      <div class="col-auto">
+        <button
+          type="submit"
+          class="btn btn-success" (click)="onAddRentalItem()">+</button>
+      </div>
+    </div>
   </div>
   <div class="card-body">
     <div class="row">
       <div class="col-sm-6">
-        <app-rental-item
-          *ngFor="let rentalItem of venue.RentalItems; let i = index"
-          [rentalItem]="rentalItem" [index]="i" [vid]="id">
-        </app-rental-item>
+        <div cdkDropList class="rental-list" (cdkDropListDropped)="drop($event)">
+          <app-rental-item class="rental-box" cdkDrag
+                           *ngFor="let rentalItem of venue.RentalItems; let i = index"
+                           [rentalItem]="rentalItem" [index]="i" [vid]="id">
+          </app-rental-item>
+        </div>
       </div>
       <div class="col-sm-6">
         <router-outlet></router-outlet>
       </div>
-      <div class="col-sm-6">
-        <button
-          type="submit"
-          class="btn btn-success" (click)="onAddRentalItem()">Add Rental Item
-        </button>
-      </div>
+
     </div>
   </div>
 </div>
-<!--
-<app-venue-detail-navigation></app-venue-detail-navigation>
-<div class="card bg-light">
-  <div class="card-header">
-    <h4><b>Rental Items for:</b> {{venue.Name}}, {{venue.Address1}}, {{venue.City}}</h4>
-  </div>
-  <div class="card-body">
-    <div class="row">
-      <div class="col-sm-6">
-        <app-rental-item
-          *ngFor="let rentalItem of venue.RentalItems; let i = index"
-          [rentalItem]="rentalItem" [index]="i" [vid]="id">
-        </app-rental-item>
-      </div>
-      <div class="col-sm-6">
-        <router-outlet></router-outlet>
-      </div>
-      <div class="col-sm-6">
-        <button
-          type="submit"
-          class="btn btn-success" (click)="onAddRentalItem()">Add Rental Item
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
--->
+
+

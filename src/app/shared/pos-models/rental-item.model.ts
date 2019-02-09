@@ -4,5 +4,6 @@ export class RentalItem {
     public RId: number,
     public Name: string,
     public RentalTypeId: number,
+    public DisplayOrder: number,
     public RentalItemFeeGroups: RentalItemFeeGroup[]) {}
 }

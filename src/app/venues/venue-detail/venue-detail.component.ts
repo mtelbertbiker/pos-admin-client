@@ -52,10 +52,10 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
     const phone2 = this.venue.Phone2;
     this.venueDetailForm = new FormGroup(
       {
-        'Name': new FormControl(venueName, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
-        'Address1': new FormControl(address1, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
+        'Name': new FormControl(venueName, [Validators.required, Validators.pattern(/^[a-zA-Z0-9 '-]+$/)]),
+        'Address1': new FormControl(address1, [Validators.required, Validators.pattern(/^[a-zA-Z0-9 '-]+$/)]),
         'Address2': new FormControl(address2),
-        'City': new FormControl(city, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
+        'City': new FormControl(city, [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]),
         'State': new FormControl(state, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
         'PostalCode': new FormControl(postalCode, Validators.required),
         'Phone1': new FormControl(phone1, Validators.required),

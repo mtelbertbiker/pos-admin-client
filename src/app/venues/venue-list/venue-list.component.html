@@ -1,6 +1,38 @@
+<div class="card bg-light">
+  <div class="card-header">
+    <h4 ><b>Locations</b></h4>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-6">
+        <app-venue-list-item
+          *ngFor="let venue of venues; let i = index"
+          [venue]="venue"
+          [index]="i"
+          [ngClass]="{isFirst: i == 0 }">
+        </app-venue-list-item>
+      </div>
+      <div class="col-sm-6">
+        <router-outlet></router-outlet>
+      </div>
+      <div class="col-sm-6">
+        <button
+          type="submit"
+          class="btn btn-success" (click)="onAddLocation()">Add Location
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--
+
 <table class="table">
+
+
   <tbody>
-  <h4 ><b>Locations</b></h4>
+
   <tr>
     <td>
       <div class="col-xs-12">
@@ -25,3 +57,7 @@
   </tr>
   </tbody>
 </table>
+  </div>
+</div>
+
+-->

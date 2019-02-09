@@ -41,6 +41,11 @@ import {LicenseeItemDetailComponent} from './posconfig/licensees/licensee-item-d
 import {ResellerVenueListComponent} from './resellers/reseller-venue-list/reseller-venue-list.component';
 import {ResellerVenueItemComponent} from './resellers/reseller-venue-list/reseller-venue-list-item/reseller-venue-list-item.component';
 import {HttpClientModule} from '@angular/common/http';
+import {MatNativeDateModule} from '@angular/material';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {DemoMaterialModule} from './material-module';
+
 import {
   AuthModule,
   OidcSecurityService,
@@ -104,6 +109,12 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    DemoMaterialModule,
+    FormsModule,
+    HttpClientModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -224,3 +235,5 @@ export class AppModule {
      */
   }
 }
+
+platformBrowserDynamic().bootstrapModule(AppModule);
