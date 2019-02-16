@@ -49,6 +49,9 @@ export class FeeGroupDetailComponent implements OnInit {
     const RequiredFee = this.feeGroup.RequiredFee;
     const RequiresUsers = this.feeGroup.RequiresUsers;
     const CondenseUserFees = this.feeGroup.CondenseUserFees;
+    const TransferUserEnabled = this.feeGroup.TransferUserEnabled;
+    const Disabled = !this.feeGroup.Disabled;
+    const TrackUserNames = this.feeGroup.UserNameTrackingEnabled;
     this.feeGroupDetailForm = new FormGroup(
       {
         'Name': new FormControl(Name, Validators.required),
@@ -57,6 +60,9 @@ export class FeeGroupDetailComponent implements OnInit {
         'RequiredFee': new FormControl(RequiredFee, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
         'ItemId': new FormControl(ItemId, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
         'RequiresUsers': new FormControl(RequiresUsers),
+        'TransferUserEnabled': new FormControl(TransferUserEnabled),
+        'Disabled': new FormControl(Disabled),
+        'UserNameTrackingEnabled': new FormControl(TrackUserNames),
         'CondenseUserFees': new FormControl(CondenseUserFees),
       }
     );
@@ -70,6 +76,9 @@ export class FeeGroupDetailComponent implements OnInit {
     this.feeGroup.RequiredFee = updatedFeeGroup.RequiredFee;
     this.feeGroup.RequiresUsers = updatedFeeGroup.RequiresUsers;
     this.feeGroup.CondenseUserFees = updatedFeeGroup.CondenseUserFees;
+    this.feeGroup.UserNameTrackingEnabled = updatedFeeGroup.UserNameTrackingEnabled;
+    this.feeGroup.TransferUserEnabled = updatedFeeGroup.TransferUserEnabled;
+    this.feeGroup.Disabled = !updatedFeeGroup.Disabled;
     this.venueService.updateVenueDetail(this.vid, this.venue);
   }
 

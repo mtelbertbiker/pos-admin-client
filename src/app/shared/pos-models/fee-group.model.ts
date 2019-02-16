@@ -1,15 +1,18 @@
 import {Fee} from './fee.model';
 export class FeeGroup {
-  constructor(public LId: number,
-              public Bid: number,
-              public FGId: number,
-              public Name: string,
-              public RequiresUsers: boolean,
-              public MinUsers: number,
-              public MaxUsers: number,
-              public RequiredFee: number,
-              public CondenseUserFees: boolean,
-              public ItemId: number,
-              public Fees: Fee[]
+  constructor(public LId = 0,
+              public Bid = 0,
+              public FGId = 0,
+              public Name = 'New Fee Group',
+              public RequiresUsers = false,
+              public MinUsers = 0,
+              public MaxUsers = 0,
+              public RequiredFee = 0,
+              public CondenseUserFees = false,
+              public ItemId = 0,
+              public Disabled = false,
+              public TransferUserEnabled = false,
+              public UserNameTrackingEnabled = false,
+              public Fees = []
               ) {}
 }

@@ -29,7 +29,7 @@ export class RentalListComponent implements OnInit {
   }
 
   onAddRentalItem() {
-    this.venue.RentalItems.push(new RentalItem(0, 0, 'New Rental', 1, 0, []));
+    this.venue.RentalItems.push(new RentalItem());
     this.router.navigate([this.venue.RentalItems.length - 1], {relativeTo: this.route});
   }
   drop(event: CdkDragDrop<RentalItem[]>) {

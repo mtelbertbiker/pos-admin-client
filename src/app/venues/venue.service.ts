@@ -42,6 +42,14 @@ export class VenueService {
     this.venues[index].PostalCode = updatedVenue.PostalCode;
     this.venues[index].Phone1 = updatedVenue.Phone1;
     this.venues[index].Phone2 = updatedVenue.Phone2;
+    this.venues[index].POSTypeId = updatedVenue.POSTypeId;
+    this.venues[index].Disabled = !updatedVenue.Disabled;
+    this.venues[index].LightControlEnabled = updatedVenue.LightControlEnabled;
+    this.venues[index].Memo = updatedVenue.Memo;
+    this.venues[index].Website = updatedVenue.Website;
+    if (updatedVenue.HasVenueDetail) {
+      this.venues[index].HasVenueDetail = updatedVenue.HasVenueDetail;
+    }
     this.venuesChanged.next(this.venues.slice());
   }
 

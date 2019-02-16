@@ -8,6 +8,7 @@ import {RentalItemFeeGroup} from '../../../shared/pos-models/rental-item-fee-gro
 import {Subscription} from 'rxjs/Subscription';
 import {SessionService} from '../../../shared/data-services/session.service';
 import {ConstantsService} from '../../../shared/data-services/constants.service';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-rental-item-detail',
@@ -46,10 +47,12 @@ export class RentalItemDetailComponent implements OnInit {
   private initForm() {
     const Name = this.rentalItem.Name;
     const RentalTypeId = this.rentalItem.RentalTypeId;
+    const Disabled = !this.rentalItem.Disabled;
     this.rentalItemDetailForm = new FormGroup(
       {
         'Name': new FormControl(Name, Validators.required),
         'RentalTypeId': new FormControl(RentalTypeId, Validators.required),
+        'Disabled': new FormControl(Disabled),
       }
     );
   }
@@ -101,6 +104,7 @@ export class RentalItemDetailComponent implements OnInit {
   updateRentalItem(newRentalItem: RentalItem) {
     this.rentalItem.Name = newRentalItem.Name;
     this.rentalItem.RentalTypeId = newRentalItem.RentalTypeId;
+    this.rentalItem.Disabled = !newRentalItem.Disabled;
   }
   onSelectChange(rentalTypeId: number) {
     this.rentalItem.RentalTypeId = rentalTypeId;
@@ -111,4 +115,21 @@ export class RentalItemDetailComponent implements OnInit {
       this.router.navigate(['..'], {relativeTo: this.route});
     };
   }
+
+  drop(event: CdkDragDrop<RentalItemFeeGroup[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      let i = 1;
+      for (const rentalItemFeeGroup of this.rentalItem.RentalItemFeeGroups) {
+        rentalItemFeeGroup.DisplayOrder = i;
+        i++;
+      }
+    } else {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
+  }
+
 }

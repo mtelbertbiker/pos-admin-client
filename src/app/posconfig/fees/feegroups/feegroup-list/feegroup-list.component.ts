@@ -27,7 +27,7 @@ export class FeegroupListComponent implements OnInit {
   }
 
   onAddFeeGroup() {
-    const newFeeGroup = new FeeGroup(0, 0, 0, 'New Fee Group', false, 0, 0, 0, false, 0, []);
+    const newFeeGroup = new FeeGroup();
     this.venue.FeeGroups.push(newFeeGroup);
     this.router.navigate([this.venue.FeeGroups.length - 1], {relativeTo: this.route});
   }

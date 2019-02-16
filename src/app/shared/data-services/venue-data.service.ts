@@ -27,7 +27,7 @@ export class VenueDataService {
       this.consts.AdminLicenseeLocationsUri +
       this.session.LicenseeId + '/' +
       this.session.BrandId;
-
+    console.log('getVenues' + apiUrl);
     this.http.get(apiUrl, { headers: headers } )
       .subscribe(
         response => {
@@ -52,7 +52,12 @@ export class VenueDataService {
       'Phone1': venue.Phone1,
       'Phone2': venue.Phone2,
       'FeeGroups': venue.FeeGroups,
-      'RentalItems' : venue.RentalItems
+      'RentalItems' : venue.RentalItems,
+      'WebSite' : venue.Website,
+      'Memo' : venue.Memo,
+      'POSTypeId' : venue.POSTypeId,
+      'LightControlEnabled' : venue.LightControlEnabled,
+      'Disabled' : !venue.Disabled
     };
     const token = this.oidcSecurityService.getToken();
     const headers = new HttpHeaders()
@@ -78,8 +83,9 @@ export class VenueDataService {
       .subscribe(
         response => {
           this.venue = response;
-          console.log('getVenueDetail - Get>>');
+          console.log('getVenueDetail - ' + apiUrl);
           console.log(this.venue);
+          this.venue.HasVenueDetail = true;
           this.venueService.updateVenue(index, this.venue);
           this.venueService.updateVenueDetail(index, this.venue);
           return this.venue;

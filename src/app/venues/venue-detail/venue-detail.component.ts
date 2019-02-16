@@ -17,19 +17,32 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
   venueDetailForm: FormGroup;
   id: number;
   subscription: Subscription;
+  posType: any;
+
+  public posTypes = [
+    { value: 0, name: 'None'},
+    { value: 1, name: 'Aloha Table Service'},
+    { value: 2, name: 'Aloha Quick Service'},
+    { value: 3, name: 'Micros 3700'},
+  ];
 
   constructor(private venueService: VenueService,
               private venueDataService: VenueDataService,
               private route: ActivatedRoute,
               private router: Router,
-              private sessionService: SessionService) { }
+              private sessionService: SessionService) {
+  }
 
   ngOnInit() {
     this.route.params
       .subscribe(
         (params: Params) => {
           this.id = +params['vid'];
-          this.venueDataService.getVenueDetail(this.id);
+          this.venue = this.venueService.getVenue(this.id);
+          if (!this.venue.HasVenueDetail) {
+            this.venueDataService.getVenueDetail(this.id);
+            this.venue = this.venueService.getVenue(this.id);
+          }
           this.sessionService.setCurrentVenueIndex(this.id);
           this.venue = this.venueService.getVenue(this.id);
           this.sessionService.setBrandId(this.venue.BId);
@@ -42,6 +55,12 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
   }
 
   private initForm() {
+    if (this.venue.POSTypeId != null) {
+      this.posType = this.posTypes[this.venue.POSTypeId];
+    } else {
+      this.posType = this.posTypes[0];
+    }
+    this.posType = this.posTypes[0];
     const venueName = this.venue.Name;
     const address1 = this.venue.Address1;
     const address2 = this.venue.Address2;
@@ -50,6 +69,11 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
     const postalCode = this.venue.PostalCode;
     const phone1 = this.venue.Phone1;
     const phone2 = this.venue.Phone2;
+    const memo = this.venue.Memo;
+    const enabled = !this.venue.Disabled;
+    const postypeid = this.venue.POSTypeId;
+    const lightsenabled = this.venue.LightControlEnabled;
+    const website = this.venue.Website;
     this.venueDetailForm = new FormGroup(
       {
         'Name': new FormControl(venueName, [Validators.required, Validators.pattern(/^[a-zA-Z0-9 '-]+$/)]),
@@ -60,6 +84,11 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
         'PostalCode': new FormControl(postalCode, Validators.required),
         'Phone1': new FormControl(phone1, Validators.required),
         'Phone2': new FormControl(phone2),
+        'Memo': new FormControl(memo),
+        'Enabled' : new FormControl(enabled),
+        'POSTypeId' : new FormControl(postypeid),
+        'LightControlEnabled' : new FormControl(lightsenabled),
+        'Website' : new FormControl(website),
       }
     );
   }
@@ -70,8 +99,6 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
       this.venueDataService.deleteVenue(this.venue.LicId, this.venue.BId, this.venue.LId)
         .subscribe(
           val => {
-            let venue: any;
-            venue = val;
             this.venueService.removeVenue(index);
             alert('Location Deleted');
             this.router.navigate(['home']);

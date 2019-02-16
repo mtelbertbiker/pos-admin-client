@@ -68,6 +68,16 @@
             </div>
           </div>
           <div class="form-group row">
+            <label class="col-form-label col-sm-4" for="Website">Web Site</label>
+            <div class="col-sm-8">
+              <input
+                type="text"
+                id="Website"
+                formControlName="Website"
+                class="form-control">
+            </div>
+          </div>
+          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="Phone1">Phone 1</label>
             <div class="col-sm-8">
               <input
@@ -85,6 +95,47 @@
                 id="Phone2"
                 formControlName="Phone2"
                 class="form-control">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-4" for="Enabled">Enabled</label>
+            <div class="col-sm-3">
+              <input
+                type="checkbox"
+                id="Enabled"
+                formControlName="Enabled"
+                class="form-control">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3" for="POSTypeId">POS Type</label>
+            <select class="col-sm-6" id="POSTypeId" formControlName="POSTypeId">
+              <option *ngFor="let pt of posTypes"
+                      [value]="pt.value"
+                      [selected]="pt.value == posType.value">{{pt.name}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-6" for="LightControlEnabled">Light Control Enabled</label>
+            <div class="col-sm-3">
+              <input
+                type="checkbox"
+                id="LightControlEnabled"
+                formControlName="LightControlEnabled"
+                class="form-control">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-4" for="Memo">Memo</label>
+            <div class="col-sm-8">
+              <textarea
+                type="text"
+                id="Memo"
+                formControlName="Memo"
+                maxlength="512"
+                rows="4"
+                class="form-control"></textarea>
             </div>
           </div>
         </form>
