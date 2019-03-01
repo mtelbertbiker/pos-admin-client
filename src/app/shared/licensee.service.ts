@@ -21,8 +21,15 @@ export class LicenseeService {
     this.licenseesChanged.next(this.licensees.slice());
     return this.licensees.length - 1;
   }
-
+  setLicensees(theseLicensees: Licensee[]) {
+    this.licensees = theseLicensees;
+    this.licenseesChanged.next(this.licensees.slice());
+  }
   getLicensee(index: number) {
     return this.licensees[index];
+  }
+
+  getLicenseeById(licId: number) {
+    return this.licensees.find( l => l.LicId === licId);
   }
 }

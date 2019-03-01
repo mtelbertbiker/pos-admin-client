@@ -1,6 +1,11 @@
 <div *ngIf="!isAuthorized" class="col-xs-12">
   <h3><b>Welcome to Fee Machine Admin! Please sign in.</b></h3>
 </div>
+<!--
+<div *ngIf="isAuthorized && this.session.ResellerId > 0">
+  <app-reseller-licensee-list [licensees]="licensees"></app-reseller-licensee-list>
+</div>
+
 <div *ngIf="isAuthorized" class="card bg-light">
   <div class="card-header">
     <a
@@ -20,3 +25,5 @@
     </div>
   </div>
 </div>
+-->
+

@@ -1,61 +1,80 @@
-import { Injectable } from '@angular/core';
-import { ResellerService } from '../../resellers/reseller.service';
+import {Injectable} from '@angular/core';
+import {ResellerService} from '../../resellers/reseller.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Licensee } from '../../shared/licensee.model';
+import {Licensee} from '../../shared/licensee.model';
 import 'rxjs/Rx';
 import {ConstantsService} from './constants.service';
 import {SessionService} from './session.service';
+import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {Venue} from '../pos-models/venue.model';
+import {LicenseeService} from '../licensee.service';
 
 @Injectable()
 export class ResellerDataService {
 
+  licensees: any;
+
   constructor(private http: HttpClient,
               private resellerService: ResellerService,
+              private licenseeService: LicenseeService,
               private consts: ConstantsService,
-              private session: SessionService) { }
+              private session: SessionService, private oidcSecurityService: OidcSecurityService) {
+  }
 
-              /*
   getResellerLicensees() {
-    this.http.get(this.consts.AdminBaseUri +
+    const token = this.oidcSecurityService.getToken();
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`)
+      .set('ClientId', this.session.ClientId);
+    const apiUrl = this.consts.AdminBaseUri +
       this.consts.AdminResellerLicenseesUri +
-      this.session.rsid)
+      this.session.ResellerId;
+    this.http.get(apiUrl, { headers: headers } )
+      .subscribe(
+        response => {
+          this.licensees = response;
+          this.resellerService.setLicensees(this.licensees);
+          this.licenseeService.setLicensees(this.licensees);
+          console.log('getResellerLicensees(' + this.session.ResellerId + ')');
+          console.log(this.licensees);
+        },
+        error => console.log(error)
+      );
+    /*
+    this.http.get<Licensee[]>(apiurl, {headers: headers})
       .map(
-        (response: Response) => {
-          const licensees: Licensee[] = response.json();
-          console.log('getResellerLicensees(' + this.session.rsid + ')');
+        (licensees) => {
+          console.log('getResellerLicensees(' + resellerId + ')');
           console.log(licensees);
+          this.resellerService.setLicensees(licensees);
           return licensees;
         }
-      )
-      .subscribe(
-        (theLicensees: Licensee[]) => {
-          this.resellerService.setLicensees(theLicensees);
-        }
       );
+      */
   }
 
-  getResellerLicenseeLocations(licid: number) {
-    this.http.get(this.consts.AdminBaseUri +
-      this.consts.AdminResellerLocationsUri +
-      this.session.rsid + '/' + licid)
-      .map(
-        (response: Response) => {
-          const venues: Venue[] = response.json();
-          console.log('getResellerLicenseeLocations(' + licid + ')');
-          console.log(venues);
-          return venues;
-        }
-      )
-      .subscribe(
-        (theVenues: Venue[]) => {
-          this.resellerService.setCurrrentLocations(theVenues);
-        }
-      );
-  }
-*/
+  /*
+   getResellerLicenseeLocations(licid: number) {
+   this.http.get(this.consts.AdminBaseUri +
+   this.consts.AdminResellerLocationsUri +
+   this.session.ResellerId + '/' + licid)
+   .map(
+   (response: Response) => {
+   const venues: Venue[] = response.json();
+   console.log('getResellerLicenseeLocations(' + licid + ')');
+   console.log(venues);
+   return venues;
+   }
+   )
+   .subscribe(
+   (theVenues: Venue[]) => {
+   this.resellerService.setCurrrentLocations(theVenues);
+   }
+   );
+   }
+   */
   putLicensee(index: number) {
-    const licensee =  this.resellerService.getLicensee(index);
+    const licensee = this.resellerService.getLicensee(index);
     console.log('POS Admin PUT Licensee>>');
     console.log(licensee);
     if (licensee.LicId > 0) {
@@ -67,6 +86,6 @@ export class ResellerDataService {
 
   assignLicenseeToReseller(rsid: number, licId: number) {
     console.log('POS Admin PUT assignLicenseeToReseller(' + rsid + '/' + licId + ')');
-      return this.http.put(this.consts.AdminBaseUri + this.consts.AdminResellerLicenseesUri + '/' + rsid + '/' + licId, '');
+    return this.http.put(this.consts.AdminBaseUri + this.consts.AdminResellerLicenseesUri + '/' + rsid + '/' + licId, '');
   }
 }

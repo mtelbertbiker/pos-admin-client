@@ -9,6 +9,8 @@ import {LicenseeService} from '../../shared/licensee.service';
 import {SessionService} from '../../shared/data-services/session.service';
 import {Router} from '@angular/router';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
+import {ResellerDataService} from '../../shared/data-services/reseller-data.service';
+import {ResellerService} from '../../resellers/reseller.service';
 
 @Component({
   selector: 'app-home',
@@ -17,11 +19,14 @@ import {OidcSecurityService} from 'angular-auth-oidc-client';
 export class HomeComponent implements OnInit {
   venues: Venue[];
   licensee: Licensee = new Licensee(0, '', '', '', '', '', '', '', '', '', '', '', '', '', null, false, '');
+  licensees: Licensee[] = [];
   venueSubscription: Subscription;
   licenseeSubscription: Subscription;
+  resellerSubscription: Subscription;
   isAuthorizedSubscription: Subscription;
   // isAuthorized: boolean;
   isAuthorized = true;
+  session: SessionService;
 
   constructor(private venueDataService: VenueDataService,
               private venueService: VenueService,
@@ -29,28 +34,41 @@ export class HomeComponent implements OnInit {
               private router: Router,
               private licenseeService: LicenseeService,
               private sessionService: SessionService,
+              private resellerDataService: ResellerDataService,
+              private resellerService: ResellerService,
               private oidcSecurityService: OidcSecurityService) {
   }
 
-
-
   ngOnInit() {
     console.log('HomeComponent onInit');
-    this.licenseeDataService.getLicensee(0);
-    this.licenseeSubscription = this.licenseeService.licenseesChanged
-      .subscribe(
-        (licensees: Licensee[]) => {
-          this.licensee = licensees[0];
-          this.sessionService.setLicensee(this.licensee);
-        }
-      );
-    this.venueDataService.getVenues();
-    this.venueSubscription = this.venueService.venuesChanged
-      .subscribe(
-        (venues: Venue[]) => {
-          this.venues = venues;
-        }
-      );
+    this.session = this.sessionService;
+    if (this.session.LicenseeId > 0) {
+      this.licenseeDataService.getLicensee(this.session.LicenseeId);
+      this.licenseeSubscription = this.licenseeService.licenseesChanged
+        .subscribe(
+          (licensees: Licensee[]) => {
+            this.licensee = licensees[0];
+            this.sessionService.setLicensee(this.licensee);
+          }
+        );
+      this.venueDataService.getVenues();
+      this.venueSubscription = this.venueService.venuesChanged
+        .subscribe(
+          (venues: Venue[]) => {
+            this.venues = venues;
+          }
+        );
+      if (this.session.ResellerId > 0) {
+        this.resellerDataService.getResellerLicensees();
+        this.resellerSubscription = this.resellerService.licenseesChanged
+          .subscribe(
+            (licensees: Licensee[]) => {
+              this.licensees = licensees;
+            }
+          );
+      }
+    }
+
     /*
     console.log('Next: oidcSecurityService.getIsAuthorized() ');
     this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()

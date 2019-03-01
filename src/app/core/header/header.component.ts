@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {VenueService} from '../../venues/venue.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Venue} from '../../shared/pos-models/venue.model';
@@ -6,6 +6,10 @@ import {Router} from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import {filter, take} from 'rxjs/operators';
+import {SessionService} from '../../shared/data-services/session.service';
+import {Licensee} from '../../shared/licensee.model';
+import {LicenseeService} from '../../shared/licensee.service';
+import {ResellerService} from '../../resellers/reseller.service';
 
 
 @Component({
@@ -14,6 +18,7 @@ import {filter, take} from 'rxjs/operators';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  licensees: Licensee[];
   isCollapsed = false;
   isVenueDroppedDown = false;
   isOtherDroppedDown = false;
@@ -22,11 +27,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   isAuthorizedSubscription: Subscription;
   isAuthorized: boolean;
+  session: SessionService;
 
   constructor(private venueService: VenueService,
               private router: Router,
+              private sessionService: SessionService,
+              private licenseeService: LicenseeService,
+              private resellerService: ResellerService,
               private oidcSecurityService: OidcSecurityService) {
     this.isAuthorized = true;
+    this.session = sessionService;
   }
 
   ngOnInit() {
@@ -39,6 +49,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.venues = venues;
         }
       );
+    this.subscription = this.licenseeService.licenseesChanged
+      .subscribe(
+        (licensees: Licensee[]) => {
+          this.licensees = licensees;
+        }
+      );
+  }
+
+  onAddLicensee() {
+    this.licensees.push(new Licensee(0, 'New Licensee', '', '', '', '', '', '', '', '', '', '', '', '', [], false, '' ));
+    this.resellerService.setLicensees(this.licensees);
+    this.router.navigate([this.licensees.length - 1], {relativeTo: this.route});
+  }
+
+  onSelectLicensee(index: number) {
+    this.router.navigate(['licensee/' + index + '/detail/' + index ]);
   }
 
   onGetLocations() {
@@ -54,9 +80,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['location/' + index + '/1']);
   }
 */
-  onShowLicensees() {
-    console.log('onShowLicensees');
+  showResellerLicensees() {
+    console.log('showResellerLicensees');
     this.router.navigate(['reseller/licensees']);
+  }
+
+  showLicenseeLocations() {
+    console.log('showLicenseeLocations');
+    this.router.navigate(['licensee' + '' + '']);
   }
 
   signUp() {

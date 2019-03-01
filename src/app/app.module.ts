@@ -33,7 +33,7 @@ import {LicenseeListComponent} from './posconfig/licensees/licensee-list/license
 import {ResellerListComponent} from './resellers/reseller-list/reseller-list.component';
 import {ResellerDetailComponent} from './resellers/reseller-detail/reseller-detail.component';
 import {ResellerLicenseeListComponent} from './resellers/reseller-detail/reseller-licensee-list/reseller-licensee-list.component';
-import {ResellerLicenseeItemComponent} from './resellers/reseller-detail/reseller-licensee-item/reseller-licensee-item.component';
+import {ResellerLicenseeItemListComponent} from './resellers/reseller-detail/reseller-licensee-list-item/reseller-licensee-list-item.component';
 import {LicenseeListItemComponent} from './posconfig/licensees/licensee-list/licensee-item/licensee-list-item.component';
 import {ResellerDataService} from './shared/data-services/reseller-data.service';
 import {ResellerService} from './resellers/reseller.service';
@@ -63,6 +63,10 @@ import {CookieService} from 'ngx-cookie-service';
 import {TelerikReportingModule} from '@progress/telerik-angular-report-viewer';
 import {ItemUsageViewerComponent} from './reports/venuereports/itemusageviewer/itemusageviewer.component';
 import {TransactiondetailviewerComponent} from './reports/venuereports/transactiondetailviewer/transactiondetailviewer.component';
+import { LicenseeMasterItemComponent } from './posconfig/licensees/licensee-master-item/licensee-master-item.component';
+import { LicenseeMasterItemNavigationComponent } from './posconfig/licensees/licensee-master-item/licensee-master-item-navigation/licensee-master-item-navigation.component';
+import { LicenseeUserListComponent } from './posconfig/licensees/licensee-user-list/licensee-user-list.component';
+import { LicenseeBillingMasterItemComponent } from './posconfig/licensees/licensee-billing-master-item/licensee-billing-master-item.component';
 
 export function loadConfig(oidcConfigService: OidcConfigService) {
   console.log('APP_INITIALIZER STARTING');
@@ -96,7 +100,7 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     ResellerListComponent,
     ResellerDetailComponent,
     ResellerLicenseeListComponent,
-    ResellerLicenseeItemComponent,
+    ResellerLicenseeItemListComponent,
     LicenseeListItemComponent,
     LicenseeItemDetailComponent,
     ResellerVenueListComponent,
@@ -106,6 +110,10 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     VenueListItemComponent,
     ItemUsageViewerComponent,
     TransactiondetailviewerComponent,
+    LicenseeMasterItemComponent,
+    LicenseeMasterItemNavigationComponent,
+    LicenseeUserListComponent,
+    LicenseeBillingMasterItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -117,7 +125,6 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     ReactiveFormsModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
     AppRoutingModule,
     TelerikReportingModule,
     NgbModule.forRoot(),
@@ -187,7 +194,7 @@ export class AppModule {
      });
      */
 
-    console.log('APP STARTING');
+    console.log('Fee Machine Starting...');
     /*
      const openIDImplicitFlowConfiguration = new OpenIDImplicitFlowConfiguration();
      openIDImplicitFlowConfiguration.stsServer =
@@ -236,4 +243,4 @@ export class AppModule {
   }
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule);
+// platformBrowserDynamic().bootstrapModule(AppModule);

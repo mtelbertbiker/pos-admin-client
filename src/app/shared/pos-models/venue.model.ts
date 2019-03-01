@@ -21,10 +21,10 @@ export class Venue {
               public LightControlEnabled = false,
               public Website = '',
               public HasVenueDetail = false,
-              public ItemImages = new ItemImage[0],
-              public FeeGroups = new FeeGroup[0],
-              public RentalItems = new RentalItem[0],
-              public LocationRentalTypes = new LocationRentalType[0],
+              public ItemImages = [],
+              public FeeGroups = [],
+              public RentalItems = [],
+              public LocationRentalTypes = [],
               public UpdateCount = 0,
               public LastUpdated = '') {}
 }

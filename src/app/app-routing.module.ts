@@ -17,12 +17,15 @@ import {LicenseeItemDetailComponent} from './posconfig/licensees/licensee-item-d
 import {RedirectComponent} from './redirect/redirect/redirect.component';
 import {ItemUsageViewerComponent} from './reports/venuereports/itemusageviewer/itemusageviewer.component';
 import {TransactiondetailviewerComponent} from './reports/venuereports/transactiondetailviewer/transactiondetailviewer.component';
+import {LicenseeMasterItemComponent} from './posconfig/licensees/licensee-master-item/licensee-master-item.component';
+import {VenueListItemComponent} from './venues/venue-list/venue-list-item/venue-list-item.component';
+import {VenueListComponent} from './venues/venue-list/venue-list.component';
+import {LicenseeUserListComponent} from './posconfig/licensees/licensee-user-list/licensee-user-list.component';
+import {LicenseeBillingMasterItemComponent} from './posconfig/licensees/licensee-billing-master-item/licensee-billing-master-item.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'licensee/:id', component: LicenseeItemDetailComponent},
-  { path: 'home/licensee/:id', component: LicenseeItemDetailComponent},
   { path: 'redirect.html', component: RedirectComponent },
   { path: 'location/:vid/rentals', component: RentalListComponent, children: [
     { path: ':id', component: RentalItemDetailComponent }
@@ -37,13 +40,17 @@ const appRoutes: Routes = [
   { path: 'location/:vid/feetester', component: FeeTesterComponent, children: [
     { path: 'response', component: FeeCalcTesterResponseComponent }
   ]},
+  { path: 'location/:vid', component: LicenseeItemDetailComponent},
   { path: 'location/:vid/reports/RentalItemUsageReport1', component: ItemUsageViewerComponent},
   { path: 'location/:vid/reports/ItemUseDetailReport2', component: TransactiondetailviewerComponent},
   { path: 'location/:vid', component: VenueDetailComponent},
   { path: 'location/:vid/:detail', component: VenueDetailComponent},
-  { path: 'reseller/licensees', component: LicenseeListComponent , children: [
-      { path: ':id', component: LicenseeItemDetailComponent }
-    ]},
+  { path: 'licensee/:id', component: LicenseeMasterItemComponent, children: [
+    { path: 'detail/:id', component: LicenseeItemDetailComponent },
+    { path: 'locations/:id', component: VenueListComponent },
+    { path: 'users/:id', component: LicenseeUserListComponent },
+    { path: 'billing/:id', component: LicenseeBillingMasterItemComponent },
+    ]}
 ];
 
 @NgModule({

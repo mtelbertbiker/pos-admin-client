@@ -15,7 +15,7 @@ import {LicenseeDataService} from '../../../shared/data-services/licensee-data.s
   styleUrls: ['./licensee-item-detail.component.css']
 })
 export class LicenseeItemDetailComponent implements OnInit {
-  @Input() licensee: Licensee;
+  licensee: Licensee;
   licenseeItemDetailForm: FormGroup;
   index: number;
   subscription: Subscription;
@@ -26,14 +26,13 @@ export class LicenseeItemDetailComponent implements OnInit {
               private route: ActivatedRoute,
               private sessionService: SessionService,
               private router: Router) { }
-
   ngOnInit() {
+    console.log('Licensee Item Detail Component onInit');
     this.route.params
       .subscribe(
         (params: Params) => {
           this.index =  +params['id'];
-          this.licensee = this.sessionService.getLicensee();
-         // this.resellerDataService.getResellerLicenseeLocations(this.licensee.LicId);
+          this.licensee = this.resellerService.getLicensee(this.index);
           this.initForm();
           this.subscription = this.licenseeItemDetailForm.valueChanges.subscribe(
             (value) => this.updateLicensee(this.licenseeItemDetailForm.value)
@@ -41,6 +40,7 @@ export class LicenseeItemDetailComponent implements OnInit {
         }
       );
   }
+
   private initForm() {
     const name = this.licensee.Name;
     const address1 = this.licensee.Address1;
@@ -54,6 +54,7 @@ export class LicenseeItemDetailComponent implements OnInit {
     const contactLastName = this.licensee.ContactLastName;
     const email = this.licensee.Email;
     const website = this.licensee.Website;
+    const disabled = !this.licensee.Disabled;
     this.licenseeItemDetailForm = new FormGroup(
       {
         'Name': new FormControl(name, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
@@ -67,6 +68,7 @@ export class LicenseeItemDetailComponent implements OnInit {
         'ContactFirstName': new FormControl(contactFirstName, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
         'ContactLastName': new FormControl(contactLastName, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
         'Email': new FormControl(email, Validators.required),
+        'Disabled': new FormControl(disabled),
         'Website': new FormControl(website),
       }
     );
@@ -85,6 +87,7 @@ export class LicenseeItemDetailComponent implements OnInit {
     this.licensee.ContactLastName = updatedLicensee.ContactLastName;
     this.licensee.Email = updatedLicensee.Email;
     this.licensee.Website = updatedLicensee.Website;
+    this.licensee.Disabled = !updatedLicensee.Disabled;
     this.licensee.UpdatedUtc = new Date().toDateString();
     this.sessionService.setLicensee(this.licensee);
   }

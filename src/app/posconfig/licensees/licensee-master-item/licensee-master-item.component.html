@@ -1,0 +1,28 @@
+<form [formGroup]="licenseeMasterItemForm" *ngIf="licensee"  (ngSubmit)="onSubmit()">
+  <div class="card bg-light">
+    <div class="card-header">
+      <div class="row">
+        <h4>Licensee: <b>{{licensee.Name}}, {{licensee.City}}, {{licensee.State}}</b></h4>
+      </div>
+    </div>
+    <div class="card-body">
+      <app-licensee-master-item-navigation [id]="id"></app-licensee-master-item-navigation>
+      <div class="col-sm-12">
+        <router-outlet></router-outlet>
+     <!--   <app-licensee-item-detail [licensee]=licensee></app-licensee-item-detail>  -->
+      </div>
+    </div>
+    <!--
+          <div class="row">
+            <div class="col-sm-12">
+              <app-licensee-item-detail [licensee]=licensee></app-licensee-item-detail>
+            </div>
+            -->
+    <!--
+    <div class="col-sm-6">
+      <app-venue-list [venues]=venues></app-venue-list>
+    </div>
+    -->
+
+  </div>
+</form>

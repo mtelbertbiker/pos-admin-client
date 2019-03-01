@@ -5,10 +5,11 @@ import { UUID } from 'angular2-uuid';
 
 @Injectable()
 export class SessionService {
-  LicenseeId = '1';
+  LicenseeId = 1;
   licensee: Licensee;
-  BrandId = '2';
+  BrandId = 0;
   vid: number;
+  ResellerId = 1;
   FeeCalcTest = {
     fgid : 0,
     dayOfWeek : 2,

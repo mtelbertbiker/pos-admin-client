@@ -27,7 +27,7 @@ export class VenueDataService {
       this.consts.AdminLicenseeLocationsUri +
       this.session.LicenseeId + '/' +
       this.session.BrandId;
-    console.log('getVenues' + apiUrl);
+    console.log('getVenues:' + apiUrl);
     this.http.get(apiUrl, { headers: headers } )
       .subscribe(
         response => {
