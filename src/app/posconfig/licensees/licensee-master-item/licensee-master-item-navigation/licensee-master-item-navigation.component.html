@@ -1,17 +1,28 @@
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
   <ul class="navbar-nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/detail/{{id}}">Detail</a>
+      <a class="nav-link navbar-brand btn-info" routerLink="/licensee/{{id}}/detail/{{id}}">Detail</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}">Locations</a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/users/{{id}}">Users</a>
+      <a class="nav-link navbar-brand btn-info" routerLink="/licensee/{{id}}/users/{{id}}">Users</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/billing/{{id}}">Billing</a>
+      <a class="nav-link navbar-brand btn-info" routerLink="/licensee/{{id}}/billing/{{id}}">Billing</a>
+    </li>
+    <li class="nav-item">
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-info" id="dropdownBasic1" ngbDropdownToggle>Locations</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button *ngFor="let venue of venues; let i = index" (click)="onSelectVenue(i) " class="dropdown-item">
+            {{venue.Name}}, {{venue.City}}, {{venue.State}}
+          </button>
+          <div class="dropdown-divider"></div>
+          <button
+            type="submit"
+            class="dropdown-item" (click)="onAddVenue()">Add Location
+          </button>
+        </div>
+      </div>
     </li>
   </ul>
 </nav>

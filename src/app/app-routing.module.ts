@@ -22,6 +22,8 @@ import {VenueListItemComponent} from './venues/venue-list/venue-list-item/venue-
 import {VenueListComponent} from './venues/venue-list/venue-list.component';
 import {LicenseeUserListComponent} from './posconfig/licensees/licensee-user-list/licensee-user-list.component';
 import {LicenseeBillingMasterItemComponent} from './posconfig/licensees/licensee-billing-master-item/licensee-billing-master-item.component';
+import {LicenseeVenuesComponent} from './posconfig/licensees/licensee-venues/licensee-venues.component';
+import {VenueMasterItemComponent} from './venues/venue-master-item/venue-master-item.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -47,7 +49,23 @@ const appRoutes: Routes = [
   { path: 'location/:vid/:detail', component: VenueDetailComponent},
   { path: 'licensee/:id', component: LicenseeMasterItemComponent, children: [
     { path: 'detail/:id', component: LicenseeItemDetailComponent },
-    { path: 'locations/:id', component: VenueListComponent },
+    { path: 'locations/:id', component: VenueMasterItemComponent, children: [
+      { path: 'detail/:vid', component: VenueDetailComponent },
+      { path: 'rentals/:vid', component: RentalListComponent, children: [
+        { path: ':id', component: RentalItemDetailComponent }
+      ]},
+      { path: 'fees/:vid', component: FeeListComponent, children: [
+        { path: ':id/:fid', component: FeeItemDetailComponent }
+      ]},
+      { path: 'feegroups/:vid', component: FeegroupListComponent, children: [
+        { path: ':id', component: FeeGroupDetailComponent }
+      ]},
+      { path: 'feetester/:vid', component: FeeTesterComponent, children: [
+        { path: 'response', component: FeeCalcTesterResponseComponent }
+      ]},
+      { path: 'reports/RentalItemUsageReport1/:vid', component: ItemUsageViewerComponent},
+      { path: 'reports/ItemUseDetailReport2/:vid', component: TransactiondetailviewerComponent},
+    ] },
     { path: 'users/:id', component: LicenseeUserListComponent },
     { path: 'billing/:id', component: LicenseeBillingMasterItemComponent },
     ]}

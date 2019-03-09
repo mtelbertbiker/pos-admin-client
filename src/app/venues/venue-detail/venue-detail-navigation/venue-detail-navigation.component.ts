@@ -24,7 +24,7 @@ export class VenueDetailNavigationComponent implements OnInit {
     this.route.params
       .subscribe(
         (params: Params) => {
-          this.id = +params['vid'];
+          this.id = +params['id'];
           this.initForm();
           this.subscription = this.venueNavigationForm.valueChanges.subscribe(
             (value) => this.venueService.updateVenue(this.id, this.venueNavigationForm.value)
@@ -38,21 +38,6 @@ export class VenueDetailNavigationComponent implements OnInit {
   }
 
   onSubmit() {
-    /*
-    this.venueDataService.putVenue(this.id)
-      .subscribe(
-        (response: Response) => {
-          console.log(response);
-          if (response.ok) {
-            const venue = response.json();
-            this.venueService.updateVenue(this.id, venue);
-            alert('Location Saved');
-          } else {
-            alert('Save Request failed: ' + response.statusText);
-          }
-        }
-      );
-      */
     this.venueDataService.putVenue(this.id)
       .subscribe(
         val => {

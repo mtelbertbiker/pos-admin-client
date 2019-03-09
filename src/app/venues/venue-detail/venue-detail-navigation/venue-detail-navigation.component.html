@@ -1,28 +1,28 @@
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
   <ul class="navbar-nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/location/{{id}}">Location Detail</a>
+      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/detail/{{id}}">Location Detail</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/location/{{id}}/rentals">Rental Items</a>
+      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/rentals/{{id}}">Rental Items</a>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/location/{{id}}/feegroups">Fee Groups</a>
+      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/feegroups/{{id}}">Fee Groups</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/location/{{id}}/fees">Fees</a>
+      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/fees/{{id}}">Fees</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/location/{{id}}/feetester">Fee Tester</a>
+      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/feetester/{{id}}">Fee Tester</a>
     </li>
     <li ngbDropdown class="nav-item dropdown">
       <a ngbDropdownToggle class="nav-link dropdown-toggle navbar-brand" id="reportMenuLink" data-toggle="dropdown">
         Reports
       </a>
       <div ngbDropdownMenu class="dropdown-menu">
-        <a class="dropdown-item" routerLink="/location/{{id}}/reports/ItemUseDetailReport2">Transaction Detail</a>
-        <a class="dropdown-item" routerLink="/location/{{id}}/reports/RentalItemUsageReport1">Item Use Summary</a>
+        <a class="dropdown-item" routerLink="/licensee/{{id}}/locations/{{id}}/reports/ItemUseDetailReport2/{{id}}">Transaction Detail</a>
+        <a class="dropdown-item" routerLink="/licensee/{{id}}/locations/{{id}}/reports/RentalItemUsageReport1/{{id}}">Item Use Summary</a>
       </div>
     </li>
     <li class="nav-item">
@@ -33,12 +33,6 @@
           [disabled]="!venueNavigationForm.valid">Save
         </button>
       </form>
-    </li>
-    <li class="nav-item">
-      <button
-        type="button"
-        class="btn btn-info justify-content-end" (click)="onSelectLocation()">Select location
-      </button>
     </li>
   </ul>
 </nav>

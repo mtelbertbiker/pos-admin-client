@@ -1,12 +1,12 @@
-<form [formGroup]="licenseeMasterItemForm" *ngIf="licensee" >
+<form [formGroup]="venueMasterItemForm" *ngIf="venue" >
   <div class="card bg-light">
     <div class="card-header">
       <div class="row">
-        <h4>Licensee: <b>{{licensee.Name}}, {{licensee.City}}, {{licensee.State}}</b></h4>
+        <h4>Location: <b>{{venue.Name}}, {{venue.City}}, {{venue.State}}</b></h4>
       </div>
     </div>
     <div class="card-body">
-      <app-licensee-master-item-navigation [id]="id"></app-licensee-master-item-navigation>
+      <app-venue-detail-navigation [id]="id"></app-venue-detail-navigation>
       <div class="col-sm-12">
         <router-outlet></router-outlet>
       </div>

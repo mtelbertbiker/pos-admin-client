@@ -67,6 +67,8 @@ import { LicenseeMasterItemComponent } from './posconfig/licensees/licensee-mast
 import { LicenseeMasterItemNavigationComponent } from './posconfig/licensees/licensee-master-item/licensee-master-item-navigation/licensee-master-item-navigation.component';
 import { LicenseeUserListComponent } from './posconfig/licensees/licensee-user-list/licensee-user-list.component';
 import { LicenseeBillingMasterItemComponent } from './posconfig/licensees/licensee-billing-master-item/licensee-billing-master-item.component';
+import { LicenseeVenuesComponent } from './posconfig/licensees/licensee-venues/licensee-venues.component';
+import { VenueMasterItemComponent } from './venues/venue-master-item/venue-master-item.component';
 
 export function loadConfig(oidcConfigService: OidcConfigService) {
   console.log('APP_INITIALIZER STARTING');
@@ -114,6 +116,8 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     LicenseeMasterItemNavigationComponent,
     LicenseeUserListComponent,
     LicenseeBillingMasterItemComponent,
+    LicenseeVenuesComponent,
+    VenueMasterItemComponent,
   ],
   imports: [
     BrowserModule,

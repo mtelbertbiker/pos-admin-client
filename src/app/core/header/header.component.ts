@@ -60,7 +60,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onAddLicensee() {
     this.licensees.push(new Licensee(0, 'New Licensee', '', '', '', '', '', '', '', '', '', '', '', '', [], false, '' ));
     this.resellerService.setLicensees(this.licensees);
-    this.router.navigate([this.licensees.length - 1], {relativeTo: this.route});
+    const index = this.licensees.length;
+    this.router.navigate(['licensee/' + index + '/detail/' + index ]);
   }
 
   onSelectLicensee(index: number) {

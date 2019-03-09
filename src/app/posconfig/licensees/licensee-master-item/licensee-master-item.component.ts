@@ -38,23 +38,6 @@ export class LicenseeMasterItemComponent implements OnInit {
           this.initForm();
         }
       );
-    /*
-    this.route.params
-      .subscribe(
-        (params: Params) => {
-          this.licId = +params['id'];
-        }
-      );
-    this.licenseeDataService.getLicensee(this.licId);
-//    this.initForm();
-    this.licenseeSubscription = this.licenseeService.licenseesChanged
-      .subscribe(
-        (licensees: Licensee[]) => {
-          this.licensee = licensees[0];
-          this.session.setLicensee(this.licensee);
-        }
-      );
-      */
   }
 
   initForm() {
