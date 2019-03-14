@@ -24,9 +24,16 @@ import {LicenseeUserListComponent} from './posconfig/licensees/licensee-user-lis
 import {LicenseeBillingMasterItemComponent} from './posconfig/licensees/licensee-billing-master-item/licensee-billing-master-item.component';
 import {LicenseeVenuesComponent} from './posconfig/licensees/licensee-venues/licensee-venues.component';
 import {VenueMasterItemComponent} from './venues/venue-master-item/venue-master-item.component';
+import {ProductsComponent} from './core/products/products.component';
+import {ContactusComponent} from './core/contactus/contactus.component';
+import {LandingComponent} from './core/landing/landing.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent, children: [
+    { path: '', component: LandingComponent },
+    { path: 'contact', component: ContactusComponent },
+    { path: 'product', component: ProductsComponent },
+  ] },
   { path: 'home', component: HomeComponent },
   { path: 'redirect.html', component: RedirectComponent },
   { path: 'location/:vid/rentals', component: RentalListComponent, children: [

@@ -1,20 +1,20 @@
-<nav class="navbar navbar-expand-sm navbar-light bg-light">
-  <ul class="navbar-nav nav-tabs">
+<nav class="navbar navbar-expand-sm">
+  <ul class="navbar-nav nav-pills">
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/detail/{{id}}">Location Detail</a>
+      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/detail/{{id}}" routerLinkActive="active">Location Detail</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/rentals/{{id}}">Rental Items</a>
+      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/rentals/{{id}}" routerLinkActive="active">Rental Items</a>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/feegroups/{{id}}">Fee Groups</a>
+      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/feegroups/{{id}}" routerLinkActive="active">Fee Groups</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/fees/{{id}}">Fees</a>
+      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/fees/{{id}}" routerLinkActive="active">Fees</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/feetester/{{id}}">Fee Tester</a>
+      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/feetester/{{id}}" routerLinkActive="active">Fee Tester</a>
     </li>
     <li ngbDropdown class="nav-item dropdown">
       <a ngbDropdownToggle class="nav-link dropdown-toggle navbar-brand" id="reportMenuLink" data-toggle="dropdown">
@@ -24,15 +24,6 @@
         <a class="dropdown-item" routerLink="/licensee/{{id}}/locations/{{id}}/reports/ItemUseDetailReport2/{{id}}">Transaction Detail</a>
         <a class="dropdown-item" routerLink="/licensee/{{id}}/locations/{{id}}/reports/RentalItemUsageReport1/{{id}}">Item Use Summary</a>
       </div>
-    </li>
-    <li class="nav-item">
-      <form [formGroup]="venueNavigationForm" (ngSubmit)="onSubmit()">
-        <button
-          type="submit"
-          class="btn btn-success"
-          [disabled]="!venueNavigationForm.valid">Save
-        </button>
-      </form>
     </li>
   </ul>
 </nav>

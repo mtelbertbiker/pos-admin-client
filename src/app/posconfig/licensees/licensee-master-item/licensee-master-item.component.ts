@@ -23,8 +23,7 @@ export class LicenseeMasterItemComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private licenseeService: LicenseeService,
-              private venueService: VenueService,
-              private session: SessionService) {
+              private venueService: VenueService) {
   }
 
   ngOnInit() {

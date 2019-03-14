@@ -1,29 +1,5 @@
-<div *ngIf="!isAuthorized" class="col-xs-12">
-  <h3><b>Welcome to Fee Machine Admin! Please sign in.</b></h3>
-</div>
-<!--
-<div *ngIf="isAuthorized && this.session.ResellerId > 0">
-  <app-reseller-licensee-list [licensees]="licensees"></app-reseller-licensee-list>
-</div>
-
-<div *ngIf="isAuthorized" class="card bg-light">
-  <div class="card-header">
-    <a
-      style="cursor: pointer;"
-      [routerLink]="['licensee/' + licensee.LicId]"
-      routerLinkActive="active"
-      class="list-group-item clearfix">
-      <div class="pull-left">
-        <h4 class="list-group-item-heading"><b>Licensee:</b> {{ licensee.Name }} <b>ID:</b> {{licensee.LicId}}
-          <b>Email:</b> {{licensee.Email}}</h4>
-      </div>
-    </a>
-  </div>
-  <div class="card-body">
-    <div *ngIf="isAuthorized">
-      <app-venue-list [venues]=venues></app-venue-list>
-    </div>
+<div class="row">
+  <div class="col-md-12">
+    <router-outlet></router-outlet>
   </div>
 </div>
--->
-

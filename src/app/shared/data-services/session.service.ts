@@ -7,6 +7,8 @@ import { UUID } from 'angular2-uuid';
 export class SessionService {
   LicenseeId = 1;
   licensee: Licensee;
+  licenseeIsValid = false;
+  licenseeIsChanged = true;
   BrandId = 0;
   vid: number;
   ResellerId = 1;
@@ -33,8 +35,6 @@ export class SessionService {
   setCurrentVenueIndex(index: number) {
     this.vid = index;
   }
-
-
 
   setLicensee(lic: Licensee) {
     this.licensee = lic;

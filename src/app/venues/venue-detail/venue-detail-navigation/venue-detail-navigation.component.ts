@@ -37,22 +37,6 @@ export class VenueDetailNavigationComponent implements OnInit {
     this.venueNavigationForm = new FormGroup({});
   }
 
-  onSubmit() {
-    this.venueDataService.putVenue(this.id)
-      .subscribe(
-        val => {
-          let venue: any;
-          venue = val;
-          this.venueService.updateVenue(this.id, venue);
-          alert('Location Saved');
-        },
-        response => {
-          console.log(response);
-          alert('Save Request failed: ' + response.message);
-        }
-      );
-  }
-
   toggleCollapseState() {
     this.isCollapsed = !this.isCollapsed;
   }

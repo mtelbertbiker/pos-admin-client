@@ -19,6 +19,8 @@
           </li>
 <!--          <li class="list-inline-item"><button class="btn btn-info sign-up-sign-in" *ngIf="session.ResellerId > 0" (click)="showResellerLicensees()">My Licensees</button></li>-->
           <li class="list-inline-item"><button class="btn btn-info sign-up-sign-in" *ngIf="session.ResellerId > 0" (click)="showLicenseeLocations()">My Locations</button></li>
+          <li class="list-inline-item"><button class="btn btn-info"  (click)="onProductHome()">Product</button></li>
+          <li class="list-inline-item"><button class="btn btn-info"  (click)="onContactUs()">Contact Us</button></li>
           <li class="list-inline-item"><button class="btn btn-info sign-up-sign-in" *ngIf="!isAuthorized" (click)="signUp()">Sign Up / Sign in</button></li>
           <li class="list-inline-item"><button class="btn btn-info edit-profile" disabled *ngIf="isAuthorized">Edit Profile</button></li>
           <li class="list-inline-item"><button class="btn btn-info sign-out" *ngIf="isAuthorized" (click)="signOut()">Sign Out</button></li>

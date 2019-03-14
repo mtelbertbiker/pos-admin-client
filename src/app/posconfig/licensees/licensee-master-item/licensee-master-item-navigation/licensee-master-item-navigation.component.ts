@@ -4,6 +4,8 @@ import {VenueService} from '../../../../venues/venue.service';
 import {LicenseeService} from '../../../../shared/licensee.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Licensee} from '../../../../shared/licensee.model';
+import {SessionService} from '../../../../shared/data-services/session.service';
+import {LicenseeDataService} from '../../../../shared/data-services/licensee-data.service';
 
 @Component({
   selector: 'app-licensee-master-item-navigation',
@@ -17,6 +19,8 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private licenseeService: LicenseeService,
+              private licenseeDataService: LicenseeDataService,
+              public sessionService: SessionService,
               private venueService: VenueService,
               private router: Router) { }
 
@@ -35,4 +39,45 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
   onSelectVenue(index: number) {
     this.router.navigate(['licensee/' + index + '/locations/' + index + '/detail/' + index]);
   }
+
+  onSave() {
+    this.licenseeDataService.putLicensee(this.licensee)
+      .subscribe(
+        (response: Response) => {
+          console.log(response);
+          let licensee: any;
+          licensee = response;
+          this.sessionService.setLicensee(licensee);
+          alert('Licensee Saved');
+          this.router.navigate(['home']);
+        },
+        response => {
+          console.log(response);
+          alert('Save Request failed: ' + response.message);
+        }
+      );
+  }
+
+  /*
+  onSubmit() {
+    this.venueDataService.putVenue(this.id)
+      .subscribe(
+        val => {
+          let venue: any;
+          venue = val;
+          this.venueService.updateVenue(this.id, venue);
+          alert('Location Saved');
+        },
+        response => {
+          console.log(response);
+          alert('Save Request failed: ' + response.message);
+        }
+      );
+  }
+  */
+
+  onCancel() {
+    this.router.navigate(['home']);
+  }
+
 }

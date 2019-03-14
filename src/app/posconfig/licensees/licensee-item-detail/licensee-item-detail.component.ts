@@ -92,26 +92,6 @@ export class LicenseeItemDetailComponent implements OnInit {
     this.sessionService.setLicensee(this.licensee);
   }
 
-  onSubmit() {
-    this.licenseeDataService.putLicensee(this.licensee)
-      .subscribe(
-        (response: Response) => {
-          console.log(response);
-            let licensee: any;
-            licensee = response;
-            this.sessionService.setLicensee(licensee);
-            alert('Licensee Saved');
-            this.router.navigate(['home']);
-          },
-        response => {
-          console.log(response);
-          alert('Save Request failed: ' + response.message);
-        }
-      );
-  }
 
-  onCancel() {
-    this.router.navigate(['home']);
-  }
 
 }

@@ -68,6 +68,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['licensee/' + index + '/detail/' + index ]);
   }
 
+  onContactUs() {
+    this.router.navigate(['contact']);
+  }
+
+  onProductHome() {
+    this.router.navigate(['product']);
+  }
+
   onGetLocations() {
     console.log('onGetLocations');
     this.venues = this.venueService.getVenues();
