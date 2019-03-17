@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {FormGroup} from '@angular/forms';
@@ -10,7 +10,8 @@ import {VenueDataService} from '../../../shared/data-services/venue-data.service
   templateUrl: './venue-detail-navigation.component.html',
 })
 export class VenueDetailNavigationComponent implements OnInit {
-  id: number;
+  @Input() lid: number;
+  @Input() vid: number;
   isCollapsed = false;
   subscription: Subscription;
   venueNavigationForm: FormGroup;
@@ -24,10 +25,10 @@ export class VenueDetailNavigationComponent implements OnInit {
     this.route.params
       .subscribe(
         (params: Params) => {
-          this.id = +params['id'];
+          this.vid = +params['vid'];
           this.initForm();
           this.subscription = this.venueNavigationForm.valueChanges.subscribe(
-            (value) => this.venueService.updateVenue(this.id, this.venueNavigationForm.value)
+            (value) => this.venueService.updateVenue(this.vid, this.venueNavigationForm.value)
           );
         }
       );

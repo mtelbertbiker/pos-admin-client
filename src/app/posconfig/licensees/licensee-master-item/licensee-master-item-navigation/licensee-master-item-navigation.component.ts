@@ -6,6 +6,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Licensee} from '../../../../shared/licensee.model';
 import {SessionService} from '../../../../shared/data-services/session.service';
 import {LicenseeDataService} from '../../../../shared/data-services/licensee-data.service';
+import {VenueDataService} from '../../../../shared/data-services/venue-data.service';
 
 @Component({
   selector: 'app-licensee-master-item-navigation',
@@ -20,13 +21,15 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private licenseeService: LicenseeService,
               private licenseeDataService: LicenseeDataService,
+              private venueDataService: VenueDataService,
               public sessionService: SessionService,
               private venueService: VenueService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit() {
     console.log('Licensee Master Item Navigation Component onInit');
-      this.route.params
+    this.route.params
       .subscribe(
         (params: Params) => {
           this.id = +params['id'];
@@ -37,44 +40,44 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
   }
 
   onSelectVenue(index: number) {
-    this.router.navigate(['licensee/' + index + '/locations/' + index + '/detail/' + index]);
+    console.log('onSelectVenue:' + index);
+    this.router.navigate(['licensee/' + this.id + '/locations/' + index + '/detail' ]);
   }
 
   onSave() {
-    this.licenseeDataService.putLicensee(this.licensee)
-      .subscribe(
-        (response: Response) => {
-          console.log(response);
-          let licensee: any;
-          licensee = response;
-          this.sessionService.setLicensee(licensee);
-          alert('Licensee Saved');
-          this.router.navigate(['home']);
-        },
-        response => {
-          console.log(response);
-          alert('Save Request failed: ' + response.message);
-        }
-      );
+    const url = this.router.routerState.snapshot.url;
+    if (url.includes('locations')) {
+      this.venueDataService.putVenue(this.id)
+        .subscribe(
+          val => {
+            let venue: any;
+            venue = val;
+            this.venueService.updateVenue(this.id, venue);
+            alert('Location Saved');
+          },
+          response => {
+            console.log(response);
+            alert('Location Save Request failed: ' + response.message);
+          }
+        );
+    } else {
+      this.licenseeDataService.putLicensee(this.licensee)
+        .subscribe(
+          (response: Response) => {
+            console.log(response);
+            let licensee: any;
+            licensee = response;
+            this.sessionService.setLicensee(licensee);
+            alert('Licensee Saved');
+            this.router.navigate(['home']);
+          },
+          response => {
+            console.log(response);
+            alert('Licensee Save Request failed: ' + response.message);
+          }
+        );
+    }
   }
-
-  /*
-  onSubmit() {
-    this.venueDataService.putVenue(this.id)
-      .subscribe(
-        val => {
-          let venue: any;
-          venue = val;
-          this.venueService.updateVenue(this.id, venue);
-          alert('Location Saved');
-        },
-        response => {
-          console.log(response);
-          alert('Save Request failed: ' + response.message);
-        }
-      );
-  }
-  */
 
   onCancel() {
     this.router.navigate(['home']);

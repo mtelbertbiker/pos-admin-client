@@ -18,7 +18,7 @@ import {ResellerService} from '../../resellers/reseller.service';
 })
 export class HomeComponent implements OnInit {
   venues: Venue[];
-  licensee: Licensee = new Licensee(0, '', '', '', '', '', '', '', '', '', '', '', '', '', null, false, '');
+  licensee: Licensee = new Licensee(0, '', '', '', '', '', '', '', '', '', '', '', '', '', null, null, false, '');
   licensees: Licensee[] = [];
   venueSubscription: Subscription;
   licenseeSubscription: Subscription;

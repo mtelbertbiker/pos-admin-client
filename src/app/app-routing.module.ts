@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './core/home/home.component';
 import {RentalListComponent} from './posconfig/rentals/rental-list/rental-list.component';
@@ -29,59 +29,83 @@ import {ContactusComponent} from './core/contactus/contactus.component';
 import {LandingComponent} from './core/landing/landing.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent, children: [
-    { path: '', component: LandingComponent },
-    { path: 'contact', component: ContactusComponent },
-    { path: 'product', component: ProductsComponent },
-  ] },
-  { path: 'home', component: HomeComponent },
-  { path: 'redirect.html', component: RedirectComponent },
-  { path: 'location/:vid/rentals', component: RentalListComponent, children: [
-    { path: ':id', component: RentalItemDetailComponent }
-    ]
+  {
+    path: '', component: HomeComponent, children: [
+    {path: '', component: LandingComponent},
+    {path: 'contact', component: ContactusComponent},
+    {path: 'product', component: ProductsComponent},
+  ]
   },
-  { path: 'location/:vid/feegroups', component: FeegroupListComponent, children: [
-    { path: ':id', component: FeeGroupDetailComponent }
-  ]},
-  { path: 'location/:vid/fees', component: FeeListComponent, children: [
-    { path: ':id/:fid', component: FeeItemDetailComponent }
-  ]},
-  { path: 'location/:vid/feetester', component: FeeTesterComponent, children: [
-    { path: 'response', component: FeeCalcTesterResponseComponent }
-  ]},
-  { path: 'location/:vid', component: LicenseeItemDetailComponent},
-  { path: 'location/:vid/reports/RentalItemUsageReport1', component: ItemUsageViewerComponent},
-  { path: 'location/:vid/reports/ItemUseDetailReport2', component: TransactiondetailviewerComponent},
-  { path: 'location/:vid', component: VenueDetailComponent},
-  { path: 'location/:vid/:detail', component: VenueDetailComponent},
-  { path: 'licensee/:id', component: LicenseeMasterItemComponent, children: [
-    { path: 'detail/:id', component: LicenseeItemDetailComponent },
-    { path: 'locations/:id', component: VenueMasterItemComponent, children: [
-      { path: 'detail/:vid', component: VenueDetailComponent },
-      { path: 'rentals/:vid', component: RentalListComponent, children: [
-        { path: ':id', component: RentalItemDetailComponent }
-      ]},
-      { path: 'fees/:vid', component: FeeListComponent, children: [
-        { path: ':id/:fid', component: FeeItemDetailComponent }
-      ]},
-      { path: 'feegroups/:vid', component: FeegroupListComponent, children: [
-        { path: ':id', component: FeeGroupDetailComponent }
-      ]},
-      { path: 'feetester/:vid', component: FeeTesterComponent, children: [
-        { path: 'response', component: FeeCalcTesterResponseComponent }
-      ]},
-      { path: 'reports/RentalItemUsageReport1/:vid', component: ItemUsageViewerComponent},
-      { path: 'reports/ItemUseDetailReport2/:vid', component: TransactiondetailviewerComponent},
-    ] },
-    { path: 'users/:id', component: LicenseeUserListComponent },
-    { path: 'billing/:id', component: LicenseeBillingMasterItemComponent },
-    ]}
+  {path: 'home', component: HomeComponent},
+  {path: 'redirect.html', component: RedirectComponent},
+  /*
+  {
+    path: 'location/:vid/rentals', component: RentalListComponent, children: [
+    {path: ':id', component: RentalItemDetailComponent}
+  ]
+  },
+  {
+    path: 'location/:vid/feegroups', component: FeegroupListComponent, children: [
+    {path: ':id', component: FeeGroupDetailComponent}
+  ]
+  },
+  {
+    path: 'location/:vid/fees', component: FeeListComponent, children: [
+    {path: ':id/:fid', component: FeeItemDetailComponent}
+  ]
+  },
+  {
+    path: 'location/:vid/feetester', component: FeeTesterComponent, children: [
+    {path: 'response', component: FeeCalcTesterResponseComponent}
+  ]
+  },
+  {path: 'location/:vid', component: LicenseeItemDetailComponent},
+  {path: 'location/:vid/reports/RentalItemUsageReport1', component: ItemUsageViewerComponent},
+  {path: 'location/:vid/reports/ItemUseDetailReport2', component: TransactiondetailviewerComponent},
+  {path: 'location/:vid', component: VenueDetailComponent},
+  {path: 'location/:vid/:detail', component: VenueDetailComponent},
+  */
+  {
+    path: 'licensee/:id', component: LicenseeMasterItemComponent, children: [
+    {path: 'detail', component: LicenseeItemDetailComponent},
+    {
+      path: 'locations/:vid', component: VenueMasterItemComponent, children: [
+      {path: 'detail', component: VenueDetailComponent},
+      {
+        path: 'rentals', component: RentalListComponent, children: [
+        {path: ':id', component: RentalItemDetailComponent}
+      ]
+      },
+      {
+        path: 'fees', component: FeeListComponent, children: [
+        {path: ':id/:fid', component: FeeItemDetailComponent}
+      ]
+      },
+      {
+        path: 'feegroups', component: FeegroupListComponent, children: [
+        {path: ':id', component: FeeGroupDetailComponent}
+      ]
+      },
+      {
+        path: 'feetester', component: FeeTesterComponent, children: [
+        {path: 'response', component: FeeCalcTesterResponseComponent}
+      ]
+      },
+      {path: 'reports/RentalItemUsageReport1', component: ItemUsageViewerComponent},
+      {path: 'reports/ItemUseDetailReport2', component: TransactiondetailviewerComponent},
+    ]
+    },
+    {path: 'users', component: LicenseeUserListComponent},
+    {path: 'billing', component: LicenseeBillingMasterItemComponent},
+  ]
+  }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules})
+    RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules})
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

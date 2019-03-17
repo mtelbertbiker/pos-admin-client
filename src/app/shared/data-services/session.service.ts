@@ -7,8 +7,8 @@ import { UUID } from 'angular2-uuid';
 export class SessionService {
   LicenseeId = 1;
   licensee: Licensee;
-  licenseeIsValid = false;
-  licenseeIsChanged = true;
+  ItemIsValid = true;
+  ItemIsChanged = false;
   BrandId = 0;
   vid: number;
   ResellerId = 1;
@@ -22,6 +22,7 @@ export class SessionService {
     endMinute : 30
   };
 
+
   ClientId: string;
 
   constructor(private cookieService: CookieService) {
@@ -30,6 +31,10 @@ export class SessionService {
       this.ClientId = UUID.UUID();
       this.cookieService.set('FeeMachineClientId', this.ClientId);
     }
+  }
+  setSaveState(isValid: boolean, isChanged: boolean) {
+    this.ItemIsValid = isValid;
+    this.ItemIsChanged = isChanged;
   }
 
   setCurrentVenueIndex(index: number) {

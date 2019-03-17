@@ -1,28 +1,28 @@
 <nav class="navbar navbar-expand-sm">
   <ul class="navbar-nav nav-pills">
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/detail/{{id}}" routerLinkActive="active">Location Detail</a>
+      <a class="nav-link navbar-brand" routerLink="/licensee/{{lid}}/locations/{{vid}}/detail" routerLinkActive="active">Location Detail</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/rentals/{{id}}" routerLinkActive="active">Rental Items</a>
+      <a class="nav-link navbar-brand" routerLink="/licensee/{{lid}}/locations/{{vid}}/rentals" routerLinkActive="active">Rental Items</a>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/feegroups/{{id}}" routerLinkActive="active">Fee Groups</a>
+      <a class="nav-link navbar-brand" routerLink="/licensee/{{lid}}/locations/{{vid}}/feegroups" routerLinkActive="active">Fee Groups</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/fees/{{id}}" routerLinkActive="active">Fees</a>
+      <a class="nav-link navbar-brand" routerLink="/licensee/{{lid}}/locations/{{vid}}/fees/" routerLinkActive="active">Fees</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/locations/{{id}}/feetester/{{id}}" routerLinkActive="active">Fee Tester</a>
+      <a class="nav-link navbar-brand" routerLink="/licensee/{{lid}}/locations/{{vid}}/feetester" routerLinkActive="active">Fee Tester</a>
     </li>
     <li ngbDropdown class="nav-item dropdown">
       <a ngbDropdownToggle class="nav-link dropdown-toggle navbar-brand" id="reportMenuLink" data-toggle="dropdown">
         Reports
       </a>
       <div ngbDropdownMenu class="dropdown-menu">
-        <a class="dropdown-item" routerLink="/licensee/{{id}}/locations/{{id}}/reports/ItemUseDetailReport2/{{id}}">Transaction Detail</a>
-        <a class="dropdown-item" routerLink="/licensee/{{id}}/locations/{{id}}/reports/RentalItemUsageReport1/{{id}}">Item Use Summary</a>
+        <a class="dropdown-item" routerLink="/licensee/{{lid}}/locations/{{vid}}/reports/ItemUseDetailReport2">Transaction Detail</a>
+        <a class="dropdown-item" routerLink="/licensee/{{lid}}/locations/{{vid}}/reports/RentalItemUsageReport1">Item Use Summary</a>
       </div>
     </li>
   </ul>

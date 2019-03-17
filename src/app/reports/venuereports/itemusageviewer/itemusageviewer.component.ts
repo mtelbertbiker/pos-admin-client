@@ -25,7 +25,7 @@ export class ItemUsageViewerComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.route.params
+    this.route.parent.params
       .subscribe(
         (params: Params) => {
           this.id = +params['vid'];

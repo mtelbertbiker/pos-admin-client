@@ -11,7 +11,8 @@ import {Venue} from '../../shared/pos-models/venue.model';
   styleUrls: ['./venue-master-item.component.css']
 })
 export class VenueMasterItemComponent implements OnInit {
-  id: number;
+  vid: number;
+  lid: number;
   venue: Venue;
   venueMasterItemForm: FormGroup;
   constructor(private venueService: VenueService,
@@ -24,8 +25,9 @@ export class VenueMasterItemComponent implements OnInit {
     this.route.params
       .subscribe(
         (params: Params) => {
-          this.id = +params['id'];
-          this.venue = this.venueService.getVenue(this.id);
+          this.vid = +params['vid'];
+          this.lid = +this.route.parent.snapshot.params['id'];
+          this.venue = this.venueService.getVenue(this.vid);
           this.initForm();
         }
       );

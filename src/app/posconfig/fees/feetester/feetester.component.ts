@@ -41,7 +41,7 @@ export class FeeTesterComponent implements OnInit {
 
   ngOnInit() {
     this.timedFeeCalcResponse = { Ok: false, TotalFee: 0, TotalTime: 0, LogMessages: [], FeeList: [], MsgLevel: 0 };
-    this.route.params
+    this.route.parent.params
       .subscribe(
         (params: Params) => {
           this.id = +params['vid'];

@@ -28,7 +28,7 @@ export class LicenseeItemDetailComponent implements OnInit {
               private router: Router) { }
   ngOnInit() {
     console.log('Licensee Item Detail Component onInit');
-    this.route.params
+    this.route.parent.params
       .subscribe(
         (params: Params) => {
           this.index =  +params['id'];
@@ -57,11 +57,11 @@ export class LicenseeItemDetailComponent implements OnInit {
     const disabled = !this.licensee.Disabled;
     this.licenseeItemDetailForm = new FormGroup(
       {
-        'Name': new FormControl(name, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
-        'Address1': new FormControl(address1, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
+        'Name': new FormControl(name, [Validators.required, Validators.pattern(/^[a-zA-Z0-9.,# ]+$/)]),
+        'Address1': new FormControl(address1, [Validators.required, Validators.pattern(/^[a-zA-Z0-9.,# ]+$/)]),
         'Address2': new FormControl(address2),
-        'City': new FormControl(city, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
-        'State': new FormControl(state, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
+        'City': new FormControl(city, [Validators.required, Validators.pattern(/^[a-zA-Z., ]+$/)]),
+        'State': new FormControl(state, [Validators.required, Validators.pattern(/^[a-zA-Z., ]+$/)]),
         'PostalCode': new FormControl(postalCode, Validators.required),
         'Phone1': new FormControl(phone1, Validators.required),
         'Phone2': new FormControl(phone2),

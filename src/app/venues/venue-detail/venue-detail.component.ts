@@ -34,7 +34,8 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route.params
+    console.log('Venue Detail Component onInit');
+    this.route.parent.params
       .subscribe(
         (params: Params) => {
           this.id = +params['vid'];
@@ -48,8 +49,16 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
           this.sessionService.setBrandId(this.venue.BId);
           this.initForm();
           this.subscription = this.venueDetailForm.valueChanges.subscribe(
+            (value) => {
+              this.venueService.updateVenue(this.id, value);
+              this.sessionService.setSaveState(this.venueDetailForm.valid, this.venueDetailForm.dirty);
+            }
+          );
+          /*
+          this.subscription = this.venueDetailForm.valueChanges.subscribe(
             (value) => this.venueService.updateVenue(this.id, this.venueDetailForm.value)
           );
+          */
         }
       );
   }

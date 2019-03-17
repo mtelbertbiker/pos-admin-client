@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onSelectLicensee(index: number) {
-    this.router.navigate(['licensee/' + index + '/detail/' + index ]);
+    this.router.navigate(['licensee/' + index + '/detail' ]);
   }
 
   onContactUs() {
