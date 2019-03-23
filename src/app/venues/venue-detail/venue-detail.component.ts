@@ -51,7 +51,7 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
           this.subscription = this.venueDetailForm.valueChanges.subscribe(
             (value) => {
               this.venueService.updateVenue(this.id, value);
-              this.sessionService.setSaveState(this.venueDetailForm.valid, this.venueDetailForm.dirty);
+              this.sessionService.setSaveState('Location', this.venueDetailForm.valid, this.venueDetailForm.dirty);
             }
           );
           /*

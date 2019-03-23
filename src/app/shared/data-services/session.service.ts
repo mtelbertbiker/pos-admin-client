@@ -9,6 +9,7 @@ export class SessionService {
   licensee: Licensee;
   ItemIsValid = true;
   ItemIsChanged = false;
+  ChangedItems: Array<string>;
   BrandId = 0;
   vid: number;
   ResellerId = 1;
@@ -32,9 +33,22 @@ export class SessionService {
       this.cookieService.set('FeeMachineClientId', this.ClientId);
     }
   }
-  setSaveState(isValid: boolean, isChanged: boolean) {
-    this.ItemIsValid = isValid;
-    this.ItemIsChanged = isChanged;
+  setSaveState(itemName: string, isValid: boolean, isChanged: boolean) {
+    if (this.ChangedItems.indexOf(itemName) === -1) {
+      this.ChangedItems.push(itemName);
+    }
+    if (this.ItemIsValid) {
+      this.ItemIsValid = isValid;
+    }
+    if (!this.ItemIsChanged) {
+      this.ItemIsChanged = isChanged;
+    }
+  }
+
+  resetSaveState() {
+    this.ChangedItems = [];
+    this.ItemIsValid = true;
+    this.ItemIsChanged = false;
   }
 
   setCurrentVenueIndex(index: number) {

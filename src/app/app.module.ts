@@ -72,6 +72,7 @@ import { VenueMasterItemComponent } from './venues/venue-master-item/venue-maste
 import { ContactusComponent } from './core/contactus/contactus.component';
 import { ProductsComponent } from './core/products/products.component';
 import { LandingComponent } from './core/landing/landing.component';
+import { LicenseeSaveCancelModalComponent } from './posconfig/licensees/licensee-master-item/licensee-master-item-navigation/licensee-save-cancel-modal/licensee-save-cancel-modal.component';
 
 export function loadConfig(oidcConfigService: OidcConfigService) {
   console.log('APP_INITIALIZER STARTING');
@@ -79,6 +80,7 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
 }
 
 @NgModule({
+  entryComponents: [LicenseeSaveCancelModalComponent],
   declarations: [
     AppComponent,
     HeaderComponent,
@@ -124,6 +126,7 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     ContactusComponent,
     ProductsComponent,
     LandingComponent,
+    LicenseeSaveCancelModalComponent,
   ],
   imports: [
     BrowserModule,

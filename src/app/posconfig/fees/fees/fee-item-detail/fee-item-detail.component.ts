@@ -40,7 +40,10 @@ export class FeeItemDetailComponent implements OnInit {
           this.fee = this.feeGroup.Fees[this.fid];
           this.initForm();
           this.subscription = this.feeItemDetailForm.valueChanges.subscribe(
-            (value) => this.updateFee(this.feeItemDetailForm.value)
+            (value) => {
+              this.updateFee(value);
+              this.sessionService.setSaveState('Fees', this.feeItemDetailForm.valid, this.feeItemDetailForm.dirty);
+            }
           );
         }
       );

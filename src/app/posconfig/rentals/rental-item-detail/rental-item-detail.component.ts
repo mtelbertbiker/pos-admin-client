@@ -39,7 +39,10 @@ export class RentalItemDetailComponent implements OnInit {
           this.rentalItem = this.venue.RentalItems[this.index];
           this.initForm();
           this.subscription = this.rentalItemDetailForm.valueChanges.subscribe(
-            (value) => this.updateRentalItem(this.rentalItemDetailForm.value)
+            (value) => {
+              this.updateRentalItem(value);
+              this.sessionService.setSaveState('Rentals', this.rentalItemDetailForm.valid, this.rentalItemDetailForm.dirty);
+            }
           );
         }
       );

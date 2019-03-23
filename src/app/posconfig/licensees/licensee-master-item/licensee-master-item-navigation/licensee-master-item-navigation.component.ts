@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Venue} from '../../../../shared/pos-models/venue.model';
 import {VenueService} from '../../../../venues/venue.service';
 import {LicenseeService} from '../../../../shared/licensee.service';
@@ -7,6 +7,8 @@ import {Licensee} from '../../../../shared/licensee.model';
 import {SessionService} from '../../../../shared/data-services/session.service';
 import {LicenseeDataService} from '../../../../shared/data-services/licensee-data.service';
 import {VenueDataService} from '../../../../shared/data-services/venue-data.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {LicenseeSaveCancelModalComponent} from './licensee-save-cancel-modal/licensee-save-cancel-modal.component';
 
 @Component({
   selector: 'app-licensee-master-item-navigation',
@@ -17,15 +19,20 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
   id: number;
   venues: Venue[];
   licensee: Licensee;
+  myModals = {
+    cancelConfirm: LicenseeSaveCancelModalComponent
+  };
 
   constructor(private route: ActivatedRoute,
               private licenseeService: LicenseeService,
               private licenseeDataService: LicenseeDataService,
               private venueDataService: VenueDataService,
-              public sessionService: SessionService,
+              private sessionService: SessionService,
               private venueService: VenueService,
+              private modal: NgbModal,
               private router: Router) {
   }
+
 
   ngOnInit() {
     console.log('Licensee Master Item Navigation Component onInit');
@@ -41,7 +48,7 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
 
   onSelectVenue(index: number) {
     console.log('onSelectVenue:' + index);
-    this.router.navigate(['licensee/' + this.id + '/locations/' + index + '/detail' ]);
+    this.router.navigate(['licensee/' + this.id + '/locations/' + index + '/detail']);
   }
 
   onSave() {
@@ -80,7 +87,16 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate(['home']);
+    if (this.sessionService.ChangedItems.length > 0) {
+      this.modal.open(this.myModals.cancelConfirm).result.then((result) => {
+        if (result === 'Ok') {
+          this.router.navigate(['licensee/' + this.id + '/detail']);
+          this.sessionService.resetSaveState();
+        }
+      })
+    }
   }
+
+
 
 }

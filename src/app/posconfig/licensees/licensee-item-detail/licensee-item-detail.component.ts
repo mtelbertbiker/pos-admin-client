@@ -35,7 +35,10 @@ export class LicenseeItemDetailComponent implements OnInit {
           this.licensee = this.resellerService.getLicensee(this.index);
           this.initForm();
           this.subscription = this.licenseeItemDetailForm.valueChanges.subscribe(
-            (value) => this.updateLicensee(this.licenseeItemDetailForm.value)
+            (value) => {
+              this.updateLicensee(value);
+              this.sessionService.setSaveState('Licensee', this.licenseeItemDetailForm.valid, this.licenseeItemDetailForm.dirty);
+            }
           );
         }
       );

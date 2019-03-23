@@ -4,6 +4,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {VenueService} from '../../../venues/venue.service';
 import {RentalItem} from '../../../shared/pos-models/rental-item.model';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {SessionService} from '../../../shared/data-services/session.service';
 
 @Component({
   selector: 'app-rental-list',
@@ -16,6 +17,7 @@ export class RentalListComponent implements OnInit {
 
   constructor(private venueService: VenueService,
               private route: ActivatedRoute,
+              private sessionService: SessionService,
               private router: Router) { }
 
   ngOnInit() {
@@ -30,6 +32,7 @@ export class RentalListComponent implements OnInit {
 
   onAddRentalItem() {
     this.venue.RentalItems.push(new RentalItem());
+    this.sessionService.setSaveState('Rentals', true, true);
     this.router.navigate([this.venue.RentalItems.length - 1], {relativeTo: this.route});
   }
   drop(event: CdkDragDrop<RentalItem[]>) {

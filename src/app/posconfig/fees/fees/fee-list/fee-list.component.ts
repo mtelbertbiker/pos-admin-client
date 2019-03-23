@@ -3,6 +3,7 @@ import {Venue} from '../../../../shared/pos-models/venue.model';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {VenueService} from '../../../../venues/venue.service';
 import {Fee} from '../../../../shared/pos-models/fee.model';
+import {SessionService} from '../../../../shared/data-services/session.service';
 
 @Component({
   selector: 'app-feeitem-list',
@@ -14,6 +15,7 @@ export class FeeListComponent implements OnInit {
 
   constructor(private venueService: VenueService,
               private route: ActivatedRoute,
+              private sessionService: SessionService,
               private router: Router) { }
 
   ngOnInit() {
@@ -55,6 +57,7 @@ export class FeeListComponent implements OnInit {
       false,
       0);
     this.venue.FeeGroups[index].Fees.push(newFee);
+    this.sessionService.setSaveState('Fees', true, true);
     this.router.navigate([index, this.venue.FeeGroups[index].Fees.length - 1], {relativeTo: this.route});
   }
 

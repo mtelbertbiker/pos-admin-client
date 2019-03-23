@@ -35,7 +35,10 @@ export class FeeGroupDetailComponent implements OnInit {
           this.feeGroup = this.venue.FeeGroups[this.index];
           this.initForm();
           this.subscription = this.feeGroupDetailForm.valueChanges.subscribe(
-            (value) => this.updateFeeGroup(this.feeGroupDetailForm.value)
+            (value) => {
+              this.updateFeeGroup(value);
+              this.sessionService.setSaveState('Fee Groups', this.feeGroupDetailForm.valid, this.feeGroupDetailForm.dirty);
+            }
           );
         }
       );
