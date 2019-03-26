@@ -12,7 +12,10 @@
     </li>
     <li class="nav-item dropdown">
       <div ngbDropdown class="d-inline-block">
-        <button class="nav-link navbar-brand" id="dropdownBasic1" ngbDropdownToggle>Locations</button>
+        <button class="nav-link navbar-brand"
+                id="dropdownBasic1"
+                [disabled]="this.sessionService.ItemIsChanged"
+                ngbDropdownToggle>Locations</button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
           <button *ngFor="let venue of venues; let i = index" (click)="onSelectVenue(i) " class="dropdown-item">
             {{venue.Name}}, {{venue.City}}, {{venue.State}}
@@ -31,10 +34,11 @@
       <button
         type="button"
         class="nav-link navbar-brand btn-success"
-        [disabled]="!this.sessionService.ItemIsValid" (click)="onSave()">Save
+        [disabled]="!this.sessionService.ItemIsValid" (click)="onSave()">
+        Save<span *ngIf="this.sessionService.Saving.length > 0" class="spinner-border spinner-border" role="status" aria-hidden="true"></span>
       </button>
     </li>
-    <li class="nav-item" *ngIf="this.sessionService.ItemIsChanged">
+    <li class="nav-item" *ngIf="this.sessionService.ItemIsChanged && !this.sessionService.HideSaveBtn">
       <button
         type="button"
         class="nav-link navbar-brand btn-danger" (click)="onCancel()">Cancel

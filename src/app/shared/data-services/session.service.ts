@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Licensee} from '../licensee.model';
 import { CookieService } from 'ngx-cookie-service';
 import { UUID } from 'angular2-uuid';
+import {FormTypes} from './constants.service';
 
 @Injectable()
 export class SessionService {
@@ -10,6 +11,8 @@ export class SessionService {
   ItemIsValid = true;
   ItemIsChanged = false;
   ChangedItems: Array<string>;
+  Saving = [];
+  HideSaveBtn = false;
   BrandId = 0;
   vid: number;
   ResellerId = 1;
@@ -33,22 +36,21 @@ export class SessionService {
       this.cookieService.set('FeeMachineClientId', this.ClientId);
     }
   }
-  setSaveState(itemName: string, isValid: boolean, isChanged: boolean) {
-    if (this.ChangedItems.indexOf(itemName) === -1) {
-      this.ChangedItems.push(itemName);
+  setSaveState(formType: FormTypes, isValid: boolean, isChanged: boolean) {
+    console.log('SetSaveState ' + formType.valueOf().toString() + ' V: ' + isValid + ' C: ' + isChanged);
+    if (this.ChangedItems.indexOf(formType.valueOf().toString()) === -1) {
+      this.ChangedItems.push(formType.valueOf().toString());
     }
-    if (this.ItemIsValid) {
-      this.ItemIsValid = isValid;
-    }
-    if (!this.ItemIsChanged) {
-      this.ItemIsChanged = isChanged;
-    }
+    this.ItemIsValid = isValid;
+    this.ItemIsChanged = isChanged;
   }
 
   resetSaveState() {
     this.ChangedItems = [];
     this.ItemIsValid = true;
     this.ItemIsChanged = false;
+    this.HideSaveBtn = false;
+    this.Saving = [];
   }
 
   setCurrentVenueIndex(index: number) {

@@ -6,6 +6,7 @@ import {FormGroup, Validators, FormControl} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {VenueDataService} from '../../shared/data-services/venue-data.service';
 import {SessionService} from '../../shared/data-services/session.service';
+import {FormTypes} from '../../shared/data-services/constants.service';
 
 @Component({
   selector: 'app-venue-detail',
@@ -51,14 +52,9 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
           this.subscription = this.venueDetailForm.valueChanges.subscribe(
             (value) => {
               this.venueService.updateVenue(this.id, value);
-              this.sessionService.setSaveState('Location', this.venueDetailForm.valid, this.venueDetailForm.dirty);
+              this.sessionService.setSaveState(FormTypes.Locations, this.venueDetailForm.valid, this.venueDetailForm.dirty);
             }
           );
-          /*
-          this.subscription = this.venueDetailForm.valueChanges.subscribe(
-            (value) => this.venueService.updateVenue(this.id, this.venueDetailForm.value)
-          );
-          */
         }
       );
   }

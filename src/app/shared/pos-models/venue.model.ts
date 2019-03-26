@@ -26,5 +26,6 @@ export class Venue {
               public RentalItems = [],
               public LocationRentalTypes = [],
               public UpdateCount = 0,
+              public IsChanged = null,
               public LastUpdated = '') {}
 }

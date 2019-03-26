@@ -7,7 +7,7 @@ import {Venue} from '../../../shared/pos-models/venue.model';
 import {RentalItemFeeGroup} from '../../../shared/pos-models/rental-item-fee-group.model';
 import {Subscription} from 'rxjs/Subscription';
 import {SessionService} from '../../../shared/data-services/session.service';
-import {ConstantsService} from '../../../shared/data-services/constants.service';
+import {ConstantsService, FormTypes} from '../../../shared/data-services/constants.service';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
@@ -41,7 +41,7 @@ export class RentalItemDetailComponent implements OnInit {
           this.subscription = this.rentalItemDetailForm.valueChanges.subscribe(
             (value) => {
               this.updateRentalItem(value);
-              this.sessionService.setSaveState('Rentals', this.rentalItemDetailForm.valid, this.rentalItemDetailForm.dirty);
+              this.sessionService.setSaveState(FormTypes.Rentals, this.rentalItemDetailForm.valid, this.rentalItemDetailForm.dirty);
             }
           );
         }

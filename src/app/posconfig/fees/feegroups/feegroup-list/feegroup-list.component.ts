@@ -4,6 +4,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {VenueService} from '../../../../venues/venue.service';
 import {FeeGroup} from '../../../../shared/pos-models/fee-group.model';
 import {SessionService} from '../../../../shared/data-services/session.service';
+import {FormTypes} from '../../../../shared/data-services/constants.service';
 
 @Component({
   selector: 'app-feegroup-list',
@@ -31,7 +32,7 @@ export class FeegroupListComponent implements OnInit {
   onAddFeeGroup() {
     const newFeeGroup = new FeeGroup();
     this.venue.FeeGroups.push(newFeeGroup);
-    this.sessionService.setSaveState('Fee Groups', true, true);
+    this.sessionService.setSaveState(FormTypes.FeeGroups, true, true);
     this.router.navigate([this.venue.FeeGroups.length - 1], {relativeTo: this.route});
   }
 }

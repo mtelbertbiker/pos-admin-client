@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { VenueService } from '../../venues/venue.service';
-import 'rxjs/Rx';
+import {Injectable} from '@angular/core';
+import {VenueService} from '../../venues/venue.service';
 import {ConstantsService} from './constants.service';
 import {SessionService} from './session.service';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Venue} from '../pos-models/venue.model';
 
 @Injectable()
 export class VenueDataService {
@@ -16,7 +16,8 @@ export class VenueDataService {
               private venueService: VenueService,
               private consts: ConstantsService,
               private session: SessionService,
-              private oidcSecurityService: OidcSecurityService) { }
+              private oidcSecurityService: OidcSecurityService) {
+  }
 
   getVenues() {
     const token = this.oidcSecurityService.getToken();
@@ -28,7 +29,7 @@ export class VenueDataService {
       this.session.LicenseeId + '/' +
       this.session.BrandId;
     console.log('getVenues:' + apiUrl);
-    this.http.get(apiUrl, { headers: headers } )
+    this.http.get(apiUrl, {headers: headers})
       .subscribe(
         response => {
           this.venues = response;
@@ -37,8 +38,8 @@ export class VenueDataService {
         error => console.log(error)
       );
   }
-  putVenue(index: number) {
-    const venue =  this.venueService.getVenue(index);
+
+  putVenue(venue: Venue) {
     const location = {
       'LicId': this.session.LicenseeId,
       'BId': this.session.BrandId,
@@ -52,34 +53,35 @@ export class VenueDataService {
       'Phone1': venue.Phone1,
       'Phone2': venue.Phone2,
       'FeeGroups': venue.FeeGroups,
-      'RentalItems' : venue.RentalItems,
-      'WebSite' : venue.Website,
-      'Memo' : venue.Memo,
-      'POSTypeId' : venue.POSTypeId,
-      'LightControlEnabled' : venue.LightControlEnabled,
-      'Disabled' : !venue.Disabled
+      'RentalItems': venue.RentalItems,
+      'WebSite': venue.Website,
+      'Memo': venue.Memo,
+      'POSTypeId': venue.POSTypeId,
+      'LightControlEnabled': venue.LightControlEnabled,
+      'Disabled': !venue.Disabled
     };
     const token = this.oidcSecurityService.getToken();
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${token}`)
       .set('ClientId', this.session.ClientId);
     // Change the '/0' to the location Id when adding new location
-    const apiUrl = this.consts.AdminBaseUri + this.consts.AdminLocationsUri + '/0';
-    console.log('putVenue>>');
-    return this.http.put(apiUrl, location, { headers: headers });
+    const apiUrl = this.consts.AdminBaseUri + this.consts.AdminLocationsUri;
+    console.log('putVenue>>' + location.LId);
+    return this.http.put(apiUrl, location, {headers: headers});
   }
+
   getVenueDetail(index: number) {
     const token = this.oidcSecurityService.getToken();
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${token}`)
       .set('ClientId', this.session.ClientId);
-    this.venue =  this.venueService.getVenue(index);
+    this.venue = this.venueService.getVenue(index);
     const apiUrl = this.consts.AdminBaseUri +
       this.consts.AdminLocationDetailUri +
       this.venue['LicId'] + '/' +
       this.venue['BId'] + '/' +
       this.venue['LId'];
-    this.http.get(apiUrl, { headers: headers } )
+    this.http.get(apiUrl, {headers: headers})
       .subscribe(
         response => {
           this.venue = response;
@@ -105,7 +107,7 @@ export class VenueDataService {
       bId + '/' +
       lId;
 
-    return this.http.get(apiUrl, { headers: headers } );
+    return this.http.get(apiUrl, {headers: headers});
   }
 
 }

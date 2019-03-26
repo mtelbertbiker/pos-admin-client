@@ -38,7 +38,8 @@ export class VenueListComponent implements OnInit {
 
   onAddLocation() {
     console.log('onAddLocation');
-    const newVenue = new Venue(this.sessionService.getLicenseeId());
+    const newVenue = new Venue();
+    newVenue.LicId = this.sessionService.getLicenseeId();
     const index = this.venueService.addVenue(newVenue);
     this.router.navigate(['location/' + index + '/1']);
   }

@@ -28,7 +28,7 @@ export class LicenseeDataService {
       licId;
 
     this.http.get(apiUrl, {headers: headers})
-      .subscribe(
+      .map(
         response => {
           this.licensee = response;
           this.licenseeService.setLicensee(this.licensee);
@@ -42,7 +42,7 @@ export class LicenseeDataService {
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${token}`)
       .set('ClientId', this.session.ClientId);
-    const apiUrl = this.consts.AdminBaseUri + this.consts.AdminLicenseesUri + '/0';
+    const apiUrl = this.consts.AdminBaseUri + this.consts.AdminLicenseesUri;
     console.log('putLicensee>>');
     return this.http.put(apiUrl, licensee, { headers: headers });
   }

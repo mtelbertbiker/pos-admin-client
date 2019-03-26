@@ -8,6 +8,7 @@ import {ResellerService} from '../../../resellers/reseller.service';
 import {ResellerDataService} from '../../../shared/data-services/reseller-data.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LicenseeDataService} from '../../../shared/data-services/licensee-data.service';
+import {FormTypes} from '../../../shared/data-services/constants.service';
 
 @Component({
   selector: 'app-licensee-item-detail',
@@ -37,7 +38,7 @@ export class LicenseeItemDetailComponent implements OnInit {
           this.subscription = this.licenseeItemDetailForm.valueChanges.subscribe(
             (value) => {
               this.updateLicensee(value);
-              this.sessionService.setSaveState('Licensee', this.licenseeItemDetailForm.valid, this.licenseeItemDetailForm.dirty);
+              this.sessionService.setSaveState(FormTypes.Licensees, this.licenseeItemDetailForm.valid, this.licenseeItemDetailForm.dirty);
             }
           );
         }

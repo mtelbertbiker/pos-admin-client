@@ -18,20 +18,13 @@ export class VenueService {
     return this.venues[index];
   }
 
+  putVenue(index: number, venue: Venue){
+    this.venues[index] = venue;
+  }
+
   getVenuesForLicensee(licId: number) {
     return this.venues.filter(v => v.LicId === licId);
   }
-
-/*  getVenueFees(index: number) {
-    const fees: Fee[] = [];
-    this.venues[index].FeeGroups.forEach(function(feeGroup) {
-      feeGroup.Fees.forEach(function(fee) {
-        fee.FGId = feeGroup.FGId;
-        fees.push(fee);
-      });
-    });
-    return fees;
-  }*/
 
   setVenues(venues: Venue[]) {
     this.venues = venues;
@@ -52,6 +45,7 @@ export class VenueService {
     this.venues[index].LightControlEnabled = updatedVenue.LightControlEnabled;
     this.venues[index].Memo = updatedVenue.Memo;
     this.venues[index].Website = updatedVenue.Website;
+    this.venues[index].IsChanged = true;
     if (updatedVenue.HasVenueDetail) {
       this.venues[index].HasVenueDetail = updatedVenue.HasVenueDetail;
     }

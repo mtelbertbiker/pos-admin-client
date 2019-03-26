@@ -10,11 +10,11 @@ import {SessionService} from '../../../../../shared/data-services/session.servic
       <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
-    </div>
+    </div>` + `
     <div class="modal-body">
       <p><strong>You have made changes to the following: <span class="text-primary">{{changedItems}}</span>.  Cancel these changes?</strong></p>
-    </div>
-    <div class="modal-footer">
+    </div>` + `
+    <div class="modal-footer">` + `
       <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel')">Don't Cancel</button>
       <button type="button" class="btn btn-danger" (click)="modal.close('Ok')">Yes, Cancel</button>
     </div>

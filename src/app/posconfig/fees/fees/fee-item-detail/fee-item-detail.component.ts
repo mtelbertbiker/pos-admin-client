@@ -7,6 +7,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {SessionService} from '../../../../shared/data-services/session.service';
 import {VenueService} from '../../../../venues/venue.service';
+import {FormTypes} from '../../../../shared/data-services/constants.service';
 
 @Component({
   selector: 'app-fee-item-detail',
@@ -42,7 +43,7 @@ export class FeeItemDetailComponent implements OnInit {
           this.subscription = this.feeItemDetailForm.valueChanges.subscribe(
             (value) => {
               this.updateFee(value);
-              this.sessionService.setSaveState('Fees', this.feeItemDetailForm.valid, this.feeItemDetailForm.dirty);
+              this.sessionService.setSaveState(FormTypes.Fees, this.feeItemDetailForm.valid, this.feeItemDetailForm.dirty);
             }
           );
         }

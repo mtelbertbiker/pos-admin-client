@@ -9,6 +9,8 @@ import {LicenseeDataService} from '../../../../shared/data-services/licensee-dat
 import {VenueDataService} from '../../../../shared/data-services/venue-data.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LicenseeSaveCancelModalComponent} from './licensee-save-cancel-modal/licensee-save-cancel-modal.component';
+import {FormTypes} from '../../../../shared/data-services/constants.service';
+
 
 @Component({
   selector: 'app-licensee-master-item-navigation',
@@ -18,6 +20,7 @@ import {LicenseeSaveCancelModalComponent} from './licensee-save-cancel-modal/lic
 export class LicenseeMasterItemNavigationComponent implements OnInit {
   id: number;
   venues: Venue[];
+  vid: number;
   licensee: Licensee;
   myModals = {
     cancelConfirm: LicenseeSaveCancelModalComponent
@@ -48,41 +51,51 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
 
   onSelectVenue(index: number) {
     console.log('onSelectVenue:' + index);
+    this.vid = index;
     this.router.navigate(['licensee/' + this.id + '/locations/' + index + '/detail']);
   }
 
   onSave() {
-    const url = this.router.routerState.snapshot.url;
-    if (url.includes('locations')) {
-      this.venueDataService.putVenue(this.id)
+    if (this.sessionService.ChangedItems.indexOf(FormTypes.Licensees.toString()) > -1) {
+      this.sessionService.HideSaveBtn = true;
+      this.licensee = this.sessionService.getLicensee();
+      this.sessionService.Saving.push(FormTypes.Licensees.toString());
+      this.licenseeDataService.putLicensee(this.licensee)
         .subscribe(
-          val => {
-            let venue: any;
-            venue = val;
-            this.venueService.updateVenue(this.id, venue);
-            alert('Location Saved');
-          },
           response => {
-            console.log(response);
-            alert('Location Save Request failed: ' + response.message);
+            let licensee: any;
+            licensee = response;
+            console.log(licensee);
+            this.sessionService.setLicensee(licensee);
+            this.sessionService.Saving.pop();
+            const venue = this.venueService.getVenue(this.vid);
+            if ((venue != null) && (venue.IsChanged)) {
+              this.sessionService.Saving.push(FormTypes.Locations.toString());
+              this.venueDataService.putVenue(venue)
+                .subscribe(
+                  resp => {
+                    let loc: any;
+                    loc = resp;
+                    console.log('PutVenue Response:' + loc.toString());
+                    this.venueService.putVenue(this.vid, loc);
+                    this.sessionService.resetSaveState();
+                  });
+            } else {
+              this.sessionService.resetSaveState();
+            }
           }
         );
     } else {
-      this.licenseeDataService.putLicensee(this.licensee)
+      this.sessionService.Saving.push(FormTypes.Locations.toString());
+      this.venueDataService.putVenue(this.venueService.getVenue(this.vid))
         .subscribe(
-          (response: Response) => {
-            console.log(response);
-            let licensee: any;
-            licensee = response;
-            this.sessionService.setLicensee(licensee);
-            alert('Licensee Saved');
-            this.router.navigate(['home']);
-          },
-          response => {
-            console.log(response);
-            alert('Licensee Save Request failed: ' + response.message);
-          }
-        );
+          resp => {
+            let venue: any;
+            venue = resp;
+            console.log('PutVenue Response:' + venue.toString());
+            this.venueService.putVenue(this.vid, venue);
+            this.sessionService.resetSaveState();
+          });
     }
   }
 
@@ -93,10 +106,11 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
           this.router.navigate(['licensee/' + this.id + '/detail']);
           this.sessionService.resetSaveState();
         }
+        if (result === 'cancel') {
+        }
       })
     }
   }
-
 
 
 }
