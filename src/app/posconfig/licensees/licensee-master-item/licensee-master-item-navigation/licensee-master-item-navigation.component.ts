@@ -87,6 +87,7 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
         );
     } else {
       this.sessionService.Saving.push(FormTypes.Locations.toString());
+      this.sessionService.HideSaveBtn = true;
       this.venueDataService.putVenue(this.venueService.getVenue(this.vid))
         .subscribe(
           resp => {

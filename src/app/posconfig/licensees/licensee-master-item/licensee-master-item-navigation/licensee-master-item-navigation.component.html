@@ -35,7 +35,7 @@
         type="button"
         class="nav-link navbar-brand btn-success"
         [disabled]="!this.sessionService.ItemIsValid" (click)="onSave()">
-        Save<span *ngIf="this.sessionService.Saving.length > 0" class="spinner-border spinner-border" role="status" aria-hidden="true"></span>
+        Save <span *ngIf="this.sessionService.Saving.length > 0" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
       </button>
     </li>
     <li class="nav-item" *ngIf="this.sessionService.ItemIsChanged && !this.sessionService.HideSaveBtn">

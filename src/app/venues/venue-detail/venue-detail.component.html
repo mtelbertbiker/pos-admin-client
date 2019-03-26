@@ -14,7 +14,9 @@
                 id="Name"
                 formControlName="Name"
                 class="form-control">
+              <div class="alert alert-danger" *ngIf="isFieldInvalid('Name')">Location Name is required</div>
             </div>
+
           </div>
           <div class="form-group row">
             <label class="col-form-label col-sm-4" for="Address1">Address 1</label>
@@ -24,6 +26,7 @@
                 id="Address1"
                 formControlName="Address1"
                 class="form-control">
+              <div class="alert alert-danger" *ngIf="isFieldInvalid('Address1')">Address is required</div>
             </div>
           </div>
           <div class="form-group row">
@@ -44,6 +47,7 @@
                 id="City"
                 formControlName="City"
                 class="form-control">
+              <div class="alert alert-danger" *ngIf="isFieldInvalid('City')">City is required</div>
             </div>
           </div>
           <div class="form-group row">
@@ -54,6 +58,7 @@
                 id="State"
                 formControlName="State"
                 class="form-control">
+              <div class="alert alert-danger" *ngIf="isFieldInvalid('State')">State is required</div>
             </div>
           </div>
           <div class="form-group row">
@@ -64,6 +69,7 @@
                 id="PostalCode"
                 formControlName="PostalCode"
                 class="form-control">
+              <div class="alert alert-danger" *ngIf="isFieldInvalid('PostalCode')">Postal Code is required</div>
             </div>
           </div>
           <div class="form-group row">
@@ -84,6 +90,7 @@
                 id="Phone1"
                 formControlName="Phone1"
                 class="form-control">
+              <div class="alert alert-danger" *ngIf="isFieldInvalid('Phone1')">Phone is required</div>
             </div>
           </div>
           <div class="form-group row">
@@ -105,6 +112,8 @@
                 formControlName="Enabled"
                 class="form-control">
             </div>
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="Enables application at site.  Not billed unless enabled.">?</button>
           </div>
           <div class="form-group row">
             <label class="col-form-label col-sm-3" for="POSTypeId">POS Type</label>
@@ -124,6 +133,8 @@
                 formControlName="LightControlEnabled"
                 class="form-control">
             </div>
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="Wireless Light Control - Additional Fees may apply.">?</button>
           </div>
           <div class="form-group row">
             <label class="col-form-label col-sm-4" for="Memo">Memo</label>

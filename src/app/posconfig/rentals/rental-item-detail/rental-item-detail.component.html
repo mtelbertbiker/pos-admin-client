@@ -19,6 +19,7 @@
             id="Name"
             formControlName="Name"
             class="form-control">
+          <div class="alert alert-danger" *ngIf="isFieldInvalid('Name')">Name is required</div>
         </div>
       </div>
       <div class="form-group row">
@@ -30,6 +31,8 @@
             formControlName="Disabled"
             class="form-control">
         </div>
+        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                ngbTooltip="Only Enabled Rental Item are displayed.">?</button>
       </div>
       <div class="form-group row">
         <label class="col-sm-3" for="RentalTypeId">Rental Type</label>
@@ -47,6 +50,8 @@
           <div class="card bg-light">
             <div class="card-header">
               <label>Selected Fee Groups</label>
+              <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                      ngbTooltip="Drag and Drop Selected Fee Groups to control display order.">?</button>
             </div>
             <div class="card-body">
               <div class="example-container">
@@ -69,6 +74,8 @@
           <div class="card bg-light">
             <div class="card-header">
               <label>Available Fee Groups</label>
+              <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                      ngbTooltip="Drag and Drop Fee Groups between Selected and Available areas.">?</button>
             </div>
             <div class="card-body">
               <div class="example-container">

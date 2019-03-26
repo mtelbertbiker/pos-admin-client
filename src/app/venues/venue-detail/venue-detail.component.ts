@@ -81,11 +81,11 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
     const website = this.venue.Website;
     this.venueDetailForm = new FormGroup(
       {
-        'Name': new FormControl(venueName, [Validators.required, Validators.pattern(/^[a-zA-Z0-9 '-]+$/)]),
-        'Address1': new FormControl(address1, [Validators.required, Validators.pattern(/^[a-zA-Z0-9 '-]+$/)]),
+        'Name': new FormControl(venueName, Validators.required),
+        'Address1': new FormControl(address1, Validators.required),
         'Address2': new FormControl(address2),
-        'City': new FormControl(city, [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]),
-        'State': new FormControl(state, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
+        'City': new FormControl(city, Validators.required),
+        'State': new FormControl(state, Validators.required),
         'PostalCode': new FormControl(postalCode, Validators.required),
         'Phone1': new FormControl(phone1, Validators.required),
         'Phone2': new FormControl(phone2),
@@ -96,6 +96,10 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
         'Website' : new FormControl(website),
       }
     );
+  }
+
+  isFieldInvalid(fieldName: string) {
+    return this.venueDetailForm.controls[fieldName].invalid;
   }
 
   onDeleteLocation(index: number) {

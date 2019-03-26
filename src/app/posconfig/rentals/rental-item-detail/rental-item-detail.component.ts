@@ -60,6 +60,11 @@ export class RentalItemDetailComponent implements OnInit {
     );
   }
 
+
+  isFieldInvalid(fieldName: string) {
+    return this.rentalItemDetailForm.controls[fieldName].invalid;
+  }
+
   onAddFeeGroup(fgId: number) {
     this.venue.FeeGroups.forEach((feeGroup) => {
       if (feeGroup.FGId === fgId) {

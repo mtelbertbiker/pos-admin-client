@@ -45,3 +45,10 @@ export enum FormTypes {
   FeeGroups = 'Fee Groups',
   Fees = 'Fees'
 }
+
+export class RegexPatterns {
+  public static readonly ONE_DANK_REGEX = /^[dank]+$/g;
+  public static readonly Name = /^[a-zA-Z0-9.,\'# ]+$/g;
+  public static readonly Number = /^[0-9.\- ]+$/g;
+  public static readonly Money = /^[0-9.]+$/g;
+}

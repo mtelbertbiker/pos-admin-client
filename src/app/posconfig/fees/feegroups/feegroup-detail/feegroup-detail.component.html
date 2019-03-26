@@ -19,6 +19,7 @@
             id="Name"
             formControlName="Name"
             class="form-control">
+          <div class="alert alert-danger" *ngIf="isFieldInvalid('Name')">Name is required</div>
         </div>
       </div>
       <div class="form-group row">
@@ -30,10 +31,16 @@
             formControlName="Disabled"
             class="form-control">
         </div>
+        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                ngbTooltip="Only Enabled Fee Groups are available at site.">?
+        </button>
       </div>
       <div class="card bg-light">
         <div class="card-header">
-          <label><b>Users</b></label>
+          <label><b>Users (Players)</b></label>
+          <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                  ngbTooltip="Each Fee Group can have different rules about Rental Users/Players.">?
+          </button>
         </div>
         <div class="card-body">
           <div class="form-group row">
@@ -43,28 +50,39 @@
                 type="checkbox"
                 id="RequiresUsers"
                 formControlName="RequiresUsers"
+                (click)="setUserFormControls(true)"
                 class="form-control col-auto">
             </div>
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="If Enabled, Selecting this Fee Group will force the selection of the number of Users/Players for the Rental Item.">
+              ?
+            </button>
           </div>
           <div class="form-group row">
-            <label class="col-form-label col-sm-3" for="MinUsers">Minimum Users</label>
-            <div class="col-sm-6">
+            <label class="col-form-label col-sm-3" for="MinUsers">Min Users</label>
+            <div class="col-sm-3">
               <input
                 type="number"
                 id="MinUsers"
                 formControlName="MinUsers"
                 class="form-control">
             </div>
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="The Minimum number of Users/Players when selecting this Fee Group.">?
+            </button>
           </div>
           <div class="form-group row">
-            <label class="col-form-label col-sm-3" for="MaxUsers">Maximum Users</label>
-            <div class="col-sm-6">
+            <label class="col-form-label col-sm-3" for="MaxUsers">Max Users</label>
+            <div class="col-sm-3">
               <input
                 type="number"
                 id="MaxUsers"
                 formControlName="MaxUsers"
                 class="form-control">
             </div>
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="The Maximum number of Users/Players when selecting this Fee Group.">?
+            </button>
           </div>
           <div class="form-group row">
             <label class="col-form-label col-sm-4" for="TransferUserEnabled">Allow User Transfers</label>
@@ -75,6 +93,9 @@
                 formControlName="TransferUserEnabled"
                 class="form-control">
             </div>
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="Allows the Transfer of Individual Players to/from Rentals within the Fee Group">?
+            </button>
           </div>
           <div class="form-group row">
             <label class="col-form-label col-sm-4" for="UserNameTrackingEnabled">Track User Names</label>
@@ -85,6 +106,9 @@
                 formControlName="UserNameTrackingEnabled"
                 class="form-control">
             </div>
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="Allows the Tracking of Players Names">?
+            </button>
           </div>
           <div class="form-group row">
             <label class="col-form-label col-sm-4" for="CondenseUserFees">Condense User Fees</label>
@@ -95,6 +119,9 @@
                 formControlName="CondenseUserFees"
                 class="form-control">
             </div>
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="Combines Reporting of individual fees to just one amount for Rental Item.">?
+            </button>
           </div>
         </div>
       </div>
@@ -107,6 +134,9 @@
             formControlName="RequiredFee"
             class="form-control">
         </div>
+        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                ngbTooltip="An Always Included fee regardless of Rental Time or Number of Users">?
+        </button>
       </div>
       <div class="form-group row">
         <label class="col-form-label col-sm-3" for="ItemId">POS Item Id</label>
@@ -117,8 +147,10 @@
             formControlName="ItemId"
             class="form-control">
         </div>
+        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                ngbTooltip="The POS Item Id to use to report fees from this Fee Group">?
+        </button>
       </div>
-
     </div>
   </div>
 </form>

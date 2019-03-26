@@ -8,7 +8,7 @@ import {ResellerService} from '../../../resellers/reseller.service';
 import {ResellerDataService} from '../../../shared/data-services/reseller-data.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LicenseeDataService} from '../../../shared/data-services/licensee-data.service';
-import {FormTypes} from '../../../shared/data-services/constants.service';
+import {FormTypes, RegexPatterns} from '../../../shared/data-services/constants.service';
 
 @Component({
   selector: 'app-licensee-item-detail',
@@ -61,21 +61,25 @@ export class LicenseeItemDetailComponent implements OnInit {
     const disabled = !this.licensee.Disabled;
     this.licenseeItemDetailForm = new FormGroup(
       {
-        'Name': new FormControl(name, [Validators.required, Validators.pattern(/^[a-zA-Z0-9.,# ]+$/)]),
-        'Address1': new FormControl(address1, [Validators.required, Validators.pattern(/^[a-zA-Z0-9.,# ]+$/)]),
+        'Name': new FormControl(name, Validators.required),
+        'Address1': new FormControl(address1, Validators.required),
         'Address2': new FormControl(address2),
-        'City': new FormControl(city, [Validators.required, Validators.pattern(/^[a-zA-Z., ]+$/)]),
-        'State': new FormControl(state, [Validators.required, Validators.pattern(/^[a-zA-Z., ]+$/)]),
+        'City': new FormControl(city, Validators.required),
+        'State': new FormControl(state, Validators.required),
         'PostalCode': new FormControl(postalCode, Validators.required),
         'Phone1': new FormControl(phone1, Validators.required),
         'Phone2': new FormControl(phone2),
-        'ContactFirstName': new FormControl(contactFirstName, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
-        'ContactLastName': new FormControl(contactLastName, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
-        'Email': new FormControl(email, Validators.required),
+        'ContactFirstName': new FormControl(contactFirstName, Validators.required),
+        'ContactLastName': new FormControl(contactLastName, Validators.required),
+        'Email': new FormControl(email, [Validators.required, Validators.email]),
         'Disabled': new FormControl(disabled),
         'Website': new FormControl(website),
       }
     );
+  }
+
+  isFieldInvalid(fieldName: string) {
+    return this.licenseeItemDetailForm.controls[fieldName].invalid;
   }
 
   updateLicensee(updatedLicensee: Licensee) {
