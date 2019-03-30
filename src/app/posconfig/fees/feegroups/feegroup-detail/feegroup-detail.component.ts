@@ -20,6 +20,7 @@ export class FeeGroupDetailComponent implements OnInit {
   vid: number;
   index: number;
   subscription: Subscription;
+  usersDisabled = false;
 
   constructor(private venueService: VenueService,
               private route: ActivatedRoute,
@@ -57,6 +58,7 @@ export class FeeGroupDetailComponent implements OnInit {
     const TransferUserEnabled = this.feeGroup.TransferUserEnabled;
     const Disabled = !this.feeGroup.Disabled;
     const TrackUserNames = this.feeGroup.UserNameTrackingEnabled;
+    this.usersDisabled = !this.feeGroup.RequiresUsers;
     this.feeGroupDetailForm = new FormGroup(
       {
         'Name': new FormControl(Name, Validators.required),
@@ -70,26 +72,25 @@ export class FeeGroupDetailComponent implements OnInit {
         'RequiredFee': new FormControl(RequiredFee, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
         'Disabled': new FormControl(Disabled),
       });
-    this.setUserFormControls(false);
   }
 
-  setUserFormControls(invert: boolean) {
-    var enable  = this.feeGroup.RequiresUsers;
-    if (invert) {
-       enable = !enable;
-    }
-    if (enable) {
-      this.feeGroupDetailForm.controls['MinUsers'].enable();
-      this.feeGroupDetailForm.controls['MaxUsers'].enable();
-      this.feeGroupDetailForm.controls['UserNameTrackingEnabled'].enable();
-      this.feeGroupDetailForm.controls['CondenseUserFees'].enable();
-      this.feeGroupDetailForm.controls['TransferUserEnabled'].enable();
+  isMinUserFieldInvalid() {
+    if (this.feeGroup.RequiresUsers) {
+      if (this.feeGroup.MinUsers < 1 || this.feeGroup.MinUsers > 999) {
+        return true;
+      }
     } else {
-      this.feeGroupDetailForm.controls['MinUsers'].disable();
-      this.feeGroupDetailForm.controls['MaxUsers'].disable();
-      this.feeGroupDetailForm.controls['UserNameTrackingEnabled'].disable();
-      this.feeGroupDetailForm.controls['CondenseUserFees'].disable();
-      this.feeGroupDetailForm.controls['TransferUserEnabled'].disable();
+      return false;
+    }
+  }
+
+  isMaxUserFieldInvalid() {
+    if (this.feeGroup.RequiresUsers) {
+      if (this.feeGroup.MaxUsers < this.feeGroup.MinUsers  || this.feeGroup.MaxUsers > 999) {
+        return true;
+      }
+    } else {
+      return false;
     }
   }
 
@@ -108,6 +109,7 @@ export class FeeGroupDetailComponent implements OnInit {
     this.feeGroup.UserNameTrackingEnabled = updatedFeeGroup.UserNameTrackingEnabled;
     this.feeGroup.TransferUserEnabled = updatedFeeGroup.TransferUserEnabled;
     this.feeGroup.Disabled = !updatedFeeGroup.Disabled;
+    this.usersDisabled = !this.feeGroup.RequiresUsers;
     this.venueService.updateVenueDetail(this.vid, this.venue);
   }
 

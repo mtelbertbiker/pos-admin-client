@@ -19,11 +19,11 @@
             id="Name"
             formControlName="Name"
             class="form-control">
-          <div class="alert alert-danger" *ngIf="isFieldInvalid('Name')">Name is required</div>
+          <div class="alert alert-danger" *ngIf="isFieldInvalid('Name')">Fee Group Name is required</div>
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label col-sm-4" for="Disabled">Enabled</label>
+        <label class="col-form-label col-sm-3" for="Disabled">Enabled</label>
         <div class="col-sm-3">
           <input
             type="checkbox"
@@ -50,7 +50,6 @@
                 type="checkbox"
                 id="RequiresUsers"
                 formControlName="RequiresUsers"
-                (click)="setUserFormControls(true)"
                 class="form-control col-auto">
             </div>
             <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
@@ -65,7 +64,9 @@
                 type="number"
                 id="MinUsers"
                 formControlName="MinUsers"
+                [readonly]="!this.feeGroup.RequiresUsers"
                 class="form-control">
+              <div class="alert alert-danger" *ngIf="isMinUserFieldInvalid()">Must be 1 - 999</div>
             </div>
             <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
                     ngbTooltip="The Minimum number of Users/Players when selecting this Fee Group.">?
@@ -78,8 +79,10 @@
                 type="number"
                 id="MaxUsers"
                 formControlName="MaxUsers"
+                [readonly]="!this.feeGroup.RequiresUsers"
                 class="form-control">
             </div>
+            <div class="alert alert-danger" *ngIf="isMaxUserFieldInvalid()">Must >= Min Users, < 999</div>
             <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
                     ngbTooltip="The Maximum number of Users/Players when selecting this Fee Group.">?
             </button>
@@ -91,6 +94,7 @@
                 type="checkbox"
                 id="TransferUserEnabled"
                 formControlName="TransferUserEnabled"
+                [attr.disabled]="usersDisabled?'':null"
                 class="form-control">
             </div>
             <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
@@ -104,6 +108,7 @@
                 type="checkbox"
                 id="UserNameTrackingEnabled"
                 formControlName="UserNameTrackingEnabled"
+                [attr.disabled]="usersDisabled?'':null"
                 class="form-control">
             </div>
             <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
@@ -117,6 +122,7 @@
                 type="checkbox"
                 id="CondenseUserFees"
                 formControlName="CondenseUserFees"
+                [attr.disabled]="usersDisabled?'':null"
                 class="form-control">
             </div>
             <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
@@ -127,7 +133,7 @@
       </div>
       <div class="form-group row">
         <label class="col-form-label col-sm-3" for="RequiredFee">Required Fee</label>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
           <input
             type="number"
             id="RequiredFee"
@@ -140,7 +146,7 @@
       </div>
       <div class="form-group row">
         <label class="col-form-label col-sm-3" for="ItemId">POS Item Id</label>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
           <input
             type="number"
             id="ItemId"

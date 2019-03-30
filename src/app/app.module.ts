@@ -144,7 +144,8 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     AuthModule.forRoot(),
   ],
   exports: [],
-  providers: [VenueService,
+  providers: [
+    VenueService,
     VenueDataService,
     ConstantsService,
     SessionService,

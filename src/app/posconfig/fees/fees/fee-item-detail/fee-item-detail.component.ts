@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Fee} from '../../../../shared/pos-models/fee.model';
 import {FeeGroup} from '../../../../shared/pos-models/fee-group.model';
 import {Venue} from '../../../../shared/pos-models/venue.model';
@@ -27,13 +27,14 @@ export class FeeItemDetailComponent implements OnInit {
   constructor(private venueService: VenueService,
               private route: ActivatedRoute,
               private sessionService: SessionService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.route.params
       .subscribe(
         (params: Params) => {
-          this.index =  +params['id'];
+          this.index = +params['id'];
           this.fid = +params['fid'];
           this.vid = this.sessionService.getCurrentVenueIndex();
           this.venue = this.venueService.getVenue(this.vid);
@@ -74,7 +75,7 @@ export class FeeItemDetailComponent implements OnInit {
     const ItemId = this.fee.ItemId;
     this.feeItemDetailForm = new FormGroup(
       {
-        'Name': new FormControl(Name, [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
+        'Name': new FormControl(Name, Validators.required),
         'BeginTime': new FormControl(BeginTime, Validators.required),
         'EndTime': new FormControl(EndTime, Validators.required),
         'MinDur': new FormControl(MinDur, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
@@ -97,6 +98,37 @@ export class FeeItemDetailComponent implements OnInit {
         'ItemId': new FormControl(ItemId, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)])
       }
     );
+  }
+
+  isMinUserFieldInvalid() {
+    if (this.feeGroup.RequiresUsers) {
+      if (this.fee.MinUsers < 1 || this.fee.MinUsers > 999) {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  isMaxUserFieldInvalid() {
+    if (this.feeGroup.RequiresUsers) {
+      if (this.fee.MaxUsers < this.fee.MinUsers || this.fee.MaxUsers > 999) {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  isMaxDurFieldInvalid() {
+    if (this.fee.MaxDur > 0 && this.fee.MaxDur < this.fee.MinDur) {
+      return true;
+    }
+    return false;
+  }
+
+  isFieldInvalid(fieldName: string) {
+    return this.feeItemDetailForm.controls[fieldName].invalid;
   }
 
   pad(n) {
@@ -133,7 +165,8 @@ export class FeeItemDetailComponent implements OnInit {
     if (confirm('Delete Fee ' + this.fee.Name + '?') === true) {
       this.feeGroup.Fees.splice(index, 1);
       this.router.navigate(['../..'], {relativeTo: this.route});
-    };
+    }
+    ;
   }
 
 }
