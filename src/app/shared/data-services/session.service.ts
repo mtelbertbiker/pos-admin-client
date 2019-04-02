@@ -26,7 +26,6 @@ export class SessionService {
     endMinute : 30
   };
 
-
   ClientId: string;
 
   constructor(private cookieService: CookieService) {

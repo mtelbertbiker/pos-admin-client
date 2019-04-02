@@ -55,6 +55,16 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
     this.router.navigate(['licensee/' + this.id + '/locations/' + index + '/detail']);
   }
 
+
+  onAddVenue() {
+    console.log('onAddVenue');
+    const newVenue = new Venue(0, 0, 0, 'New Location', '', '', '', '', '', '', '', 0, '', false, '', false, '', true, [], [], [], [], 0, false, '');
+    this.vid = this.venueService.addVenue(newVenue);
+    this.sessionService.setSaveState(FormTypes.Locations, false, true);
+    this.router.navigate(['licensee/' + this.id + '/locations/' + this.vid + '/detail']);
+  }
+
+
   onSave() {
     if (this.sessionService.ChangedItems.indexOf(FormTypes.Licensees.toString()) > -1) {
       this.sessionService.HideSaveBtn = true;

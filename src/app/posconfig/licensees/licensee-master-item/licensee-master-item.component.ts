@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {LicenseeService} from '../../../shared/licensee.service';
-import {SessionService} from '../../../shared/data-services/session.service';
-import {LicenseeDataService} from '../../../shared/data-services/licensee-data.service';
 import {Subscription} from 'rxjs/Rx';
 import {Licensee} from '../../../shared/licensee.model';
 import {ActivatedRoute, Params} from '@angular/router';
@@ -14,8 +12,6 @@ import {VenueService} from '../../../venues/venue.service';
   templateUrl: './licensee-master-item.component.html',
 })
 export class LicenseeMasterItemComponent implements OnInit {
-
-  licenseeSubscription: Subscription;
   licensee: Licensee;
   venues: Venue[];
   id: number;

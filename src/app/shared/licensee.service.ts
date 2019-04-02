@@ -13,6 +13,12 @@ export class LicenseeService {
   getLicensees() {
     return this.licensees.slice();
   }
+
+  addLicensee(newLicensee: Licensee) {
+    this.licensees.push(newLicensee);
+    return this.licensees.length - 1;
+  }
+
   setLicensee(newLicensee: Licensee) {
     if (this.licensees.length > 0) {
       this.licensees.pop();

@@ -10,6 +10,7 @@ import {SessionService} from '../../shared/data-services/session.service';
 import {Licensee} from '../../shared/licensee.model';
 import {LicenseeService} from '../../shared/licensee.service';
 import {ResellerService} from '../../resellers/reseller.service';
+import {FormTypes} from '../../shared/data-services/constants.service';
 
 
 @Component({
@@ -33,7 +34,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private router: Router,
               private sessionService: SessionService,
               private licenseeService: LicenseeService,
-              private resellerService: ResellerService,
               private oidcSecurityService: OidcSecurityService) {
     this.isAuthorized = true;
     this.session = sessionService;
@@ -58,10 +58,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onAddLicensee() {
-    this.licensees.push(new Licensee(0, 'New Licensee', '', '', '', '', '', '', '', '', '', '', '', '', [], [], false, '' ));
-    this.resellerService.setLicensees(this.licensees);
-    const index = this.licensees.length;
-    this.router.navigate(['licensee/' + index + '/detail/' + index ]);
+    const newLicensee = new Licensee(0, 'New Licensee', '', '', '', '', '', '', '', '', '', '', '', '', [], [], false, '' );
+    const index = this.licenseeService.addLicensee(newLicensee);
+    this.sessionService.setLicensee(newLicensee);
+    this.sessionService.setSaveState(FormTypes.Licensees, false, true);
+    this.router.navigate(['licensee/' + index + '/detail/' ]);
   }
 
   onSelectLicensee(index: number) {
@@ -82,14 +83,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.venues = this.venueService.getVenues();
   }
 
- /*
-  onAddLocation() {
-    console.log('onAddLocation');
-    const newVenue = new Venue (0, 0, 0, 'New Location', '', '', '', '', '', '', '', [], [], [], [], 0, '');
-    const index = this.venueService.addVenue(newVenue);
-    this.router.navigate(['location/' + index + '/1']);
-  }
-*/
   showResellerLicensees() {
     console.log('showResellerLicensees');
     this.router.navigate(['reseller/licensees']);
