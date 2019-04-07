@@ -10,6 +10,7 @@ import {VenueDataService} from '../../../../shared/data-services/venue-data.serv
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LicenseeSaveCancelModalComponent} from './licensee-save-cancel-modal/licensee-save-cancel-modal.component';
 import {FormTypes} from '../../../../shared/data-services/constants.service';
+import {Subscription} from 'rxjs/Rx';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
   myModals = {
     cancelConfirm: LicenseeSaveCancelModalComponent
   };
+  subscription: Subscription;
 
   constructor(private route: ActivatedRoute,
               private licenseeService: LicenseeService,
@@ -44,7 +46,13 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
         (params: Params) => {
           this.id = +params['id'];
           this.licensee = this.licenseeService.getLicensee(this.id);
-          this.venues = this.venueService.getVenuesForLicensee(this.licensee.LicId);
+          this.venueDataService.getVenues(this.licensee.LicId);
+          this.subscription = this.venueService.venuesChanged
+            .subscribe(
+              (venues: Venue[]) => {
+                this.venues = this.venueService.getVenuesForLicensee(this.licensee.LicId);
+              }
+            );
         }
       );
   }
@@ -58,7 +66,10 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
 
   onAddVenue() {
     console.log('onAddVenue');
-    const newVenue = new Venue(0, 0, 0, 'New Location', '', '', '', '', '', '', '', 0, '', false, '', false, '', true, [], [], [], [], 0, false, '');
+    const newVenue = new Venue(0, 0, 0, 'New Location',
+      '', '', '', '', '', '', '', 0, '', false, '', false, ''
+      , true, [], [], [], [], 0, false, '');
+    newVenue.LicId = this.sessionService.licensee.LicId;
     this.vid = this.venueService.addVenue(newVenue);
     this.sessionService.setSaveState(FormTypes.Locations, false, true);
     this.router.navigate(['licensee/' + this.id + '/locations/' + this.vid + '/detail']);
@@ -106,6 +117,7 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
             console.log('PutVenue Response:' + venue.toString());
             this.venueService.putVenue(this.vid, venue);
             this.sessionService.resetSaveState();
+            this.venues = this.venueService.getVenuesForLicensee(this.licensee.LicId);
           });
     }
   }

@@ -1,5 +1,6 @@
 import {Brand} from './brand.model';
 import {Venue} from './pos-models/venue.model';
+import {LicenseeUser} from './licensee-user.model';
 export class Licensee {
   constructor(public LicId: number,
               public Name: string,
@@ -17,6 +18,8 @@ export class Licensee {
               public Website: string,
               public Brands: Brand[],
               public Venues: Venue[],
+              public LicenseeUsers: LicenseeUser[],
+              public ResellerId: number,
               public Disabled: boolean,
               public UpdatedUtc: string) {}
 }

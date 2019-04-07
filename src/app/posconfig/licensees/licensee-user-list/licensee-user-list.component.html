@@ -1,3 +1,27 @@
-<p>
-  licensee-user-list works!
-</p>
+<div class="card bg-light">
+  <div class="card-header">
+    <div class="row">
+      <h4><b>Licensee Users:</b></h4>
+      <div class="col-auto">
+        <button
+          type="submit"
+          class="btn btn-success" (click)="onAddLicenseeUser()">+</button>
+        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                ngbTooltip="Drag and Drop Rental Items to control display order.">?</button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-6" *ngIf="licensee != null">
+        <app-licensee-user-item
+          *ngFor="let user of licensee.LicenseeUsers; let i = index"
+          [licenseeUser]="user" [index]="i" [vid]="id">
+        </app-licensee-user-item>
+      </div>
+      <div class="col-sm-6">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

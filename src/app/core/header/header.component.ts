@@ -58,7 +58,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onAddLicensee() {
-    const newLicensee = new Licensee(0, 'New Licensee', '', '', '', '', '', '', '', '', '', '', '', '', [], [], false, '' );
+    const newLicensee = new Licensee(0, 'New Licensee', '', '', '', '', '', '', '', '', '', '', '', '', [], [], [], 0, false, '' );
+    newLicensee.Email = this.sessionService.Email;
+    newLicensee.ResellerId = this.sessionService.ResellerId;
     const index = this.licenseeService.addLicensee(newLicensee);
     this.sessionService.setLicensee(newLicensee);
     this.sessionService.setSaveState(FormTypes.Licensees, false, true);
@@ -67,6 +69,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onSelectLicensee(index: number) {
     this.sessionService.resetSaveState();
+    this.sessionService.licensee = this.licensees[index];
     this.router.navigate(['licensee/' + index + '/detail' ]);
   }
 

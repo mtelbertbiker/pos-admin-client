@@ -18,7 +18,7 @@
                 ngbDropdownToggle>Locations</button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
           <button *ngFor="let venue of venues; let i = index" (click)="onSelectVenue(i) " class="dropdown-item">
-            {{venue.Name}}, {{venue.City}}, {{venue.State}}
+            {{venue.Name}}{{venue.Disabled ? " (D)" :""}}, {{venue.City}}, {{venue.State}}
           </button>
           <div class="dropdown-divider"></div>
           <button

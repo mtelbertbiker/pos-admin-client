@@ -9,7 +9,7 @@
           <div ngbDropdown class="d-inline-block" *ngIf="session.ResellerId > 0">
             <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>My Licensees</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button *ngFor="let licensee of licensees; let i = index" (click)="onSelectLicensee(i) "class="dropdown-item">{{licensee.Name}}, {{licensee.City}}, {{licensee.State}}</button>
+              <button *ngFor="let licensee of licensees; let i = index" (click)="onSelectLicensee(i) "class="dropdown-item">{{licensee.Name}}{{licensee.Disabled ? " (D)" : ""}}, {{licensee.City}}, {{licensee.State}}</button>
               <div class="dropdown-divider"></div>
               <button
                 type="submit"

@@ -3,142 +3,142 @@
     <h4><b>Location Detail</b></h4>
   </div>
   <div class="card-body">
-    <div class="row">
-      <div class="col-xs-12">
-        <form [formGroup]="venueDetailForm">
-          <div class="form-group row">
-            <label class="col-form-label col-sm-3" for="Name">Location Name</label>
-            <div class="col-sm-9">
-              <input
-                type="text"
-                id="Name"
-                formControlName="Name"
-                class="form-control">
-              <div class="alert alert-danger" *ngIf="isFieldInvalid('Name')">Location Name is required</div>
-            </div>
-
-          </div>
-          <div class="form-group row">
-            <label class="col-form-label col-sm-4" for="Address1">Address 1</label>
-            <div class="col-sm-8">
-              <input
-                type="text"
-                id="Address1"
-                formControlName="Address1"
-                class="form-control">
-              <div class="alert alert-danger" *ngIf="isFieldInvalid('Address1')">Address is required</div>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-form-label col-sm-4" for="Address2">Address 2</label>
-            <div class="col-sm-8">
-              <input
-                type="text"
-                id="Address2"
-                formControlName="Address2"
-                class="form-control">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-form-label col-sm-3" for="City">City</label>
-            <div class="col-sm-9">
-              <input
-                type="text"
-                id="City"
-                formControlName="City"
-                class="form-control">
-              <div class="alert alert-danger" *ngIf="isFieldInvalid('City')">City is required</div>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-form-label col-sm-3" for="State">State</label>
-            <div class="col-sm-9">
-              <input
-                type="text"
-                id="State"
-                formControlName="State"
-                class="form-control">
-              <div class="alert alert-danger" *ngIf="isFieldInvalid('State')">State is required</div>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-form-label col-sm-3" for="PostalCode">Postal Code</label>
-            <div class="col-sm-9">
-              <input
-                type="text"
-                id="PostalCode"
-                formControlName="PostalCode"
-                class="form-control">
-              <div class="alert alert-danger" *ngIf="isFieldInvalid('PostalCode')">Postal Code is required</div>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-form-label col-sm-4" for="Website">Web Site</label>
-            <div class="col-sm-8">
-              <input
-                type="text"
-                id="Website"
-                formControlName="Website"
-                class="form-control">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-form-label col-sm-4" for="Phone1">Phone 1</label>
-            <div class="col-sm-8">
-              <input
-                type="text"
-                id="Phone1"
-                formControlName="Phone1"
-                class="form-control">
-              <div class="alert alert-danger" *ngIf="isFieldInvalid('Phone1')">Phone is required</div>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-form-label col-sm-4" for="Phone2">Phone 2</label>
-            <div class="col-sm-8">
-              <input
-                type="text"
-                id="Phone2"
-                formControlName="Phone2"
-                class="form-control">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-form-label col-sm-4" for="Enabled">Enabled</label>
-            <div class="col-sm-3">
-              <input
-                type="checkbox"
-                id="Enabled"
-                formControlName="Enabled"
-                class="form-control">
-            </div>
-            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                    ngbTooltip="Enables application at site.  Not billed unless enabled.">?</button>
-          </div>
-          <div class="form-group row">
-            <label class="col-form-label col-sm-3" for="POSTypeId">POS Type</label>
-            <select class="col-sm-6" id="POSTypeId" formControlName="POSTypeId">
-              <option *ngFor="let pt of posTypes"
-                      [value]="pt.value"
-                      [selected]="pt.value == posType.value">{{pt.name}}
-              </option>
-            </select>
-          </div>
-          <div class="form-group row">
-            <label class="col-form-label col-sm-6" for="LightControlEnabled">Light Control Enabled</label>
-            <div class="col-sm-3">
-              <input
-                type="checkbox"
-                id="LightControlEnabled"
-                formControlName="LightControlEnabled"
-                class="form-control">
-            </div>
-            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                    ngbTooltip="Wireless Light Control - Additional Fees may apply.">?</button>
-          </div>
-          <div class="form-group row">
-            <label class="col-form-label col-sm-4" for="Memo">Memo</label>
-            <div class="col-sm-8">
+    <form [formGroup]="venueDetailForm">
+      <div class="form-group row">
+        <label class="col-form-label" for="Name">Location Name</label>
+        <div class="col-sm-6">
+          <input
+            type="text"
+            id="Name"
+            formControlName="Name"
+            class="form-control">
+          <div class="alert alert-danger" *ngIf="isFieldInvalid('Name')">Location Name is required</div>
+        </div>
+        <label class="col-form-label"># {{venue.LId}}</label>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label" for="Enabled">Enabled</label>
+        <div class="col-sm-3">
+          <input
+            type="checkbox"
+            id="Enabled"
+            formControlName="Enabled"
+            class="form-control">
+        </div>
+        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                ngbTooltip="Enables application at site.  Not billed unless enabled.">?
+        </button>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label" for="Address1">Address 1</label>
+        <div class="col-sm-8">
+          <input
+            type="text"
+            id="Address1"
+            formControlName="Address1"
+            class="form-control">
+          <div class="alert alert-danger" *ngIf="isFieldInvalid('Address1')">Address is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label" for="Address2">Address 2</label>
+        <div class="col-sm-8">
+          <input
+            type="text"
+            id="Address2"
+            formControlName="Address2"
+            class="form-control">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label" for="City">City</label>
+        <div class="col-sm-9">
+          <input
+            type="text"
+            id="City"
+            formControlName="City"
+            class="form-control">
+          <div class="alert alert-danger" *ngIf="isFieldInvalid('City')">City is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label" for="State">State</label>
+        <div class="col-sm-1">
+          <input
+            type="text"
+            id="State"
+            formControlName="State"
+            class="form-control">
+        </div>
+        <div class="alert alert-danger" *ngIf="isFieldInvalid('State')">State is required</div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label" for="PostalCode">Postal Code</label>
+        <div class="col-sm-9">
+          <input
+            type="text"
+            id="PostalCode"
+            formControlName="PostalCode"
+            class="form-control">
+          <div class="alert alert-danger" *ngIf="isFieldInvalid('PostalCode')">Postal Code is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label" for="Website">Web Site</label>
+        <div class="col-sm-8">
+          <input
+            type="text"
+            id="Website"
+            formControlName="Website"
+            class="form-control">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label" for="Phone1">Phone 1</label>
+        <div class="col-sm-8">
+          <input
+            type="text"
+            id="Phone1"
+            formControlName="Phone1"
+            class="form-control">
+          <div class="alert alert-danger" *ngIf="isFieldInvalid('Phone1')">Phone is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label" for="Phone2">Phone 2</label>
+        <div class="col-sm-8">
+          <input
+            type="text"
+            id="Phone2"
+            formControlName="Phone2"
+            class="form-control">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label" for="POSTypeId">POS Type </label>
+        <select class="col-sm-6" id="POSTypeId" formControlName="POSTypeId">
+          <option *ngFor="let pt of posTypes"
+                  [value]="pt.value"
+                  [selected]="pt.value == posType.value">{{pt.name}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label" for="LightControlEnabled">Light Control Enabled</label>
+        <div class="col-sm-3">
+          <input
+            type="checkbox"
+            id="LightControlEnabled"
+            formControlName="LightControlEnabled"
+            class="form-control">
+        </div>
+        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                ngbTooltip="Wireless Light Control - Additional Fees may apply.">?
+        </button>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label" for="Memo">Memo</label>
+        <div class="col-sm-8">
               <textarea
                 type="text"
                 id="Memo"
@@ -146,16 +146,14 @@
                 maxlength="512"
                 rows="4"
                 class="form-control"></textarea>
-            </div>
-          </div>
-        </form>
-        <div class="row">
-          <div class="col-sm-6">
-            <button
-              class="btn btn-danger" (click)="onDeleteLocation(id)">Delete
-            </button>
-          </div>
         </div>
+      </div>
+    </form>
+    <div class="row">
+      <div class="col-sm-6">
+        <button
+          class="btn btn-danger" (click)="onDeleteLocation(id)">Delete
+        </button>
       </div>
     </div>
   </div>

@@ -19,30 +19,34 @@ export class VenueDataService {
               private oidcSecurityService: OidcSecurityService) {
   }
 
-  getVenues() {
+  getVenues(licId: number) {
     const token = this.oidcSecurityService.getToken();
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${token}`)
       .set('ClientId', this.session.ClientId);
     const apiUrl = this.consts.AdminBaseUri +
       this.consts.AdminLicenseeLocationsUri +
-      this.session.LicenseeId + '/' +
-      this.session.BrandId;
+      licId + '/' +
+      this.session.getBrandId();
     console.log('getVenues:' + apiUrl);
     this.http.get(apiUrl, {headers: headers})
       .subscribe(
         response => {
           this.venues = response;
           this.venueService.setVenues(this.venues);
+          return this.venues;
         },
-        error => console.log(error)
+        error => {
+          console.log(error);
+          return [];
+        }
       );
   }
 
   putVenue(venue: Venue) {
     const location = {
-      'LicId': this.session.LicenseeId,
-      'BId': this.session.BrandId,
+      'LicId': this.session.licensee.LicId,
+      'BId': this.session.licensee.Brands[0].BId,
       'LId': venue['LId'],
       'Name': venue.Name,
       'Address1': venue.Address1,

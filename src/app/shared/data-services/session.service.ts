@@ -6,16 +6,15 @@ import {FormTypes} from './constants.service';
 
 @Injectable()
 export class SessionService {
-  LicenseeId = 1;
   licensee: Licensee;
   ItemIsValid = true;
   ItemIsChanged = false;
   ChangedItems: Array<string>;
   Saving = [];
   HideSaveBtn = false;
-  BrandId = 0;
+  private DefaultBrandId = 1;
   vid: number;
-  ResellerId = 1;
+  ResellerId = 1; // 1 is Fee Machine
   FeeCalcTest = {
     fgid : 0,
     dayOfWeek : 2,
@@ -25,6 +24,7 @@ export class SessionService {
     endHour : 15,
     endMinute : 30
   };
+  Email = 'mtelbertbiker@gmail.com';
 
   ClientId: string;
 
@@ -52,6 +52,13 @@ export class SessionService {
     this.Saving = [];
   }
 
+  getBrandId(): number {
+    if ((this.licensee.Brands != null) && (this.licensee.Brands.length > 0)) {
+      return this.licensee.Brands[0].BId;
+    }
+    return this.DefaultBrandId;  // Default Brand value
+  }
+
   setCurrentVenueIndex(index: number) {
     this.vid = index;
   }
@@ -68,9 +75,6 @@ export class SessionService {
     return Number(this.licensee.LicId);
   }
 
-  setBrandId(bId: any) {
-    this.BrandId = bId;
-  }
   getCurrentVenueIndex() {
     return this.vid;
   }

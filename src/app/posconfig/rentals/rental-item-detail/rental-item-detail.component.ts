@@ -116,6 +116,7 @@ export class RentalItemDetailComponent implements OnInit {
   }
   onSelectChange(rentalTypeId: number) {
     this.rentalItem.RentalTypeId = rentalTypeId;
+    this.sessionService.setSaveState(FormTypes.Rentals, this.rentalItemDetailForm.valid, true);
   }
   onDeleteRentalItem(index: number) {
     if (confirm('Delete this Rental Item?') === true) {
@@ -132,11 +133,13 @@ export class RentalItemDetailComponent implements OnInit {
         rentalItemFeeGroup.DisplayOrder = i;
         i++;
       }
+      this.sessionService.setSaveState(FormTypes.Rentals, this.rentalItemDetailForm.valid, true);
     } else {
       transferArrayItem(event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex);
+      this.sessionService.setSaveState(FormTypes.Rentals, this.rentalItemDetailForm.valid, true);
     }
   }
 

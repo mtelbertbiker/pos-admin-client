@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ConstantsService} from './constants.service';
 import {SessionService} from './session.service';
 import {LicenseeService} from '../licensee.service';
@@ -16,7 +16,8 @@ export class LicenseeDataService {
               private licenseeService: LicenseeService,
               private consts: ConstantsService,
               private session: SessionService,
-              private oidcSecurityService: OidcSecurityService) {}
+              private oidcSecurityService: OidcSecurityService) {
+  }
 
   getLicensee(licId: number) {
     const token = this.oidcSecurityService.getToken();
@@ -43,7 +44,12 @@ export class LicenseeDataService {
       .set('Authorization', `Bearer ${token}`)
       .set('ClientId', this.session.ClientId);
     const apiUrl = this.consts.AdminBaseUri + this.consts.AdminLicenseesUri;
-    console.log('putLicensee>>');
-    return this.http.put(apiUrl, licensee, { headers: headers });
+    if (licensee.LicId > 0) {
+      console.log('putLicensee>>');
+      return this.http.put(apiUrl, licensee, {headers: headers});
+    } else {
+      console.log('postLicensee>>');
+      return this.http.post(apiUrl, licensee, {headers: headers});
+    }
   }
 }

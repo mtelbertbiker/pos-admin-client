@@ -18,7 +18,7 @@ import {ResellerService} from '../../resellers/reseller.service';
 })
 export class HomeComponent implements OnInit {
   venues: Venue[];
-  licensee: Licensee = new Licensee(0, '', '', '', '', '', '', '', '', '', '', '', '', '', null, null, false, '');
+  licensee: Licensee;
   licensees: Licensee[] = [];
   venueSubscription: Subscription;
   licenseeSubscription: Subscription;
@@ -42,8 +42,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     console.log('HomeComponent onInit');
     this.session = this.sessionService;
-    if (this.session.LicenseeId > 0) {
-      this.licenseeDataService.getLicensee(this.session.LicenseeId);
+    this.sessionService.resetSaveState();
+    if ((this.session.licensee != null) && (this.session.licensee.LicId > 0)) {
+      this.licenseeDataService.getLicensee(this.session.licensee.LicId);
       this.licenseeSubscription = this.licenseeService.licenseesChanged
         .subscribe(
           (licensees: Licensee[]) => {
@@ -51,22 +52,23 @@ export class HomeComponent implements OnInit {
             this.sessionService.setLicensee(this.licensee);
           }
         );
-      this.venueDataService.getVenues();
+      this.venueDataService.getVenues(this.licensee.LicId);
       this.venueSubscription = this.venueService.venuesChanged
         .subscribe(
           (venues: Venue[]) => {
             this.venues = venues;
+            this.venueService.setVenues(this.venues);
           }
         );
-      if (this.session.ResellerId > 0) {
-        this.resellerDataService.getResellerLicensees();
-        this.resellerSubscription = this.resellerService.licenseesChanged
-          .subscribe(
-            (licensees: Licensee[]) => {
-              this.licensees = licensees;
-            }
-          );
-      }
+    }
+    if (this.session.ResellerId > 0) {
+      this.resellerDataService.getResellerLicensees();
+      this.resellerSubscription = this.resellerService.licenseesChanged
+        .subscribe(
+          (licensees: Licensee[]) => {
+            this.licensees = licensees;
+          }
+        );
     }
 
     /*
