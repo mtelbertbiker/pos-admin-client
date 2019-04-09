@@ -74,6 +74,7 @@ import { ProductsComponent } from './core/products/products.component';
 import { LandingComponent } from './core/landing/landing.component';
 import { LicenseeSaveCancelModalComponent } from './posconfig/licensees/licensee-master-item/licensee-master-item-navigation/licensee-save-cancel-modal/licensee-save-cancel-modal.component';
 import { LicenseeUserItemComponent } from './posconfig/licensees/licensee-user-list/licensee-user-item/licensee-user-item.component';
+import { LicenseeUserDetailComponent } from './posconfig/licensees/licensee-user-detail/licensee-user-detail.component';
 
 export function loadConfig(oidcConfigService: OidcConfigService) {
   console.log('APP_INITIALIZER STARTING');
@@ -129,6 +130,7 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     LandingComponent,
     LicenseeSaveCancelModalComponent,
     LicenseeUserItemComponent,
+    LicenseeUserDetailComponent,
   ],
   imports: [
     BrowserModule,

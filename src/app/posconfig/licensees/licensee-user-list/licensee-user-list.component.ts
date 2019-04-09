@@ -22,7 +22,6 @@ export class LicenseeUserListComponent implements OnInit {
         (params: Params) => {
           this.id = +params['id'];
           this.licensee = this.licenseeService.getLicensee(this.id);
-          console.log('Licensee users:' + this.licensee.LicenseeUsers.length);
         }
       );
   }

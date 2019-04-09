@@ -27,6 +27,7 @@ import {VenueMasterItemComponent} from './venues/venue-master-item/venue-master-
 import {ProductsComponent} from './core/products/products.component';
 import {ContactusComponent} from './core/contactus/contactus.component';
 import {LandingComponent} from './core/landing/landing.component';
+import {LicenseeUserDetailComponent} from './posconfig/licensees/licensee-user-detail/licensee-user-detail.component';
 
 const appRoutes: Routes = [
   {
@@ -95,7 +96,9 @@ const appRoutes: Routes = [
       {path: 'reports/ItemUseDetailReport2', component: TransactiondetailviewerComponent},
     ]
     },
-    {path: 'users', component: LicenseeUserListComponent},
+    {path: 'users', component: LicenseeUserListComponent, children: [
+      {path: ':uid', component: LicenseeUserDetailComponent}
+    ]},
     {path: 'billing', component: LicenseeBillingMasterItemComponent},
   ]
   }

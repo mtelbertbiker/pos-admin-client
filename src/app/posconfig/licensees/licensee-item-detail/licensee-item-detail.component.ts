@@ -22,11 +22,10 @@ export class LicenseeItemDetailComponent implements OnInit {
   subscription: Subscription;
 
   constructor(private resellerService: ResellerService,
-              private resellerDataService: ResellerDataService,
-              private licenseeDataService: LicenseeDataService,
               private route: ActivatedRoute,
               private sessionService: SessionService,
               private router: Router) { }
+
   ngOnInit() {
     console.log('Licensee Item Detail Component onInit');
     this.route.parent.params

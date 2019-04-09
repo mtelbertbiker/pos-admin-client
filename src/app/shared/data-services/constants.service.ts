@@ -43,7 +43,8 @@ export enum FormTypes {
   Locations = 'Location',
   Rentals = 'Rentals',
   FeeGroups = 'Fee Groups',
-  Fees = 'Fees'
+  Fees = 'Fees',
+  Users = 'Users'
 }
 
 export class RegexPatterns {
