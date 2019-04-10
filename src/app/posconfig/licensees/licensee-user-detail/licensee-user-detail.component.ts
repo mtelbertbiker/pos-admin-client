@@ -57,9 +57,9 @@ export class LicenseeUserDetailComponent implements OnInit {
     this.licenseeUserDetailForm = new FormGroup(
       {
         'FirstName': new FormControl(FirstName, Validators.required),
-        'LastName': new FormControl(LastName),
-        'Email': new FormControl(Email, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
-        'Administrator': new FormControl(Administrator, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
+        'LastName': new FormControl(LastName, Validators.required),
+        'Email': new FormControl(Email, [Validators.required, Validators.email]),
+        'Administrator': new FormControl(Administrator),
         'AppUser': new FormControl(AppUser),
         'Phone': new FormControl(Phone),
         'Disabled': new FormControl(Disabled),
@@ -77,6 +77,14 @@ export class LicenseeUserDetailComponent implements OnInit {
     this.licenseeUser.Administrator = updatedLicenseeUser.Administrator;
     this.licenseeUser.AppUser = updatedLicenseeUser.AppUser;
     this.licenseeUser.Disabled = updatedLicenseeUser.Disabled;
+  }
+
+  onDeleteUser(index: number) {
+    if (confirm('Delete this User?') === true) {
+      this.licensee.LicenseeUsers.splice(index, 1);
+      this.router.navigate(['..'], {relativeTo: this.route});
+    }
+    ;
   }
 
 }

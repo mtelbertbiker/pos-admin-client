@@ -6,8 +6,7 @@ export class ResellerUser extends User {
               public Email: string,
               public Phone: string,
               public Disabled: boolean,
-              public UpdatedUtc: string,
               public Title: string) {
-    super(UserId, FirstName, LastName, Email, Phone, Disabled, UpdatedUtc);
+    super(UserId, FirstName, LastName, Email, Phone, Disabled);
   }
 }

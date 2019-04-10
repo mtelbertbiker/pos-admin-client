@@ -77,7 +77,8 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
 
 
   onSave() {
-    if (this.sessionService.ChangedItems.indexOf(FormTypes.Licensees.toString()) > -1) {
+    if ((this.sessionService.ChangedItems.indexOf(FormTypes.Licensees.toString()) > -1) ||
+      (this.sessionService.ChangedItems.indexOf(FormTypes.Users.toString()) > -1)) {
       this.sessionService.HideSaveBtn = true;
       this.licensee = this.sessionService.getLicensee();
       this.sessionService.Saving.push(FormTypes.Licensees.toString());

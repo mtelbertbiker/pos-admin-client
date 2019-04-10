@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Licensee} from '../../../shared/licensee.model';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {LicenseeService} from '../../../shared/licensee.service';
+import {LicenseeUser} from '../../../shared/licensee-user.model';
+import {FormTypes} from '../../../shared/data-services/constants.service';
+import {SessionService} from '../../../shared/data-services/session.service';
 
 @Component({
   selector: 'app-licensee-user-list',
@@ -13,6 +16,8 @@ export class LicenseeUserListComponent implements OnInit {
   id: number;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
+              private sessionService: SessionService,
               private licenseeService: LicenseeService) { }
 
   ngOnInit() {
@@ -24,5 +29,12 @@ export class LicenseeUserListComponent implements OnInit {
           this.licensee = this.licenseeService.getLicensee(this.id);
         }
       );
+  }
+
+  onAddLicenseeUser() {
+    const newLicUser = new LicenseeUser();
+    this.licensee.LicenseeUsers.push(newLicUser);
+    this.sessionService.setSaveState(FormTypes.Users, true, true);
+    this.router.navigate([this.licensee.LicenseeUsers.length - 1], {relativeTo: this.route});
   }
 }
