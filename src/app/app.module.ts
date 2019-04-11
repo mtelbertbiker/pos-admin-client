@@ -75,6 +75,7 @@ import { LandingComponent } from './core/landing/landing.component';
 import { LicenseeSaveCancelModalComponent } from './posconfig/licensees/licensee-master-item/licensee-master-item-navigation/licensee-save-cancel-modal/licensee-save-cancel-modal.component';
 import { LicenseeUserItemComponent } from './posconfig/licensees/licensee-user-list/licensee-user-item/licensee-user-item.component';
 import { LicenseeUserDetailComponent } from './posconfig/licensees/licensee-user-detail/licensee-user-detail.component';
+import { ConfirmDeletionModalComponent } from './shared/confirm-deletion-modal/confirm-deletion-modal.component';
 
 export function loadConfig(oidcConfigService: OidcConfigService) {
   console.log('APP_INITIALIZER STARTING');
@@ -82,7 +83,10 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
 }
 
 @NgModule({
-  entryComponents: [LicenseeSaveCancelModalComponent],
+  entryComponents: [
+    ConfirmDeletionModalComponent,
+    LicenseeSaveCancelModalComponent
+  ],
   declarations: [
     AppComponent,
     HeaderComponent,
@@ -131,6 +135,7 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     LicenseeSaveCancelModalComponent,
     LicenseeUserItemComponent,
     LicenseeUserDetailComponent,
+    ConfirmDeletionModalComponent,
   ],
   imports: [
     BrowserModule,

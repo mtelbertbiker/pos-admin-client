@@ -13,6 +13,7 @@ export class SessionService {
   Saving = [];
   HideSaveBtn = false;
   private DefaultBrandId = 1;
+  DeletedItemName = '';
   vid: number;
   ResellerId = 1; // 1 is Fee Machine
   FeeCalcTest = {

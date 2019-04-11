@@ -7,6 +7,8 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {SessionService} from '../../../../shared/data-services/session.service';
 import {VenueService} from '../../../../venues/venue.service';
 import {FormTypes} from '../../../../shared/data-services/constants.service';
+import {ConfirmDeletionModalComponent} from '../../../../shared/confirm-deletion-modal/confirm-deletion-modal.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-feegroup-detail',
@@ -21,10 +23,14 @@ export class FeeGroupDetailComponent implements OnInit {
   index: number;
   subscription: Subscription;
   usersDisabled = false;
+  myModals = {
+    deleteConfirm: ConfirmDeletionModalComponent
+  };
 
   constructor(private venueService: VenueService,
               private route: ActivatedRoute,
               private sessionService: SessionService,
+              private modal: NgbModal,
               private router: Router) {
   }
 
@@ -86,7 +92,7 @@ export class FeeGroupDetailComponent implements OnInit {
 
   isMaxUserFieldInvalid() {
     if (this.feeGroup.RequiresUsers) {
-      if (this.feeGroup.MaxUsers < this.feeGroup.MinUsers  || this.feeGroup.MaxUsers > 999) {
+      if (this.feeGroup.MaxUsers < this.feeGroup.MinUsers || this.feeGroup.MaxUsers > 999) {
         return true;
       }
     } else {
@@ -114,10 +120,15 @@ export class FeeGroupDetailComponent implements OnInit {
   }
 
   onDeleteFeeGroup(index: number) {
-    if (confirm('Delete this Fee Group?') === true) {
-      this.venue.FeeGroups.splice(index, 1);
-      this.router.navigate(['..'], {relativeTo: this.route});
-    }
-    ;
+    this.sessionService.DeletedItemName = 'Fee Group ' + this.feeGroup.Name;
+    this.modal.open(this.myModals.deleteConfirm).result.then((result) => {
+      if (result === 'Ok') {
+        this.venue.FeeGroups.splice(index, 1);
+        this.sessionService.setSaveState(FormTypes.FeeGroups, true, true);
+        this.router.navigate(['..'], {relativeTo: this.route});
+      }
+    }, (reason) => {
+    });
   }
+
 }

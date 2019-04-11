@@ -130,9 +130,8 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
           this.router.navigate(['licensee/' + this.id + '/detail']);
           this.sessionService.resetSaveState();
         }
-        if (result === 'cancel') {
-        }
-      })
+      }, (reason) => {
+      });
     }
   }
 

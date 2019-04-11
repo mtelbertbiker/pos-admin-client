@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {VenueDataService} from '../../shared/data-services/venue-data.service';
 import {VenueService} from '../venue.service';
 import {FormGroup} from '@angular/forms';
 import {Venue} from '../../shared/pos-models/venue.model';
@@ -16,8 +15,6 @@ export class VenueMasterItemComponent implements OnInit {
   venue: Venue;
   venueMasterItemForm: FormGroup;
   constructor(private venueService: VenueService,
-              private venueDataService: VenueDataService,
-              private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {

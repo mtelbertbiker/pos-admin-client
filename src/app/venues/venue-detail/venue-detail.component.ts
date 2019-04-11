@@ -7,6 +7,8 @@ import {Subscription} from 'rxjs/Subscription';
 import {VenueDataService} from '../../shared/data-services/venue-data.service';
 import {SessionService} from '../../shared/data-services/session.service';
 import {FormTypes} from '../../shared/data-services/constants.service';
+import {ConfirmDeletionModalComponent} from '../../shared/confirm-deletion-modal/confirm-deletion-modal.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-venue-detail',
@@ -19,18 +21,22 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
   id: number;
   subscription: Subscription;
   posType: any;
+  myModals = {
+    deleteConfirm: ConfirmDeletionModalComponent
+  };
 
   public posTypes = [
-    { value: 0, name: 'None'},
-    { value: 1, name: 'Aloha Table Service'},
-    { value: 2, name: 'Aloha Quick Service'},
-    { value: 3, name: 'Micros 3700'},
+    {value: 0, name: 'None'},
+    {value: 1, name: 'Aloha Table Service'},
+    {value: 2, name: 'Aloha Quick Service'},
+    {value: 3, name: 'Micros 3700'},
   ];
 
   constructor(private venueService: VenueService,
               private venueDataService: VenueDataService,
               private route: ActivatedRoute,
               private router: Router,
+              private modal: NgbModal,
               private sessionService: SessionService) {
   }
 
@@ -89,10 +95,10 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
         'Phone1': new FormControl(phone1, Validators.required),
         'Phone2': new FormControl(phone2),
         'Memo': new FormControl(memo),
-        'Enabled' : new FormControl(enabled),
-        'POSTypeId' : new FormControl(postypeid),
-        'LightControlEnabled' : new FormControl(lightsenabled),
-        'Website' : new FormControl(website),
+        'Enabled': new FormControl(enabled),
+        'POSTypeId': new FormControl(postypeid),
+        'LightControlEnabled': new FormControl(lightsenabled),
+        'Website': new FormControl(website),
       }
     );
   }
@@ -102,26 +108,32 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
   }
 
   onDeleteLocation(index: number) {
-    if (confirm('Delete this Location? This will also delete all Rental Items and Fees associated with the location.') === true) {
-      this.venue = this.venueService.getVenue(index);
-      this.venueDataService.deleteVenue(this.venue.LicId, this.venue.BId, this.venue.LId)
-        .subscribe(
-          val => {
-            this.venueService.removeVenue(index);
-            alert('Location Deleted');
-            this.router.navigate(['home']);
-          },
-          response => {
-            console.log(response);
-            alert('Delete Request failed: ' + response.message);
-          }
-        );
-    };
+    const licId = this.venue.LicId;
+    this.venue = this.venueService.getVenue(index);
+    this.sessionService.DeletedItemName = 'Location ' + this.venue.Name;
+    this.modal.open(this.myModals.deleteConfirm).result.then((result) => {
+      if (result === 'Ok') {
+        this.venueDataService.deleteVenue(this.venue.LicId, this.venue.BId, this.venue.LId)
+          .subscribe(
+            val => {
+              this.venueService.removeVenue(index);
+              this.router.navigate(['licensee/' + licId + '/detail']);
+              alert('Location Deleted');
+            },
+            response => {
+              console.log(response);
+              alert('Delete Request failed: ' + response.message);
+            }
+          );
+      }
+    }, (reason) => {
+    });
   }
 
   edited() {
     return this.venueService.venuesChanged;
   }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

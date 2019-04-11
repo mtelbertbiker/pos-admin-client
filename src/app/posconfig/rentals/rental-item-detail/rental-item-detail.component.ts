@@ -9,6 +9,8 @@ import {Subscription} from 'rxjs/Subscription';
 import {SessionService} from '../../../shared/data-services/session.service';
 import {ConstantsService, FormTypes} from '../../../shared/data-services/constants.service';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {ConfirmDeletionModalComponent} from '../../../shared/confirm-deletion-modal/confirm-deletion-modal.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-rental-item-detail',
@@ -22,11 +24,15 @@ export class RentalItemDetailComponent implements OnInit {
   vid: number;
   index: number;
   subscription: Subscription;
+  myModals = {
+    deleteConfirm: ConfirmDeletionModalComponent
+  };
 
   constructor(private venueService: VenueService,
               private route: ActivatedRoute,
               private sessionService: SessionService,
               public constantsService: ConstantsService,
+              private modal: NgbModal,
               private router: Router) { }
 
   ngOnInit() {
@@ -65,25 +71,6 @@ export class RentalItemDetailComponent implements OnInit {
     return this.rentalItemDetailForm.controls[fieldName].invalid;
   }
 
-  onAddFeeGroup(fgId: number) {
-    this.venue.FeeGroups.forEach((feeGroup) => {
-      if (feeGroup.FGId === fgId) {
-        const rentalFeeGroup = new RentalItemFeeGroup(this.rentalItem.RId, fgId, this.venue.LId);
-        this.rentalItem.RentalItemFeeGroups.push(rentalFeeGroup);
-      }
-    });
-  }
-
-  onDeleteFeeGroup(fgId: number) {
-    let i = 0;
-    for (i = 0; i < this.rentalItem.RentalItemFeeGroups.length; i++) {
-      if (this.rentalItem.RentalItemFeeGroups[i].FGId === fgId) {
-        this.rentalItem.RentalItemFeeGroups.splice(i, 1);
-        return;
-      }
-    }
-  }
-
   onSubmit() {}
 
   getFeeGroupDesc(groupId: number) {
@@ -119,10 +106,15 @@ export class RentalItemDetailComponent implements OnInit {
     this.sessionService.setSaveState(FormTypes.Rentals, this.rentalItemDetailForm.valid, true);
   }
   onDeleteRentalItem(index: number) {
-    if (confirm('Delete this Rental Item?') === true) {
-      this.venue.RentalItems.splice(index, 1);
-      this.router.navigate(['..'], {relativeTo: this.route});
-    };
+    this.sessionService.DeletedItemName = 'Rental Item ' + this.rentalItem.Name;
+    this.modal.open(this.myModals.deleteConfirm).result.then((result) => {
+      if (result === 'Ok') {
+        this.venue.RentalItems.splice(index, 1);
+        this.sessionService.setSaveState(FormTypes.Rentals, true, true);
+        this.router.navigate(['..'], {relativeTo: this.route});
+      }
+    }, (reason) => {
+    });
   }
 
   drop(event: CdkDragDrop<RentalItemFeeGroup[]>) {

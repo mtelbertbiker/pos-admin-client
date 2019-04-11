@@ -8,6 +8,8 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {SessionService} from '../../../../shared/data-services/session.service';
 import {VenueService} from '../../../../venues/venue.service';
 import {FormTypes} from '../../../../shared/data-services/constants.service';
+import {ConfirmDeletionModalComponent} from '../../../../shared/confirm-deletion-modal/confirm-deletion-modal.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-fee-item-detail',
@@ -23,10 +25,14 @@ export class FeeItemDetailComponent implements OnInit {
   fid: number;
   index: number;
   subscription: Subscription;
+  myModals = {
+    deleteConfirm: ConfirmDeletionModalComponent
+  };
 
   constructor(private venueService: VenueService,
               private route: ActivatedRoute,
               private sessionService: SessionService,
+              private modal: NgbModal,
               private router: Router) {
   }
 
@@ -162,11 +168,15 @@ export class FeeItemDetailComponent implements OnInit {
   }
 
   onDeleteFee(index: number) {
-    if (confirm('Delete Fee ' + this.fee.Name + '?') === true) {
-      this.feeGroup.Fees.splice(index, 1);
-      this.router.navigate(['../..'], {relativeTo: this.route});
-    }
-    ;
+    this.sessionService.DeletedItemName = 'Fee ' + this.fee.Name;
+    this.modal.open(this.myModals.deleteConfirm).result.then((result) => {
+      if (result === 'Ok') {
+        this.feeGroup.Fees.splice(index, 1);
+        this.router.navigate(['../..'], {relativeTo: this.route});
+        this.sessionService.setSaveState(FormTypes.Fees, true, true);
+      }
+    }, (reason) => {
+    });
   }
 
 }

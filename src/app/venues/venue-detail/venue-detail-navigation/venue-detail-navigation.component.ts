@@ -17,7 +17,6 @@ export class VenueDetailNavigationComponent implements OnInit {
   venueNavigationForm: FormGroup;
 
   constructor(private venueService: VenueService,
-              private venueDataService: VenueDataService,
               private router: Router,
               private route: ActivatedRoute) { }
 
