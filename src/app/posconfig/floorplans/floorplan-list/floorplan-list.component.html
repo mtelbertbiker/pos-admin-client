@@ -1,0 +1,32 @@
+<div class="card bg-light">
+  <div class="card-header">
+    <div class="row">
+      <h4><b>Floor Plans for:</b> {{venue.Name}}, {{venue.Address1}}, {{venue.City}}</h4>
+      <div class="col-auto">
+        <button
+          type="submit"
+          class="btn btn-success" (click)="onAddFloorPlan()">+</button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="floorplan-boundary">
+          <div id="pt1" class="floorplan-box" cdkDragBoundary=".floorplan-boundary" cdkDrag>
+            Pool Table 1
+          </div>
+          <div id="pt2" class="floorplan-box" cdkDragBoundary=".floorplan-boundary" cdkDrag>
+            Pool Table 2
+          </div>
+          <div id="pt3" class="floorplan-box" cdkDragBoundary=".floorplan-boundary" cdkDrag>
+            Pool Table 3
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

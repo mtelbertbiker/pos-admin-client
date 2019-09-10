@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {VenueDataService} from '../../shared/data-services/venue-data.service';
 import {VenueService} from '../../venues/venue.service';
 import {Venue} from '../../shared/pos-models/venue.model';
@@ -24,8 +24,7 @@ export class HomeComponent implements OnInit {
   licenseeSubscription: Subscription;
   resellerSubscription: Subscription;
   isAuthorizedSubscription: Subscription;
-  // isAuthorized: boolean;
-  isAuthorized = true;
+  isAuthorized: boolean;
   session: SessionService;
 
   constructor(private venueDataService: VenueDataService,
@@ -70,11 +69,9 @@ export class HomeComponent implements OnInit {
           }
         );
     }
-
-    /*
     console.log('Next: oidcSecurityService.getIsAuthorized() ');
     this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()
       .subscribe(isAuthorized => this.isAuthorized = isAuthorized);
-      */
+
   }
 }

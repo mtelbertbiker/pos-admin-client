@@ -12,7 +12,7 @@ import {VenueDataService} from '../../../shared/data-services/venue-data.service
 export class VenueDetailNavigationComponent implements OnInit {
   @Input() lid: number;
   @Input() vid: number;
-  isCollapsed = false;
+  // isCollapsed = false;
   subscription: Subscription;
   venueNavigationForm: FormGroup;
 
@@ -37,6 +37,7 @@ export class VenueDetailNavigationComponent implements OnInit {
     this.venueNavigationForm = new FormGroup({});
   }
 
+  /*
   toggleCollapseState() {
     this.isCollapsed = !this.isCollapsed;
   }
@@ -46,5 +47,5 @@ export class VenueDetailNavigationComponent implements OnInit {
       this.router.navigate(['home']);
     }
   }
-
+*/
 }

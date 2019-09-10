@@ -20,10 +20,6 @@ import {FormTypes} from '../../shared/data-services/constants.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   licensees: Licensee[];
-  isCollapsed = false;
-  isVenueDroppedDown = false;
-  isOtherDroppedDown = false;
-  isResellerDroppedDown = false;
   venues: Venue[];
   subscription: Subscription;
   isAuthorizedSubscription: Subscription;
@@ -81,16 +77,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['product']);
   }
 
-  onGetLocations() {
-    console.log('onGetLocations');
-    this.venues = this.venueService.getVenues();
-  }
-
-  showResellerLicensees() {
-    console.log('showResellerLicensees');
-    this.router.navigate(['reseller/licensees']);
-  }
-
   showLicenseeLocations() {
     console.log('showLicenseeLocations');
     this.router.navigate(['licensee' + '' + '']);
@@ -111,19 +97,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.isAuthorizedSubscription.unsubscribe();
-  }
-
-  toggleCollapseState() {
-    this.isCollapsed = !this.isCollapsed;
-  }
-  toggleVenueDropDownState() {
-    this.isVenueDroppedDown = !this.isVenueDroppedDown;
-  }
-
-  toggleResellerDropDownState() {
-    this.isResellerDroppedDown = !this.isResellerDroppedDown;
-  }
-  toggleOtherDropDownState() {
-    this.isOtherDroppedDown = !this.isOtherDroppedDown;
   }
 }
