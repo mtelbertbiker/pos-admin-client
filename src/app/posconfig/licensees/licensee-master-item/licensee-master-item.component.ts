@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {LicenseeService} from '../../../shared/licensee.service';
-import {Subscription} from 'rxjs/Rx';
+import {Subscription} from 'rxjs';
 import {Licensee} from '../../../shared/licensee.model';
 import {ActivatedRoute, Params} from '@angular/router';
 import {FormGroup} from '@angular/forms';

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {Licensee} from '../../../shared/licensee.model';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {SessionService} from '../../../shared/data-services/session.service';

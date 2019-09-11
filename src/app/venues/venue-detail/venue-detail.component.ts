@@ -3,7 +3,7 @@ import {VenueService} from '../venue.service';
 import {Venue} from '../../shared/pos-models/venue.model';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {FormGroup, Validators, FormControl} from '@angular/forms';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {VenueDataService} from '../../shared/data-services/venue-data.service';
 import {SessionService} from '../../shared/data-services/session.service';
 import {FormTypes} from '../../shared/data-services/constants.service';

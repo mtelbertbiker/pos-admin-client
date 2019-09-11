@@ -10,7 +10,7 @@ import {VenueDataService} from '../../../../shared/data-services/venue-data.serv
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LicenseeSaveCancelModalComponent} from './licensee-save-cancel-modal/licensee-save-cancel-modal.component';
 import {FormTypes} from '../../../../shared/data-services/constants.service';
-import {Subscription} from 'rxjs/Rx';
+import {Subscription} from 'rxjs';
 
 
 @Component({

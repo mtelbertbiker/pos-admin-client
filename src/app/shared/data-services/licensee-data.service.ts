@@ -5,7 +5,7 @@ import {LicenseeService} from '../licensee.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {Licensee} from '../licensee.model';
-
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class LicenseeDataService {
@@ -29,13 +29,13 @@ export class LicenseeDataService {
       licId;
 
     this.http.get(apiUrl, {headers: headers})
-      .map(
+      .pipe(map(
         response => {
           this.licensee = response;
           this.licenseeService.setLicensee(this.licensee);
         },
         error => console.log(error)
-      );
+      ));
   }
 
   putLicensee(licensee: Licensee) {

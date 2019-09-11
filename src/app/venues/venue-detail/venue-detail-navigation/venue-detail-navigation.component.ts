@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {FormGroup} from '@angular/forms';
 import {VenueService} from '../../venue.service';
 import {VenueDataService} from '../../../shared/data-services/venue-data.service';

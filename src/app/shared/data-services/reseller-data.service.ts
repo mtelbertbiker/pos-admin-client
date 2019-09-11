@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {ResellerService} from '../../resellers/reseller.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Licensee} from '../../shared/licensee.model';
-import 'rxjs/Rx';
 import {ConstantsService} from './constants.service';
 import {SessionService} from './session.service';
 import {OidcSecurityService} from 'angular-auth-oidc-client';

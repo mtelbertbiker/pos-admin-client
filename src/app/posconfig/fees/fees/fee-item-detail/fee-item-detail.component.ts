@@ -3,7 +3,7 @@ import {Fee} from '../../../../shared/pos-models/fee.model';
 import {FeeGroup} from '../../../../shared/pos-models/fee-group.model';
 import {Venue} from '../../../../shared/pos-models/venue.model';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {SessionService} from '../../../../shared/data-services/session.service';
 import {VenueService} from '../../../../venues/venue.service';

@@ -1,6 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {VenueService} from '../../venues/venue.service';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {Venue} from '../../shared/pos-models/venue.model';
 import {Router} from '@angular/router';
 import { HttpClient } from '@angular/common/http';

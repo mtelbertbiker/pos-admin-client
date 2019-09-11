@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Venue } from '../shared/pos-models/venue.model';
-import {Subject} from 'rxjs/Subject';
-import {viewEngine_ChangeDetectorRef_interface} from '@angular/core/src/render3/view_ref';
+import {Subject} from 'rxjs';
+// import {viewEngine_ChangeDetectorRef_interface} from '@angular/core/src/render3/view_ref';
 
 @Injectable()
 export class VenueService {

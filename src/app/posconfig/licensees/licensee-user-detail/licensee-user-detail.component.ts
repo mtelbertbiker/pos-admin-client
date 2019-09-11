@@ -4,7 +4,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {FormTypes} from '../../../shared/data-services/constants.service';
 import {SessionService} from '../../../shared/data-services/session.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Subscription} from 'rxjs/Rx';
+import {Subscription} from 'rxjs';
 import {LicenseeService} from '../../../shared/licensee.service';
 import {Licensee} from '../../../shared/licensee.model';
 import {ResellerService} from '../../../resellers/reseller.service';

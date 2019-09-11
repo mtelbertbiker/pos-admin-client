@@ -4,7 +4,7 @@ import {VenueService} from '../../../venues/venue.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FeeGroup} from '../../../shared/pos-models/fee-group.model';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {FeecalcDataService} from '../../../shared/data-services/feecalc-data.service';
 import {TimedFeeCalcWebRequest} from '../../../shared/feecalc-models/timedfeecalcwebrequest.model';
 import {SessionService} from '../../../shared/data-services/session.service';

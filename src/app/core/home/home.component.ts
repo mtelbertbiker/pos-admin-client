@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {VenueDataService} from '../../shared/data-services/venue-data.service';
 import {VenueService} from '../../venues/venue.service';
 import {Venue} from '../../shared/pos-models/venue.model';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {LicenseeDataService} from '../../shared/data-services/licensee-data.service';
 import {Licensee} from '../../shared/licensee.model';
 import {LicenseeService} from '../../shared/licensee.service';

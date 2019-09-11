@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Licensee } from '../shared/licensee.model';
-import {Subject} from 'rxjs/Subject';
+import {Subject} from 'rxjs';
 import {Venue} from "../shared/pos-models/venue.model";
 
 @Injectable()
