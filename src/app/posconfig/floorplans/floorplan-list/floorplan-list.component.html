@@ -13,13 +13,25 @@
     <div class="row">
       <div class="col-sm-6">
         <div class="floorplan-boundary">
-          <div id="pt1" class="floorplan-box" cdkDragBoundary=".floorplan-boundary" cdkDrag>
+          <div id="pt1" class="floorplan-box" cdkDragBoundary=".floorplan-boundary"
+               cdkDrag
+               (cdkDragEnded)="dragEnd($event)"
+               [cdkDragFreeDragPosition]="{ x: 100, y: 100 }"
+          >
             Pool Table 1
           </div>
-          <div id="pt2" class="floorplan-box" cdkDragBoundary=".floorplan-boundary" cdkDrag>
+          <div id="pt2" class="floorplan-box" cdkDragBoundary=".floorplan-boundary"
+               cdkDrag
+               (cdkDragEnded)="dragEnd($event)"
+               [cdkDragFreeDragPosition]="{ x: 0, y: 0 }"
+          >
             Pool Table 2
           </div>
-          <div id="pt3" class="floorplan-box" cdkDragBoundary=".floorplan-boundary" cdkDrag>
+          <div id="pt3" class="floorplan-box" cdkDragBoundary=".floorplan-boundary"
+               cdkDrag
+               (cdkDragEnded)="dragEnd($event)"
+               [cdkDragFreeDragPosition]="{ x: 0, y: 250 }"
+          >
             Pool Table 3
           </div>
         </div>
