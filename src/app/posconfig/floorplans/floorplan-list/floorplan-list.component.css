@@ -1,6 +1,6 @@
 .floorplan-box {
-  width: 75px;
-  height: 75px;
+  width: 100px;
+  height: 100px;
   border: solid 1px #ccc;
   font-size: 10px;
   color: white;
@@ -29,8 +29,8 @@
 }
 
 .floorplan-boundary {
-  width: 300px;
-  height: 600px;
+  width: 600px;
+  height: 800px;
   max-width: 100%;
   border: dotted #ccc 2px;
 }
