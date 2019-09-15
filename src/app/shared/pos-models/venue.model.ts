@@ -23,6 +23,7 @@ export class Venue {
               public HasVenueDetail = false,
               public ItemImages = [],
               public FeeGroups = [],
+              public Floorplans = [],
               public RentalItems = [],
               public LocationRentalTypes = [],
               public UpdateCount = 0,

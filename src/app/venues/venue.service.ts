@@ -56,6 +56,7 @@ export class VenueService {
     this.venues[index].ItemImages = updatedVenue.ItemImages;
     this.venues[index].FeeGroups = updatedVenue.FeeGroups;
     this.venues[index].RentalItems = updatedVenue.RentalItems;
+    this.venues[index].Floorplans = updatedVenue.Floorplans;
     this.venues[index].LocationRentalTypes = updatedVenue.LocationRentalTypes;
     this.venuesChanged.next(this.venues.slice());
   }

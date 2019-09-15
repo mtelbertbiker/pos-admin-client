@@ -4,6 +4,7 @@ import {VenueService} from '../../../venues/venue.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {SessionService} from '../../../shared/data-services/session.service';
 import {CdkDrag, CdkDragEnd} from '@angular/cdk/drag-drop';
+import {Floorplan} from '../../../shared/pos-models/floorplan.model';
 
 @Component({
   selector: 'app-floorplan-list',
@@ -12,7 +13,9 @@ import {CdkDrag, CdkDragEnd} from '@angular/cdk/drag-drop';
 })
 export class FloorplanListComponent implements OnInit {
   venue: Venue;
+  floorplan: Floorplan;
   id: number;
+
   initialPosition = { x: 100, y: 100 };
   position = { ...this.initialPosition };
   offset = { x: 0, y: 0 };
@@ -28,6 +31,12 @@ export class FloorplanListComponent implements OnInit {
         (params: Params) => {
           this.id = +params['vid'];
           this.venue = this.venueService.getVenue(this.id);
+          this.floorplan = this.venue.Floorplans[0];
+          this.floorplan.FloorplanItems.forEach(function (floorplanitem) {
+            if (typeof (floorplanitem.Position) === 'string') {
+              floorplanitem.Position = JSON.parse(floorplanitem.Position);
+            }
+          });
         }
       );
   }
@@ -37,11 +46,21 @@ export class FloorplanListComponent implements OnInit {
 
     this.position.x = this.initialPosition.x + this.offset.x;
     this.position.y = this.initialPosition.y + this.offset.y;
+    const index = event.source.data;
+    this.floorplan.FloorplanItems[index].Position['x'] = this.position.x;
+    this.floorplan.FloorplanItems[index].Position['y'] = this.position.y;
+    console.log('New Position for ', index, 'was', this.initialPosition, 'now', this.floorplan.FloorplanItems[index].Position)
 
-    console.log('New Position', this.position, this.initialPosition, this.offset);
+    // console.log('New Position for ', this.position, this.initialPosition, this.offset)
 
-
-    // console.log(event);
+    /*
+    const index = event.source.data;
+    this.initialPosition['x'] = this.floorplan.FloorplanItems[index].Position['x'];
+    this.initialPosition['y'] = this.floorplan.FloorplanItems[index].Position['y'];
+    this.floorplan.FloorplanItems[index].Position['x'] = this.floorplan.FloorplanItems[index].Position['x'] + this.offset.x;
+    this.floorplan.FloorplanItems[index].Position['y'] = this.floorplan.FloorplanItems[index].Position['y'] + this.offset.y;
+    console.log('New Position for ', index, 'was', this.initialPosition, 'now', this.floorplan.FloorplanItems[index].Position);
+    */
   }
 
 }

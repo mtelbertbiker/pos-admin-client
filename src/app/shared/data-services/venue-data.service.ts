@@ -57,6 +57,7 @@ export class VenueDataService {
       'Phone1': venue.Phone1,
       'Phone2': venue.Phone2,
       'FeeGroups': venue.FeeGroups,
+      'Floorplans': venue.Floorplans,
       'RentalItems': venue.RentalItems,
       'WebSite': venue.Website,
       'Memo': venue.Memo,

@@ -1,3 +1,5 @@
+import {any} from 'codelyzer/util/function';
+
 export class FloorplanItem {
   constructor(public LicId = 0,
               public BId = 0,
@@ -6,6 +8,6 @@ export class FloorplanItem {
               public Id = 0,
               public FloorPlanItemTypeId = 0,
               public ItemId = 0,
-              public Position = { x: 0, y: 0 }
+              public Position = Object
   ) {}
 }

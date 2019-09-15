@@ -13,27 +13,39 @@
     <div class="row">
       <div class="col-sm-6">
         <div class="floorplan-boundary">
-          <div id="pt1" class="floorplan-box" cdkDragBoundary=".floorplan-boundary"
-               cdkDrag
-               (cdkDragEnded)="dragEnd($event)"
-               [cdkDragFreeDragPosition]="{ x: 100, y: 100 }"
-          >
-            Pool Table 1
-          </div>
-          <div id="pt2" class="floorplan-box" cdkDragBoundary=".floorplan-boundary"
-               cdkDrag
-               (cdkDragEnded)="dragEnd($event)"
-               [cdkDragFreeDragPosition]="{ x: 0, y: 0 }"
-          >
-            Pool Table 2
-          </div>
-          <div id="pt3" class="floorplan-box" cdkDragBoundary=".floorplan-boundary"
-               cdkDrag
-               (cdkDragEnded)="dragEnd($event)"
-               [cdkDragFreeDragPosition]="{ x: 0, y: 250 }"
-          >
-            Pool Table 3
-          </div>
+         <app-floorplanlist-item
+           class="floorplan-box" cdkDragBoundary=".floorplan-boundary" class="floorplan-box"
+           cdkDrag
+           (cdkDragEnded)="dragEnd($event)"
+           *ngFor="let floorplanItem of floorplan.FloorplanItems; let i = index"
+           [floorplanitem]="floorplanItem"
+           [cdkDragData]="i"
+           [cdkDragFreeDragPosition]="floorplanItem.Position"
+           [index]="i" [vid]="id">
+         </app-floorplanlist-item>
+<!--
+         <div id="pt1" class="floorplan-box" cdkDragBoundary=".floorplan-boundary"
+              cdkDrag
+              (cdkDragEnded)="dragEnd($event)"
+              [cdkDragFreeDragPosition]="{ x: 100, y: 100 }"
+         >
+           Pool Table 1
+         </div>
+         <div id="pt2" class="floorplan-box" cdkDragBoundary=".floorplan-boundary"
+              cdkDrag
+              (cdkDragEnded)="dragEnd($event)"
+              [cdkDragFreeDragPosition]="{ x: 0, y: 0 }"
+         >
+           Pool Table 2
+         </div>
+         <div id="pt3" class="floorplan-box" cdkDragBoundary=".floorplan-boundary"
+              cdkDrag
+              (cdkDragEnded)="dragEnd($event)"
+              [cdkDragFreeDragPosition]="{ x: 0, y: 250 }"
+         >
+           Pool Table 3
+         </div>
+-->
         </div>
       </div>
       <div class="col-sm-6">

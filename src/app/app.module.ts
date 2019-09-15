@@ -77,6 +77,7 @@ import {LicenseeUserItemComponent} from './posconfig/licensees/licensee-user-lis
 import {LicenseeUserDetailComponent} from './posconfig/licensees/licensee-user-detail/licensee-user-detail.component';
 import {ConfirmDeletionModalComponent} from './shared/confirm-deletion-modal/confirm-deletion-modal.component';
 import { FloorplanListComponent } from './posconfig/floorplans/floorplan-list/floorplan-list.component';
+import { FloorplanlistItemComponent } from './posconfig/floorplans/floorplan-list/floorplanlist-item/floorplanlist-item.component';
 
 export function loadConfig(oidcConfigService: OidcConfigService) {
   console.log('APP_INITIALIZER STARTING');
@@ -138,6 +139,7 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     LicenseeUserDetailComponent,
     ConfirmDeletionModalComponent,
     FloorplanListComponent,
+    FloorplanlistItemComponent,
   ],
   imports: [
     BrowserModule,

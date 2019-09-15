@@ -68,7 +68,7 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
     console.log('onAddVenue');
     const newVenue = new Venue(0, 0, 0, 'New Location',
       '', '', '', '', '', '', '', 0, '', false, '', false, ''
-      , true, [], [], [], [], 0, false, '');
+      , true, [], [], [], [], [], 0, false, '');
     newVenue.LicId = this.sessionService.licensee.LicId;
     this.vid = this.venueService.addVenue(newVenue);
     this.sessionService.setSaveState(FormTypes.Locations, false, true);
