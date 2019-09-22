@@ -1,0 +1,39 @@
+<form [formGroup]="floorplanListItemDetailForm" (ngSubmit)="onSubmit()" *ngIf="floorplan != null">
+  <div class="card bg-light">
+    <div class="card-header">
+      <div class="row">
+        <h4>Floor Plan Detail</h4>
+        <div class="col-auto">
+          <button
+            class="btn btn-danger" (click)="onDeleteFloorplan(index)">-
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card-body" >
+      <div class="form-group row">
+        <label class="col-form-label col-sm-3" for="Name">Name</label>
+        <div class="col-sm-6">
+          <input
+            type="text"
+            id="Name"
+            formControlName="Name"
+            class="form-control">
+          <div class="alert alert-danger" *ngIf="isFieldInvalid('Name')">Name is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-3" for="Disabled">Enabled</label>
+        <div class="col-sm-3">
+          <input
+            type="checkbox"
+            id="Disabled"
+            formControlName="Disabled"
+            class="form-control">
+        </div>
+        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                ngbTooltip="Only Enabled Floorplans are displayed.">?</button>
+      </div>
+    </div>
+  </div>
+</form>

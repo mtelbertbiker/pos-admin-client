@@ -23,6 +23,9 @@ import {ContactusComponent} from './core/contactus/contactus.component';
 import {LandingComponent} from './core/landing/landing.component';
 import {LicenseeUserDetailComponent} from './posconfig/licensees/licensee-user-detail/licensee-user-detail.component';
 import {FloorplanListComponent} from './posconfig/floorplans/floorplan-list/floorplan-list.component';
+import {FloorplanItemComponent} from './posconfig/floorplans/floorplan/floorplan-item/floorplan-item.component';
+import {FloorplanlistItemComponent} from './posconfig/floorplans/floorplan-list/floorplanlist-item/floorplanlist-item.component';
+import {FloorplanlistItemDetailComponent} from './posconfig/floorplans/floorplan-list/floorplanlist-item-detail/floorplanlist-item-detail.component';
 
 const appRoutes: Routes = [
   {
@@ -57,7 +60,7 @@ const appRoutes: Routes = [
           },
           {
             path: 'floorplans', component: FloorplanListComponent, children: [
-              {path: ':id', component: FeeGroupDetailComponent}
+              {path: ':id', component: FloorplanlistItemDetailComponent}
             ]
           },
           {

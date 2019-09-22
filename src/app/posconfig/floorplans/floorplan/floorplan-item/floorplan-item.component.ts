@@ -1,38 +1,33 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CdkDragEnd} from '@angular/cdk/drag-drop';
 import {FloorplanItem} from '../../../../shared/pos-models/floorplan-item.model';
-import {FeeGroup} from '../../../../shared/pos-models/fee-group.model';
 import {RentalItem} from '../../../../shared/pos-models/rental-item.model';
 import {Venue} from '../../../../shared/pos-models/venue.model';
 import {VenueService} from '../../../../venues/venue.service';
-import {Floorplan} from '../../../../shared/pos-models/floorplan.model';
 
 @Component({
-  selector: 'app-floorplanlist-item',
-  templateUrl: './floorplanlist-item.component.html',
-  styleUrls: ['./floorplanlist-item.component.css', '../floorplan-list.component.css']
+  selector: 'app-floorplan-item',
+  templateUrl: './floorplan-item.component.html',
+  styleUrls: ['./floorplan-item.component.css', '../floorplan.component.css']
 })
-export class FloorplanlistItemComponent implements OnInit {
-  @Input() floorplan: Floorplan;
+export class FloorplanItemComponent implements OnInit {
+  @Input() floorplanitem: FloorplanItem;
   @Input() index: number;
   @Input() vid: number;
-  // rentalItem: RentalItem;
+  rentalItem: RentalItem;
   venue: Venue;
 
   constructor(private venueService: VenueService) { }
 
   ngOnInit() {
     this.venue = this.venueService.getVenue(this.vid);
-    console.log('FloorplanlistItemComponent - Init');
-    /*
     const itemId = this.floorplanitem.ItemId;
     this.rentalItem = this.venue.RentalItems.find((function (ri: RentalItem) {
       return ri.RId === itemId;
     }));
-    console.log('FloorplanlistItemComponent init: ' +
+    console.log('FloorplanItemComponent init: ' +
       this.rentalItem.Name + ' x:' +
       this.floorplanitem.Position['x'] + ' y:' +
       this.floorplanitem.Position['y']);
-     */
   }
+
 }

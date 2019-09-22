@@ -5,52 +5,42 @@
       <div class="col-auto">
         <button
           type="submit"
-          class="btn btn-success" (click)="onAddFloorPlan()">+</button>
+          class="btn btn-success" (click)="onAddFloorPlan()">+
+        </button>
       </div>
     </div>
   </div>
   <div class="card-body">
     <div class="row">
-      <div class="col-sm-12">
-        <div class="floorplan-boundary">
-         <app-floorplanlist-item
-           class="floorplan-box" cdkDragBoundary=".floorplan-boundary" class="floorplan-box"
-           cdkDrag
-           (cdkDragEnded)="dragEnd($event)"
-           *ngFor="let floorplanItem of floorplan.FloorplanItems; let i = index"
-           [floorplanitem]="floorplanItem"
-           [cdkDragData]="i"
-           [cdkDragFreeDragPosition]="floorplanItem.Position"
-           [index]="i" [vid]="id">
-         </app-floorplanlist-item>
-<!--
-         <div id="pt1" class="floorplan-box" cdkDragBoundary=".floorplan-boundary"
-              cdkDrag
-              (cdkDragEnded)="dragEnd($event)"
-              [cdkDragFreeDragPosition]="{ x: 100, y: 100 }"
-         >
-           Pool Table 1
-         </div>
-         <div id="pt2" class="floorplan-box" cdkDragBoundary=".floorplan-boundary"
-              cdkDrag
-              (cdkDragEnded)="dragEnd($event)"
-              [cdkDragFreeDragPosition]="{ x: 0, y: 0 }"
-         >
-           Pool Table 2
-         </div>
-         <div id="pt3" class="floorplan-box" cdkDragBoundary=".floorplan-boundary"
-              cdkDrag
-              (cdkDragEnded)="dragEnd($event)"
-              [cdkDragFreeDragPosition]="{ x: 0, y: 250 }"
-         >
-           Pool Table 3
-         </div>
--->
-        </div>
+      <div class="col-sm-6">
+        <app-floorplanlist-item
+          *ngFor="let floorplan of venue.Floorplans; let i = index"
+          [floorplan]="floorplan" [index]="i" [vid]="id">
+        </app-floorplanlist-item>
       </div>
-      <div class="col-sm-12">
+      <!--
+      <div class="col-sm-6">
+        <app-floorplanlist-item-detail></app-floorplanlist-item-detail>
+      </div>
+      -->
+      <!--
+      <div class="floorplan-boundary">
+       <app-floorplanlist-item
+         class="floorplan-box" cdkDragBoundary=".floorplan-boundary" class="floorplan-box"
+         cdkDrag
+         (cdkDragEnded)="dragEnd($event)"
+         *ngFor="let floorplanItem of floorplan.FloorplanItems; let i = index"
+         [floorplanitem]="floorplanItem"
+         [cdkDragData]="i"
+         [cdkDragFreeDragPosition]="floorplanItem.Position"
+         [index]="i" [vid]="id">
+       </app-floorplanlist-item>
+      </div>
+      -->
+      <div class="col-sm-6">
         <router-outlet></router-outlet>
       </div>
     </div>
+
   </div>
 </div>
