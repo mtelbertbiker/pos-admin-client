@@ -6,7 +6,7 @@
   </div>
   <div class="card-body">
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-9">
         <div class="floorplan-boundary">
           <app-floorplan-item
             class="floorplan-box" cdkDragBoundary=".floorplan-boundary" class="floorplan-box"
@@ -15,14 +15,21 @@
             *ngFor="let floorplanItem of floorplan.FloorplanItems; let i = index"
             [floorplanitem]="floorplanItem"
             [cdkDragData]="i"
-            [cdkDragFreeDragPosition]="floorplanItem.Position"
-            [index]="i" [vid]="id">
+            [venue]="venue"
+            [cdkDragFreeDragPosition]="floorplanItem.Position">
           </app-floorplan-item>
         </div>
       </div>
-      <div class="col-sm-12">
-        <router-outlet></router-outlet>
+      <div class="col-sm-3">
+        <app-floorplan-rental-list
+          [venue]="venue"
+          [floorplan]="floorplan"
+        >
+        </app-floorplan-rental-list>
       </div>
+    </div>
+    <div class="col-sm-12">
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

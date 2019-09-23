@@ -12,7 +12,7 @@
   </div>
   <div class="card-body">
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-12">
         <app-floorplanlist-item
           *ngFor="let floorplan of venue.Floorplans; let i = index"
           [floorplan]="floorplan" [index]="i" [vid]="id">
@@ -37,10 +37,11 @@
        </app-floorplanlist-item>
       </div>
       -->
-      <div class="col-sm-6">
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
         <router-outlet></router-outlet>
       </div>
     </div>
-
   </div>
 </div>

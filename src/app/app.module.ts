@@ -81,6 +81,7 @@ import { FloorplanlistItemComponent } from './posconfig/floorplans/floorplan-lis
 import { FloorplanComponent } from './posconfig/floorplans/floorplan/floorplan.component';
 import { FloorplanItemComponent } from './posconfig/floorplans/floorplan/floorplan-item/floorplan-item.component';
 import { FloorplanlistItemDetailComponent } from './posconfig/floorplans/floorplan-list/floorplanlist-item-detail/floorplanlist-item-detail.component';
+import { FloorplanRentalListComponent } from './posconfig/floorplans/floorplan/floorplan-rental-list/floorplan-rental-list.component';
 
 export function loadConfig(oidcConfigService: OidcConfigService) {
   console.log('APP_INITIALIZER STARTING');
@@ -146,6 +147,7 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     FloorplanComponent,
     FloorplanItemComponent,
     FloorplanlistItemDetailComponent,
+    FloorplanRentalListComponent,
   ],
   imports: [
     BrowserModule,

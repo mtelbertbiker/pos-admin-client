@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CdkDragEnd} from '@angular/cdk/drag-drop';
 import {Venue} from '../../../shared/pos-models/venue.model';
 import {Floorplan} from '../../../shared/pos-models/floorplan.model';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {VenueService} from '../../../venues/venue.service';
+import {FloorplanItem} from '../../../shared/pos-models/floorplan-item.model';
 
 @Component({
   selector: 'app-floorplan',
@@ -11,28 +12,18 @@ import {VenueService} from '../../../venues/venue.service';
   styleUrls: ['./floorplan.component.css']
 })
 export class FloorplanComponent implements OnInit {
-  venue: Venue;
-  floorplan: Floorplan;
-  id: number;
+  @Input() floorplan: Floorplan;
+  @Input() venue: Venue;
   offset = { x: 0, y: 0 };
 
-  constructor(private venueService: VenueService,
-              private route: ActivatedRoute) {}
+  constructor() {}
 
   ngOnInit() {
-    this.route.parent.params
-      .subscribe(
-        (params: Params) => {
-          this.id = +params['vid'];
-          this.venue = this.venueService.getVenue(this.id);
-          this.floorplan = this.venue.Floorplans[0];
-          this.floorplan.FloorplanItems.forEach(function (floorplanitem) {
-            if (typeof (floorplanitem.Position) === 'string') {
-              floorplanitem.Position = JSON.parse(floorplanitem.Position);
-            }
-          });
-        }
-      );
+    this.floorplan.FloorplanItems.forEach(function (floorplanitem) {
+      if (typeof (floorplanitem.Position) === 'string') {
+        floorplanitem.Position = JSON.parse(floorplanitem.Position);
+      }
+    });
   }
 
   dragEnd(event: CdkDragEnd) {
