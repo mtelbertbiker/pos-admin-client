@@ -54,15 +54,15 @@
                       ngbTooltip="Drag and Drop Selected Fee Groups to control display order.">?</button>
             </div>
             <div class="card-body">
-              <div class="example-container">
+              <div class="feegroup-container">
                 <div
                   cdkDropList
-                  #todoList="cdkDropList"
+                  #availablefeeGroupList="cdkDropList"
                   [cdkDropListData]="rentalItem.RentalItemFeeGroups"
-                  [cdkDropListConnectedTo]="[doneList]"
-                  class="example-list"
+                  [cdkDropListConnectedTo]="[selectedFeeGroupList]"
+                  class="feegroup-list"
                   (cdkDropListDropped)="drop($event)">
-                  <div class="example-box" *ngFor="let feeGroup of rentalItem.RentalItemFeeGroups; let i = index"
+                  <div class="feegroup-box" *ngFor="let feeGroup of rentalItem.RentalItemFeeGroups; let i = index"
                        cdkDrag>{{getFeeGroupDesc(feeGroup.FGId)}}
                   </div>
                 </div>
@@ -78,15 +78,15 @@
                       ngbTooltip="Drag and Drop Fee Groups between Selected and Available areas.">?</button>
             </div>
             <div class="card-body">
-              <div class="example-container">
+              <div class="feegroup-container">
                 <div
                   cdkDropList
-                  #doneList="cdkDropList"
+                  #selectedFeeGroupList="cdkDropList"
                   [cdkDropListData]="getAvailableFeeGroups()"
-                  [cdkDropListConnectedTo]="[todoList]"
-                  class="example-list"
+                  [cdkDropListConnectedTo]="[availablefeeGroupList]"
+                  class="feegroup-list"
                   (cdkDropListDropped)="drop($event)">
-                  <div class="example-box" *ngFor="let feeGroup of getAvailableFeeGroups(); let i = index" cdkDrag>
+                  <div class="feegroup-box" *ngFor="let feeGroup of getAvailableFeeGroups(); let i = index" cdkDrag>
                     {{getFeeGroupDesc(feeGroup.FGId)}}
                   </div>
                 </div>

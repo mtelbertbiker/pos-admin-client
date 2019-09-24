@@ -10,6 +10,22 @@
         <h6  *ngFor="let rentalIndex of availableRentalItemIndexes;">
             {{venue.RentalItems[rentalIndex].Name}}
         </h6>
+<!--
+        <div class="feegroup-container">
+          <div
+            cdkDropList
+            #doneList="cdkDropList"
+            [cdkDropListData]="availableRentalItemIndexes()"
+            [cdkDropListConnectedTo]="[todoList]"
+            class="feegroup-list"
+            (cdkDropListDropped)="drop($event)">
+            <div class="feegroup-box" *ngFor="let rentalIndex of availableRentalItemIndexes;" cdkDrag>
+              {{venue.RentalItems[rentalIndex].Name}}
+            </div>
+          </div>
+        </div>
+-->
+        
       </div>
     </div>
 

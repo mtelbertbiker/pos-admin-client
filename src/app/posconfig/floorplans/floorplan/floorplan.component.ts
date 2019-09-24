@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {CdkDragEnd} from '@angular/cdk/drag-drop';
 import {Venue} from '../../../shared/pos-models/venue.model';
 import {Floorplan} from '../../../shared/pos-models/floorplan.model';
@@ -11,7 +11,7 @@ import {FloorplanItem} from '../../../shared/pos-models/floorplan-item.model';
   templateUrl: './floorplan.component.html',
   styleUrls: ['./floorplan.component.css']
 })
-export class FloorplanComponent implements OnInit {
+export class FloorplanComponent implements OnInit, OnChanges {
   @Input() floorplan: Floorplan;
   @Input() venue: Venue;
   offset = { x: 0, y: 0 };
@@ -19,6 +19,14 @@ export class FloorplanComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+    this.CheckFloorPlanPositionData();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.CheckFloorPlanPositionData();
+  }
+
+  CheckFloorPlanPositionData() {
     this.floorplan.FloorplanItems.forEach(function (floorplanitem) {
       if (typeof (floorplanitem.Position) === 'string') {
         floorplanitem.Position = JSON.parse(floorplanitem.Position);
