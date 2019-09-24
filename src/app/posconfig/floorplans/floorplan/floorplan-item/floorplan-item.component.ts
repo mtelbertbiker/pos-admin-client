@@ -12,14 +12,12 @@ import {VenueService} from '../../../../venues/venue.service';
 export class FloorplanItemComponent implements OnInit {
   @Input() floorplanitem: FloorplanItem;
   @Input() venue: Venue;
-  // @Input() vid: number;
   rentalItem: RentalItem;
-  // venue: Venue;
+
 
   constructor(private venueService: VenueService) { }
 
   ngOnInit() {
-    // this.venue = this.venueService.getVenue(this.vid);
     const itemId = this.floorplanitem.ItemId;
     this.rentalItem = this.venue.RentalItems.find((function (ri: RentalItem) {
       return ri.RId === itemId;
