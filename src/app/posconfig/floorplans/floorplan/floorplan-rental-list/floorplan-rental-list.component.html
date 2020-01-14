@@ -7,16 +7,17 @@
   <div class="card-body">
     <div class="row">
       <div class="col-sm-12">
-        <h6  *ngFor="let rentalIndex of availableRentalItemIndexes;">
-            {{venue.RentalItems[rentalIndex].Name}}
+        <!--
+        <h6 *ngFor="let rentalIndex of availableRentalItemIndexes;">
+          {{venue.RentalItems[rentalIndex].Name}}
         </h6>
-<!--
-        <div class="feegroup-container">
+        -->
+        <div class="rentalitem-list">
           <div
             cdkDropList
             #doneList="cdkDropList"
-            [cdkDropListData]="availableRentalItemIndexes()"
-            [cdkDropListConnectedTo]="[todoList]"
+            [cdkDropListData]="availableRentalItemIndexes"
+            [cdkDropListConnectedTo]="[floorplan-box]"
             class="feegroup-list"
             (cdkDropListDropped)="drop($event)">
             <div class="feegroup-box" *ngFor="let rentalIndex of availableRentalItemIndexes;" cdkDrag>
@@ -24,8 +25,6 @@
             </div>
           </div>
         </div>
--->
-        
       </div>
     </div>
 

@@ -6,6 +6,7 @@ import {FormTypes} from './constants.service';
 
 @Injectable()
 export class SessionService {
+  userData: any;
   licensee: Licensee;
   ItemIsValid = true;
   ItemIsChanged = false;
@@ -25,7 +26,8 @@ export class SessionService {
     endHour : 15,
     endMinute : 30
   };
-  Email = 'mtelbertbiker@gmail.com';
+  Email = ''; // 'mtelbertbiker@gmail.com';
+  UserName = '';
 
   ClientId: string;
 

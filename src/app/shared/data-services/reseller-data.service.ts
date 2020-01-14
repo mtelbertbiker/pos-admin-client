@@ -28,7 +28,7 @@ export class ResellerDataService {
     const apiUrl = this.consts.AdminBaseUri +
       this.consts.AdminResellerLicenseesUri +
       this.session.ResellerId;
-    this.http.get(apiUrl, { headers: headers } )
+    this.http.get(apiUrl, {headers: headers})
       .subscribe(
         response => {
           this.licensees = response;
@@ -51,27 +51,26 @@ export class ResellerDataService {
       );
       */
   }
-
-  /*
-   getResellerLicenseeLocations(licid: number) {
-   this.http.get(this.consts.AdminBaseUri +
-   this.consts.AdminResellerLocationsUri +
-   this.session.ResellerId + '/' + licid)
-   .map(
-   (response: Response) => {
-   const venues: Venue[] = response.json();
-   console.log('getResellerLicenseeLocations(' + licid + ')');
-   console.log(venues);
-   return venues;
-   }
-   )
-   .subscribe(
-   (theVenues: Venue[]) => {
-   this.resellerService.setCurrrentLocations(theVenues);
-   }
-   );
-   }
-   */
+/*
+  getResellerLicenseeLocations(licid: number) {
+    this.http.get(this.consts.AdminBaseUri +
+      this.consts.AdminResellerLocationsUri +
+      this.session.ResellerId + '/' + licid)
+      .map(
+        (response: Response) => {
+          const venues: Venue[] = response.json();
+          console.log('getResellerLicenseeLocations(' + licid + ')');
+          console.log(venues);
+          return venues;
+        }
+      )
+      .subscribe(
+        (theVenues: Venue[]) => {
+          this.resellerService.setCurrrentLocations(theVenues);
+        }
+      );
+  }
+*/
   putLicensee(index: number) {
     const licensee = this.resellerService.getLicensee(index);
     console.log('POS Admin PUT Licensee>>');

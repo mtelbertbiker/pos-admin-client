@@ -26,7 +26,7 @@
     "@angular/router": "8.2.5",
     "@ng-bootstrap/ng-bootstrap": "^4.0.0",
     "@progress/telerik-angular-report-viewer": "^5.18.1109",
-    "angular-auth-oidc-client": "9.0.0",
+    "angular-auth-oidc-client": "^6.0.6",
     "angular2-uuid": "^1.1.1",
     "bootstrap": "^4.2.1",
     "core-js": "^2.5.7",

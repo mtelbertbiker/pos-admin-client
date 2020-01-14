@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit {
           }
         );
     }
-    console.log('Next: oidcSecurityService.getIsAuthorized() ');
+    console.log('Calling: oidcSecurityService.getIsAuthorized() ');
     this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()
       .subscribe(isAuthorized => this.isAuthorized = isAuthorized);
 

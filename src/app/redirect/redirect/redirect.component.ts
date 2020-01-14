@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
+import {Observable, Subscription} from 'rxjs';
+import {map, switchMapTo, take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-redirect',
@@ -7,10 +9,23 @@ import {OidcSecurityService} from 'angular-auth-oidc-client';
 })
 export class RedirectComponent implements OnInit {
 
-  constructor(private oidcSecurityService: OidcSecurityService) { }
+  isAuthorizedSubscription: Subscription;
+  isAuthorized: boolean;
 
-  ngOnInit() {
-    this.oidcSecurityService.getIsAuthorized();
+  constructor(private oidcSecurityService: OidcSecurityService) {
   }
 
+  ngOnInit() {
+    this.oidcSecurityService.authorizedCallback();
+  }
+  /*
+  ngOnInit() {
+    console.log('RedirectComponent OnInit');
+    // this.oidcSecurityService.getIsAuthorized();
+    this.oidcSecurityService.getIsAuthorized().subscribe(auth => {
+      this.isAuthorized = auth;
+      console.log('Auth:' + this.isAuthorized);
+    });
+  }
+*/
 }

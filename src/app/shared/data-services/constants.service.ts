@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class ConstantsService {
   BaseUri = 'https://localhost';
-  AdminBaseUri = this.BaseUri + ':44318/api';
+   AdminBaseUri = this.BaseUri + ':44318/api';
   // AdminBaseUri = 'https://fm-posadminprod1.azurewebsites.net/api';
   AdminLicenseeLocationsUri = '/Locations/LicenseeLocations/';
   AdminLocationsUri = '/Locations/';
@@ -44,7 +44,8 @@ export enum FormTypes {
   Rentals = 'Rentals',
   FeeGroups = 'Fee Groups',
   Fees = 'Fees',
-  Users = 'Users'
+  Users = 'Users',
+  FloorPlans = 'Floor Plans'
 }
 
 export class RegexPatterns {

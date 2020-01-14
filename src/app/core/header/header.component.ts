@@ -31,14 +31,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private sessionService: SessionService,
               private licenseeService: LicenseeService,
               private oidcSecurityService: OidcSecurityService) {
-    this.isAuthorized = true;
+    this.isAuthorized = false;
     this.session = sessionService;
   }
 
   ngOnInit() {
     console.log('HeaderComponent onInit');
-    // this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()
-    //  .subscribe(isAuthorized => this.isAuthorized = isAuthorized);
+     this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()
+      .subscribe(isAuthorized => this.isAuthorized = isAuthorized);
+    this.oidcSecurityService.getUserData().subscribe(userData => {
+      this.sessionService.userData = userData;
+      this.sessionService.Email = this.sessionService.userData['emails'][0];
+      this.sessionService.UserName = this.sessionService.userData['name'];
+    });
     this.subscription = this.venueService.venuesChanged
       .subscribe(
         (venues: Venue[]) => {
