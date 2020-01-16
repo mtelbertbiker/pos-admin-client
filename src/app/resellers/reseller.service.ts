@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Licensee } from '../shared/licensee.model';
 import {Subject} from 'rxjs';
-import {Venue} from "../shared/pos-models/venue.model";
+import {Venue} from '../shared/pos-models/venue.model';
+import {Reseller} from '../shared/reseller-models/reseller.model';
 
 @Injectable()
 export class ResellerService {
@@ -9,6 +10,7 @@ export class ResellerService {
   venuesChanged = new Subject<Venue[]>();
   private licensees: Licensee[] = [];
   private venues: Venue[] = [];
+  reseller: Reseller;
 
   constructor() { }
 

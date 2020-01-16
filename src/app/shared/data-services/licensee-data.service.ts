@@ -27,15 +27,16 @@ export class LicenseeDataService {
     const apiUrl = this.consts.AdminBaseUri +
       this.consts.AdminLicenseesUri +
       licId;
-
+    console.log('getLicensee:' + apiUrl);
     this.http.get(apiUrl, {headers: headers})
-      .pipe(map(
+      .subscribe(
         response => {
           this.licensee = response;
           this.licenseeService.setLicensee(this.licensee);
+          console.log(this.licensee);
         },
         error => console.log(error)
-      ));
+      );
   }
 
   putLicensee(licensee: Licensee) {

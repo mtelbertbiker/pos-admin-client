@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Licensee} from '../licensee.model';
 import { CookieService } from 'ngx-cookie-service';
 import { UUID } from 'angular2-uuid';
-import {FormTypes} from './constants.service';
+import {FormTypes, LoginTypes} from './constants.service';
 
 @Injectable()
 export class SessionService {
@@ -16,7 +16,8 @@ export class SessionService {
   private DefaultBrandId = 1;
   DeletedItemName = '';
   vid: number;
-  ResellerId = 1; // 1 is Fee Machine
+  ResellerId = 0;
+  Licenseeid = 0;
   FeeCalcTest = {
     fgid : 0,
     dayOfWeek : 2,
@@ -28,6 +29,7 @@ export class SessionService {
   };
   Email = ''; // 'mtelbertbiker@gmail.com';
   UserName = '';
+  LoginType: LoginTypes;
 
   ClientId: string;
 

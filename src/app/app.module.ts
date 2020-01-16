@@ -46,6 +46,7 @@ import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DemoMaterialModule} from './material-module';
 
+
 import {
   AuthModule,
   OidcSecurityService,
@@ -83,6 +84,7 @@ import {FloorplanComponent} from './posconfig/floorplans/floorplan/floorplan.com
 import {FloorplanItemComponent} from './posconfig/floorplans/floorplan/floorplan-item/floorplan-item.component';
 import {FloorplanlistItemDetailComponent} from './posconfig/floorplans/floorplan-list/floorplanlist-item-detail/floorplanlist-item-detail.component';
 import {FloorplanRentalListComponent} from './posconfig/floorplans/floorplan/floorplan-rental-list/floorplan-rental-list.component';
+import {AngularWebStorageModule} from 'angular-web-storage';
 
 export function loadConfig(oidcConfigService: OidcConfigService) {
   console.log('APP_INITIALIZER STARTING');
@@ -162,6 +164,7 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     ReactiveFormsModule,
     AppRoutingModule,
     TelerikReportingModule,
+    AngularWebStorageModule,
     NgbModule.forRoot(),
     AuthModule.forRoot(),
   ],

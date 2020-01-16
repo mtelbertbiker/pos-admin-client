@@ -1,16 +1,14 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {VenueService} from '../../venues/venue.service';
 import {Subscription} from 'rxjs';
 import {Venue} from '../../shared/pos-models/venue.model';
 import {Router} from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
-import {filter, take} from 'rxjs/operators';
+import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {SessionService} from '../../shared/data-services/session.service';
 import {Licensee} from '../../shared/licensee.model';
 import {LicenseeService} from '../../shared/licensee.service';
-import {ResellerService} from '../../resellers/reseller.service';
-import {FormTypes} from '../../shared/data-services/constants.service';
+import {FormTypes, LoginTypes} from '../../shared/data-services/constants.service';
+import {SessionStorageService} from 'angular-web-storage';
 
 
 @Component({
@@ -30,6 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private router: Router,
               private sessionService: SessionService,
               private licenseeService: LicenseeService,
+              public  websession: SessionStorageService,
               private oidcSecurityService: OidcSecurityService) {
     this.isAuthorized = false;
     this.session = sessionService;
@@ -87,11 +86,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['licensee' + '' + '']);
   }
 
-  signUp() {
+  signUp(loginType: LoginTypes) {
+    this.sessionService.LoginType = loginType;
+    this.websession.set('LoginType', loginType);
     this.oidcSecurityService.authorize();
   }
 
   signOut() {
+    this.sessionService.LoginType = LoginTypes.NotSpecified;
+    this.websession.set('LoginType', LoginTypes.NotSpecified);
     this.oidcSecurityService.logoff();
   }
 

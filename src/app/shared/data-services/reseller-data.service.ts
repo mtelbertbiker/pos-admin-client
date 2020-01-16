@@ -12,6 +12,7 @@ import {LicenseeService} from '../licensee.service';
 export class ResellerDataService {
 
   licensees: any;
+  reseller: any;
 
   constructor(private http: HttpClient,
               private resellerService: ResellerService,
@@ -31,9 +32,11 @@ export class ResellerDataService {
     this.http.get(apiUrl, {headers: headers})
       .subscribe(
         response => {
-          this.licensees = response;
-          this.resellerService.setLicensees(this.licensees);
-          this.licenseeService.setLicensees(this.licensees);
+          this.reseller = response;
+          this.resellerService.reseller = this.reseller;
+          this.session.ResellerId = this.reseller.Id;
+          this.resellerService.setLicensees(this.reseller.Licensees);
+          this.licenseeService.setLicensees(this.reseller.Licensees);
           console.log('getResellerLicensees(' + this.session.ResellerId + ')');
           console.log(this.licensees);
         },

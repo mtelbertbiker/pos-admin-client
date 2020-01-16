@@ -37,6 +37,11 @@ export class ConstantsService {
   }
 
 }
+export enum LoginTypes {
+  NotSpecified,
+  Operator,
+  Distributor
+}
 
 export enum FormTypes {
   Licensees = 'Licensee',

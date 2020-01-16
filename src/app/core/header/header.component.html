@@ -1,34 +1,57 @@
 <nav class="navbar navbar-toggleable-md navbar-default">
-    <div class="container">
-      <a class="navbar-brand" routerLink="/">
-        <img alt="Brand" width="50%" src="../../../assets/images/FeeMachine-Color-Web2.jpg">
-      </a>
-      <div class="nav navbar-right">
-        <ul class="list-unstyled list-inline">
-          <li class="list-inline-item">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">
+      <img alt="Brand" width="50%" src="../../../assets/images/FeeMachine-Color-Web2.jpg">
+    </a>
+    <div class="nav navbar-right">
+      <ul class="list-unstyled list-inline">
+        <li class="list-inline-item">
           <div ngbDropdown class="d-inline-block" *ngIf="isAuthorized && session.ResellerId > 0">
             <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>My Licensees</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button *ngFor="let licensee of licensees; let i = index" (click)="onSelectLicensee(i) "class="dropdown-item">{{licensee.Name}}{{licensee.Disabled ? " (D)" : ""}}, {{licensee.City}}, {{licensee.State}}</button>
+              <button *ngFor="let licensee of licensees; let i = index" (click)="onSelectLicensee(i) "
+                      class="dropdown-item">{{licensee.Name}}{{licensee.Disabled ? " (D)" : ""}}, {{licensee.City}}
+                , {{licensee.State}}</button>
               <div class="dropdown-divider"></div>
               <button
                 type="submit"
-                class="dropdown-item" (click)="onAddLicensee()">Add Licensee</button>
+                class="dropdown-item" (click)="onAddLicensee()">Add Licensee
+              </button>
             </div>
           </div>
-          </li>
-<!--          <li class="list-inline-item"><button class="btn btn-info sign-up-sign-in" *ngIf="session.ResellerId > 0" (click)="showResellerLicensees()">My Licensees</button></li>-->
-          <li class="list-inline-item"><button class="btn btn-info sign-up-sign-in" *ngIf="isAuthorized && session.ResellerId > 0" (click)="showLicenseeLocations()">My Locations</button></li>
-          <li class="list-inline-item"><button class="btn btn-info"  (click)="onProductHome()">Product</button></li>
-          <li class="list-inline-item"><button class="btn btn-info"  (click)="onContactUs()">Contact Us</button></li>
-
-          <li class="list-inline-item"><button class="btn btn-info sign-up-sign-in" *ngIf="!isAuthorized" (click)="signUp()">Sign Up / Sign in</button></li>
-          <li class="list-inline-item"><button class="btn btn-info edit-profile" disabled *ngIf="isAuthorized">Edit Profile</button></li>
-          <li class="list-inline-item"><label class="" *ngIf="isAuthorized" >{{this.sessionService.UserName}}</label></li>
-          <li class="list-inline-item"><button class="btn btn-info sign-out" *ngIf="isAuthorized" (click)="signOut()">Sign Out</button></li>
-        </ul>
-      </div>
-    </div><!-- /.container-fluid -->
-  </nav>
+        </li>
+        <!--          <li class="list-inline-item"><button class="btn btn-info sign-up-sign-in" *ngIf="session.ResellerId > 0" (click)="showResellerLicensees()">My Licensees</button></li>-->
+        <li class="list-inline-item">
+          <button class="btn btn-info sign-up-sign-in" *ngIf="isAuthorized && session.ResellerId == 0"
+                  (click)="showLicenseeLocations()">My Locations
+          </button>
+        </li>
+        <li class="list-inline-item">
+          <button class="btn btn-info" (click)="onProductHome()">Product</button>
+        </li>
+        <li class="list-inline-item">
+          <button class="btn btn-info" (click)="onContactUs()">Contact Us</button>
+        </li>
+        <li class="list-inline-item">
+          <div ngbDropdown *ngIf="!isAuthorized" class="d-inline-block">
+            <button class="btn btn-info" id="dropdownLogin" ngbDropdownToggle>Login</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownLogin">
+              <button class="btn btn-info" (click)="signUp(1)">Operator</button>
+              <button class="btn btn-info" (click)="signUp(2)">Distributor</button>
+            </div>
+          </div>
+        </li>
+        <!--<li class="list-inline-item"><button class="btn btn-info sign-up-sign-in" *ngIf="!isAuthorized" (click)="signUp()">Sign in</button></li>-->
+        <li class="list-inline-item">
+          <button class="btn btn-info edit-profile" disabled *ngIf="isAuthorized">Edit Profile</button>
+        </li>
+        <li class="list-inline-item"><label class="" *ngIf="isAuthorized">{{this.sessionService.UserName}}</label></li>
+        <li class="list-inline-item">
+          <button class="btn btn-info sign-out" *ngIf="isAuthorized" (click)="signOut()">Logout</button>
+        </li>
+      </ul>
+    </div>
+  </div><!-- /.container-fluid -->
+</nav>
 
 

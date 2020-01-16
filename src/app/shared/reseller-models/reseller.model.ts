@@ -1,4 +1,5 @@
 import {ResellerUser} from './reseller-user.model';
+import {Licensee} from '../licensee.model';
 export class Reseller {
   constructor(public Id: number,
               public Company: string,
@@ -17,7 +18,8 @@ export class Reseller {
               public OtherContactLast: string,
               public OtherContactPhone: string,
               public OtherContactEmail: string,
-              public Users: ResellerUser[],
+              public ResellerUsers: ResellerUser[],
+              public Licensees: Licensee[],
               public Disabled: boolean,
               public UpdatedUtc: string) {}
 }
