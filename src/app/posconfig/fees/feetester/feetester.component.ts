@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Venue} from '../../../shared/pos-models/venue.model';
 import {VenueService} from '../../../venues/venue.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
@@ -16,7 +16,7 @@ import {TimedFeeCalcResponse} from '../../../shared/feecalc-models/timedfeecalcr
   styleUrls: ['./feetester.component.css']
 })
 
-export class FeeTesterComponent implements OnInit {
+export class FeeTesterComponent implements OnInit, OnDestroy {
   venue: Venue;
   id: number;
   feeGroup: FeeGroup;
@@ -140,5 +140,11 @@ export class FeeTesterComponent implements OnInit {
           alert('Fee Calc failed: ' + response.message);
         }
       );
+  }
+
+  ngOnDestroy() {
+    if (this.subscription != null) {
+      this.subscription.unsubscribe();
+    }
   }
 }

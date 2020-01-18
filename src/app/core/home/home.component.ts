@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {VenueDataService} from '../../shared/data-services/venue-data.service';
 import {VenueService} from '../../venues/venue.service';
 import {Venue} from '../../shared/pos-models/venue.model';
@@ -18,7 +18,7 @@ import {SessionStorageService} from 'angular-web-storage';
   selector: 'app-home',
   templateUrl: './home.component.html',
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   venues: Venue[];
   licensee: Licensee;
   licensees: Licensee[] = [];
@@ -46,19 +46,21 @@ export class HomeComponent implements OnInit {
     this.session = this.sessionService;
     this.sessionService.resetSaveState();
 
-    this.sessionService.LoginType  = this.websession.get('LoginType');
+    this.sessionService.LoginType = this.websession.get('LoginType');
     console.log('Login Type:' + this.sessionService.LoginType);
     if (this.sessionService.LoginType === LoginTypes.Distributor) {
-        this.resellerDataService.getResellerLicensees();
-        this.resellerSubscription = this.resellerService.licenseesChanged
-          .subscribe(
-            (licensees: Licensee[]) => {
-              this.licensees = licensees;
-            }
-          );
+      console.log('HomeComponent Distributor Login');
+      this.resellerDataService.getResellerLicensees();
+      this.resellerSubscription = this.resellerService.licenseesChanged
+        .subscribe(
+          (licensees: Licensee[]) => {
+            this.licensees = licensees;
+          }
+        );
 
     }
     if (this.sessionService.LoginType === LoginTypes.Operator) {
+      console.log('HomeComponent Operator Login');
       this.licenseeDataService.getLicensee(this.session.Licenseeid);
       this.licenseeSubscription = this.licenseeService.licenseesChanged
         .subscribe(
@@ -70,6 +72,7 @@ export class HomeComponent implements OnInit {
           }
         );
     }
+    /*
     this.venueSubscription = this.venueService.venuesChanged
       .subscribe(
         (venues: Venue[]) => {
@@ -77,6 +80,7 @@ export class HomeComponent implements OnInit {
           this.venueService.setVenues(this.venues);
         }
       );
+     */
     console.log('Calling: oidcSecurityService.getIsAuthorized() ');
     this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()
       .subscribe(isAuthorized => {
@@ -91,5 +95,15 @@ export class HomeComponent implements OnInit {
         }
       });
 
+  }
+
+  ngOnDestroy() {
+    if (this.licenseeSubscription != null) {
+      this.licenseeSubscription.unsubscribe();
+    }
+    if (this.resellerSubscription != null) {
+      this.resellerSubscription.unsubscribe();
+    }
+    this.isAuthorizedSubscription.unsubscribe();
   }
 }

@@ -6,7 +6,7 @@
     <div class="nav navbar-right">
       <ul class="list-unstyled list-inline">
         <li class="list-inline-item">
-          <div ngbDropdown class="d-inline-block" *ngIf="isAuthorized && session.ResellerId > 0">
+          <div ngbDropdown class="d-inline-block" *ngIf="isAuthorized && session.ResellerId > 0  && this.licensees != null">
             <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>My Licensees</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
               <button *ngFor="let licensee of licensees; let i = index" (click)="onSelectLicensee(i) "
@@ -22,7 +22,7 @@
         </li>
         <!--          <li class="list-inline-item"><button class="btn btn-info sign-up-sign-in" *ngIf="session.ResellerId > 0" (click)="showResellerLicensees()">My Licensees</button></li>-->
         <li class="list-inline-item">
-          <button class="btn btn-info sign-up-sign-in" *ngIf="isAuthorized && session.ResellerId == 0"
+          <button class="btn btn-info sign-up-sign-in" *ngIf="isAuthorized && session.ResellerId == 0 && this.licensees != null"
                   (click)="showLicenseeLocations()">My Locations
           </button>
         </li>

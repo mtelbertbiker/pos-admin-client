@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {RentalItem} from '../../../shared/pos-models/rental-item.model';
 import {VenueService} from '../../../venues/venue.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
@@ -17,7 +17,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './rental-item-detail.component.html',
   styleUrls: ['./rental-item-detail.component.css']
 })
-export class RentalItemDetailComponent implements OnInit {
+export class RentalItemDetailComponent implements OnInit, OnDestroy {
   rentalItem: RentalItem;
   venue: Venue;
   rentalItemDetailForm: FormGroup;
@@ -33,13 +33,14 @@ export class RentalItemDetailComponent implements OnInit {
               private sessionService: SessionService,
               public constantsService: ConstantsService,
               private modal: NgbModal,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.route.params
       .subscribe(
         (params: Params) => {
-          this.index =  +params['id'];
+          this.index = +params['id'];
           this.vid = this.sessionService.getCurrentVenueIndex();
           this.venue = this.venueService.getVenue(this.vid);
           this.rentalItem = this.venue.RentalItems[this.index];
@@ -53,6 +54,7 @@ export class RentalItemDetailComponent implements OnInit {
         }
       );
   }
+
   private initForm() {
     const Name = this.rentalItem.Name;
     const RentalTypeId = this.rentalItem.RentalTypeId;
@@ -71,7 +73,8 @@ export class RentalItemDetailComponent implements OnInit {
     return this.rentalItemDetailForm.controls[fieldName].invalid;
   }
 
-  onSubmit() {}
+  onSubmit() {
+  }
 
   getFeeGroupDesc(groupId: number) {
     for (const feeGroup of this.venue['FeeGroups']) {
@@ -96,15 +99,18 @@ export class RentalItemDetailComponent implements OnInit {
     });
     return availableFeeGroups;
   }
+
   updateRentalItem(newRentalItem: RentalItem) {
     this.rentalItem.Name = newRentalItem.Name;
     this.rentalItem.RentalTypeId = newRentalItem.RentalTypeId;
     this.rentalItem.Disabled = !newRentalItem.Disabled;
   }
+
   onSelectChange(rentalTypeId: number) {
     this.rentalItem.RentalTypeId = rentalTypeId;
     this.sessionService.setSaveState(FormTypes.Rentals, this.rentalItemDetailForm.valid, true);
   }
+
   onDeleteRentalItem(index: number) {
     this.sessionService.DeletedItemName = 'Rental Item ' + this.rentalItem.Name;
     this.modal.open(this.myModals.deleteConfirm).result.then((result) => {
@@ -132,6 +138,12 @@ export class RentalItemDetailComponent implements OnInit {
         event.previousIndex,
         event.currentIndex);
       this.sessionService.setSaveState(FormTypes.Rentals, this.rentalItemDetailForm.valid, true);
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.subscription != null) {
+      this.subscription.unsubscribe();
     }
   }
 

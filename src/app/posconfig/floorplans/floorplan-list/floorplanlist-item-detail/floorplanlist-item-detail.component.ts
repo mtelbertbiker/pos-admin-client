@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Floorplan} from '../../../../shared/pos-models/floorplan.model';
 import {ActivatedRoute, Params, Router} from '@angular/router';
@@ -14,7 +14,7 @@ import {Subscription} from 'rxjs';
   templateUrl: './floorplanlist-item-detail.component.html',
   styleUrls: ['./floorplanlist-item-detail.component.css']
 })
-export class FloorplanlistItemDetailComponent implements OnInit {
+export class FloorplanlistItemDetailComponent implements OnInit, OnDestroy {
   floorplanListItemDetailForm: FormGroup;
   floorplan: Floorplan;
   venue: Venue;
@@ -60,6 +60,12 @@ export class FloorplanlistItemDetailComponent implements OnInit {
 
   isFieldInvalid(fieldName: string) {
     return this.floorplanListItemDetailForm.controls[fieldName].invalid;
+  }
+
+  ngOnDestroy() {
+    if (this.subscription != null) {
+      this.subscription.unsubscribe();
+    }
   }
 
 }

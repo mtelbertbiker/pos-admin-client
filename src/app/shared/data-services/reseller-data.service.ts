@@ -35,10 +35,9 @@ export class ResellerDataService {
           this.reseller = response;
           this.resellerService.reseller = this.reseller;
           this.session.ResellerId = this.reseller.Id;
+          console.log('getResellerLicensees(' + this.session.ResellerId + ')');
           this.resellerService.setLicensees(this.reseller.Licensees);
           this.licenseeService.setLicensees(this.reseller.Licensees);
-          console.log('getResellerLicensees(' + this.session.ResellerId + ')');
-          console.log(this.licensees);
         },
         error => console.log(error)
       );

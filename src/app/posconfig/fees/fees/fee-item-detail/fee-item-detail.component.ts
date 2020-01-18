@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Fee} from '../../../../shared/pos-models/fee.model';
 import {FeeGroup} from '../../../../shared/pos-models/fee-group.model';
 import {Venue} from '../../../../shared/pos-models/venue.model';
@@ -16,7 +16,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './fee-item-detail.component.html',
   styleUrls: ['./fee-item-detail.component.css']
 })
-export class FeeItemDetailComponent implements OnInit {
+export class FeeItemDetailComponent implements OnInit, OnDestroy {
   fee: Fee;
   feeGroup: FeeGroup;
   venue: Venue;
@@ -177,6 +177,12 @@ export class FeeItemDetailComponent implements OnInit {
       }
     }, (reason) => {
     });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription != null) {
+      this.subscription.unsubscribe();
+    }
   }
 
 }

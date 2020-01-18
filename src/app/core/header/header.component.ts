@@ -9,6 +9,7 @@ import {Licensee} from '../../shared/licensee.model';
 import {LicenseeService} from '../../shared/licensee.service';
 import {FormTypes, LoginTypes} from '../../shared/data-services/constants.service';
 import {SessionStorageService} from 'angular-web-storage';
+import {VenueDataService} from '../../shared/data-services/venue-data.service';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   session: SessionService;
 
   constructor(private venueService: VenueService,
+              private venueDataService: VenueDataService,
               private router: Router,
               private sessionService: SessionService,
               private licenseeService: LicenseeService,
@@ -70,6 +72,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onSelectLicensee(index: number) {
     this.sessionService.resetSaveState();
     this.sessionService.licensee = this.licensees[index];
+    this.venueDataService.getVenues(this.sessionService.licensee.LicId);
     this.router.navigate(['licensee/' + index + '/detail' ]);
   }
 
@@ -82,8 +85,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   showLicenseeLocations() {
-    console.log('showLicenseeLocations');
-    this.router.navigate(['licensee' + '' + '']);
+    this.sessionService.resetSaveState();
+    this.sessionService.licensee = this.licensees[0];
+    this.router.navigate(['licensee/' + 0 + '/detail' ]);
   }
 
   signUp(loginType: LoginTypes) {

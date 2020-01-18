@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {Licensee} from '../../../shared/licensee.model';
@@ -9,19 +9,20 @@ import {ResellerDataService} from '../../../shared/data-services/reseller-data.s
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LicenseeDataService} from '../../../shared/data-services/licensee-data.service';
 import {FormTypes, RegexPatterns} from '../../../shared/data-services/constants.service';
+import {LicenseeService} from '../../../shared/licensee.service';
 
 @Component({
   selector: 'app-licensee-item-detail',
   templateUrl: './licensee-item-detail.component.html',
   styleUrls: ['./licensee-item-detail.component.css']
 })
-export class LicenseeItemDetailComponent implements OnInit {
+export class LicenseeItemDetailComponent implements OnInit, OnDestroy {
   licensee: Licensee;
   licenseeItemDetailForm: FormGroup;
   index: number;
   subscription: Subscription;
 
-  constructor(private resellerService: ResellerService,
+  constructor(private licenseeService: LicenseeService,
               private route: ActivatedRoute,
               private sessionService: SessionService,
               private router: Router) { }
@@ -32,7 +33,7 @@ export class LicenseeItemDetailComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.index =  +params['id'];
-          this.licensee = this.resellerService.getLicensee(this.index);
+          this.licensee = this.licenseeService.getLicensee(this.index);
           this.initForm();
           this.subscription = this.licenseeItemDetailForm.valueChanges.subscribe(
             (value) => {
@@ -99,6 +100,8 @@ export class LicenseeItemDetailComponent implements OnInit {
     this.sessionService.setLicensee(this.licensee);
   }
 
-
+ngOnDestroy() {
+  this.subscription.unsubscribe();
+}
 
 }

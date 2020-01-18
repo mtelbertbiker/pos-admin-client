@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {LicenseeUser} from '../../../shared/licensee-user.model';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {FormTypes} from '../../../shared/data-services/constants.service';
@@ -14,7 +14,7 @@ import {ResellerService} from '../../../resellers/reseller.service';
   templateUrl: './licensee-user-detail.component.html',
   styleUrls: ['./licensee-user-detail.component.css']
 })
-export class LicenseeUserDetailComponent implements OnInit {
+export class LicenseeUserDetailComponent implements OnInit, OnDestroy {
   licensee: Licensee;
   licenseeUser: LicenseeUser;
   licenseeUserDetailForm: FormGroup;
@@ -85,6 +85,12 @@ export class LicenseeUserDetailComponent implements OnInit {
       this.router.navigate(['..'], {relativeTo: this.route});
     }
     ;
+  }
+
+  ngOnDestroy() {
+    if (this.subscription != null) {
+      this.subscription.unsubscribe();
+    }
   }
 
 }

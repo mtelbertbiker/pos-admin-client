@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Venue} from '../../../../shared/pos-models/venue.model';
 import {VenueService} from '../../../../venues/venue.service';
 import {LicenseeService} from '../../../../shared/licensee.service';
@@ -18,7 +18,7 @@ import {Subscription} from 'rxjs';
   templateUrl: './licensee-master-item-navigation.component.html',
   styleUrls: ['./licensee-master-item-navigation.component.css']
 })
-export class LicenseeMasterItemNavigationComponent implements OnInit {
+export class LicenseeMasterItemNavigationComponent implements OnInit, OnDestroy {
   id: number;
   venues: Venue[];
   vid: number;
@@ -46,7 +46,7 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
         (params: Params) => {
           this.id = +params['id'];
           this.licensee = this.licenseeService.getLicensee(this.id);
-          this.venueDataService.getVenues(this.licensee.LicId);
+          this.venues = this.venueService.getVenuesForLicensee(this.licensee.LicId);
           this.subscription = this.venueService.venuesChanged
             .subscribe(
               (venues: Venue[]) => {
@@ -77,6 +77,7 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
 
 
   onSave() {
+    console.log('onSave');
     if ((this.sessionService.ChangedItems.indexOf(FormTypes.Licensees.toString()) > -1) ||
       (this.sessionService.ChangedItems.indexOf(FormTypes.Users.toString()) > -1)) {
       this.sessionService.HideSaveBtn = true;
@@ -135,5 +136,9 @@ export class LicenseeMasterItemNavigationComponent implements OnInit {
     }
   }
 
-
+  ngOnDestroy() {
+    if (this.subscription != null) {
+      this.subscription.unsubscribe();
+    }
+  }
 }

@@ -34,6 +34,8 @@ export class VenueDataService {
         response => {
           this.venues = response;
           this.venueService.setVenues(this.venues);
+          const venlist  = this.venueService.getVenuesForLicensee(licId);
+          console.log('getVenues found: ' + venlist.length);
           return this.venues;
         },
         error => {
@@ -69,9 +71,8 @@ export class VenueDataService {
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${token}`)
       .set('ClientId', this.session.ClientId);
-    // Change the '/0' to the location Id when adding new location
     const apiUrl = this.consts.AdminBaseUri + this.consts.AdminLocationsUri;
-    console.log('putVenue>>' + location.LId);
+    console.log('putVenue LId:' + location.LId);
     return this.http.put(apiUrl, location, {headers: headers});
   }
 

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FeeGroup} from '../../../../shared/pos-models/fee-group.model';
 import {Venue} from '../../../../shared/pos-models/venue.model';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -15,7 +15,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './feegroup-detail.component.html',
   styleUrls: ['./feegroup-detail.component.css']
 })
-export class FeeGroupDetailComponent implements OnInit {
+export class FeeGroupDetailComponent implements OnInit, OnDestroy {
   feeGroup: FeeGroup;
   venue: Venue;
   feeGroupDetailForm: FormGroup;
@@ -129,6 +129,12 @@ export class FeeGroupDetailComponent implements OnInit {
       }
     }, (reason) => {
     });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription != null) {
+      this.subscription.unsubscribe();
+    }
   }
 
 }
