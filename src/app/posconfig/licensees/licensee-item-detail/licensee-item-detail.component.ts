@@ -95,7 +95,7 @@ export class LicenseeItemDetailComponent implements OnInit, OnDestroy {
     this.licensee.ContactLastName = updatedLicensee.ContactLastName;
     this.licensee.Email = updatedLicensee.Email;
     this.licensee.Website = updatedLicensee.Website;
-    this.licensee.Disabled = !updatedLicensee.Disabled;
+    this.licensee.Disabled = updatedLicensee.Disabled;
     this.licensee.UpdatedUtc = new Date().toDateString();
     this.sessionService.setLicensee(this.licensee);
   }

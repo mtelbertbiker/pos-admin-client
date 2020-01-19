@@ -17,7 +17,7 @@ export class VenueService {
     return this.venues[index];
   }
 
-  putVenue(index: number, venue: Venue){
+  putVenue(index: number, venue: Venue) {
     this.venues[index] = venue;
   }
 
@@ -40,7 +40,7 @@ export class VenueService {
     this.venues[index].Phone1 = updatedVenue.Phone1;
     this.venues[index].Phone2 = updatedVenue.Phone2;
     this.venues[index].POSTypeId = updatedVenue.POSTypeId;
-    this.venues[index].Disabled = !updatedVenue.Disabled;
+    this.venues[index].Disabled = updatedVenue.Disabled;
     this.venues[index].LightControlEnabled = updatedVenue.LightControlEnabled;
     this.venues[index].Memo = updatedVenue.Memo;
     this.venues[index].Website = updatedVenue.Website;
