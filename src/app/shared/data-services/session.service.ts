@@ -6,6 +6,7 @@ import {FormTypes, LoginTypes} from './constants.service';
 
 @Injectable()
 export class SessionService {
+  Error: any;
   userData: any;
   licensee: Licensee;
   ItemIsValid = true;

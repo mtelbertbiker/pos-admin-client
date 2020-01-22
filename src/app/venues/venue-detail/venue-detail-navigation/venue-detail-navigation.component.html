@@ -4,16 +4,16 @@
       <a class="nav-link navbar-brand" routerLink="/licensee/{{lid}}/locations/{{vid}}/detail" routerLinkActive="active">Location Detail</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{lid}}/locations/{{vid}}/floorplans" routerLinkActive="active">Floor Plans</a>
+      <a class="nav-link navbar-brand" routerLink="/licensee/{{lid}}/locations/{{vid}}/feegroups" routerLinkActive="active">Fee Groups</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link navbar-brand" routerLink="/licensee/{{lid}}/locations/{{vid}}/fees/" routerLinkActive="active">Fees</a>
     </li>
     <li class="nav-item">
       <a class="nav-link navbar-brand" routerLink="/licensee/{{lid}}/locations/{{vid}}/rentals" routerLinkActive="active">Rental Items</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{lid}}/locations/{{vid}}/feegroups" routerLinkActive="active">Fee Groups</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{lid}}/locations/{{vid}}/fees/" routerLinkActive="active">Fees</a>
+      <a class="nav-link navbar-brand" routerLink="/licensee/{{lid}}/locations/{{vid}}/floorplans" routerLinkActive="active">Floor Plans</a>
     </li>
     <li class="nav-item">
       <a class="nav-link navbar-brand" routerLink="/licensee/{{lid}}/locations/{{vid}}/feetester" routerLinkActive="active">Fee Tester</a>
@@ -26,6 +26,11 @@
         <a class="dropdown-item" routerLink="/licensee/{{lid}}/locations/{{vid}}/reports/ItemUseDetailReport2">Transaction Detail</a>
         <a class="dropdown-item" routerLink="/licensee/{{lid}}/locations/{{vid}}/reports/RentalItemUsageReport1">Item Use Summary</a>
       </div>
+    </li>
+    <li>
+      <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+              ngbTooltip="Adding a Location?  Follow the tabs from Left to Right - setup your Location Detail, then Fee Groups, Fees, etc..">?
+      </button>
     </li>
   </ul>
 </nav>

@@ -35,7 +35,10 @@ export class LicenseeDataService {
           this.licenseeService.setLicensee(this.licensee);
           console.log(this.licensee);
         },
-        error => console.log(error)
+        error => {
+          console.log(error);
+          this.session.Error = error;
+        }
       );
   }
 

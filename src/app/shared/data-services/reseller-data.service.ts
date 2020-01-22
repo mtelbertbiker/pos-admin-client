@@ -39,7 +39,10 @@ export class ResellerDataService {
           this.resellerService.setLicensees(this.reseller.Licensees);
           this.licenseeService.setLicensees(this.reseller.Licensees);
         },
-        error => console.log(error)
+        error => {
+          console.log(error);
+          this.session.Error = error;
+        }
       );
     /*
     this.http.get<Licensee[]>(apiurl, {headers: headers})

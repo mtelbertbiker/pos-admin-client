@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {VenueService} from '../../venues/venue.service';
-import {Subscription} from 'rxjs';
+import {interval, Subscription} from 'rxjs';
 import {Venue} from '../../shared/pos-models/venue.model';
 import {Router} from '@angular/router';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
@@ -22,8 +22,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   venues: Venue[];
   subscription: Subscription;
   isAuthorizedSubscription: Subscription;
+  isErrorSubscription: Subscription;
   isAuthorized: boolean;
   session: SessionService;
+  error: string;
 
   constructor(private venueService: VenueService,
               private venueDataService: VenueDataService,
@@ -40,6 +42,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     console.log('HeaderComponent onInit');
      this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()
       .subscribe(isAuthorized => this.isAuthorized = isAuthorized);
+     this.isErrorSubscription = interval(1000).subscribe(count => {
+       console.log('Error check:' + count);
+       if (this.sessionService.Error != null) {
+         if ('message' in this.sessionService.Error) {
+           this.error = this.sessionService.Error.message;
+         }
+       }
+     });
     this.oidcSecurityService.getUserData().subscribe(userData => {
       this.sessionService.userData = userData;
       this.sessionService.Email = this.sessionService.userData['emails'][0];
@@ -102,12 +112,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.oidcSecurityService.logoff();
   }
 
+  onHandleError() {
+    this.error = null;
+    this.sessionService.Error = null;
+  }
+
   onDuplicateLocation() {
     console.log('onDuplicateLocation');
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.isErrorSubscription.unsubscribe();
     this.isAuthorizedSubscription.unsubscribe();
   }
 }

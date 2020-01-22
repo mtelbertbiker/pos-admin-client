@@ -34,12 +34,13 @@ export class VenueDataService {
         response => {
           this.venues = response;
           this.venueService.setVenues(this.venues);
-          const venlist  = this.venueService.getVenuesForLicensee(licId);
+          const venlist = this.venueService.getVenuesForLicensee(licId);
           console.log('getVenues found: ' + venlist.length);
           return this.venues;
         },
         error => {
           console.log(error);
+          this.session.Error = error;
           return [];
         }
       );

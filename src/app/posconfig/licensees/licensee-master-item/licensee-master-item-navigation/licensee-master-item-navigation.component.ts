@@ -102,10 +102,15 @@ export class LicenseeMasterItemNavigationComponent implements OnInit, OnDestroy 
                     console.log('PutVenue Response:' + loc.toString());
                     this.venueService.putVenue(this.vid, loc);
                     this.sessionService.resetSaveState();
+                  },
+                  error => {
+                    this.sessionService.Error = error;
                   });
             } else {
               this.sessionService.resetSaveState();
             }
+          }, error => {
+           this.sessionService.Error = error;
           }
         );
     } else {
