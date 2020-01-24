@@ -14,7 +14,7 @@
   <div class="card-body">
     <div class="row">
       <div class="col-sm-6">
-        <div cdkDropList class="rental-list" (cdkDropListDropped)="drop($event)">
+        <div cdkDropList class="rental-list" *ngIf="venue.RentalItems.length > 0" (cdkDropListDropped)="drop($event)">
           <app-rental-item class="rental-box" cdkDrag
                            *ngFor="let rentalItem of venue.RentalItems; let i = index"
                            [rentalItem]="rentalItem" [index]="i" [vid]="id">

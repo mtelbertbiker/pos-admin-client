@@ -66,8 +66,8 @@ export class RentalItemDetailComponent implements OnInit, OnDestroy {
         'Disabled': new FormControl(Disabled),
       }
     );
+    this.rentalItemDetailForm.controls['RentalTypeId'].setValue(RentalTypeId,  {onlySelf: true});
   }
-
 
   isFieldInvalid(fieldName: string) {
     return this.rentalItemDetailForm.controls[fieldName].invalid;
@@ -106,7 +106,7 @@ export class RentalItemDetailComponent implements OnInit, OnDestroy {
     this.rentalItem.Disabled = !newRentalItem.Disabled;
   }
 
-  onSelectChange(rentalTypeId: number) {
+  onSelectChange(rentalTypeId: any) {
     this.rentalItem.RentalTypeId = rentalTypeId;
     this.sessionService.setSaveState(FormTypes.Rentals, this.rentalItemDetailForm.valid, true);
   }
