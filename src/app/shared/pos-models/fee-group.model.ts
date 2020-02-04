@@ -13,6 +13,7 @@ export class FeeGroup {
               public Disabled = false,
               public TransferUserEnabled = false,
               public UserNameTrackingEnabled = false,
+              public FeeRounding = 0,
               public Fees = []
               ) {}
 }

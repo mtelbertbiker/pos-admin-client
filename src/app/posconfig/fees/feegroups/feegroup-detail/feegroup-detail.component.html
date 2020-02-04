@@ -132,6 +132,29 @@
         </div>
       </div>
       <div class="form-group row">
+        <label class="col-sm-3" for="FeeRounding">Fee Rounding</label>
+        <select #myfeeroundingtype id="FeeRounding" formControlName="FeeRounding" (change)="onSelectChange(myfeeroundingtype.value)">
+          <option *ngFor="let feeRoundingType of constantsService.FeeRoundingTypes"
+                  [value]="feeRoundingType.Id"
+          >{{feeRoundingType.Name}}
+          </option>
+        </select>
+        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                ngbTooltip="Round Fees to nearest .05, .25, or 1.00, simplifying change management.">?
+        </button>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+      <div class="form-group row">
         <label class="col-form-label col-sm-3" for="RequiredFee">Required Fee</label>
         <div class="col-sm-3">
           <input

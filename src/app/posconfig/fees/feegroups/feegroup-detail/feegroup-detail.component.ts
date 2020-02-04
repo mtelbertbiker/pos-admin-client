@@ -6,7 +6,7 @@ import {Subscription} from 'rxjs';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {SessionService} from '../../../../shared/data-services/session.service';
 import {VenueService} from '../../../../venues/venue.service';
-import {FormTypes} from '../../../../shared/data-services/constants.service';
+import {ConstantsService, FormTypes} from '../../../../shared/data-services/constants.service';
 import {ConfirmDeletionModalComponent} from '../../../../shared/confirm-deletion-modal/confirm-deletion-modal.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
@@ -30,6 +30,7 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
   constructor(private venueService: VenueService,
               private route: ActivatedRoute,
               private sessionService: SessionService,
+              public constantsService: ConstantsService,
               private modal: NgbModal,
               private router: Router) {
   }
@@ -64,6 +65,7 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
     const TransferUserEnabled = this.feeGroup.TransferUserEnabled;
     const Disabled = !this.feeGroup.Disabled;
     const TrackUserNames = this.feeGroup.UserNameTrackingEnabled;
+    const FeeRounding = this.feeGroup.FeeRounding;
     this.usersDisabled = !this.feeGroup.RequiresUsers;
     this.feeGroupDetailForm = new FormGroup(
       {
@@ -75,6 +77,7 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
         'CondenseUserFees': new FormControl(CondenseUserFees),
         'TransferUserEnabled': new FormControl(TransferUserEnabled),
         'ItemId': new FormControl(ItemId, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
+        'FeeRounding' :  new FormControl(FeeRounding),
         'RequiredFee': new FormControl(RequiredFee, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
         'Disabled': new FormControl(Disabled),
       });
@@ -104,6 +107,11 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
     return this.feeGroupDetailForm.controls[fieldName].invalid;
   }
 
+  onSelectChange(feeRoundingTypeId: any) {
+    this.feeGroup.FeeRounding = feeRoundingTypeId;
+    this.sessionService.setSaveState(FormTypes.Rentals, this.feeGroupDetailForm.valid, true);
+  }
+
   updateFeeGroup(updatedFeeGroup: FeeGroup) {
     this.feeGroup.Name = updatedFeeGroup.Name;
     this.feeGroup.ItemId = updatedFeeGroup.ItemId;
@@ -115,6 +123,7 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
     this.feeGroup.UserNameTrackingEnabled = updatedFeeGroup.UserNameTrackingEnabled;
     this.feeGroup.TransferUserEnabled = updatedFeeGroup.TransferUserEnabled;
     this.feeGroup.Disabled = !updatedFeeGroup.Disabled;
+    this.feeGroup.FeeRounding = updatedFeeGroup.FeeRounding;
     this.usersDisabled = !this.feeGroup.RequiresUsers;
     this.venueService.updateVenueDetail(this.vid, this.venue);
   }

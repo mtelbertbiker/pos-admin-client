@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class ConstantsService {
   BaseUri = 'https://localhost';
-   AdminBaseUri = this.BaseUri + ':44318/api';
+  AdminBaseUri = this.BaseUri + ':44318/api';
   // AdminBaseUri = 'https://fm-posadminprod1.azurewebsites.net/api';
   AdminLicenseeLocationsUri = '/Locations/LicenseeLocations/';
   AdminLocationsUri = '/Locations/';
@@ -33,10 +33,27 @@ export class ConstantsService {
     }
   ];
 
-  constructor() {
-  }
+  FeeRoundingTypes = [
+    {
+      Id: 0,
+      Name: 'No Rounding'
+    },
+    {
+      Id: 1,
+      Name: 'Nearest .05'
+    },
+    {
+      Id: 2,
+      Name: 'Nearest .25'
+    },
+    {
+      Id: 3,
+      Name: 'Nearest 1.00'
+    },
+  ];
 
 }
+
 export enum LoginTypes {
   NotSpecified,
   Operator,
