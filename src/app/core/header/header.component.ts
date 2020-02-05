@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isAuthorized: boolean;
   session: SessionService;
   error: string;
+  errorUrl: string;
 
   constructor(private venueService: VenueService,
               private venueDataService: VenueDataService,
@@ -45,8 +46,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
      this.isErrorSubscription = interval(1000).subscribe(count => {
        console.log('Error check:' + count);
        if (this.sessionService.Error != null) {
+         this.errorUrl = '';
          if ('message' in this.sessionService.Error) {
            this.error = this.sessionService.Error.message;
+         }
+         if ('error' in this.sessionService.Error) {
+           if ('ExceptionMessage' in this.sessionService.Error['error']) {
+             this.error = this.sessionService.Error['error']['ExceptionMessage'];
+         }
+         }
+         if ('url' in this.sessionService.Error) {
+           this.errorUrl = this.sessionService.Error.url;
          }
        }
      });

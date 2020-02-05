@@ -55,6 +55,7 @@
     </div>
     <div class="alert alert-danger" *ngIf="error">
       <h6>Something went wrong: {{error}}</h6>
+      <h6 *ngIf="errorUrl">At: {{errorUrl}}</h6>
       <button class="btn btn-danger" (click)="onHandleError()">OK</button>
     </div>
   </div><!-- /.container-fluid -->

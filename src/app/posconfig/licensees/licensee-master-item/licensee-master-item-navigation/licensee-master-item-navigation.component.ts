@@ -110,7 +110,7 @@ export class LicenseeMasterItemNavigationComponent implements OnInit, OnDestroy 
               this.sessionService.resetSaveState();
             }
           }, error => {
-           this.sessionService.Error = error;
+            this.sessionService.Error = error;
           }
         );
     } else {
@@ -125,7 +125,11 @@ export class LicenseeMasterItemNavigationComponent implements OnInit, OnDestroy 
             this.venueService.putVenue(this.vid, venue);
             this.sessionService.resetSaveState();
             this.venues = this.venueService.getVenuesForLicensee(this.licensee.LicId);
-          });
+          },
+          error => {
+            this.sessionService.Error = error;
+          }
+        );
     }
   }
 

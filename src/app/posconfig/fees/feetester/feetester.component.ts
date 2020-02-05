@@ -137,7 +137,7 @@ export class FeeTesterComponent implements OnInit, OnDestroy {
         },
         response => {
           console.log(response);
-          alert('Fee Calc failed: ' + response.message);
+          this.session.Error = response;
         }
       );
   }
