@@ -3,7 +3,6 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {FormGroup} from '@angular/forms';
 import {VenueService} from '../../venue.service';
-import {VenueDataService} from '../../../shared/data-services/venue-data.service';
 
 @Component({
   selector: 'app-venue-detail-navigation',
@@ -12,7 +11,6 @@ import {VenueDataService} from '../../../shared/data-services/venue-data.service
 export class VenueDetailNavigationComponent implements OnInit {
   @Input() lid: number;
   @Input() vid: number;
-  // isCollapsed = false;
   subscription: Subscription;
   venueNavigationForm: FormGroup;
 
@@ -37,15 +35,7 @@ export class VenueDetailNavigationComponent implements OnInit {
     this.venueNavigationForm = new FormGroup({});
   }
 
-  /*
-  toggleCollapseState() {
-    this.isCollapsed = !this.isCollapsed;
+  onLocationNavigate(pageName) {
+    this.router.navigate(['/licensee/' + this.lid + '/locations/' + this.vid + '/' + pageName]);
   }
-
-  onSelectLocation() {
-    if (confirm('Are you sure?  Any changes not saved will be lost.')) {
-      this.router.navigate(['home']);
-    }
-  }
-*/
 }

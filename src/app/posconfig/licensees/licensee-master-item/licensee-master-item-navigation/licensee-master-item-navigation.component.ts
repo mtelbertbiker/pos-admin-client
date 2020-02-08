@@ -145,6 +145,10 @@ export class LicenseeMasterItemNavigationComponent implements OnInit, OnDestroy 
     }
   }
 
+  onLicenseeNavigate(pageName) {
+    this.router.navigate(['/licensee/' + this.id + '/' + pageName]);
+  }
+
   ngOnDestroy() {
     if (this.subscription != null) {
       this.subscription.unsubscribe();

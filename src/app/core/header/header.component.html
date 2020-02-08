@@ -6,6 +6,12 @@
     <div class="nav navbar-right">
       <ul class="list-unstyled list-inline">
         <li class="list-inline-item">
+          <button class="btn btn-info" (click)="onProductHome()">Product</button>
+        </li>
+        <li class="list-inline-item">
+          <button class="btn btn-info" (click)="onContactUs()">Contact Us</button>
+        </li>
+        <li class="list-inline-item">
           <div ngbDropdown class="d-inline-block"
                *ngIf="isAuthorized && session.ResellerId > 0  && this.licensees != null">
             <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>My Licensees</button>
@@ -21,18 +27,11 @@
             </div>
           </div>
         </li>
-        <!--          <li class="list-inline-item"><button class="btn btn-info sign-up-sign-in" *ngIf="session.ResellerId > 0" (click)="showResellerLicensees()">My Licensees</button></li>-->
         <li class="list-inline-item">
-          <button class="btn btn-info sign-up-sign-in"
+          <button class="btn btn-primary"
                   *ngIf="isAuthorized && session.ResellerId == 0 && this.licensees != null"
                   (click)="showLicenseeLocations()">Manage My Locations
           </button>
-        </li>
-        <li class="list-inline-item">
-          <button class="btn btn-info" (click)="onProductHome()">Product</button>
-        </li>
-        <li class="list-inline-item">
-          <button class="btn btn-info" (click)="onContactUs()">Contact Us</button>
         </li>
         <li class="list-inline-item">
           <div ngbDropdown *ngIf="!isAuthorized" class="d-inline-block">
@@ -43,7 +42,6 @@
             </div>
           </div>
         </li>
-        <!--<li class="list-inline-item"><button class="btn btn-info sign-up-sign-in" *ngIf="!isAuthorized" (click)="signUp()">Sign in</button></li>-->
         <li class="list-inline-item">
           <button class="btn btn-info edit-profile" disabled *ngIf="isAuthorized">Edit Profile</button>
         </li>

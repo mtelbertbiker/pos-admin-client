@@ -2,11 +2,11 @@
   <div class="card bg-light">
     <div class="card-header">
       <div class="row">
-        <h4>Location: <b>{{venue.Name}}, {{venue.City}}, {{venue.State}}</b></h4>
+        <div class="col-10"><h5>Location: <b>{{venue.Name}}, {{venue.City}}, {{venue.State}}</b></h5></div>
+        <div class="float-right"><app-venue-detail-navigation [lid]="lid" [vid]="vid"></app-venue-detail-navigation></div>
       </div>
     </div>
     <div class="card-body">
-      <app-venue-detail-navigation [lid]="lid" [vid]="vid"></app-venue-detail-navigation>
       <div class="col-sm-12">
         <router-outlet></router-outlet>
       </div>

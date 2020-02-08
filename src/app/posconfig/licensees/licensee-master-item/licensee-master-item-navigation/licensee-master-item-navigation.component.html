@@ -1,41 +1,12 @@
 <nav class="navbar navbar-expand-sm">
-  <ul class="navbar-nav nav-pills">
-    <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/detail" routerLinkActive="active">Detail</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/users" routerLinkActive="active">Users</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/billing"
-         routerLinkActive="active">Billing</a>
-    </li>
-    <li class="nav-item dropdown">
-      <div ngbDropdown class="d-inline-block">
-        <button class="nav-link navbar-brand"
-                id="dropdownBasic1"
-                [disabled]="this.sessionService.ItemIsChanged"
-                ngbDropdownToggle>Locations</button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button *ngFor="let venue of venues; let i = index" (click)="onSelectVenue(i) " class="dropdown-item">
-            {{venue.Name}}{{venue.Disabled ? " (Disabled)" :""}}, {{venue.City}}, {{venue.State}}
-          </button>
-          <div class="dropdown-divider"></div>
-          <button
-            type="submit"
-            class="dropdown-item" (click)="onAddVenue()">Add Location
-          </button>
-        </div>
-      </div>
-    </li>
-  </ul>
   <ul class="navbar-nav ml-auto nav-pills">
     <li class="nav-item" *ngIf="this.sessionService.ItemIsChanged">
       <button
         type="button"
         class="nav-link navbar-brand btn-success"
         [disabled]="!this.sessionService.ItemIsValid" (click)="onSave()">
-        Save <span *ngIf="this.sessionService.Saving.length > 0" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Save <span *ngIf="this.sessionService.Saving.length > 0" class="spinner-border spinner-border-sm" role="status"
+                   aria-hidden="true"></span>
       </button>
     </li>
     <li class="nav-item" *ngIf="this.sessionService.ItemIsChanged && !this.sessionService.HideSaveBtn">
@@ -44,5 +15,60 @@
         class="nav-link navbar-brand btn-danger" (click)="onCancel()">Cancel
       </button>
     </li>
+    <li class="nav-item">
+      <button mat-raised-button color="primary" [matMenuTriggerFor]="licenseeMenu">Manage</button>
+    </li>
   </ul>
 </nav>
+
+
+<mat-menu #licenseeMenu="matMenu" yPosition="above">
+  <button mat-menu-item (click)="onLicenseeNavigate('detail')">Licensee Info</button>
+  <button mat-menu-item (click)="onLicenseeNavigate('users')">Users</button>
+  <button mat-menu-item (click)="onLicenseeNavigate('billing')">Billing</button>
+  <button mat-menu-item [matMenuTriggerFor]="licenseeLocationsMenu">Locations</button>
+</mat-menu>
+<mat-menu #licenseeLocationsMenu="matMenu">
+  <button mat-menu-item *ngFor="let venue of venues; let i = index" (click)="onSelectVenue(i)">
+    {{venue.Name}}{{venue.Disabled ? " (Disabled)" : ""}}, {{venue.City}}, {{venue.State}}
+  </button>
+  <button mat-menu-item (click)="onAddVenue()">Add Location</button>
+</mat-menu>
+
+
+<!--
+<ul class="navbar-nav nav-pills">
+
+ <li class="nav-item">
+   <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/detail" routerLinkActive="active">Detail</a>
+ </li>
+ <li class="nav-item">
+   <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/users" routerLinkActive="active">Users</a>
+ </li>
+ <li class="nav-item">
+   <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/billing"
+      routerLinkActive="active">Billing</a>
+ </li>
+
+ <li class="nav-item dropdown">
+   <div ngbDropdown class="d-inline-block">
+     <button class="nav-link navbar-brand"
+             id="dropdownBasic1"
+             [disabled]="this.sessionService.ItemIsChanged"
+             ngbDropdownToggle>Locations</button>
+     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+       <button *ngFor="let venue of venues; let i = index" (click)="onSelectVenue(i) " class="dropdown-item">
+         {{venue.Name}}{{venue.Disabled ? " (Disabled)" :""}}, {{venue.City}}, {{venue.State}}
+       </button>
+       <div class="dropdown-divider"></div>
+       <button
+         type="submit"
+         class="dropdown-item" (click)="onAddVenue()">Add Location
+       </button>
+     </div>
+   </div>
+ </li>
+
+</ul>
+ -->
+

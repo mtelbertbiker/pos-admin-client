@@ -1,3 +1,24 @@
+<button mat-raised-button color="primary" [matMenuTriggerFor]="locationMenu">Manage</button>
+<mat-menu #locationMenu="matMenu" yPosition="above">
+  <button mat-menu-item (click)="onLocationNavigate('detail')">Location Info</button>
+  <button mat-menu-item [matMenuTriggerFor]="feeManagementMenu">Fees</button>
+  <button mat-menu-item (click)="onLocationNavigate('rentals')">Rental Items</button>
+  <button mat-menu-item (click)="onLocationNavigate('floorplans')">Floor Plans</button>
+  <button mat-menu-item [matMenuTriggerFor]="locationReportsMenu">Reports</button>
+</mat-menu>
+
+<mat-menu #locationReportsMenu="matMenu">
+  <button mat-menu-item (click)="onLocationNavigate('reports/ItemUseDetailReport2')">Transaction Detail</button>
+  <button mat-menu-item (click)="onLocationNavigate('reports/RentalItemUsageReport1')">Item Use Summary</button>
+</mat-menu>
+
+<mat-menu #feeManagementMenu="matMenu">
+  <button mat-menu-item (click)="onLocationNavigate('feegroups')">Fee Groups</button>
+  <button mat-menu-item (click)="onLocationNavigate('fees')">Fee Detail</button>
+  <button mat-menu-item (click)="onLocationNavigate('feetester')">Fee Tester</button>
+</mat-menu>
+
+<!--
 <nav class="navbar navbar-expand-sm">
   <ul class="navbar-nav nav-pills">
     <li class="nav-item">
@@ -34,4 +55,5 @@
     </li>
   </ul>
 </nav>
+-->
 
