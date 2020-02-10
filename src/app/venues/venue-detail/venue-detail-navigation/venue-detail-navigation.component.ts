@@ -3,6 +3,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {FormGroup} from '@angular/forms';
 import {VenueService} from '../../venue.service';
+import {SessionService} from '../../../shared/data-services/session.service';
 
 @Component({
   selector: 'app-venue-detail-navigation',
@@ -15,8 +16,10 @@ export class VenueDetailNavigationComponent implements OnInit {
   venueNavigationForm: FormGroup;
 
   constructor(private venueService: VenueService,
+              private sessionService: SessionService,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.route.params
@@ -35,7 +38,7 @@ export class VenueDetailNavigationComponent implements OnInit {
     this.venueNavigationForm = new FormGroup({});
   }
 
-  onLocationNavigate(pageName) {
+  onLocationReportsNavigate(pageName) {
     this.router.navigate(['/licensee/' + this.lid + '/locations/' + this.vid + '/' + pageName]);
   }
 }

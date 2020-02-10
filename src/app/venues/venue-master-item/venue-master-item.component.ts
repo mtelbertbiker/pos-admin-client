@@ -14,7 +14,42 @@ export class VenueMasterItemComponent implements OnInit {
   lid: number;
   venue: Venue;
   venueMasterItemForm: FormGroup;
+
+  venueTabs = [
+    {
+      'Id': '0',
+      'Name': 'Location Detail',
+      'Url': 'detail'
+    },
+    {
+      'Id': '1',
+      'Name': 'Fee Groups',
+      'Url': 'feegroups'
+    },
+    {
+      'Id': '2',
+      'Name': 'Fees',
+      'Url': 'fees'
+    },
+    {
+      'Id': '3',
+      'Name': 'Rentals',
+      'Url': 'rentals'
+    },
+    {
+      'Id': '4',
+      'Name': 'Floor Plans',
+      'Url': 'floorplans'
+    },
+    {
+      'Id': '5',
+      'Name': 'Fee Tester',
+      'Url': 'feetester'
+    }
+  ];
+
   constructor(private venueService: VenueService,
+              private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -36,4 +71,12 @@ export class VenueMasterItemComponent implements OnInit {
     );
   }
 
+  onTabChangeLocationNavigate($event) {
+    const tabId = $event.index;
+    this.onLocationNavigate(this.venueTabs[tabId].Url);
+  }
+
+  onLocationNavigate(pageName) {
+    this.router.navigate(['/licensee/' + this.lid + '/locations/' + this.vid + '/' + pageName]);
+  }
 }

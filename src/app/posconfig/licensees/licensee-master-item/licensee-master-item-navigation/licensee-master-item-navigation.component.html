@@ -21,7 +21,6 @@
   </ul>
 </nav>
 
-
 <mat-menu #licenseeMenu="matMenu" yPosition="above">
   <button mat-menu-item (click)="onLicenseeNavigate('detail')">Licensee Info</button>
   <button mat-menu-item (click)="onLicenseeNavigate('users')">Users</button>
@@ -35,40 +34,4 @@
   <button mat-menu-item (click)="onAddVenue()">Add Location</button>
 </mat-menu>
 
-
-<!--
-<ul class="navbar-nav nav-pills">
-
- <li class="nav-item">
-   <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/detail" routerLinkActive="active">Detail</a>
- </li>
- <li class="nav-item">
-   <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/users" routerLinkActive="active">Users</a>
- </li>
- <li class="nav-item">
-   <a class="nav-link navbar-brand" routerLink="/licensee/{{id}}/billing"
-      routerLinkActive="active">Billing</a>
- </li>
-
- <li class="nav-item dropdown">
-   <div ngbDropdown class="d-inline-block">
-     <button class="nav-link navbar-brand"
-             id="dropdownBasic1"
-             [disabled]="this.sessionService.ItemIsChanged"
-             ngbDropdownToggle>Locations</button>
-     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-       <button *ngFor="let venue of venues; let i = index" (click)="onSelectVenue(i) " class="dropdown-item">
-         {{venue.Name}}{{venue.Disabled ? " (Disabled)" :""}}, {{venue.City}}, {{venue.State}}
-       </button>
-       <div class="dropdown-divider"></div>
-       <button
-         type="submit"
-         class="dropdown-item" (click)="onAddVenue()">Add Location
-       </button>
-     </div>
-   </div>
- </li>
-
-</ul>
- -->
 

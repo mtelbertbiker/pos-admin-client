@@ -1,13 +1,27 @@
-<form [formGroup]="venueMasterItemForm" *ngIf="venue" >
+<form [formGroup]="venueMasterItemForm" *ngIf="venue">
   <div class="card bg-light">
     <div class="card-header">
       <div class="row">
         <div class="col-10"><h5>Location: <b>{{venue.Name}}, {{venue.City}}, {{venue.State}}</b></h5></div>
-        <div class="float-right"><app-venue-detail-navigation [lid]="lid" [vid]="vid"></app-venue-detail-navigation></div>
+        <div class="float-right">
+          <app-venue-detail-navigation [lid]="lid" [vid]="vid"></app-venue-detail-navigation>
+        </div>
       </div>
     </div>
     <div class="card-body">
       <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-11">
+            <mat-tab-group color='accent' backgroundColor='primary'
+                           (selectedTabChange)="onTabChangeLocationNavigate($event)">
+              <mat-tab *ngFor="let venueTab of venueTabs; let i = index" label="{{venueTab.Name}}"></mat-tab>
+            </mat-tab-group>
+          </div>
+          <div class="col-sm-1">
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="Managing a Location? Follow the tabs from Left to Right - setup your Location Detail, then Fee Groups, Fees, etc..">?</button>
+          </div>
+        </div>
         <router-outlet></router-outlet>
       </div>
     </div>
