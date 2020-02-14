@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   session: SessionService;
   error: string;
   errorUrl: string;
+  errorCode: string;
 
   constructor(private venueService: VenueService,
               private venueDataService: VenueDataService,
@@ -47,16 +48,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
        console.log('Error check:' + count);
        if (this.sessionService.Error != null) {
          this.errorUrl = '';
-         if ('message' in this.sessionService.Error) {
-           this.error = this.sessionService.Error.message;
+         this.errorCode = '';
+         if ('status' in this.sessionService.Error) {
+           this.errorCode = this.sessionService.Error.status;
          }
-         if ('error' in this.sessionService.Error) {
-           if ('ExceptionMessage' in this.sessionService.Error['error']) {
-             this.error = this.sessionService.Error['error']['ExceptionMessage'];
-         }
-         }
-         if ('url' in this.sessionService.Error) {
-           this.errorUrl = this.sessionService.Error.url;
+         if (this.errorCode === '401') { // Unauthorized
+           this.isAuthorized = false;
+           this.error = 'Please Login';
+         } else {
+           if ('message' in this.sessionService.Error) {
+             this.error = this.sessionService.Error.message;
+           }
+           if ('error' in this.sessionService.Error) {
+             if ('ExceptionMessage' in this.sessionService.Error['error']) {
+               this.error = this.sessionService.Error['error']['ExceptionMessage'];
+             }
+           }
+           if ('url' in this.sessionService.Error) {
+             this.errorUrl = this.sessionService.Error.url;
+           }
          }
        }
      });
