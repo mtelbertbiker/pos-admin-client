@@ -2,6 +2,7 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {VenueService} from '../../../venues/venue.service';
 import {Venue} from '../../../shared/pos-models/venue.model';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ConstantsService} from '../../../shared/data-services/constants.service';
 
 @Component({
   selector: 'app-transactiondetailviewer',
@@ -10,6 +11,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 export class TransactiondetailviewerComponent implements OnInit {
   venue: Venue;
   id: number;
+  ready = 'ready';
   viewerContainerStyle = {
     position: 'relative',
     width: '1000px',
@@ -21,7 +23,7 @@ export class TransactiondetailviewerComponent implements OnInit {
 
   constructor(private venueService: VenueService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              public constantsService: ConstantsService) { }
 
   ngOnInit() {
     this.route.parent.params

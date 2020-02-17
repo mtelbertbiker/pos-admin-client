@@ -32,7 +32,7 @@ export class LicenseeMasterItemNavigationComponent implements OnInit, OnDestroy 
               private licenseeService: LicenseeService,
               private licenseeDataService: LicenseeDataService,
               private venueDataService: VenueDataService,
-              private sessionService: SessionService,
+              public sessionService: SessionService,
               private venueService: VenueService,
               private modal: NgbModal,
               private router: Router) {

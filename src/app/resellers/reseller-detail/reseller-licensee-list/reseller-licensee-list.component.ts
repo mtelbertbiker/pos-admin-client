@@ -23,4 +23,7 @@ export class ResellerLicenseeListComponent implements OnInit {
       );
   }
 
+  onAddLicensee() {
+  }
+
 }

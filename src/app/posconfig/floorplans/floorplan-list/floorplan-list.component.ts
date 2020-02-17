@@ -40,6 +40,9 @@ export class FloorplanListComponent implements OnInit {
         }
       );
   }
+
+  onAddFloorPlan() {
+  }
   /*
   dragEnd(event: CdkDragEnd) {
     this.offset = { ...(<any>event.source._dragRef)._passiveTransform };

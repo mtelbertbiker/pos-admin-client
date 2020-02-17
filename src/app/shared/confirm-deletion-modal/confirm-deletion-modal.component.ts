@@ -22,7 +22,7 @@ import {SessionService} from '../data-services/session.service';
 })
 export class ConfirmDeletionModalComponent implements OnInit {
 
-  constructor(public modal: NgbActiveModal, private sessionService: SessionService) { }
+  constructor(public modal: NgbActiveModal, public sessionService: SessionService) { }
 
   ngOnInit() {
     console.log('Confirm Deletion Modal Component onInit');

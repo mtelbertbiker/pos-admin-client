@@ -76,7 +76,7 @@ export class FeeTesterComponent implements OnInit, OnDestroy {
   }
 
   updateFeeCalc(feeCalcForm) {
-    this.session.FeeCalcTest.fgid = feeCalcForm.FeeGroup;
+    this.session.FeeCalcTest.fgid = feeCalcForm.FeeGroup.FGId;
     this.session.FeeCalcTest.users = feeCalcForm.Users;
     this.session.FeeCalcTest.dayOfWeek = feeCalcForm.DayOfWeek;
     this.session.FeeCalcTest.beginHour = feeCalcForm.BeginTime.hour;

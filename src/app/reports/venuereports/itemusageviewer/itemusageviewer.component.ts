@@ -3,6 +3,7 @@ import { ViewEncapsulation } from '@angular/core';
 import {Venue} from '../../../shared/pos-models/venue.model';
 import {VenueService} from '../../../venues/venue.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ConstantsService} from '../../../shared/data-services/constants.service';
 
 @Component({
   selector: 'app-itemusageviewer',
@@ -11,6 +12,8 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 export class ItemUsageViewerComponent implements OnInit {
   venue: Venue;
   id: number;
+  ready = 'ready';
+  viewerToolTipOpening = 'viewerToolTipOpening';
   viewerContainerStyle = {
     position: 'relative',
     width: '1000px',
@@ -22,7 +25,7 @@ export class ItemUsageViewerComponent implements OnInit {
 
   constructor(private venueService: VenueService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              public constantsService: ConstantsService) { }
 
   ngOnInit() {
     this.route.parent.params

@@ -16,7 +16,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./venue-detail.component.css']
 })
 export class VenueDetailComponent implements OnInit, OnDestroy {
-  private venue: Venue;
+  venue: Venue;
   venueDetailForm: FormGroup;
   id: number;
   subscription: Subscription;

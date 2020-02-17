@@ -7,7 +7,7 @@
   <div class="card-body">
     <tr-viewer #viewer1
                [containerStyle]="viewerContainerStyle"
-               [serviceUrl]="'https://localhost:44318/api/reports'"
+               [serviceUrl]=this.constantsService.ReportsUri
                [reportSource]="{
         report:'BizTrans.Reports.Library.ItemUseDetailReport2,BizTrans.Reports.Library',
         parameters: {'licId':venue.LicId,
@@ -16,7 +16,7 @@
     }"
                [viewMode]="'INTERACTIVE'"
                [scaleMode]="'SPECIFIC'"
-               [ready]="ready"
+               [ready]=this.ready
                [scale]="1.0"
                [enableAccessibility]="false">
     </tr-viewer>

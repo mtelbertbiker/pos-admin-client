@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
          this.errorUrl = '';
          this.errorCode = '';
          if ('status' in this.sessionService.Error) {
-           this.errorCode = this.sessionService.Error.status;
+           this.errorCode = this.sessionService.Error.status.toString();
          }
          if (this.errorCode === '401') { // Unauthorized
            this.isAuthorized = false;
@@ -62,10 +62,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
            if ('error' in this.sessionService.Error) {
              if ('ExceptionMessage' in this.sessionService.Error['error']) {
                this.error = this.sessionService.Error['error']['ExceptionMessage'];
+               if ('url' in this.sessionService.Error) {
+                 this.errorUrl = this.sessionService.Error.url;
+               }
              }
-           }
-           if ('url' in this.sessionService.Error) {
-             this.errorUrl = this.sessionService.Error.url;
+             if ('Message' in this.sessionService.Error['error']) {
+               this.error = this.sessionService.Error['error']['Message'];
+             }
            }
          }
        }
