@@ -200,7 +200,8 @@ export class AppModule {
       openIDImplicitFlowConfiguration.stsServer = 'https://login.microsoftonline.com/tfp/feemachines.onmicrosoft.com/b2c_1_susin/oauth2/v2.0/';
 //      openIDImplicitFlowConfiguration.redirect_url = 'http://localhost:65328/redirect.html';
       openIDImplicitFlowConfiguration.redirect_url = 'https://feemachine.com/redirect.html';
-      openIDImplicitFlowConfiguration.client_id = 'e0795570-377a-4064-8678-246db4734c21';
+//      openIDImplicitFlowConfiguration.client_id = 'e0795570-377a-4064-8678-246db4734c21';
+      openIDImplicitFlowConfiguration.client_id = 'eb3fb956-a476-4329-99ca-0666bec47d65';
       openIDImplicitFlowConfiguration.response_type = 'id_token token';
       openIDImplicitFlowConfiguration.scope = 'openid https://feemachines.com/posadmin/readPosAdmin https://feemachines.com/posadmin/writePosAdmin'; // 'openid https://fabrikamb2c.onmicrosoft.com/demoapi/demo.read';
 //      openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'http://localhost:65328';
