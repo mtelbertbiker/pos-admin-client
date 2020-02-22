@@ -1,14 +1,14 @@
 <div class="card bg-light">
   <div class="card-header">
-      <div class="row">
-        <h5><b>Licensee Info</b></h5>
-      </div>
+    <div class="row">
+      <h5><b>Licensee Info</b></h5>
+    </div>
   </div>
   <div class="card-body">
     <form [formGroup]="licenseeItemDetailForm" *ngIf="licensee">
       <div class="form-group row">
-        <label class="col-form-label" for="Name">Company Name</label>
-        <div class="col-sm-6">
+        <label class="col-form-label col-sm-2" for="Name">Company Name</label>
+        <div class="col-sm-8">
           <input
             type="text"
             id="Name"
@@ -16,24 +16,26 @@
             class="form-control">
           <div class="alert alert-danger" *ngIf="isFieldInvalid('Name')">Company Name is required</div>
         </div>
-        <label class="col-form-label"># {{licensee.LicId}}</label>
-      </div>
-      <div class="form-group row">
-        <label class="col-form-label">Email: {{licensee.Email}}</label>
-      </div>
-      <div class="form-group row">
-        <label class="col-form-label" for="Disabled">Enabled</label>
-        <div class="col-sm-3">
-          <input
-            type="checkbox"
-            id="Disabled"
-            formControlName="Disabled"
-            class="form-control">
+        <div class="col-sm-2">
+          <label class="col-form-label"># {{licensee.LicId}}</label>
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="ContactFirstName">Contact First Name</label>
-        <div class="col-sm-6">
+        <label class="col-form-label col-sm-2">Email</label>
+        <label class="col-form-label col-sm-10">{{licensee.Email}}</label>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-10 offset-sm-2">
+          <label class="form-check-label" for="Disabled"><input
+            type="checkbox"
+            id="Disabled"
+            formControlName="Disabled"> Enabled
+          </label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2" for="ContactFirstName">Contact First Name</label>
+        <div class="col-sm-10">
           <input
             type="text"
             id="ContactFirstName"
@@ -43,8 +45,8 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="ContactLastName">Contact Last Name</label>
-        <div class="col-sm-6">
+        <label class="col-form-label col-sm-2" for="ContactLastName">Contact Last Name</label>
+        <div class="col-sm-10">
           <input
             type="text"
             id="ContactLastName"
@@ -54,8 +56,8 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="Address1">Address 1</label>
-        <div class="col-sm-6">
+        <label class="col-form-label col-sm-2" for="Address1">Address 1</label>
+        <div class="col-sm-10">
           <input
             type="text"
             id="Address1"
@@ -65,8 +67,8 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="Address2">Address 2</label>
-        <div class="col-sm-6">
+        <label class="col-form-label col-sm-2" for="Address2">Address 2</label>
+        <div class="col-sm-10">
           <input
             type="text"
             id="Address2"
@@ -75,8 +77,8 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="City">City</label>
-        <div class="col-sm-6">
+        <label class="col-form-label col-sm-2" for="City">City</label>
+        <div class="col-sm-10">
           <input
             type="text"
             id="City"
@@ -86,8 +88,8 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="State">State</label>
-        <div class="col-sm-1">
+        <label class="col-form-label col-sm-2" for="State">State</label>
+        <div class="col-sm-2">
           <input
             type="text"
             id="State"
@@ -97,8 +99,8 @@
         <div class="alert alert-danger" *ngIf="isFieldInvalid('State')">State is required</div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="PostalCode">Postal Code</label>
-        <div class="col-sm-3">
+        <label class="col-form-label col-sm-2" for="PostalCode">Postal Code</label>
+        <div class="col-sm-4">
           <input
             type="text"
             id="PostalCode"
@@ -108,7 +110,7 @@
         <div class="alert alert-danger" *ngIf="isFieldInvalid('PostalCode')">Postal Code is required</div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="Phone1">Phone 1</label>
+        <label class="col-form-label col-sm-2" for="Phone1">Phone 1</label>
         <div class="col-sm-4">
           <input
             type="text"
@@ -119,7 +121,7 @@
         <div class="alert alert-danger" *ngIf="isFieldInvalid('Phone1')">Phone is required</div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="Phone2">Phone 2</label>
+        <label class="col-form-label col-sm-2" for="Phone2">Phone 2</label>
         <div class="col-sm-4">
           <input
             type="text"
@@ -129,7 +131,7 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="Website">Website</label>
+        <label class="col-form-label col-sm-2" for="Website">Website</label>
         <div class="col-sm-6">
           <input
             type="text"

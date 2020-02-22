@@ -5,7 +5,7 @@
   <div class="card-body">
     <form [formGroup]="venueDetailForm">
       <div class="form-group row">
-        <label class="col-form-label" for="Name">Location Name</label>
+        <label class="col-form-label col-sm-2" for="Name">Location Name</label>
         <div class="col-sm-6">
           <input
             type="text"
@@ -14,25 +14,29 @@
             class="form-control">
           <div class="alert alert-danger" *ngIf="isFieldInvalid('Name')">Location Name is required</div>
         </div>
-        <label class="col-form-label">Id {{venue.LId}} Config Version {{venue.UpdateCount}}</label>
+        <label class="col-form-label col-sm-4">Id {{venue.LId}} Config Version {{venue.UpdateCount}}
+          <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                  ngbTooltip="You can compare the Config Version on your Fee Machine with this to make sure its up-to-date.">
+            ?
+          </button>
+        </label>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="Enabled">Enabled</label>
-        <div class="col-sm-3">
-          <input
+        <div class="col-sm-10 offset-sm-2">
+          <label class="form-check-label" for="Enabled"><input
             type="checkbox"
             id="Enabled"
             [checked]="!venue.Disabled"
             (change)="venue.Disabled=!venue.Disabled"
-            formControlName="Enabled"
-            class="form-control">
+            formControlName="Enabled"> Enabled
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="Enables application at site.  Not billed unless enabled.">?
+            </button>
+          </label>
         </div>
-        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                ngbTooltip="Enables application at site.  Not billed unless enabled.">?
-        </button>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="Address1">Address 1</label>
+        <label class="col-form-label col-sm-2" for="Address1">Address 1</label>
         <div class="col-sm-8">
           <input
             type="text"
@@ -43,7 +47,7 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="Address2">Address 2</label>
+        <label class="col-form-label col-sm-2" for="Address2">Address 2</label>
         <div class="col-sm-8">
           <input
             type="text"
@@ -53,8 +57,8 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="City">City</label>
-        <div class="col-sm-9">
+        <label class="col-form-label col-sm-2" for="City">City</label>
+        <div class="col-sm-8">
           <input
             type="text"
             id="City"
@@ -64,8 +68,8 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="State">State</label>
-        <div class="col-sm-1">
+        <label class="col-form-label col-sm-2" for="State">State</label>
+        <div class="col-sm-2">
           <input
             type="text"
             id="State"
@@ -75,8 +79,8 @@
         <div class="alert alert-danger" *ngIf="isFieldInvalid('State')">State is required</div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="PostalCode">Postal Code</label>
-        <div class="col-sm-9">
+        <label class="col-form-label col-sm-2" for="PostalCode">Postal Code</label>
+        <div class="col-sm-4">
           <input
             type="text"
             id="PostalCode"
@@ -86,18 +90,8 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="Website">Web Site</label>
-        <div class="col-sm-8">
-          <input
-            type="text"
-            id="Website"
-            formControlName="Website"
-            class="form-control">
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-form-label" for="Phone1">Phone 1</label>
-        <div class="col-sm-8">
+        <label class="col-form-label col-sm-2" for="Phone1">Phone 1</label>
+        <div class="col-sm-4">
           <input
             type="text"
             id="Phone1"
@@ -107,8 +101,8 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="Phone2">Phone 2</label>
-        <div class="col-sm-8">
+        <label class="col-form-label col-sm-2" for="Phone2">Phone 2</label>
+        <div class="col-sm-4">
           <input
             type="text"
             id="Phone2"
@@ -117,29 +111,45 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="POSTypeId">POS Type </label>
-        <select class="col-sm-6" id="POSTypeId" formControlName="POSTypeId">
-          <option *ngFor="let pt of posTypes"
-                  [value]="pt.value"
-                  [selected]="pt.value == posType.value">{{pt.name}}
-          </option>
-        </select>
-      </div>
-      <div class="form-group row">
-        <label class="col-form-label" for="LightControlEnabled">Light Control Enabled</label>
-        <div class="col-sm-3">
+        <label class="col-form-label col-sm-2" for="Website">Web Site</label>
+        <div class="col-sm-8">
           <input
-            type="checkbox"
-            id="LightControlEnabled"
-            formControlName="LightControlEnabled"
+            type="text"
+            id="Website"
+            formControlName="Website"
             class="form-control">
         </div>
-        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                ngbTooltip="Wireless Light Control - Additional Fees may apply.">?
-        </button>
       </div>
       <div class="form-group row">
-        <label class="col-form-label" for="Memo">Memo</label>
+        <label class="col-form-label col-sm-2" for="POSTypeId">POS Type</label>
+        <div class="col-sm-5">
+          <select id="POSTypeId" formControlName="POSTypeId">
+            <option *ngFor="let pt of posTypes"
+                    [value]="pt.value"
+                    [selected]="pt.value == posType.value">{{pt.name}}
+            </option>
+          </select>
+          <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                  ngbTooltip="Sets QR Code Format on Fee Machine as needed by POS Type.">?
+          </button>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-10 offset-sm-2">
+          <label class="form-check-label" for="LightControlEnabled">
+            <input
+              type="checkbox"
+              id="LightControlEnabled"
+              formControlName="LightControlEnabled"> Light Control Enabled
+            <button
+              type="button" class="btn btn-outline-secondary mr-2" placement="right"
+              ngbTooltip="Wireless Light Control - Additional Fees may apply.">?
+            </button>
+          </label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2" for="Memo">Memo</label>
         <div class="col-sm-8">
               <textarea
                 type="text"

@@ -1,80 +1,84 @@
-<form [formGroup]="feeGroupDetailForm">
-  <div class="card bg-light">
-    <div class="card-header">
-      <div class="row">
-        <h4>Fee Group Detail</h4>
-        <div class="col-auto">
+<div class="card bg-light">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-sm-auto">
+        <h6><b>Fee Group Detail </b>
           <button
             class="btn btn-danger" (click)="onDeleteFeeGroup(index)">-
           </button>
-        </div>
+        </h6>
       </div>
     </div>
-    <div class="card-body">
+  </div>
+  <div class="card-body">
+    <form [formGroup]="feeGroupDetailForm">
       <div class="form-group row">
-        <label class="col-form-label col-sm-3" for="Name">Name</label>
-        <div class="col-sm-6">
+        <label class="col-form-label col-sm-auto" for="Name">Name</label>
+        <div class="col-sm-auto">
           <input
             type="text"
             id="Name"
             formControlName="Name"
             class="form-control">
-          <div class="alert alert-danger" *ngIf="isFieldInvalid('Name')">Fee Group Name is required</div>
         </div>
       </div>
+      <div class="alert alert-danger" *ngIf="isFieldInvalid('Name')">Fee Group Name is required</div>
       <div class="form-group row">
-        <label class="col-form-label col-sm-3" for="Disabled">Enabled</label>
-        <div class="col-sm-3">
-          <input
+        <div class="col-sm-9">
+          <label class="form-check-label" for="Disabled"> <input
             type="checkbox"
             id="Disabled"
-            formControlName="Disabled"
-            class="form-control">
+            formControlName="Disabled"> Enabled
+            <button type="button"
+                    class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="Only Enabled Fee Groups are available at site.">?
+            </button>
+          </label>
         </div>
-        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                ngbTooltip="Only Enabled Fee Groups are available at site.">?
-        </button>
       </div>
       <div class="card bg-light">
         <div class="card-header">
-          <label><b>Users (Players)</b></label>
-          <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                  ngbTooltip="Each Fee Group can have different rules about Rental Users/Players.">?
-          </button>
+          <label><b>Users (Players) </b>
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="Each Fee Group can have different rules about Rental Users/Players.">?
+            </button>
+          </label>
         </div>
         <div class="card-body">
           <div class="form-group row">
-            <label class="col-form-label col-sm-4" for="RequiresUsers">Required?</label>
-            <div class="col-sm-3">
-              <input
+            <div class="col-sm-auto">
+              <label class="form-check-label" for="RequiresUsers"><input
                 type="checkbox"
                 id="RequiresUsers"
-                formControlName="RequiresUsers"
-                class="form-control col-auto">
+                formControlName="RequiresUsers"> Required
+                <button type="button"
+                        class="btn btn-outline-secondary mr-2" placement="right"
+                        ngbTooltip="If Enabled, Selecting this Fee Group will force the selection of the number of Users/Players for the Rental Item.">
+                  ?
+                </button>
+              </label>
             </div>
-            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                    ngbTooltip="If Enabled, Selecting this Fee Group will force the selection of the number of Users/Players for the Rental Item.">
-              ?
-            </button>
           </div>
           <div class="form-group row">
-            <label class="col-form-label col-sm-3" for="MinUsers">Min Users</label>
-            <div class="col-sm-3">
+            <label class="col-form-label col-sm-auto" for="MinUsers">Min Users</label>
+            <div class="col-sm-5">
               <input
                 type="number"
                 id="MinUsers"
                 formControlName="MinUsers"
-                [readonly]="!this.feeGroup.RequiresUsers"
-                class="form-control">
-              <div class="alert alert-danger" *ngIf="isMinUserFieldInvalid()">Must be 1 - 999</div>
+                class="form-control"
+                [readonly]="!this.feeGroup.RequiresUsers">
             </div>
-            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                    ngbTooltip="The Minimum number of Users/Players when selecting this Fee Group.">?
-            </button>
+            <div class="col-sm-2">
+              <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                      ngbTooltip="The Minimum number of Users/Players when selecting this Fee Group.">?
+              </button>
+            </div>
           </div>
+          <div class="alert alert-danger" *ngIf="isMinUserFieldInvalid()">Min Users must be 1 - 999</div>
           <div class="form-group row">
-            <label class="col-form-label col-sm-3" for="MaxUsers">Max Users</label>
-            <div class="col-sm-3">
+            <label class="col-form-label col-sm-auto" for="MaxUsers">Max Users</label>
+            <div class="col-sm-5">
               <input
                 type="number"
                 id="MaxUsers"
@@ -82,106 +86,86 @@
                 [readonly]="!this.feeGroup.RequiresUsers"
                 class="form-control">
             </div>
-            <div class="alert alert-danger" *ngIf="isMaxUserFieldInvalid()">Must >= Min Users, < 999</div>
-            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                    ngbTooltip="The Maximum number of Users/Players when selecting this Fee Group.">?
-            </button>
+            <div class="col-sm-2">
+              <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                      ngbTooltip="The Maximum number of Users/Players when selecting this Fee Group.">?
+              </button>
+            </div>
           </div>
+          <div class="alert alert-danger" *ngIf="isMaxUserFieldInvalid()">Must >= Min Users, < 999</div>
           <div class="form-group row">
-            <label class="col-form-label col-sm-4" for="TransferUserEnabled">Allow User Transfers</label>
-            <div class="col-sm-3">
-              <input
+            <div class="col-sm-auto">
+              <label class="form-check-label" for="TransferUserEnabled"><input
                 type="checkbox"
                 id="TransferUserEnabled"
                 formControlName="TransferUserEnabled"
-                [attr.disabled]="usersDisabled?'':null"
-                class="form-control">
+                [attr.disabled]="usersDisabled?'':null"> Allow User Transfers
+                <button type="button"
+                        class="btn btn-outline-secondary mr-2" placement="right"
+                        ngbTooltip="Allows the Transfer of Individual Players to/from Rentals within the Fee Group">?
+                </button>
+              </label>
             </div>
-            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                    ngbTooltip="Allows the Transfer of Individual Players to/from Rentals within the Fee Group">?
-            </button>
           </div>
           <div class="form-group row">
-            <label class="col-form-label col-sm-4" for="UserNameTrackingEnabled">Track User Names</label>
-            <div class="col-sm-3">
-              <input
+            <div class="col-sm-auto">
+              <label class="form-check-label" for="UserNameTrackingEnabled"><input
                 type="checkbox"
                 id="UserNameTrackingEnabled"
                 formControlName="UserNameTrackingEnabled"
-                [attr.disabled]="usersDisabled?'':null"
-                class="form-control">
+                [attr.disabled]="usersDisabled?'':null"> Track User Names
+                <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                        ngbTooltip="Allows the Tracking of Players Names">?
+                </button>
+              </label>
             </div>
-            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                    ngbTooltip="Allows the Tracking of Players Names">?
-            </button>
           </div>
           <div class="form-group row">
-            <label class="col-form-label col-sm-4" for="CondenseUserFees">Condense User Fees</label>
-            <div class="col-sm-3">
-              <input
+            <div class="col-sm-auto">
+              <label class="form-check-label" for="CondenseUserFees"><input
                 type="checkbox"
                 id="CondenseUserFees"
                 formControlName="CondenseUserFees"
-                [attr.disabled]="usersDisabled?'':null"
-                class="form-control">
+                [attr.disabled]="usersDisabled?'':null"> Condense User Fees
+                <button type="button"
+                        class="btn btn-outline-secondary mr-2" placement="right"
+                        ngbTooltip="Combines Reporting of individual fees to just one amount for Rental Item.">?
+                </button>
+              </label>
             </div>
-            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                    ngbTooltip="Combines Reporting of individual fees to just one amount for Rental Item.">?
-            </button>
           </div>
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-sm-3" for="FeeRounding">Fee Rounding</label>
-        <select #myfeeroundingtype id="FeeRounding" formControlName="FeeRounding" (change)="onSelectChange(myfeeroundingtype.value)">
-          <option *ngFor="let feeRoundingType of constantsService.FeeRoundingTypes"
-                  [value]="feeRoundingType.Id"
-          >{{feeRoundingType.Name}}
-          </option>
-        </select>
-        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                ngbTooltip="Round Fees to nearest .05, .25, or 1.00, simplifying change management.">?
-        </button>
-      </div>
-
-
-
-
-
-
-
-
-
-
-
-      <div class="form-group row">
-        <label class="col-form-label col-sm-3" for="RequiredFee">Required Fee</label>
-        <div class="col-sm-3">
+        <label class="col-form-label col-sm-auto" for="RequiredFee">Required Fee</label>
+        <div class="col-sm-5">
           <input
             type="number"
             id="RequiredFee"
             formControlName="RequiredFee"
             class="form-control">
         </div>
-        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                ngbTooltip="An Always Included fee regardless of Rental Time or Number of Users">?
-        </button>
+        <div class="col-sm-2">
+          <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                  ngbTooltip="An Always Included fee regardless of Rental Time or Number of Users">?
+          </button>
+        </div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label col-sm-3" for="ItemId">POS Item Id</label>
-        <div class="col-sm-3">
+        <label class="col-form-label col-sm-auto" for="ItemId">POS Item Id</label>
+        <div class="col-sm-6">
           <input
             type="number"
             id="ItemId"
             formControlName="ItemId"
             class="form-control">
         </div>
-        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                ngbTooltip="The POS Item Id to use to report fees from this Fee Group">?
-        </button>
+        <div class="col-sm-2">
+          <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                  ngbTooltip="The POS Item Id to use to report fees from this Fee Group">?
+          </button>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
-</form>
-
-
+</div>

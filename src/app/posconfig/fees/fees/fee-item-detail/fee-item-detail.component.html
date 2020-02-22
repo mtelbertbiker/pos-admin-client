@@ -3,39 +3,37 @@
     <div class="card-header">
       <div class="row">
         <div class="col-sm-6">
-          <h4>Fee Detail</h4>
-        </div>
-        <div class="col-auto">
-          <button
-            class="btn btn-danger pull-right" (click)="onDeleteFee(fid)">-
-          </button>
+          <h6>Fee Detail
+            <button
+              class="btn btn-danger pull-right" (click)="onDeleteFee(fid)">-
+            </button>
+          </h6>
         </div>
       </div>
     </div>
     <div class="card-body">
       <div class="form-group row">
-        <label class="col-form-label col-sm-3" for="Name">Name</label>
-        <div class="col-sm-6">
+        <label class="col-form-label col-sm-auto" for="Name">Name</label>
+        <div class="col-sm-auto">
           <input
             type="text"
             id="Name"
             formControlName="Name"
             class="form-control">
-          <div class="alert alert-danger" *ngIf="isFieldInvalid('Name')">Fee Name is required</div>
         </div>
       </div>
+      <div class="alert alert-danger" *ngIf="isFieldInvalid('Name')">Fee Name is required</div>
       <div class="form-group row">
-        <label class="col-form-label col-sm-3" for="Enabled">Enabled</label>
-        <div class="col-sm-3">
-          <input
+        <div class="col-sm-9">
+          <label class="form-check-label" for="Enabled"><input
             type="checkbox"
             id="Enabled"
-            formControlName="Enabled"
-            class="form-control">
+            formControlName="Enabled"> Enabled
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="Only Enabled Fees are applied.">?
+            </button>
+          </label>
         </div>
-        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                ngbTooltip="Only Enabled Fees are applied.">?
-        </button>
       </div>
     </div>
   </div>
@@ -45,80 +43,77 @@
     </div>
     <div class="card-body">
       <div class="form-group row">
-        <label class="col-form-label col-sm-3" for="FeeAmt">Amount</label>
-        <div class="col-sm-3">
+        <label class="col-form-label col-sm-auto" for="FeeAmt">Amount</label>
+        <div class="col-sm-5">
           <input
-            type="text"
+            type="number"
             id="FeeAmt"
             formControlName="FeeAmt"
             class="form-control">
         </div>
-        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                ngbTooltip="The Fee Amount.">?
-        </button>
+        <div class="col-sm-2">
+          <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                  ngbTooltip="The Fee Amount.">?
+          </button>
+        </div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label col-sm-3" for="PerUser">Charge Per User?</label>
-        <div class="col-sm-3">
-          <input
+        <div class="col-sm-9">
+          <label class="form-check-label" for="PerUser"><input
             type="checkbox"
             id="PerUser"
-            formControlName="PerUser"
-            class="form-control">
+            formControlName="PerUser"> Charge Per User?
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="If checked, the fee will be charged for every user on the rental.">?
+            </button>
+          </label>
         </div>
-        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                ngbTooltip="If checked, the fee will be charged for every user on the rental.">?
-        </button>
       </div>
       <div class="form-group row">
-        <label class="col-form-label col-sm-3" for="AlwaysInc">Always Include?</label>
-        <div class="col-sm-3">
-          <input
+        <div class="col-sm-9">
+          <label class="form-check-label" for="AlwaysInc"><input
             type="checkbox"
             id="AlwaysInc"
-            formControlName="AlwaysInc"
-            class="form-control">
+            formControlName="AlwaysInc"> Always Include?
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="If checked, the fee will be included once regardless of the rental time.">?
+            </button>
+          </label>
         </div>
-        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                ngbTooltip="If checked, the fee will be included once regardless of the rental time.">?
-        </button>
       </div>
       <div class="form-group row">
-        <label class="col-form-label col-sm-3" for="FlatRate">Flat Rate</label>
-        <div class="col-sm-3">
-          <input
+        <div class="col-sm-9">
+          <label class="form-check-label" for="FlatRate"><input
             type="checkbox"
             id="FlatRate"
-            formControlName="FlatRate"
-            class="form-control">
+            formControlName="FlatRate"> Flat Rate
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="If checked, the fee is based on a fixed rental duration.">?
+            </button>
+          </label>
         </div>
-        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                ngbTooltip="If checked, the fee is based on a fixed rental duration.">?
-        </button>
       </div>
     </div>
-
   </div>
   <div class="card bg-light">
     <div class="card-header">
-      <label><b>Fee Times</b></label>
-      <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-              ngbTooltip="Specify the begin and end times for fee application. An End time prior to the the Begin Time is assumed to mean the next day.">
-        ?
-      </button>
+      <label><b>Fee Times </b>
+        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                ngbTooltip="Specify the begin and end times for fee application. An End time prior to the the Begin Time is assumed to mean the next day.">
+          ?
+        </button>
+      </label>
     </div>
     <div class="card-body">
       <div class="form-group row">
-        <label class="col-form-label col-sm-2">Begin</label>
-        <div class="col-sm-4">
+        <label class="col-form-label col-sm-auto">Begin
           <ngb-timepicker formControlName="BeginTime" [minuteStep]="5"></ngb-timepicker>
-        </div>
+        </label>
       </div>
       <div class="form-group row">
-        <label class="col-form-label col-sm-2">End</label>
-        <div class="col-sm-4">
+        <label class="col-form-label col-sm-auto">End
           <ngb-timepicker formControlName="EndTime" [minuteStep]="5"></ngb-timepicker>
-        </div>
+        </label>
       </div>
     </div>
   </div>
@@ -128,48 +123,54 @@
     </div>
     <div class="card-body">
       <div class="form-group row">
-        <label class="col-form-label col-sm-2" for="MinDur">Min</label>
-        <div class="col-sm-3">
-          <input
-            type="number"
-            id="MinDur"
-            formControlName="MinDur"
-            class="form-control">
-        </div>
-        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                ngbTooltip="The Minimum amount of rental time before this fee applies.">
-          ?
-        </button>
-      </div>
-      <div class="form-group row">
-        <label class="col-form-label col-sm-2" for="MaxDur">Max</label>
-        <div class="col-sm-3">
-          <input
-            type="number"
-            id="MaxDur"
-            formControlName="MaxDur"
-            class="form-control">
-        </div>
-        <div class="alert alert-danger" *ngIf="isMaxDurFieldInvalid()">Must be >= Min Dur, or 0</div>
-        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                ngbTooltip="If not zero, tf the rental time exceeds this time, the fee is not applied.">
-          ?
-        </button>
-      </div>
-      <div class="form-group row">
-        <label class="col-form-label" for="IncDur">Increment</label>
-        <div class="col-sm-3">
+        <label class="col-form-label col-sm-auto" for="IncDur">Increment</label>
+        <div class="col-sm-5">
           <input
             type="number"
             id="IncDur"
             formControlName="IncDur"
             class="form-control">
         </div>
-        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                ngbTooltip="The rental time interval that this fee applies.  Example:  If this value is 15, and rental time is 45, the fee amount would be applied 3 times.">
-          ?
-        </button>
+        <div class="col-sm-auto">
+          <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                  ngbTooltip="The rental time interval that this fee applies.  Example: If this value is 15, and rental time is 45, the fee amount would be applied 3 times.  Use 60 for hourly rates.">
+            ?
+          </button>
+        </div>
       </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-auto" for="MinDur">Min</label>
+        <div class="col-sm-5">
+          <input
+            type="number"
+            id="MinDur"
+            formControlName="MinDur"
+            class="form-control">
+        </div>
+        <div class="col-sm-1">
+          <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                  ngbTooltip="The Minimum amount of rental time before this fee applies.">
+            ?
+          </button>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-auto" for="MaxDur">Max</label>
+        <div class="col-sm-5">
+          <input
+            type="number"
+            id="MaxDur"
+            formControlName="MaxDur"
+            class="form-control">
+        </div>
+        <div class="col-sm-1">
+          <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                  ngbTooltip="If not zero, if the rental time exceeds this time, the fee is not applied.">
+            ?
+          </button>
+        </div>
+      </div>
+      <div class="alert alert-danger" *ngIf="isMaxDurFieldInvalid()">Max Dur must be >= Min Dur, or 0</div>
     </div>
   </div>
   <div class="card bg-light">
@@ -178,8 +179,8 @@
     </div>
     <div class="card-body">
       <div class="form-group row">
-        <label class="col-form-label col-sm-2" for="MinUsers">Min</label>
-        <div class="col-sm-3">
+        <label class="col-form-label col-sm-auto" for="MinUsers">Min</label>
+        <div class="col-sm-4">
           <input
             type="text"
             id="MinUsers"
@@ -187,35 +188,40 @@
             class="form-control">
           <div class="alert alert-danger" *ngIf="isMinUserFieldInvalid()">Must be 1 - 999</div>
         </div>
-        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                ngbTooltip="The Minimum number of users that must be on the rental for this fee to be applied.">
-          ?
-        </button>
+        <div class="col-sm-1">
+          <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                  ngbTooltip="The Minimum number of users that must be on the rental for this fee to be applied.">
+            ?
+          </button>
+        </div>
       </div>
       <div class="form-group row">
-        <label class="col-form-label col-sm-2" for="MaxUsers">Max</label>
-        <div class="col-sm-3">
+        <label class="col-form-label col-sm-auto" for="MaxUsers">Max</label>
+        <div class="col-sm-4">
           <input
             type="text"
             id="MaxUsers"
             formControlName="MaxUsers"
             class="form-control">
-          <div class="alert alert-danger" *ngIf="isMaxUserFieldInvalid()">Must >= Min Users, < 999</div>
         </div>
-        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                ngbTooltip="The Maximum number of users that can be on the rental for this fee to be applied.">
-          ?
-        </button>
+        <div class="col-sm-1">
+          <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                  ngbTooltip="The Maximum number of users that can be on the rental for this fee to be applied.">
+            ?
+          </button>
+        </div>
       </div>
+      <div class="alert alert-danger" *ngIf="isMaxUserFieldInvalid()">Must >= Min Users, < 999</div>
     </div>
   </div>
   <div class="card bg-light">
     <div class="card-header">
-      <label><b>Days of Week</b></label>
-      <button type="button" class="btn btn-outline-secondary mr-2 col-auto" placement="right"
-              ngbTooltip="Specify the days of the week this fee applies.">
-        ?
-      </button>
+      <label><b>Days of Week </b>
+        <button type="button" class="btn btn-outline-secondary mr-2 col-auto" placement="right"
+                ngbTooltip="Specify the days of the week this fee applies.">
+          ?
+        </button>
+      </label>
     </div>
     <div class="card-body">
       <div class="form-group row">
@@ -292,19 +298,20 @@
     <div class="card bg-light">
       <div class="card-body">
         <div class="form-group row">
-          <label class="col-form-label col-sm-3" for="ItemId">POS Item Id</label>
-          <div class="col-sm-3">
+          <label class="col-form-label col-sm-auto" for="ItemId">POS Item Id</label>
+          <div class="col-sm-5">
             <input
               type="text"
               id="ItemId"
               formControlName="ItemId"
               class="form-control">
-
           </div>
-          <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                  ngbTooltip="The POS Item Id to apply with this fee">
-            ?
-          </button>
+          <div class="col-sm-1">
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="The POS Item Id to apply with this fee">
+              ?
+            </button>
+          </div>
         </div>
       </div>
     </div>

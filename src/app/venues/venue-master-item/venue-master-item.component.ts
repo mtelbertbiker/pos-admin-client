@@ -33,18 +33,18 @@ export class VenueMasterItemComponent implements OnInit {
     },
     {
       'Id': '3',
+      'Name': 'Fee Tester',
+      'Url': 'feetester'
+    },
+    {
+      'Id': '4',
       'Name': 'Rentals',
       'Url': 'rentals'
     },
     {
-      'Id': '4',
+      'Id': '5',
       'Name': 'Floor Plans',
       'Url': 'floorplans'
-    },
-    {
-      'Id': '5',
-      'Name': 'Fee Tester',
-      'Url': 'feetester'
     }
   ];
 
