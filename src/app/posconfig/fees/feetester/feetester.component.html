@@ -1,70 +1,100 @@
 <div class="card bg-light">
-  <div class="card-header p-0 m-0">
-    <h6><b>Fee Tester</b></h6>
+  <div class="card-header">
+    <div class="row">
+      <div class="col-sm-auto">
+        <h6><b>Fee Tester </b>
+          <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                  ngbTooltip="Use the Fee Tester to check your fee rules within a Fee Group.">?
+          </button>
+        </h6>
+      </div>
+    </div>
   </div>
   <div class="card-body">
     <form [formGroup]="feeTesterForm">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <div class="card bg-light">
-              <div class="card-header">
-                <h5>Fee Calculation Inputs</h5>
-              </div>
-              <div class="card-body">
-                <div class="form-group row">
-                  <label class="col-form-label col-sm-3" for="FeeGroup">Fee Group</label>
-                  <select class="col-sm-6" id="FeeGroup" formControlName="FeeGroup">
+      <div class="row no-gutters">
+        <div class="col-sm-6">
+          <div class="card bg-light">
+            <div class="card-header">
+              <h5>Fee Calculation Inputs</h5>
+            </div>
+            <div class="card-body">
+
+
+              <!--
+                              <div class="form-group row">
+                                <label class="col-form-label col-sm-2" for="POSTypeId">POS Type</label>
+                                <div class="col-sm-5">
+                                  <select id="POSTypeId" formControlName="POSTypeId">
+                                    <option *ngFor="let pt of posTypes"
+                                            [value]="pt.value"
+                                            [selected]="pt.value == posType.value">{{pt.name}}
+                                    </option>
+                                  </select>
+                                  <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                                          ngbTooltip="Sets QR Code Format on Fee Machine as needed by POS Type.">?
+                                  </button>
+                                </div>
+                              </div>
+              -->
+
+
+              <div class="form-group row">
+                <label class="col-form-label col-sm-3" for="FeeGroup">Fee Group</label>
+                <div class="col-sm-3">
+                  <select id="FeeGroup" formControlName="FeeGroup">
                     <option *ngFor="let fg of venue.FeeGroups"
                             [value]="fg.FGId"
                             [selected]="fg.FGId == feeGroup.FGId">{{fg.Name}}
                     </option>
                   </select>
                 </div>
-                <div class="form-group row">
-                  <label class="col-form-label col-sm-3" for="DayOfWeek">Day of Week</label>
-                  <select class="col-sm-6" id="DayOfWeek" formControlName="DayOfWeek">
+              </div>
+              <div class="form-group row">
+                <label class="col-form-label col-sm-3" for="DayOfWeek">Day of Week</label>
+                <div class="col-sm-3">
+                  <select id="DayOfWeek" formControlName="DayOfWeek">
                     <option *ngFor="let day of dayList" [value]="day.value">{{day.name}}</option>
                   </select>
                 </div>
-                <div class="form-group row">
-                  <label class="col-form-label col-sm-3" for="Users">Users</label>
-                  <div class="col-sm-6">
-                    <input
-                      type="number"
-                      id="Users"
-                      formControlName="Users"
-                      class="form-control" maxlength="4" size="4">
-                  </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-form-label col-sm-3" for="Users">Users</label>
+                <div class="col-sm-3">
+                  <input
+                    type="number"
+                    id="Users"
+                    formControlName="Users"
+                    class="form-control" maxlength="4" size="4">
                 </div>
-                <div class="form-group row">
-                  <label class="col-form-label col-sm-3">Begin Time</label>
-                  <div class="col-sm-6">
-                    <ngb-timepicker formControlName="BeginTime" [minuteStep]="1"></ngb-timepicker>
-                  </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-form-label col-sm-3">Begin Time</label>
+                <div class="col-sm-auto">
+                  <ngb-timepicker formControlName="BeginTime" [minuteStep]="1"></ngb-timepicker>
                 </div>
-                <div class="form-group row">
-                  <label class="col-form-label col-sm-3">End Time</label>
-                  <div class="col-sm-6">
-                    <ngb-timepicker formControlName="EndTime" [minuteStep]="1"></ngb-timepicker>
-                  </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-form-label col-sm-3">End Time</label>
+                <div class="col-sm-auto">
+                  <ngb-timepicker formControlName="EndTime" [minuteStep]="1"></ngb-timepicker>
                   <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
                           ngbTooltip="An End Time less than the Begin Time is understood to be in the next day.">?
                   </button>
                 </div>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <button
-                      class="btn btn-success" (click)="onTestFeeCalc()" [disabled]="!feeTesterForm.valid">Test Fee Calc
-                    </button>
-                  </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <button
+                    class="btn btn-success" (click)="onTestFeeCalc()" [disabled]="!feeTesterForm.valid">Test Fee Calc
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-sm-6">
-            <app-feecalctester-response [timedFeeCalcResponse]="timedFeeCalcResponse"></app-feecalctester-response>
-          </div>
+        </div>
+        <div class="col-sm-6">
+          <app-feecalctester-response [timedFeeCalcResponse]="timedFeeCalcResponse"></app-feecalctester-response>
         </div>
       </div>
     </form>

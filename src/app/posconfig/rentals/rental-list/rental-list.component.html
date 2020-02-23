@@ -1,18 +1,21 @@
 <div class="card bg-light">
   <div class="card-header">
     <div class="row">
-    <h6><b>Rental Items</b></h6>
-      <div class="col-auto">
-        <button
-          type="submit"
-          class="btn btn-success" (click)="onAddRentalItem()">+</button>
-        <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                ngbTooltip="Drag and Drop Rental Items to control display order.">?</button>
+      <div class="col-sm-auto">
+        <h6><b>Rental Items </b>
+          <button
+            type="submit"
+            class="btn btn-success" (click)="onAddRentalItem()">+
+          </button>
+          <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                  ngbTooltip="Drag and Drop Rental Items to control display order.">?
+          </button>
+        </h6>
       </div>
     </div>
   </div>
   <div class="card-body">
-    <div class="row">
+    <div class="row no-gutters">
       <div class="col-sm-6">
         <div cdkDropList class="rental-list" *ngIf="venue.RentalItems.length > 0" (cdkDropListDropped)="drop($event)">
           <app-rental-item class="rental-box" cdkDrag
