@@ -40,8 +40,8 @@
 
 
               <div class="form-group row">
-                <label class="col-form-label col-sm-3" for="FeeGroup">Fee Group</label>
-                <div class="col-sm-3">
+                <label class="col-form-label col-sm-auto" for="FeeGroup">Fee Group</label>
+                <div class="col-sm-auto">
                   <select id="FeeGroup" formControlName="FeeGroup">
                     <option *ngFor="let fg of venue.FeeGroups"
                             [value]="fg.FGId"
@@ -51,16 +51,16 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-form-label col-sm-3" for="DayOfWeek">Day of Week</label>
-                <div class="col-sm-3">
+                <label class="col-form-label col-sm-auto" for="DayOfWeek">Day of Week</label>
+                <div class="col-sm-auto">
                   <select id="DayOfWeek" formControlName="DayOfWeek">
                     <option *ngFor="let day of dayList" [value]="day.value">{{day.name}}</option>
                   </select>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-form-label col-sm-3" for="Users">Users</label>
-                <div class="col-sm-3">
+                <label class="col-form-label col-sm-auto" for="Users">Users</label>
+                <div class="col-sm-auto">
                   <input
                     type="number"
                     id="Users"
@@ -69,13 +69,13 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-form-label col-sm-3">Begin Time</label>
+                <label class="col-form-label col-sm-auto">Begin Time</label>
                 <div class="col-sm-auto">
                   <ngb-timepicker formControlName="BeginTime" [minuteStep]="1"></ngb-timepicker>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-form-label col-sm-3">End Time</label>
+                <label class="col-form-label col-sm-auto">End Time</label>
                 <div class="col-sm-auto">
                   <ngb-timepicker formControlName="EndTime" [minuteStep]="1"></ngb-timepicker>
                   <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
