@@ -18,7 +18,7 @@ import {SessionStorageService} from 'angular-web-storage';
   selector: 'app-home',
   templateUrl: './home.component.html',
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   venues: Venue[];
   licensee: Licensee;
   licensees: Licensee[] = [];
@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   isAuthorized: boolean;
   session: SessionService;
 
+  /*
   constructor(private venueDataService: VenueDataService,
               private venueService: VenueService,
               private licenseeDataService: LicenseeDataService,
@@ -39,10 +40,13 @@ export class HomeComponent implements OnInit, OnDestroy {
               private resellerDataService: ResellerDataService,
               public  websession: SessionStorageService,
               private oidcSecurityService: OidcSecurityService) {
-  }
+   */
+
+    constructor() { }
 
   ngOnInit() {
     console.log('HomeComponent onInit');
+    /*
     this.session = this.sessionService;
     this.sessionService.resetSaveState();
 
@@ -86,8 +90,10 @@ export class HomeComponent implements OnInit, OnDestroy {
           );
       }
     }
+    */
   }
 
+  /*
   ngOnDestroy() {
     if (this.licenseeSubscription != null) {
       this.licenseeSubscription.unsubscribe();
@@ -97,4 +103,5 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     this.isAuthorizedSubscription.unsubscribe();
   }
+   */
 }
