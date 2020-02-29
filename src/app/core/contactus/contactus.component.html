@@ -1,3 +1,101 @@
-<p>
-  Here's how to contact us
-</p>
+<div class="card bg-light">
+  <div class="card-header">
+    <div class="row">
+      <h5><b>Contact Us</b></h5>
+    </div>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="contactForm">
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2" for="FirstName">First Name</label>
+        <div class="col-sm-4">
+          <input
+            type="text"
+            id="FirstName"
+            formControlName="FirstName"
+            class="form-control">
+          <div class="alert alert-danger" *ngIf="isFieldInvalid('FirstName')" >First Name is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2" for="LastName">Last Name</label>
+        <div class="col-sm-4">
+          <input
+            type="text"
+            id="LastName"
+            formControlName="LastName"
+            class="form-control">
+          <div class="alert alert-danger" *ngIf="isFieldInvalid('LastName')">Last Name is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2" for="CompanyName">Company Name</label>
+        <div class="col-sm-4">
+          <input
+            type="text"
+            id="CompanyName"
+            formControlName="CompanyName"
+            class="form-control">
+          <div class="alert alert-danger" *ngIf="isFieldInvalid('CompanyName')">Company Name is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2" for="City">City</label>
+        <div class="col-sm-4">
+          <input
+            type="text"
+            id="City"
+            formControlName="City"
+            class="form-control">
+          <div class="alert alert-danger" *ngIf="isFieldInvalid('City')">City is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2" for="State">State</label>
+        <div class="col-sm-4">
+          <input
+            type="text"
+            id="State"
+            formControlName="State"
+            class="form-control">
+          <div class="alert alert-danger" *ngIf="isFieldInvalid('State')">State is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2" for="Phone">Phone</label>
+        <div class="col-sm-4">
+          <input
+            type="text"
+            id="Phone"
+            formControlName="Phone"
+            class="form-control">
+          <div class="alert alert-danger" *ngIf="isFieldInvalid('Phone')">Phone is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2" for="Email">Email</label>
+        <div class="col-sm-4">
+          <input
+            type="text"
+            id="Email"
+            formControlName="Email"
+            class="form-control">
+          <div class="alert alert-danger" *ngIf="isFieldInvalid('Email')">Email is required</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2" for="Request">How can we help?</label>
+        <div class="col-sm-4">
+          <textarea id="Request" formControlName="Request" rows="4" cols="40" ></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-auto">
+            <button
+              class="btn btn-info" (click)="onSend()" [disabled]="!this.contactForm.valid">Send
+            </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
