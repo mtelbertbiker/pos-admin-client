@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {ContactusRequestSentComponent} from './contactus-request-sent/contactus-request-sent.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {ConstantsService} from '../../shared/data-services/constants.service';
 
 @Component({
   selector: 'app-contactus',
@@ -25,7 +27,9 @@ export class ContactusComponent implements OnInit {
     sentConfirm: ContactusRequestSentComponent
   };
 
-  constructor(private modal: NgbModal) {
+  constructor(private modal: NgbModal,
+              private http: HttpClient,
+              private consts: ConstantsService) {
   }
 
   ngOnInit() {
@@ -47,7 +51,7 @@ export class ContactusComponent implements OnInit {
         'State': new FormControl(this.state, Validators.required),
         'Phone': new FormControl(this.phone, Validators.required),
         'Email': new FormControl(this.email, [Validators.required, Validators.email]),
-        'Request': new FormControl(this.email)
+        'Request': new FormControl(this.request)
       }
     );
   }
@@ -68,9 +72,30 @@ export class ContactusComponent implements OnInit {
   }
 
   onSend() {
-    this.modal.open(this.myModals.sentConfirm).result.then((result) => {
-      if (result === 'Ok') {
-        this.contactForm.reset();
+    const contactUs = {
+      'FirstName' : this.firstName,
+      'LastName': this.lastName,
+      'CompanyName': this.companyName,
+      'City': this.city,
+      'State': this.state,
+      'Phone': this.phone,
+      'Email': this.email,
+      'Request': this.request
+    };
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json');
+    this.http.post(this.consts.ContactUsLogicAppUri,
+      contactUs,
+      { headers: headers }).subscribe({
+      next: data => {
+        this.modal.open(this.myModals.sentConfirm).result.then((result) => {
+          if (result === 'Ok') {
+            this.contactForm.reset();
+          }
+        });
+      },
+      error: error => {
+        console.error('Contact Us form sending error', error)
       }
     });
   }

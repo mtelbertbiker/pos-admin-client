@@ -15,6 +15,7 @@ export class ConstantsService {
    FeeCalcBaseUri = 'https://fm-posadminprod1.azurewebsites.net/FeeCalc';
   // ReportsUri = 'https://localhost:44318/api/reports';
   ReportsUri = 'https://fm-posadminprod1.azurewebsites.net/api/reports';
+  ContactUsLogicAppUri = 'https://prod-28.southcentralus.logic.azure.com:443/workflows/eadeab8822764e1d99c6ca39bb78b720/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=MKD1ouh-wyhfo4QRTrnXLtCVI_W02sRAuFBv4dP6Ca0';
 
   SupportedRentalTypes = [
     {
