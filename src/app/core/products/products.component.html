@@ -6,31 +6,281 @@
   </div>
   <div class="card-body">
     <ngb-tabset>
-      <ngb-tab title="Fee Machine Features">
+      <ngb-tab title="Features Matrix">
         <ng-template ngbTabContent>
-          <p>This tells how the product works</p>
+          <p><b>Fee Machine Features by Edition</b></p>
+          <p><b>Basic Edition</b> - Core Features needed for small/standalone rental operations - no internet / wireless needed</p>
+          <p><b>Brewery Edition</b> - Adds features and support needed for larger operators</p>
+          <p><b>Billiard Edition</b> - Full Featured solution designed for Billiard Hall Operators</p>
+          <table class="table table-bordered table-hover table-condensed">
+            <thead>
+            <tr>
+              <th title="Field #1">Feature Name</th>
+              <th title="Field #2">Feature Description</th>
+              <th title="Field #3">Category</th>
+              <th title="Field #4">Basic Edition</th>
+              <th title="Field #5">Brewery Edition</th>
+              <th title="Field #6">Billiard Hall Edition</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>Rental Type</td>
+              <td>Displays Icons based on Rental Type - Pool Table, Darts, Shuffle Board, etc.</td>
+              <td>Rental</td>
+              <td>X</td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Fee Group Selection</td>
+              <td>Choose a Fee Group at the start of each rental, such as Regular, Party, League</td>
+              <td>Rental</td>
+              <td>2</td>
+              <td>3</td>
+              <td>Unlimited</td>
+            </tr>
+            <tr>
+              <td>Charge By Item</td>
+              <td>Charge Fees without regard to number of users/players</td>
+              <td>Fees</td>
+              <td>X</td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Charge By User</td>
+              <td>Charge Fees by Number of Users/Players</td>
+              <td>Fees</td>
+              <td>X</td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Set Min and Max Users</td>
+              <td>Set Minimum and Maximum Number of Users for each rental</td>
+              <td>Fees</td>
+              <td>X</td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Allow User Transfers</td>
+              <td>Allow Players to Transfer from one live rental to another live rental (fees follow them</td>
+              <td>Fees</td>
+              <td></td>
+              <td></td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Track User Names</td>
+              <td>Allow Player Name Tracking for each rental</td>
+              <td>Fees</td>
+              <td></td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Condenser User Fees</td>
+              <td>Combine Individual Fees to just one amount</td>
+              <td>Fees</td>
+              <td>X</td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Charge Required Fee</td>
+              <td>Charge a Flat for each rental on top of timed calculated fees</td>
+              <td>Fees</td>
+              <td>X</td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Set Fee Start/Stop Times</td>
+              <td>Each Fee can have it&#39;s own individual start and stop times</td>
+              <td>Fees</td>
+              <td>X</td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Incremental Durations</td>
+              <td>Set the Time Increment for each fee, such as hourly, daily</td>
+              <td>Fees</td>
+              <td>X</td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Min Duration</td>
+              <td>Set the Minimum Rental Duration before a fee is charged</td>
+              <td>Fees</td>
+              <td>X</td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Max Duration</td>
+              <td>Set the Maximum Rental Duration that the fee will be be charged</td>
+              <td>Fees</td>
+              <td>X</td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Set Fee Days</td>
+              <td>Define Effective Days of the week for each fee</td>
+              <td>Fees</td>
+              <td>X</td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Fee Rounding</td>
+              <td>Round Fees to the Nearest nickel, quarter, or dollar</td>
+              <td>Fees</td>
+              <td>X</td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>POS Item by Fee Group</td>
+              <td>Set the POS Item Id by Fee Group</td>
+              <td>Fees</td>
+              <td>X</td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>POS Item by Fee</td>
+              <td>Set the POS Item Id by Fee Rule</td>
+              <td>Fees</td>
+              <td>X</td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Calculate Fees By the Minute</td>
+              <td>Fees are calculated based on every minute of use</td>
+              <td>Fees</td>
+              <td>X</td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Wireless Light Control</td>
+              <td>Turn on/off Lights for each rental item using wireless technology</td>
+              <td>Light Control</td>
+              <td></td>
+              <td></td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Rental Item View</td>
+              <td>Display status of each rental item in user defined sort order</td>
+              <td>Rental</td>
+              <td>X</td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Floor Plan View</td>
+              <td>Assign Rental Items to Birds Eye view floor plan showing status of each rental</td>
+              <td>Rental</td>
+              <td></td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Quit Player</td>
+              <td>Allows Individual Players to be terminated from Rental</td>
+              <td>Rental</td>
+              <td></td>
+              <td></td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Usage Reports</td>
+              <td>Cloud Based Reports of Each Item over selected time windows</td>
+              <td>Reports</td>
+              <td></td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Transaction Reports</td>
+              <td>Cloud Based Reports of all Rental Transactions over selected time windows</td>
+              <td>Reports</td>
+              <td></td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Standalone Usage Capability</td>
+              <td>Use Fee Machine without Internet/Wireless Access</td>
+              <td>General</td>
+              <td>X</td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            <tr>
+              <td>Transaction Review</td>
+              <td>Review Prior Transactions on Tablet</td>
+              <td>General</td>
+              <td>X</td>
+              <td>X</td>
+              <td>X</td>
+            </tr>
+            </tbody>
+          </table>
         </ng-template>
       </ngb-tab>
-      <ngb-tab title="Light Control">
+      <ngb-tab title="Wireless Light Control">
         <ng-template ngbTabContent>
-          <p>Wireless Billiard Light Control is a optional feature of Fee Machine.   When enabled, Fee Machine will turn on a light above your Billiard Table at the start of each rental, and turn it off at the end, providing an easy way to monitor which items are being actively rented.</p>
+          <p><b>Wireless Light Control</b> is an optional feature of Fee Machine.<br><br>
+            When enabled, Fee Machine will turn on a light above your Billiard Table or Lane at the start of each
+            rental, and turn it off at the end, providing an easy way to monitor which items are being actively
+            rented.<br><br>
+            With Wireless Light Control you have the ability to set light individual bulb color settings to either Cool
+            or Warm.<br><br>
+            Wireless Light Control requires a wireless network with all light bulbs and your Fee Machine tablet attached
+            to that network. Contact your Fee Machine reseller for more details.<br><br>
+            Fee Machine makes it easy to find and configure your wireless lighting controls with your rentals!
+          </p>
+          <img src="assets/images/LightBulbConfiguration.png" alt="Wireless Lighting Configuration" width="600"
+               height="800">
         </ng-template>
       </ngb-tab>
       <ngb-tab>
         <ng-template ngbTabTitle>Aloha POS</ng-template>
         <ng-template ngbTabContent>
-          <p>Fee Machine is designed work with any version of Aloha Table Service or Quick Service without the need for additional licensing from NCR!</p>
+          <p>Fee Machine is designed work with Aloha Table Service or Quick Service system without the need for
+            additional licensing from NCR!</p><br>
+          <p>Using Barcode Scanner Technology, Fee Machine works with any Aloha Terminal that can be equipped with a 2D
+            Bar Code scanner.</p><br>
+          <p>Multiple Rental Fees can be sent to your Aloha system with a single scan, each of which can have its own
+            item id and price.</p>
+          <img src="assets/images/FeeMachinePlusScannerPlusAloha.png" alt="Fee Machine plus scanner and Aloha"
+               width="600" height="400"><br>
+          <p>No need for Aloha software upgrades or additional licenses from NCR!</p>
+          <p>Contact your Aloha Reseller for more information.</p><br>
         </ng-template>
       </ngb-tab>
       <ngb-tab>
         <ng-template ngbTabTitle>Micros POS</ng-template>
         <ng-template ngbTabContent>
-          <p>Micros 3700 Integration is coming soon!</p>
+          <br>
+          <p>Micros 3700 Integration is coming. Please check back with us.</p>
         </ng-template>
       </ngb-tab>
       <ngb-tab title="For Distributors">
         <ng-template ngbTabContent>
-          <p>Fee Machine is designed to be sold and supported through POS System Distributors/Resellers.  If you are interested in becoming a Fee Machine distributor, please contact us!</p>
+          <p>Fee Machine was designed to be distributed and supported by POS Resellers.<br><br>
+            Fee Machine’s cloud portal gives the Reseller the ability to manage all their licensees from anywhere and
+            provide the highest level of service.<br><br>
+            If you are a POS Reseller looking to expand your customer base AND enhance monthly revenue by providing
+            value added services to your customers, please contact us about opportunities in your market area.</p>
         </ng-template>
       </ngb-tab>
     </ngb-tabset>
