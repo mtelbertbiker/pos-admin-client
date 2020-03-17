@@ -59,7 +59,7 @@ export class FeeTesterComponent implements OnInit, OnDestroy {
   }
 
   private initForm() {
-    const feeGroup = this.feeGroup;
+    const feeGroup = this.feeGroup.FGId;
     const dayOfWeek = this.session.FeeCalcTest.dayOfWeek;
     const users = this.session.FeeCalcTest.users;
     const beginTime = {hour: this.session.FeeCalcTest.beginHour, minute: this.session.FeeCalcTest.beginMinute};
@@ -76,7 +76,7 @@ export class FeeTesterComponent implements OnInit, OnDestroy {
   }
 
   updateFeeCalc(feeCalcForm) {
-    this.session.FeeCalcTest.fgid = feeCalcForm.FeeGroup.FGId;
+    this.session.FeeCalcTest.fgid = feeCalcForm.FeeGroup;
     this.session.FeeCalcTest.users = feeCalcForm.Users;
     this.session.FeeCalcTest.dayOfWeek = feeCalcForm.DayOfWeek;
     this.session.FeeCalcTest.beginHour = feeCalcForm.BeginTime.hour;
