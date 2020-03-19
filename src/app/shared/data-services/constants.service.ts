@@ -33,7 +33,7 @@ export class ConstantsService {
     },
     {
       Id: 99,
-      Name: 'N/A'
+      Name: 'Not Selected'
     }
   ];
 
