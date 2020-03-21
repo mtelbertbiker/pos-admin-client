@@ -3,6 +3,7 @@ export class FeeGroup {
   constructor(public LId = 0,
               public Bid = 0,
               public FGId = 0,
+              public TempFGId = '',
               public Name = 'New Fee Group',
               public RequiresUsers = false,
               public MinUsers = 0,

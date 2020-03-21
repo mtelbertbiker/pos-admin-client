@@ -5,6 +5,7 @@ import {VenueService} from '../../../../venues/venue.service';
 import {FeeGroup} from '../../../../shared/pos-models/fee-group.model';
 import {SessionService} from '../../../../shared/data-services/session.service';
 import {FormTypes} from '../../../../shared/data-services/constants.service';
+import { UUID } from 'angular2-uuid';
 
 @Component({
   selector: 'app-feegroup-list',
@@ -31,6 +32,7 @@ export class FeegroupListComponent implements OnInit {
 
   onAddFeeGroup() {
     const newFeeGroup = new FeeGroup();
+    newFeeGroup.TempFGId = UUID.UUID();
     this.venue.FeeGroups.push(newFeeGroup);
     this.sessionService.setSaveState(FormTypes.FeeGroups, true, true);
     this.router.navigate([this.venue.FeeGroups.length - 1], {relativeTo: this.route});

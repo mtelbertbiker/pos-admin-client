@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ConstantsService {
-   // BaseUri = 'https://localhost';
-   // AdminBaseUri = this.BaseUri + ':44318/api';
+  //  BaseUri = 'https://localhost';
+  //  AdminBaseUri = this.BaseUri + ':44318/api';
   AdminBaseUri = 'https://fm-posadminprod1.azurewebsites.net/api';
   AdminLicenseeLocationsUri = '/Locations/LicenseeLocations/';
   AdminLocationsUri = '/Locations/';

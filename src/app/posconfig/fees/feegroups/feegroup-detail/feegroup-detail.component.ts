@@ -114,6 +114,7 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
 
   updateFeeGroup(updatedFeeGroup: FeeGroup) {
     this.feeGroup.Name = updatedFeeGroup.Name;
+    this.feeGroup.TempFGId = updatedFeeGroup.TempFGId;
     this.feeGroup.ItemId = updatedFeeGroup.ItemId;
     this.feeGroup.MinUsers = updatedFeeGroup.MinUsers;
     this.feeGroup.MaxUsers = updatedFeeGroup.MaxUsers;
