@@ -1,22 +1,22 @@
 <nav class="navbar navbar-expand-sm">
   <ul class="navbar-nav ml-auto nav-pills">
-    <li class="nav-item" *ngIf="this.sessionService.ItemIsChanged">
-      <button
+    <li class="list-inline-item" *ngIf="this.sessionService.ItemIsChanged">
+      <button mat-raised-button
         type="button"
-        class="nav-link navbar-brand btn-success"
+        class="btn btn-success"
         [disabled]="!this.sessionService.ItemIsValid" (click)="onSave()">
         Save <span *ngIf="this.sessionService.Saving.length > 0" class="spinner-border spinner-border-sm" role="status"
                    aria-hidden="true"></span>
       </button>
     </li>
-    <li class="nav-item" *ngIf="this.sessionService.ItemIsChanged && !this.sessionService.HideSaveBtn">
-      <button
+    <li class="list-inline-item" *ngIf="this.sessionService.ItemIsChanged && !this.sessionService.HideSaveBtn">
+      <button mat-raised-button
         type="button"
-        class="nav-link navbar-brand btn-danger" (click)="onCancel()">Cancel
+        class="btn btn-danger" (click)="onCancel()">Cancel
       </button>
     </li>
-    <li class="nav-item">
-      <button mat-raised-button color="primary" [matMenuTriggerFor]="licenseeMenu">Manage</button>
+    <li class="list-inline-item">
+      <button mat-raised-button class="btn btn-info" [matMenuTriggerFor]="licenseeMenu">Manage</button>
     </li>
   </ul>
 </nav>

@@ -1,0 +1,11 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import 'customize-bootstrap.scss';
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+$general_background_color : #e7e5e5;
+
+html { background-color: $general_background_color; }
+body { background-color: $general_background_color; }
+.card-header {
+  background-color: #b3b1b1;
+}

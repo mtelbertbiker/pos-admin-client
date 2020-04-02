@@ -1,4 +1,4 @@
-<button mat-raised-button color="info" [matMenuTriggerFor]="locationReportsMenu">Reports</button>
+<button mat-raised-button class="btn btn-info" [matMenuTriggerFor]="locationReportsMenu">Reports</button>
 <mat-menu #locationReportsMenu="matMenu">
   <button mat-menu-item (click)="onLocationReportsNavigate('reports/ItemUseDetailReport2')">Transaction Detail</button>
   <button mat-menu-item (click)="onLocationReportsNavigate('reports/RentalItemUsageReport1')">Item Use Summary</button>
