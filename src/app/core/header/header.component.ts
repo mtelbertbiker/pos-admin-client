@@ -44,6 +44,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     console.log('HeaderComponent onInit');
     this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()
       .subscribe(isAuthorized => this.isAuthorized = isAuthorized);
+    this.oidcSecurityService.getUserData().subscribe(userData => {
+      this.sessionService.userData = userData;
+      if (this.sessionService.userData.hasOwnProperty('emails')) {
+        this.sessionService.Email = this.sessionService.userData['emails'][0];
+      }
+      if (this.sessionService.userData.hasOwnProperty('name')) {
+        this.sessionService.UserName = this.sessionService.userData['name'];
+      }
+    });
     this.isErrorSubscription = interval(1000).subscribe(count => {
       console.log('Error check:' + count);
       if (this.sessionService.Error != null) {
@@ -73,15 +82,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       }
     });
-    this.oidcSecurityService.getUserData().subscribe(userData => {
-      this.sessionService.userData = userData;
-      if (this.sessionService.userData.hasOwnProperty('emails')) {
-        this.sessionService.Email = this.sessionService.userData['emails'][0];
-      }
-      if (this.sessionService.userData.hasOwnProperty('name')) {
-        this.sessionService.UserName = this.sessionService.userData['name'];
-      }
-    });
+
     this.subscription = this.venueService.venuesChanged
       .subscribe(
         (venues: Venue[]) => {
