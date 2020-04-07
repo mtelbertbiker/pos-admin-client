@@ -30,8 +30,6 @@ export class LandingComponent implements OnInit, OnDestroy {
   isAuthorized: boolean;
   session: SessionService;
 
-  // constructor() { }
-
   constructor(private venueDataService: VenueDataService,
               private venueService: VenueService,
               private licenseeDataService: LicenseeDataService,

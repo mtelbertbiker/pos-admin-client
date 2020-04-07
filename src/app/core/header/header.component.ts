@@ -42,41 +42,45 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log('HeaderComponent onInit');
-     this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()
+    this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()
       .subscribe(isAuthorized => this.isAuthorized = isAuthorized);
-     this.isErrorSubscription = interval(1000).subscribe(count => {
-       console.log('Error check:' + count);
-       if (this.sessionService.Error != null) {
-         this.errorUrl = '';
-         this.errorCode = '';
-         if ('status' in this.sessionService.Error) {
-           this.errorCode = this.sessionService.Error.status.toString();
-         }
-         if (this.errorCode === '401') { // Unauthorized
-           this.isAuthorized = false;
-           this.error = 'Please Login';
-         } else {
-           if ('message' in this.sessionService.Error) {
-             this.error = this.sessionService.Error.message;
-           }
-           if ('error' in this.sessionService.Error) {
-             if ('ExceptionMessage' in this.sessionService.Error['error']) {
-               this.error = this.sessionService.Error['error']['ExceptionMessage'];
-               if ('url' in this.sessionService.Error) {
-                 this.errorUrl = this.sessionService.Error.url;
-               }
-             }
-             if ('Message' in this.sessionService.Error['error']) {
-               this.error = this.sessionService.Error['error']['Message'];
-             }
-           }
-         }
-       }
-     });
+    this.isErrorSubscription = interval(1000).subscribe(count => {
+      console.log('Error check:' + count);
+      if (this.sessionService.Error != null) {
+        this.errorUrl = '';
+        this.errorCode = '';
+        if ('status' in this.sessionService.Error) {
+          this.errorCode = this.sessionService.Error.status.toString();
+        }
+        if (this.errorCode === '401') { // Unauthorized
+          this.isAuthorized = false;
+          this.error = 'Please Login';
+        } else {
+          if ('message' in this.sessionService.Error) {
+            this.error = this.sessionService.Error.message;
+          }
+          if ('error' in this.sessionService.Error) {
+            if ('ExceptionMessage' in this.sessionService.Error['error']) {
+              this.error = this.sessionService.Error['error']['ExceptionMessage'];
+              if ('url' in this.sessionService.Error) {
+                this.errorUrl = this.sessionService.Error.url;
+              }
+            }
+            if ('Message' in this.sessionService.Error['error']) {
+              this.error = this.sessionService.Error['error']['Message'];
+            }
+          }
+        }
+      }
+    });
     this.oidcSecurityService.getUserData().subscribe(userData => {
       this.sessionService.userData = userData;
-      this.sessionService.Email = this.sessionService.userData['emails'][0];
-      this.sessionService.UserName = this.sessionService.userData['name'];
+      if (this.sessionService.userData.hasOwnProperty('emails')) {
+        this.sessionService.Email = this.sessionService.userData['emails'][0];
+      }
+      if (this.sessionService.userData.hasOwnProperty('name')) {
+        this.sessionService.UserName = this.sessionService.userData['name'];
+      }
     });
     this.subscription = this.venueService.venuesChanged
       .subscribe(
@@ -93,20 +97,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onAddLicensee() {
-    const newLicensee = new Licensee(0, 'New Licensee', '', '', '', '', '', '', '', '', '', '', '', '', [], [], [], 0, false, '' );
+    const newLicensee = new Licensee(0, 'New Licensee', '', '', '', '', '', '', '', '', '', '', '', '', [], [], [], 0, false, '');
     newLicensee.Email = this.sessionService.Email;
     newLicensee.ResellerId = this.sessionService.ResellerId;
     const index = this.licenseeService.addLicensee(newLicensee);
     this.sessionService.setLicensee(newLicensee);
     this.sessionService.setSaveState(FormTypes.Licensees, false, true);
-    this.router.navigate(['licensee/' + index + '/detail/' ]);
+    this.router.navigate(['licensee/' + index + '/detail/']);
   }
 
   onSelectLicensee(index: number) {
     this.sessionService.resetSaveState();
     this.sessionService.licensee = this.licensees[index];
     this.venueDataService.getVenues(this.sessionService.licensee.LicId);
-    this.router.navigate(['licensee/' + index + '/detail' ]);
+    this.router.navigate(['licensee/' + index + '/detail']);
   }
 
   onContactUs() {
@@ -120,7 +124,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showLicenseeLocations() {
     this.sessionService.resetSaveState();
     this.sessionService.licensee = this.licensees[0];
-    this.router.navigate(['licensee/' + 0 + '/detail' ]);
+    this.router.navigate(['licensee/' + 0 + '/detail']);
   }
 
   signUp(loginType: LoginTypes) {
