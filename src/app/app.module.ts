@@ -218,11 +218,11 @@ export class AppModule {
       openIDImplicitFlowConfiguration.max_id_token_iat_offset_allowed_in_seconds = 30;
 
       const authWellKnownEndpoints = new AuthWellKnownEndpoints();
-      console.log('Calling setWellKnownEndpoints');
+
       authWellKnownEndpoints.setWellKnownEndpoints(this.oidcConfigService.wellKnownEndpoints);
-      console.log('Calling setupModule');
+
       this.oidcSecurityService.setupModule(openIDImplicitFlowConfiguration, authWellKnownEndpoints);
-      console.log('Exiting AppModule');
+      console.log('Exiting AppModule constructor');
 
     });
   }

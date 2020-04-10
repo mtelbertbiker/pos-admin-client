@@ -119,7 +119,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   signUp(loginType: LoginTypes) {
     this.sessionService.LoginType = loginType;
     this.websession.set('LoginType', loginType);
-    this.oidcSecurityService.authorize();
+    // this.oidcSecurityService.authorize();
+    if (window.location.hash) {
+      window.location.hash = decodeURIComponent(window.location.hash);
+      this.oidcSecurityService.authorizedCallback();
+    } else {
+      this.oidcSecurityService.authorize();
+    }
   }
 
   signOut() {
