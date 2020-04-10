@@ -196,9 +196,9 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
 export class AppModule {
   constructor(private oidcSecurityService: OidcSecurityService,
               private oidcConfigService: OidcConfigService) {
+    console.log('Fee Machine Starting...');
 
     this.oidcConfigService.onConfigurationLoaded.subscribe(() => {
-
       const openIDImplicitFlowConfiguration = new OpenIDImplicitFlowConfiguration();
       openIDImplicitFlowConfiguration.stsServer = 'https://login.microsoftonline.com/tfp/feemachines.onmicrosoft.com/b2c_1_susin/oauth2/v2.0/';
       // openIDImplicitFlowConfiguration.redirect_url = 'http://localhost:65328/redirect.html';   // Use for local debugging
@@ -209,9 +209,9 @@ export class AppModule {
       openIDImplicitFlowConfiguration.scope = 'openid https://feemachines.com/posadmin/readPosAdmin https://feemachines.com/posadmin/writePosAdmin'; // 'openid https://fabrikamb2c.onmicrosoft.com/demoapi/demo.read';
 //      openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'http://localhost:65328';
       openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'http://feemachine.com';
-      openIDImplicitFlowConfiguration.post_login_route = '/home';
-      openIDImplicitFlowConfiguration.forbidden_route = '/home';
-      openIDImplicitFlowConfiguration.unauthorized_route = '/home';
+      openIDImplicitFlowConfiguration.post_login_route = '/';
+      openIDImplicitFlowConfiguration.forbidden_route = '/';
+      openIDImplicitFlowConfiguration.unauthorized_route = '/';
       openIDImplicitFlowConfiguration.auto_userinfo = false;
       openIDImplicitFlowConfiguration.log_console_warning_active = true;
       openIDImplicitFlowConfiguration.log_console_debug_active = !environment.production;
@@ -221,8 +221,6 @@ export class AppModule {
       authWellKnownEndpoints.setWellKnownEndpoints(this.oidcConfigService.wellKnownEndpoints);
 
       this.oidcSecurityService.setupModule(openIDImplicitFlowConfiguration, authWellKnownEndpoints);
-
-      console.log('Fee Machine Starting...');
 
     });
   }

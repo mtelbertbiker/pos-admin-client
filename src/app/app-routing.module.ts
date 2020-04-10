@@ -35,7 +35,7 @@ const appRoutes: Routes = [
       {path: 'product', component: ProductsComponent},
     ]
   },
-  {path: 'home', component: LandingComponent},
+  {path: 'home', component: HomeComponent},
   {path: 'redirect.html', component: RedirectComponent},
   {
     path: 'licensee/:id', component: LicenseeMasterItemComponent, children: [

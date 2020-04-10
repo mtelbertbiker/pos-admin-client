@@ -20,7 +20,8 @@ import {VenueDataService} from '../../shared/data-services/venue-data.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   licensees: Licensee[];
   venues: Venue[];
-  subscription: Subscription;
+  venueSubscription: Subscription;
+  licenseeSubscription: Subscription;
   isErrorSubscription: Subscription;
   session: SessionService;
   error: string;
@@ -68,13 +69,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       }
     });
-    this.subscription = this.venueService.venuesChanged
+    this.venues = this.venueService.getVenues();
+    this.venueSubscription = this.venueService.venuesChanged
       .subscribe(
         (venues: Venue[]) => {
           this.venues = venues;
         }
       );
-    this.subscription = this.licenseeService.licenseesChanged
+    this.licensees = this.licenseeService.getLicensees();
+    this.licenseeSubscription = this.licenseeService.licenseesChanged
       .subscribe(
         (licensees: Licensee[]) => {
           this.licensees = licensees;
@@ -135,7 +138,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.venueSubscription.unsubscribe();
+    this.licenseeSubscription.unsubscribe();
     this.isErrorSubscription.unsubscribe();
   }
 }

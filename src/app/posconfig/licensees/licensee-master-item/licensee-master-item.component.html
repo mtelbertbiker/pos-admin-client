@@ -1,15 +1,26 @@
-<form [formGroup]="licenseeMasterItemForm" *ngIf="licensee" >
-  <div class="card bg-light">
-    <div class="card-header">
-      <div class="row">
-        <div class="col-8"><h4>Licensee: <b>{{licensee.Name}}, {{licensee.City}}, {{licensee.State}}{{!licensee.Disabled ? ' (DISABLED)' : ''}}</b></h4></div>
-        <div class="col-4"><app-licensee-master-item-navigation [id]="id"></app-licensee-master-item-navigation></div>
-      </div>
-    </div>
-    <div class="card-body">
-      <div class="col-sm-12">
-        <router-outlet></router-outlet>
-      </div>
+<app-header></app-header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="licenseeMasterItemForm" *ngIf="licensee">
+        <div class="card bg-light">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-8"><h4>Licensee: <b>{{licensee.Name}}, {{licensee.City}}
+                , {{licensee.State}}{{!licensee.Disabled ? ' (DISABLED)' : ''}}</b></h4></div>
+              <div class="col-4">
+                <app-licensee-master-item-navigation [id]="id"></app-licensee-master-item-navigation>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="col-sm-12">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
-</form>
+</div>
+<p style="text-align:center">Copyright 2018 <b>Fee Machines, LLC.</b> All rights reserved.</p>
