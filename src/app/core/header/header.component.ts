@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private venueService: VenueService,
               private venueDataService: VenueDataService,
               private router: Router,
-              private sessionService: SessionService,
+              public sessionService: SessionService,
               private licenseeService: LicenseeService,
               public  websession: SessionStorageService,
               private oidcSecurityService: OidcSecurityService) {
