@@ -222,6 +222,7 @@ export class AppModule {
       authWellKnownEndpoints.setWellKnownEndpoints(this.oidcConfigService.wellKnownEndpoints);
       console.log('Calling setupModule');
       this.oidcSecurityService.setupModule(openIDImplicitFlowConfiguration, authWellKnownEndpoints);
+      console.log('Exiting AppModule');
 
     });
   }
