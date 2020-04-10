@@ -38,16 +38,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('HeaderComponent onInit');
-    this.oidcSecurityService.getUserData().subscribe(userData => {
-      this.sessionService.userData = userData;
-      if (this.sessionService.userData.hasOwnProperty('emails')) {
-        this.sessionService.Email = this.sessionService.userData['emails'][0];
-      }
-      if (this.sessionService.userData.hasOwnProperty('name')) {
-        this.sessionService.UserName = this.sessionService.userData['name'];
-      }
-    });
+    console.log('HeaderComponent OnInit');
     this.isErrorSubscription = interval(1000).subscribe(count => {
       console.log('Error check:' + count);
       if (this.sessionService.Error != null) {
@@ -77,7 +68,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       }
     });
-
     this.subscription = this.venueService.venuesChanged
       .subscribe(
         (venues: Venue[]) => {

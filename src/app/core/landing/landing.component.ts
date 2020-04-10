@@ -46,6 +46,15 @@ export class LandingComponent implements OnInit, OnDestroy {
     this.sessionService.resetSaveState();
     this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()
       .subscribe(isAuthorized => this.sessionService.isUserAuthorized = isAuthorized);
+    this.oidcSecurityService.getUserData().subscribe(userData => {
+      this.sessionService.userData = userData;
+      if (this.sessionService.userData.hasOwnProperty('emails')) {
+        this.sessionService.Email = this.sessionService.userData['emails'][0];
+      }
+      if (this.sessionService.userData.hasOwnProperty('name')) {
+        this.sessionService.UserName = this.sessionService.userData['name'];
+      }
+    });
     if (this.sessionService.isUserAuthorized) {
       this.sessionService.LoginType = this.websession.get('LoginType');
       console.log('Login Type:' + this.sessionService.LoginType);
