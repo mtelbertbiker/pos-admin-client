@@ -21,9 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   licensees: Licensee[];
   venues: Venue[];
   subscription: Subscription;
-  isAuthorizedSubscription: Subscription;
   isErrorSubscription: Subscription;
-  isAuthorized: boolean;
   session: SessionService;
   error: string;
   errorUrl: string;
@@ -36,14 +34,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private licenseeService: LicenseeService,
               public  websession: SessionStorageService,
               private oidcSecurityService: OidcSecurityService) {
-    this.isAuthorized = false;
     this.session = sessionService;
   }
 
   ngOnInit() {
     console.log('HeaderComponent onInit');
-    this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()
-      .subscribe(isAuthorized => this.isAuthorized = isAuthorized);
     this.oidcSecurityService.getUserData().subscribe(userData => {
       this.sessionService.userData = userData;
       if (this.sessionService.userData.hasOwnProperty('emails')) {
@@ -62,7 +57,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.errorCode = this.sessionService.Error.status.toString();
         }
         if (this.errorCode === '401') { // Unauthorized
-          this.isAuthorized = false;
+          // this.isAuthorized = false;
           this.error = 'Please Login';
         } else {
           if ('message' in this.sessionService.Error) {
@@ -152,6 +147,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.isErrorSubscription.unsubscribe();
-    this.isAuthorizedSubscription.unsubscribe();
   }
 }

@@ -23,11 +23,9 @@ export class LandingComponent implements OnInit, OnDestroy {
   venues: Venue[];
   licensee: Licensee;
   licensees: Licensee[] = [];
-  venueSubscription: Subscription;
   licenseeSubscription: Subscription;
   resellerSubscription: Subscription;
   isAuthorizedSubscription: Subscription;
-  isAuthorized: boolean;
   session: SessionService;
 
   constructor(private venueDataService: VenueDataService,
@@ -46,21 +44,9 @@ export class LandingComponent implements OnInit, OnDestroy {
     console.log('LandingComponent onInit');
     this.session = this.sessionService;
     this.sessionService.resetSaveState();
-
-    console.log('Calling: oidcSecurityService.getIsAuthorized() ');
     this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()
-      .subscribe(isAuthorized => {
-        this.isAuthorized = isAuthorized;
-        console.log('Is Authorized:' + isAuthorized);
-        if (this.isAuthorized) {
-          this.oidcSecurityService.getUserData().subscribe(userData => {
-            this.sessionService.userData = userData;
-            this.sessionService.Email = this.sessionService.userData['emails'][0];
-            this.sessionService.UserName = this.sessionService.userData['name'];
-          });
-        }
-      });
-    if (this.isAuthorized) {
+      .subscribe(isAuthorized => this.sessionService.isUserAuthorized = isAuthorized);
+    if (this.sessionService.isUserAuthorized) {
       this.sessionService.LoginType = this.websession.get('LoginType');
       console.log('Login Type:' + this.sessionService.LoginType);
       if (this.sessionService.LoginType === LoginTypes.Distributor) {
@@ -75,12 +61,12 @@ export class LandingComponent implements OnInit, OnDestroy {
       }
       if (this.sessionService.LoginType === LoginTypes.Operator) {
         console.log('HomeComponent Operator Login');
-        this.licenseeDataService.getLicensee(this.session.Licenseeid);
+        this.licenseeDataService.getLicensee(this.session.LicenseeId);
         this.licenseeSubscription = this.licenseeService.licenseesChanged
           .subscribe(
             (licensees: Licensee[]) => {
               this.licensee = licensees[0];
-              this.session.Licenseeid = this.licensee.LicId;
+              this.session.LicenseeId = this.licensee.LicId;
               this.sessionService.setLicensee(this.licensee);
               this.venueDataService.getVenues(this.licensee.LicId);
             }

@@ -3,10 +3,12 @@ import {Licensee} from '../licensee.model';
 import { CookieService } from 'ngx-cookie-service';
 import { UUID } from 'angular2-uuid';
 import {FormTypes, LoginTypes} from './constants.service';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class SessionService {
   Error: any;
+  isUserAuthorized: boolean;
   userData: any;
   licensee: Licensee;
   ItemIsValid = true;
@@ -18,7 +20,8 @@ export class SessionService {
   DeletedItemName = '';
   vid: number;
   ResellerId = 0;
-  Licenseeid = 0;
+  LicenseeId = 0;
+
   FeeCalcTest = {
     fgid : 0,
     dayOfWeek : 2,
@@ -28,6 +31,7 @@ export class SessionService {
     endHour : 15,
     endMinute : 30
   };
+
   Email = ''; // 'mtelbertbiker@gmail.com';
   UserName = '';
   LoginType: LoginTypes;

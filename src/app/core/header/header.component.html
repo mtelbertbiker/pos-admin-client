@@ -13,7 +13,7 @@
         </li>
         <li class="list-inline-item">
           <div ngbDropdown class="d-inline-block"
-               *ngIf="isAuthorized && session.ResellerId > 0  && this.licensees != null">
+               *ngIf="this.sessionService.isUserAuthorized && session.ResellerId > 0  && this.licensees != null">
             <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>My Licensees</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
               <button *ngFor="let licensee of licensees; let i = index" (click)="onSelectLicensee(i) "
@@ -29,11 +29,11 @@
         </li>
         <li class="list-inline-item">
           <button class="btn btn-primary"
-                  *ngIf="isAuthorized && session.ResellerId == 0 && this.licensees != null"
+                  *ngIf="this.sessionService.isUserAuthorized && session.ResellerId == 0 && this.licensees != null"
                   (click)="showLicenseeLocations()">Admin</button>
         </li>
         <li class="list-inline-item">
-          <div ngbDropdown *ngIf="!isAuthorized" class="d-inline-block">
+          <div ngbDropdown *ngIf="!this.sessionService.isUserAuthorized" class="d-inline-block">
             <button class="btn btn-info" id="dropdownLogin" ngbDropdownToggle>Login</button>
             <div ngbDropdownMenu aria-labelledby="dropdownLogin">
               <button class="btn btn-info" (click)="signUp(1)">Operator</button>
@@ -42,11 +42,11 @@
           </div>
         </li>
         <li class="list-inline-item">
-          <button class="btn btn-info edit-profile" disabled *ngIf="isAuthorized">Edit Profile</button>
+          <button class="btn btn-info edit-profile" disabled *ngIf="this.sessionService.isUserAuthorized">Edit Profile</button>
         </li>
-        <li class="list-inline-item"><label class="" *ngIf="isAuthorized">{{this.sessionService.UserName}}</label></li>
+        <li class="list-inline-item"><label class="" *ngIf="this.sessionService.isUserAuthorized">{{this.sessionService.UserName}}</label></li>
         <li class="list-inline-item">
-          <button class="btn btn-info sign-out" *ngIf="isAuthorized" (click)="signOut()">Logout</button>
+          <button class="btn btn-info sign-out" *ngIf="this.sessionService.isUserAuthorized" (click)="signOut()">Logout</button>
         </li>
       </ul>
     </div>
