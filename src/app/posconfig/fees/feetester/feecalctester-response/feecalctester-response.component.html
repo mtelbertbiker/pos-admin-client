@@ -9,7 +9,7 @@
         <ng-template ngbTabContent>
           <p *ngIf="timedFeeCalcResponse.MsgLevel > 0">Success: {{timedFeeCalcResponse.Ok}}</p>
           <p *ngIf="timedFeeCalcResponse.MsgLevel > 0">Total Time: {{timedFeeCalcResponse.TotalTime}}</p>
-          <p *ngIf="timedFeeCalcResponse.MsgLevel > 0">Total Fee: {{timedFeeCalcResponse.TotalFee}}</p>
+          <p *ngIf="timedFeeCalcResponse.MsgLevel > 0">Total Fee: {{timedFeeCalcResponse.TotalFee.toFixed(2)}}</p>
           <p *ngIf="timedFeeCalcResponse.MsgLevel === 0">No calculations performed.</p>
         </ng-template>
       </ngb-tab>

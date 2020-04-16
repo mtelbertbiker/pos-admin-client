@@ -59,7 +59,7 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
     const ItemId = this.feeGroup.ItemId;
     const MinUsers = this.feeGroup.MinUsers;
     const MaxUsers = this.feeGroup.MaxUsers;
-    const RequiredFee = this.feeGroup.RequiredFee;
+    const RequiredFee = this.feeGroup.RequiredFee.toFixed(2);
     const RequiresUsers = this.feeGroup.RequiresUsers;
     const CondenseUserFees = this.feeGroup.CondenseUserFees;
     const TransferUserEnabled = this.feeGroup.TransferUserEnabled;
@@ -78,7 +78,7 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
         'TransferUserEnabled': new FormControl(TransferUserEnabled),
         'ItemId': new FormControl(ItemId, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
         'FeeRounding' :  new FormControl(FeeRounding),
-        'RequiredFee': new FormControl(RequiredFee, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
+        'RequiredFee': new FormControl(RequiredFee, [Validators.required, Validators.pattern(/^[0-9]+(.[0-9]{0,2})?$/)]),
         'Disabled': new FormControl(Disabled),
       });
   }

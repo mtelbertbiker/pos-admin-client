@@ -64,7 +64,7 @@ export class FeeItemDetailComponent implements OnInit, OnDestroy {
     const MinDur = this.fee.MinDur;
     const MaxDur = this.fee.MaxDur;
     const IncDur = this.fee.IncDur;
-    const FeeAmt = this.fee.FeeAmt;
+    const FeeAmt = this.fee.FeeAmt.toFixed(2);
     const PerUser = this.fee.PerUser;
     const AlwaysInc = this.fee.AlwaysInc;
     const MinUsers = this.fee.MinUsers;
@@ -87,7 +87,7 @@ export class FeeItemDetailComponent implements OnInit, OnDestroy {
         'MinDur': new FormControl(MinDur, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
         'MaxDur': new FormControl(MaxDur, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
         'IncDur': new FormControl(IncDur, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
-        'FeeAmt': new FormControl(FeeAmt, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
+        'FeeAmt': new FormControl(FeeAmt, [Validators.required, Validators.pattern(/^[0-9]+(.[0-9]{0,2})?$/)]),
         'PerUser': new FormControl(PerUser, Validators.required),
         'AlwaysInc': new FormControl(AlwaysInc, Validators.required),
         'MinUsers': new FormControl(MinUsers, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
