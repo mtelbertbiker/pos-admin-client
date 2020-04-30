@@ -66,6 +66,10 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
     const Disabled = !this.feeGroup.Disabled;
     const TrackUserNames = this.feeGroup.UserNameTrackingEnabled;
     const FeeRounding = this.feeGroup.FeeRounding;
+    const Prepaid = this.feeGroup.Prepaid;
+    const FirstRentalEndWarning = this.feeGroup.FirstRentalEndWarning;
+    const RentalEndWarningInterval = this.feeGroup.RentalEndWarningInterval;
+    const RenterPhoneTrackingEnabled = this.feeGroup.RenterPhoneTrackingEnabled;
     this.usersDisabled = !this.feeGroup.RequiresUsers;
     this.feeGroupDetailForm = new FormGroup(
       {
@@ -80,6 +84,10 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
         'FeeRounding' :  new FormControl(FeeRounding),
         'RequiredFee': new FormControl(RequiredFee, [Validators.required, Validators.pattern(/^[0-9]+(.[0-9]{0,2})?$/)]),
         'Disabled': new FormControl(Disabled),
+        'Prepaid': new FormControl(Prepaid),
+        'FirstRentalEndWarning': new FormControl(FirstRentalEndWarning, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
+        'RentalEndWarningInterval': new FormControl(RentalEndWarningInterval, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
+        'RenterPhoneTrackingEnabled': new FormControl(RenterPhoneTrackingEnabled)
       });
   }
 
@@ -96,6 +104,26 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
   isMaxUserFieldInvalid() {
     if (this.feeGroup.RequiresUsers) {
       if (this.feeGroup.MaxUsers < this.feeGroup.MinUsers || this.feeGroup.MaxUsers > 999) {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  isFirstRentalEndWarningInvalid() {
+    if (this.feeGroup.Prepaid) {
+      if (this.feeGroup.FirstRentalEndWarning < 1440 && this.feeGroup.FirstRentalEndWarning >= 0) {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
+
+  isRentalWarningIntervalInvalid() {
+    if (this.feeGroup.Prepaid) {
+      if (this.feeGroup.FirstRentalEndWarning <= this.feeGroup.RentalEndWarningInterval && this.feeGroup.RentalEndWarningInterval >= 0) {
         return true;
       }
     } else {
@@ -126,6 +154,10 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
     this.feeGroup.Disabled = !updatedFeeGroup.Disabled;
     this.feeGroup.FeeRounding = updatedFeeGroup.FeeRounding;
     this.usersDisabled = !this.feeGroup.RequiresUsers;
+    this.feeGroup.Prepaid = updatedFeeGroup.Prepaid;
+    this.feeGroup.FirstRentalEndWarning = updatedFeeGroup.FirstRentalEndWarning;
+    this.feeGroup.RentalEndWarningInterval = updatedFeeGroup.RentalEndWarningInterval;
+    this.feeGroup.RenterPhoneTrackingEnabled = updatedFeeGroup.RenterPhoneTrackingEnabled;
     this.venueService.updateVenueDetail(this.vid, this.venue);
   }
 

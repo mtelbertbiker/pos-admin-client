@@ -136,6 +136,68 @@
           </div>
         </div>
       </div>
+      <div class="card bg-light">
+        <div class="card-header">
+          <label><b>Flat Rate</b>
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="A Flat Rate Rental Calculates Fees Up Front by Start Time, # of Players, and Fee Increment Time">?
+            </button>
+          </label>
+        </div>
+        <div class="card-body">
+          <div class="form-group row">
+            <div class="col-sm-auto">
+              <label class="form-check-label" for="Prepaid"><input
+                type="checkbox"
+                id="Prepaid"
+                formControlName="Prepaid"> Flat Rate
+                <button type="button"
+                        class="btn btn-outline-secondary mr-2" placement="right"
+                        ngbTooltip="If Enabled, Selecting this Fee Group will cause Fees to be calculated at the start of the Rental based on Start Time, Number of Players, and Rental Duration.">
+                  ?
+                </button>
+              </label>
+            </div>
+          </div>
+          <label><b>Rental Ending Alerts (minutes)</b></label>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-auto" for="FirstRentalEndWarning">First at</label>
+            <div class="col-sm-3">
+              <input
+                type="number"
+                id="FirstRentalEndWarning"
+                formControlName="FirstRentalEndWarning"
+                class="form-control"
+                [readonly]="!this.feeGroup.Prepaid">
+            </div>
+            <label class="col-sm-auto" >min remaining</label>
+            <div class="col-sm-2">
+              <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                      ngbTooltip="When greater than 0 (minutes), alerts the User that the Rental is ending soon.">?
+              </button>
+            </div>
+          </div>
+          <div class="alert alert-danger" *ngIf="isFirstRentalEndWarningInvalid()">Alert Time must be 0 - 1440</div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-auto" for="RentalEndWarningInterval">Then every</label>
+            <div class="col-sm-3">
+              <input
+                type="number"
+                id="RentalEndWarningInterval"
+                formControlName="RentalEndWarningInterval"
+                [readonly]="!this.feeGroup.Prepaid"
+                class="form-control">
+            </div>
+            <label class="col-sm-auto" >min</label>
+            <div class="col-sm-2">
+              <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                      ngbTooltip="When greater than 0 (minutes), frequency in minutes to alert user Rental is ending.">?
+              </button>
+            </div>
+          </div>
+          <div class="alert alert-danger" *ngIf="isRentalWarningIntervalInvalid()">Alert Frequency must be 0 - 60 and < First Warning</div>
+        </div>
+      </div>
       <div class="form-group row">
         <label class="col-form-label col-sm-auto" for="FeeRounding">Fee Rounding</label>
         <div class="col-sm-auto">
@@ -179,6 +241,20 @@
           <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
                   ngbTooltip="The POS Item Id to use to report fees from this Fee Group">?
           </button>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-auto">
+          <label class="form-check-label" for="RenterPhoneTrackingEnabled"><input
+            type="checkbox"
+            id="RenterPhoneTrackingEnabled"
+            formControlName="RenterPhoneTrackingEnabled"
+            [attr.disabled]="usersDisabled?'':null"> Track Renter Phone #
+            <button type="button"
+                    class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="Allows the Transfer of Individual Players to/from Rentals within the Fee Group">?
+            </button>
+          </label>
         </div>
       </div>
     </form>

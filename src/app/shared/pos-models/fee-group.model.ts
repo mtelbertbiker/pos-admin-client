@@ -15,6 +15,10 @@ export class FeeGroup {
               public TransferUserEnabled = false,
               public UserNameTrackingEnabled = false,
               public FeeRounding = 0,
-              public Fees = []
+              public Fees = [],
+              public Prepaid = false,
+              public FirstRentalEndWarning = 0,
+              public RentalEndWarningInterval = 0,
+              public RenterPhoneTrackingEnabled = false
               ) {}
 }
