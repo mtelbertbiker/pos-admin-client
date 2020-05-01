@@ -93,7 +93,7 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
 
   isMinUserFieldInvalid() {
     if (this.feeGroup.RequiresUsers) {
-      if (this.feeGroup.MinUsers < 1 || this.feeGroup.MinUsers > 999) {
+      if (this.feeGroup.MinUsers < 1 || this.feeGroup.MinUsers > this.constantsService.MaxUsers) {
         return true;
       }
     } else {
@@ -103,7 +103,7 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
 
   isMaxUserFieldInvalid() {
     if (this.feeGroup.RequiresUsers) {
-      if (this.feeGroup.MaxUsers < this.feeGroup.MinUsers || this.feeGroup.MaxUsers > 999) {
+      if (this.feeGroup.MaxUsers < this.feeGroup.MinUsers || this.feeGroup.MaxUsers >  this.constantsService.MaxUsers) {
         return true;
       }
     } else {

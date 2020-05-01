@@ -7,7 +7,7 @@ import {Subscription} from 'rxjs';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {SessionService} from '../../../../shared/data-services/session.service';
 import {VenueService} from '../../../../venues/venue.service';
-import {FormTypes} from '../../../../shared/data-services/constants.service';
+import {ConstantsService, FormTypes} from '../../../../shared/data-services/constants.service';
 import {ConfirmDeletionModalComponent} from '../../../../shared/confirm-deletion-modal/confirm-deletion-modal.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
@@ -32,6 +32,7 @@ export class FeeItemDetailComponent implements OnInit, OnDestroy {
   constructor(private venueService: VenueService,
               private route: ActivatedRoute,
               private sessionService: SessionService,
+              public constantsService: ConstantsService,
               private modal: NgbModal,
               private router: Router) {
   }
@@ -108,7 +109,7 @@ export class FeeItemDetailComponent implements OnInit, OnDestroy {
 
   isMinUserFieldInvalid() {
     if (this.feeGroup.RequiresUsers) {
-      if (this.fee.MinUsers < 1 || this.fee.MinUsers > 999) {
+      if (this.fee.MinUsers < 1 || this.fee.MinUsers > this.constantsService.MaxUsers) {
         return true;
       }
     } else {
@@ -118,7 +119,7 @@ export class FeeItemDetailComponent implements OnInit, OnDestroy {
 
   isMaxUserFieldInvalid() {
     if (this.feeGroup.RequiresUsers) {
-      if (this.fee.MaxUsers < this.fee.MinUsers || this.fee.MaxUsers > 999) {
+      if (this.fee.MaxUsers < this.fee.MinUsers || this.fee.MaxUsers > this.constantsService.MaxUsers) {
         return true;
       }
     } else {

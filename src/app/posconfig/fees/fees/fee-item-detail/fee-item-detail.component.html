@@ -186,7 +186,7 @@
             id="MinUsers"
             formControlName="MinUsers"
             class="form-control">
-          <div class="alert alert-danger" *ngIf="isMinUserFieldInvalid()">Must be 1 - 999</div>
+          <div class="alert alert-danger" *ngIf="isMinUserFieldInvalid()">Must be 1 - {{this.constantsService.MaxUsers}}</div>
         </div>
         <div class="col-sm-1">
           <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
@@ -211,7 +211,7 @@
           </button>
         </div>
       </div>
-      <div class="alert alert-danger" *ngIf="isMaxUserFieldInvalid()">Must >= Min Users, < 999</div>
+      <div class="alert alert-danger" *ngIf="isMaxUserFieldInvalid()">Must >= Min Users, < {{this.constantsService.MaxUsers}}</div>
     </div>
   </div>
   <div class="card bg-light">
