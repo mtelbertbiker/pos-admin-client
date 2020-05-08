@@ -83,6 +83,7 @@ export class FeeTesterComponent implements OnInit, OnDestroy {
     this.session.FeeCalcTest.beginMinute = feeCalcForm.BeginTime.minute;
     this.session.FeeCalcTest.endHour = feeCalcForm.EndTime.hour;
     this.session.FeeCalcTest.endMinute = feeCalcForm.EndTime.minute;
+    this.feeGroup =  this.venue.FeeGroups.find( x => x.FGId === +feeCalcForm.FeeGroup);
   }
 
   private getNextWeekDay(d) {
@@ -109,15 +110,19 @@ export class FeeTesterComponent implements OnInit, OnDestroy {
     const startDateTime = startDate.setHours(this.session.FeeCalcTest.beginHour, this.session.FeeCalcTest.beginMinute, 0, 0);
     let stopDate;
     let stopDateTime;
-    if (this.session.FeeCalcTest.endHour < this.session.FeeCalcTest.beginHour) {  // rental ends on next calendar day
-      if (this.session.FeeCalcTest.dayOfWeek === 6) {
-        stopDate = startDate;
-        stopDate.setHours(24);
-        stopDateTime = stopDate.setHours(this.session.FeeCalcTest.endHour, this.session.FeeCalcTest.endMinute, 0, 0);
-      } else {
-      }
+    if (this.feeGroup.Prepaid) {
+      stopDateTime = startDateTime + 60000;
     } else {
-      stopDateTime = startDate.setHours(this.session.FeeCalcTest.endHour, this.session.FeeCalcTest.endMinute, 0, 0);
+      if (this.session.FeeCalcTest.endHour < this.session.FeeCalcTest.beginHour) {  // rental ends on next calendar day
+        if (this.session.FeeCalcTest.dayOfWeek === 6) {
+          stopDate = startDate;
+          stopDate.setHours(24);
+          stopDateTime = stopDate.setHours(this.session.FeeCalcTest.endHour, this.session.FeeCalcTest.endMinute, 0, 0);
+        } else {
+        }
+      } else {
+        stopDateTime = startDate.setHours(this.session.FeeCalcTest.endHour, this.session.FeeCalcTest.endMinute, 0, 0);
+      }
     }
     const timedFeeCalcRequest = new TimedFeeCalcWebRequest({
       LicenseeId : this.venue.LicId,
