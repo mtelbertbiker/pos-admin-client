@@ -11,6 +11,7 @@
             type="text"
             id="Name"
             formControlName="Name"
+            maxlength="30"
             class="form-control">
           <div class="alert alert-danger" *ngIf="isFieldInvalid('Name')">Location Name is required</div>
         </div>
@@ -42,6 +43,7 @@
             type="text"
             id="Address1"
             formControlName="Address1"
+            maxlength="40"
             class="form-control">
           <div class="alert alert-danger" *ngIf="isFieldInvalid('Address1')">Address is required</div>
         </div>
@@ -53,6 +55,7 @@
             type="text"
             id="Address2"
             formControlName="Address2"
+            maxlength="40"
             class="form-control">
         </div>
       </div>
@@ -63,6 +66,7 @@
             type="text"
             id="City"
             formControlName="City"
+            max="20"
             class="form-control">
           <div class="alert alert-danger" *ngIf="isFieldInvalid('City')">City is required</div>
         </div>
@@ -74,6 +78,7 @@
             type="text"
             id="State"
             formControlName="State"
+            maxlength="20"
             class="form-control">
         </div>
         <div class="alert alert-danger" *ngIf="isFieldInvalid('State')">State is required</div>
@@ -85,6 +90,7 @@
             type="text"
             id="PostalCode"
             formControlName="PostalCode"
+            maxlength="10"
             class="form-control">
           <div class="alert alert-danger" *ngIf="isFieldInvalid('PostalCode')">Postal Code is required</div>
         </div>
@@ -96,6 +102,7 @@
             type="text"
             id="Phone1"
             formControlName="Phone1"
+            maxlength="15"
             class="form-control">
           <div class="alert alert-danger" *ngIf="isFieldInvalid('Phone1')">Phone is required</div>
         </div>
@@ -107,6 +114,7 @@
             type="text"
             id="Phone2"
             formControlName="Phone2"
+            maxlength="15"
             class="form-control">
         </div>
       </div>
@@ -117,6 +125,7 @@
             type="text"
             id="Website"
             formControlName="Website"
+            maxlength="60"
             class="form-control">
         </div>
       </div>
