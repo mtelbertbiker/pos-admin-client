@@ -151,7 +151,7 @@ export class FeeItemDetailComponent implements OnInit, OnDestroy {
     this.fee.MinDur = updatedFee.MinDur;
     this.fee.MaxDur = updatedFee.MaxDur;
     this.fee.IncDur = updatedFee.IncDur;
-    this.fee.FeeAmt = updatedFee.FeeAmt;
+    this.fee.FeeAmt = parseFloat(String(updatedFee.FeeAmt));
     this.fee.PerUser = updatedFee.PerUser;
     this.fee.AlwaysInc = updatedFee.AlwaysInc;
     this.fee.MinUsers = updatedFee.MinUsers;

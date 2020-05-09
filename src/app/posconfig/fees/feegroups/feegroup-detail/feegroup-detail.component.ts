@@ -81,7 +81,7 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
         'CondenseUserFees': new FormControl(CondenseUserFees),
         'TransferUserEnabled': new FormControl(TransferUserEnabled),
         'ItemId': new FormControl(ItemId, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
-        'FeeRounding' :  new FormControl(FeeRounding),
+        'FeeRounding': new FormControl(FeeRounding),
         'RequiredFee': new FormControl(RequiredFee, [Validators.required, Validators.pattern(/^[0-9]+(.[0-9]{0,2})?$/)]),
         'Disabled': new FormControl(Disabled),
         'Prepaid': new FormControl(Prepaid),
@@ -103,7 +103,7 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
 
   isMaxUserFieldInvalid() {
     if (this.feeGroup.RequiresUsers) {
-      if (this.feeGroup.MaxUsers < this.feeGroup.MinUsers || this.feeGroup.MaxUsers >  this.constantsService.MaxUsers) {
+      if (this.feeGroup.MaxUsers < this.feeGroup.MinUsers || this.feeGroup.MaxUsers > this.constantsService.MaxUsers) {
         return true;
       }
     } else {
@@ -113,22 +113,22 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
 
   isFirstRentalEndWarningInvalid() {
     if (this.feeGroup.Prepaid) {
-      if (this.feeGroup.FirstRentalEndWarning < 1440 && this.feeGroup.FirstRentalEndWarning >= 0) {
-        return false;
+      if (this.feeGroup.FirstRentalEndWarning > 1440 || this.feeGroup.FirstRentalEndWarning < 0) {
+        return true;
       }
-    } else {
-      return true;
     }
+    return false;
   }
 
   isRentalWarningIntervalInvalid() {
     if (this.feeGroup.Prepaid) {
-      if (this.feeGroup.FirstRentalEndWarning <= this.feeGroup.RentalEndWarningInterval && this.feeGroup.RentalEndWarningInterval >= 0) {
-        return true;
+      if (this.feeGroup.FirstRentalEndWarning > 0) {
+        if ((this.feeGroup.RentalEndWarningInterval < 0) || (this.feeGroup.RentalEndWarningInterval > 60)) {
+          return true;
+        }
       }
-    } else {
-      return false;
     }
+    return false;
   }
 
   isFieldInvalid(fieldName: string) {
@@ -146,14 +146,14 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
     this.feeGroup.ItemId = updatedFeeGroup.ItemId;
     this.feeGroup.MinUsers = updatedFeeGroup.MinUsers;
     this.feeGroup.MaxUsers = updatedFeeGroup.MaxUsers;
-    this.feeGroup.RequiredFee = updatedFeeGroup.RequiredFee;
+    this.feeGroup.RequiredFee = parseFloat(String(updatedFeeGroup.RequiredFee));
     this.feeGroup.RequiresUsers = updatedFeeGroup.RequiresUsers;
     this.feeGroup.CondenseUserFees = updatedFeeGroup.CondenseUserFees;
     this.feeGroup.UserNameTrackingEnabled = updatedFeeGroup.UserNameTrackingEnabled;
     this.feeGroup.TransferUserEnabled = updatedFeeGroup.TransferUserEnabled;
     this.feeGroup.Disabled = !updatedFeeGroup.Disabled;
     this.feeGroup.FeeRounding = updatedFeeGroup.FeeRounding;
-    this.usersDisabled = !this.feeGroup.RequiresUsers;
+    this.usersDisabled = !updatedFeeGroup.RequiresUsers;
     this.feeGroup.Prepaid = updatedFeeGroup.Prepaid;
     this.feeGroup.FirstRentalEndWarning = updatedFeeGroup.FirstRentalEndWarning;
     this.feeGroup.RentalEndWarningInterval = updatedFeeGroup.RentalEndWarningInterval;
