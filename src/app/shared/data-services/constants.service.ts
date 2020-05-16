@@ -2,19 +2,26 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ConstantsService {
-  //  BaseUri = 'https://localhost';
-  //  AdminBaseUri = this.BaseUri + ':44318/api';
+  // *******************************
+  // Local Testing
+  // *******************************
+  // BaseUri = 'https://localhost';
+  // AdminBaseUri = this.BaseUri + ':44318/api';
+  // FeeCalcBaseUri = this.BaseUri + ':44318/FeeCalc';  // Connect to Fee Calc API via Web Admin API
+  // ReportsUri = 'https://localhost:44318/api/reports';
+  // *******************************
+  // Cloud
+  // *******************************
   AdminBaseUri = 'https://fm-posadminprod1.azurewebsites.net/api';
+  FeeCalcBaseUri = 'https://fm-posadminprod1.azurewebsites.net/FeeCalc';
+  ReportsUri = 'https://fm-posadminprod1.azurewebsites.net/api/reports';
+  // ******************************
   AdminLicenseeLocationsUri = '/Locations/LicenseeLocations/';
   AdminLocationsUri = '/Locations/';
   AdminLocationDetailUri = '/Locations/LocationDetail/';
   AdminResellerLicenseesUri = '/Resellers/Licensees/';
   AdminResellerLocationsUri = '/Resellers/Locations/';
   AdminLicenseesUri = '/Licensees/';
-  // FeeCalcBaseUri = this.BaseUri + ':44318/FeeCalc';  // Connect to Fee Calc API via Web Admin API
-  FeeCalcBaseUri = 'https://fm-posadminprod1.azurewebsites.net/FeeCalc';
-  // ReportsUri = 'https://localhost:44318/api/reports';
-  ReportsUri = 'https://fm-posadminprod1.azurewebsites.net/api/reports';
   ContactUsLogicAppUri = 'https://prod-28.southcentralus.logic.azure.com:443/workflows/eadeab8822764e1d99c6ca39bb78b720/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=MKD1ouh-wyhfo4QRTrnXLtCVI_W02sRAuFBv4dP6Ca0';
 
   MaxUsers = 199;
@@ -31,6 +38,10 @@ export class ConstantsService {
     {
       Id: 3,
       Name: 'Shuffle Board'
+    },
+    {
+      Id: 4,
+      Name: 'Axe Throw'
     },
     {
       Id: 99,

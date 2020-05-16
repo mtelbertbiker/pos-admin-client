@@ -1,0 +1,93 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">Copy Location</h4>
+  <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="card bg-light">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-sm-auto">
+          <p>
+            <strong>Copying from: <span class="text-primary">{{venue.Name}}</span></strong>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-auto">
+          <input
+            type="checkbox"
+            id="CopyAll"><b>Select All</b>
+        </div>
+      </div>
+      <div class="card-header">
+        <h6>Fee Groups / Fees</h6>
+      </div>
+      <div class="card-body">
+        <div *ngFor="let feegroup of venue.FeeGroups; let i = index">
+          <div class="row">
+            <div class="col-sm-auto">
+              <input
+                type="checkbox"
+                id="FeeGroupSelected"><b>{{feegroup.Name}}{{feegroup.Disabled ? " (D)" : ""}}</b>
+              <div class="row" *ngFor="let fee of feegroup.Fees; let j = index">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-auto">
+                  <input
+                    type="checkbox"
+                    id="FeeSelected">{{fee.Name}}{{fee.Disabled ? " (D)" : ""}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-header">
+        <h6>Rental Items / Assigned Fee Groups</h6>
+      </div>
+      <div class="card-body">
+        <div *ngFor="let rentalItem of venue.RentalItems; let i = index">
+          <div class="row">
+            <div class="col-sm-auto">
+              <input
+                type="checkbox"
+                id="RentalItemSelected"><b>{{rentalItem.Name}}{{rentalItem.Disabled ? " (D)" : ""}}</b>
+              <div class="row" *ngFor="let fgid of rentalItem.RentalItemFeeGroups; let j = index">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-auto">
+                  <input
+                    type="checkbox"
+                    id="RentalFeeGroupSelected">{{feeGroupName(fgid)}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-header">
+        <div class="row">
+          <div class="col-sm-auto">
+            <h6>Copy to:</h6>
+          </div>
+          <div class="col-sm-auto">
+            <div *ngIf="!sessionService.ResellerId > 0">
+              <select id="TargetVenue">
+                <option [value]="null">Select Location</option>
+                <option *ngFor="let i of this.targetLicenseeVenueIndexList(); "
+                        [value]="i">{{venues[i].Name}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
+    <button type="button" class="btn btn-" (click)="modal.close('Ok')">Copy</button>
+  </div>
+</div>

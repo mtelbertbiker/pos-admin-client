@@ -9,6 +9,7 @@ import {SessionService} from '../../shared/data-services/session.service';
 import {FormTypes} from '../../shared/data-services/constants.service';
 import {ConfirmDeletionModalComponent} from '../../shared/confirm-deletion-modal/confirm-deletion-modal.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CopyVenueModalComponent} from './copy-venue-modal/copy-venue-modal.component';
 
 @Component({
   selector: 'app-venue-detail',
@@ -22,7 +23,8 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   posType: any;
   myModals = {
-    deleteConfirm: ConfirmDeletionModalComponent
+    deleteConfirm: ConfirmDeletionModalComponent,
+    copyVenue: CopyVenueModalComponent
   };
 
   public posTypes = [
@@ -107,6 +109,13 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
     return this.venueDetailForm.controls[fieldName].invalid;
   }
 
+  onCopy() {
+    const copyModal = this.modal.open(this.myModals.copyVenue).result.then((result) => {
+      if (result === 'Ok') {
+      }
+    }, (reason) => {
+    });
+  }
   onDeleteLocation(index: number) {
     const licId = this.venue.LicId;
     this.venue = this.venueService.getVenue(index);
