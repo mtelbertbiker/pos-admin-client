@@ -1,3 +1,4 @@
+<form [formGroup]="copyVenueForm">
 <div class="modal-header">
   <h4 class="modal-title" id="modal-title">Copy Location</h4>
   <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
@@ -20,7 +21,9 @@
         <div class="col-sm-auto">
           <input
             type="checkbox"
-            id="CopyAll"><b>Select All</b>
+            formControlName="SelectAll"
+            (click)="onSelectAll($event.target.checked)"
+            id="SelectAll"><b>Select All</b>
         </div>
       </div>
       <div class="card-header">
@@ -32,13 +35,16 @@
             <div class="col-sm-auto">
               <input
                 type="checkbox"
-                id="FeeGroupSelected"><b>{{feegroup.Name}}{{feegroup.Disabled ? " (D)" : ""}}</b>
+                formControlName="FeeGroup{{i}}"
+                (click)="onFeeGroupSelect($event.target.checked,i)"
+                id="FeeGroup"><b>{{feegroup.Name}}{{feegroup.Disabled ? " (D)" : ""}}</b>
               <div class="row" *ngFor="let fee of feegroup.Fees; let j = index">
                 <div class="col-sm-1"></div>
                 <div class="col-sm-auto">
                   <input
                     type="checkbox"
-                    id="FeeSelected">{{fee.Name}}{{fee.Disabled ? " (D)" : ""}}
+                    formControlName="Fee{{i}}-{{j}}"
+                    id="Fee">{{fee.Name}}{{fee.Disabled ? " (D)" : ""}}
                 </div>
               </div>
             </div>
@@ -54,13 +60,16 @@
             <div class="col-sm-auto">
               <input
                 type="checkbox"
-                id="RentalItemSelected"><b>{{rentalItem.Name}}{{rentalItem.Disabled ? " (D)" : ""}}</b>
+                formControlName="Rental{{i}}"
+                (click)="onRentalSelect($event.target.checked,i)"
+                id="Rental"><b>{{rentalItem.Name}}{{rentalItem.Disabled ? " (D)" : ""}}</b>
               <div class="row" *ngFor="let fgid of rentalItem.RentalItemFeeGroups; let j = index">
                 <div class="col-sm-1"></div>
                 <div class="col-sm-auto">
                   <input
                     type="checkbox"
-                    id="RentalFeeGroupSelected">{{feeGroupName(fgid)}}
+                    formControlName="RentalFeeGroup{{i}}-{{j}}"
+                    id="RentalFeeGroup">{{feeGroupName(fgid)}}
                 </div>
               </div>
             </div>
@@ -91,3 +100,4 @@
     <button type="button" class="btn btn-" (click)="modal.close('Ok')">Copy</button>
   </div>
 </div>
+</form>
