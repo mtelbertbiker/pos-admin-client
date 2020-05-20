@@ -35,7 +35,7 @@
             <div class="col-sm-auto">
               <input
                 type="checkbox"
-                formControlName="FeeGroup{{i}}"
+                formControlName="1_FeeGroup-{{i}}"
                 (click)="onFeeGroupSelect($event.target.checked,i)"
                 id="FeeGroup"><b>{{feegroup.Name}}{{feegroup.Disabled ? " (D)" : ""}}</b>
               <div class="row" *ngFor="let fee of feegroup.Fees; let j = index">
@@ -43,7 +43,7 @@
                 <div class="col-sm-auto">
                   <input
                     type="checkbox"
-                    formControlName="Fee{{i}}-{{j}}"
+                    formControlName="2_Fee-{{i}}-{{j}}"
                     id="Fee">{{fee.Name}}{{fee.Disabled ? " (D)" : ""}}
                 </div>
               </div>
@@ -60,7 +60,7 @@
             <div class="col-sm-auto">
               <input
                 type="checkbox"
-                formControlName="Rental{{i}}"
+                formControlName="3_Rental-{{i}}"
                 (click)="onRentalSelect($event.target.checked,i)"
                 id="Rental"><b>{{rentalItem.Name}}{{rentalItem.Disabled ? " (D)" : ""}}</b>
               <div class="row" *ngFor="let fgid of rentalItem.RentalItemFeeGroups; let j = index">
@@ -68,7 +68,7 @@
                 <div class="col-sm-auto">
                   <input
                     type="checkbox"
-                    formControlName="RentalFeeGroup{{i}}-{{j}}"
+                    formControlName="4_RentalFeeGroup-{{i}}-{{j}}"
                     id="RentalFeeGroup">{{feeGroupName(fgid)}}
                 </div>
               </div>
@@ -83,7 +83,8 @@
           </div>
           <div class="col-sm-auto">
             <div *ngIf="!sessionService.ResellerId > 0">
-              <select id="TargetVenue">
+              <select id="TargetVenue"
+                      formControlName="TargetVenue">
                 <option [value]="null">Select Location</option>
                 <option *ngFor="let i of this.targetLicenseeVenueIndexList(); "
                         [value]="i">{{venues[i].Name}}
@@ -97,7 +98,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
-    <button type="button" class="btn btn-" (click)="modal.close('Ok')">Copy</button>
+    <button type="button" class="btn btn-" (click)="onCopyCmd()" [disabled]="this.selectedCount == 0">Copy</button>
   </div>
 </div>
 </form>
