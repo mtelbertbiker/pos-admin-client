@@ -85,9 +85,9 @@
             <div *ngIf="!sessionService.ResellerId > 0">
               <select id="TargetVenue"
                       formControlName="TargetVenue">
-                <option [value]="null">Select Location</option>
+                <option [value]="0">Select Location</option>
                 <option *ngFor="let i of this.targetLicenseeVenueIndexList(); "
-                        [value]="i">{{venues[i].Name}}
+                        [value]="venues[i].LId">{{venues[i].Name}}
                 </option>
               </select>
             </div>
@@ -98,7 +98,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
-    <button type="button" class="btn btn-" (click)="onCopyCmd()" [disabled]="this.selectedCount == 0">Copy</button>
+    <button type="button" class="btn btn-" (click)="onCopyCmd()" [disabled]="this.selectedCount == 0 || this.toVenue == null">Copy</button>
   </div>
 </div>
 </form>

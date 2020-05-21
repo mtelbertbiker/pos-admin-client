@@ -54,7 +54,7 @@
                   <ngb-timepicker formControlName="BeginTime" [minuteStep]="1"></ngb-timepicker>
                 </div>
               </div>
-              <div class="form-group row" *ngIf="!this.feeGroup.Prepaid">
+              <div class="form-group row" *ngIf="this.feeGroup != null && !this.feeGroup.Prepaid">
                 <label class="col-form-label col-sm-auto">End Time</label>
                 <div class="col-sm-auto">
                   <ngb-timepicker formControlName="EndTime" [minuteStep]="1"></ngb-timepicker>
@@ -66,7 +66,7 @@
               <div class="row">
                 <div class="col-sm-12">
                   <button
-                    class="btn btn-success" (click)="onTestFeeCalc()" [disabled]="!feeTesterForm.valid">Test Fee Calc
+                    class="btn btn-success" (click)="onTestFeeCalc()" [disabled]="this.feeGroup == null || !feeTesterForm.valid">Test Fee Calc
                   </button>
                 </div>
               </div>

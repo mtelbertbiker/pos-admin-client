@@ -114,6 +114,7 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
       if (result === 'Ok') {
       }
     }, (reason) => {
+      alert('Copy Location Failed/Cancelled: ' + reason);
     });
   }
   onDeleteLocation(index: number) {

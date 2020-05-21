@@ -60,6 +60,7 @@ export class LicenseeMasterItemNavigationComponent implements OnInit, OnDestroy 
   onSelectVenue(index: number) {
     console.log('onSelectVenue:' + index);
     this.vid = index;
+    this.sessionService.setCurrentVenueIndex(index);
     this.router.navigate(['licensee/' + this.id + '/locations/' + index + '/detail']);
   }
 
@@ -116,7 +117,7 @@ export class LicenseeMasterItemNavigationComponent implements OnInit, OnDestroy 
     } else {
       this.sessionService.Saving.push(FormTypes.Locations.toString());
       this.sessionService.HideSaveBtn = true;
-      this.venueDataService.putVenue(this.venueService.getVenue(this.vid))
+      this.venueDataService.putVenue(this.venueService.getVenue( this.sessionService.getCurrentVenueIndex()))
         .subscribe(
           resp => {
             let venue: any;

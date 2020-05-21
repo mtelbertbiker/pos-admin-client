@@ -59,7 +59,12 @@ export class FeeTesterComponent implements OnInit, OnDestroy {
   }
 
   private initForm() {
-    const feeGroup = this.feeGroup.FGId;
+    let feeGroup;
+    if (this.feeGroup != null) {
+      feeGroup = this.feeGroup.FGId;
+    } else {
+      feeGroup = 0;
+    }
     const dayOfWeek = this.session.FeeCalcTest.dayOfWeek;
     const users = this.session.FeeCalcTest.users;
     const beginTime = {hour: this.session.FeeCalcTest.beginHour, minute: this.session.FeeCalcTest.beginMinute};
