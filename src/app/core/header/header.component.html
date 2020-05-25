@@ -34,10 +34,9 @@
         </li>
         <li class="list-inline-item">
           <div ngbDropdown *ngIf="!this.sessionService.isUserAuthorized" class="d-inline-block">
-            <button class="btn btn-info" id="dropdownLogin" ngbDropdownToggle>Login</button>
+            <button class="btn btn-info" id="dropdownLogin" ngbDropdownToggle>Sign-up/Login</button>
             <div ngbDropdownMenu aria-labelledby="dropdownLogin">
-              <button class="btn btn-info" (click)="signUp(1)">Operator</button>
-              <button class="btn btn-info" (click)="signUp(2)">Distributor</button>
+              <button class="btn btn-info" (click)="operatorSignIn()">Login</button>
             </div>
           </div>
         </li>

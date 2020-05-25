@@ -7,7 +7,7 @@ import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {SessionService} from '../../shared/data-services/session.service';
 import {Licensee} from '../../shared/licensee.model';
 import {LicenseeService} from '../../shared/licensee.service';
-import {FormTypes, LoginTypes} from '../../shared/data-services/constants.service';
+import { FormTypes, LoginTypes} from '../../shared/data-services/constants.service';
 import {SessionStorageService} from 'angular-web-storage';
 import {VenueDataService} from '../../shared/data-services/venue-data.service';
 
@@ -116,9 +116,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['licensee/' + 0 + '/detail']);
   }
 
-  signUp(loginType: LoginTypes) {
-    this.sessionService.LoginType = loginType;
-    this.websession.set('LoginType', loginType);
+  operatorSignIn() {
+    this.sessionService.LoginType = LoginTypes.Operator;
+    this.websession.set('LoginType', LoginTypes.Operator);
     this.oidcSecurityService.authorize();
   }
 

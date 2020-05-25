@@ -9,7 +9,8 @@
       <ngb-tab title="Features Matrix">
         <ng-template ngbTabContent>
           <p><b>Fee Machine Features by Edition</b></p>
-          <p><b>Basic Edition</b> - Core Features needed for small/standalone rental operations - no internet / wireless needed</p>
+          <p><b>Basic Edition</b> - Core Features needed for small/standalone rental operations - no internet / wireless
+            needed</p>
           <p><b>Brewery Edition</b> - Adds features and support needed for larger operators</p>
           <p><b>Billiard Edition</b> - Full Featured solution designed for Billiard Hall Operators</p>
           <table class="table table-bordered table-hover table-condensed">
@@ -238,7 +239,8 @@
       </ngb-tab>
       <ngb-tab title="Wireless Light Control">
         <ng-template ngbTabContent>
-          <p><img src="../../../assets/images/Lightsmall.png" alt="" style="float: left"><b>Wireless Light Control</b> is an optional feature of Fee Machine.<br><br>
+          <p><img src="../../../assets/images/Lightsmall.png" alt="" style="float: left"><b>Wireless Light Control</b>
+            is an optional feature of Fee Machine.<br><br>
             When enabled, Fee Machine will turn on a light above your Billiard Table or Lane at the start of each
             rental, and turn it off at the end, providing an easy way to monitor which items are being actively
             rented.<br><br>
@@ -276,11 +278,21 @@
       </ngb-tab>
       <ngb-tab title="For Distributors">
         <ng-template ngbTabContent>
-          <p>Fee Machine was designed to be distributed and supported by POS Resellers.<br><br>
-            Fee Machine’s cloud portal gives the Reseller the ability to manage all their licensees from anywhere and
-            provide the highest level of service.<br><br>
-            If you are a POS Reseller looking to expand your customer base AND enhance monthly revenue by providing
-            value added services to your customers, please contact us about opportunities in your market area.</p>
+          <div class="row">
+            <div class="col-sm-10">
+              <p>Fee Machine was designed to be distributed and supported by POS Resellers.<br><br>
+                Fee Machine’s cloud portal gives the Reseller the ability to manage all their licensees from anywhere
+                and
+                provide the highest level of service.<br><br>
+                If you are a POS Reseller looking to expand your customer base AND enhance monthly revenue by providing
+                value added services to your customers, please contact us about opportunities in your market area.</p>
+            </div>
+            <div class="col-sm-2">
+              <div *ngIf="!this.sessionService.isUserAuthorized">
+                <button class="btn btn-info" (click)="distributorSignIn()">Distributor Login</button>
+              </div>
+            </div>
+          </div>
         </ng-template>
       </ngb-tab>
     </ngb-tabset>
