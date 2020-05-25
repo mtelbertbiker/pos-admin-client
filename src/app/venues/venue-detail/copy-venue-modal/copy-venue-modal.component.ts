@@ -9,6 +9,9 @@ import {RentalItemFeeGroup} from '../../../shared/pos-models/rental-item-fee-gro
 import {UUID} from 'angular2-uuid';
 import {Router} from '@angular/router';
 import {FormTypes} from '../../../shared/data-services/constants.service';
+import {ResellerService} from '../../../resellers/reseller.service';
+import {VenueDataService} from '../../../shared/data-services/venue-data.service';
+import {LicenseeService} from '../../../shared/licensee.service';
 
 @Component({
   selector: 'app-copy-venue-modal',
@@ -19,16 +22,22 @@ export class CopyVenueModalComponent implements OnInit {
   index: number;
   venue: Venue;
   fromVenue: Venue;
+  toLicId: number;
+  toLId: number;
   toVenue: Venue;
   venues: Venue[];
+  resellerVenuesList;
   copyVenueForm: FormGroup;
   selectedCount = 0;
   subscription: Subscription;
 
   constructor(public modal: NgbActiveModal,
+              private licenseeService: LicenseeService,
               private sessionService: SessionService,
               private router: Router,
-              private venueService: VenueService) {
+              private resellerService: ResellerService,
+              private venueService: VenueService,
+              private venueDataService: VenueDataService) {
   }
 
   ngOnInit() {
@@ -36,6 +45,9 @@ export class CopyVenueModalComponent implements OnInit {
     this.index = this.sessionService.getCurrentVenueIndex();
     this.venue = this.venueService.getVenue(this.index);
     this.venues = this.venueService.getVenues();
+    if (this.sessionService.ResellerId > 0) {
+      this.resellerVenuesList = this.resellerService.getResellerLocationNamesAndIds();
+    }
     this.toVenue = null;
     this.initForm();
     this.subscription = this.copyVenueForm.valueChanges.subscribe(
@@ -87,7 +99,10 @@ export class CopyVenueModalComponent implements OnInit {
 
   feeGroupName(rifg) {
     const fg = this.venue.FeeGroups.find(x => x.FGId === rifg.FGId);
-    return fg.Name;
+    if (fg !== undefined) {
+      return fg.Name;
+    }
+    return 'N/A';
   }
 
   onFeeGroupSelect(checked, i) {
@@ -127,6 +142,7 @@ export class CopyVenueModalComponent implements OnInit {
         return i;
       }
     }
+    return -1;
   }
 
   onRentalSelect(checked, i) {
@@ -138,10 +154,12 @@ export class CopyVenueModalComponent implements OnInit {
         this.copyVenueForm.controls['4_RentalFeeGroup-' + i + '-' + j].disable();
       } else {
         const fgi = this.feeGroupIndexForRentalItemFeeGroup(rentalFeeGroup);
-        if (this.copyVenueForm.controls['1_FeeGroup-' + fgi].value) {
-          this.copyVenueForm.controls['4_RentalFeeGroup-' + i + '-' + j].enable();
-        } else {
-          this.copyVenueForm.controls['4_RentalFeeGroup-' + i + '-' + j].disable();
+        if (fgi >= 0) {
+          if (this.copyVenueForm.controls['1_FeeGroup-' + fgi].value) {
+            this.copyVenueForm.controls['4_RentalFeeGroup-' + i + '-' + j].enable();
+          } else {
+            this.copyVenueForm.controls['4_RentalFeeGroup-' + i + '-' + j].disable();
+          }
         }
       }
       j++;
@@ -185,10 +203,20 @@ export class CopyVenueModalComponent implements OnInit {
       }
     }
     const targetVenue = this.copyVenueForm.controls['TargetVenue'].value;
-    if (+targetVenue !== 0) {
-      this.toVenue = this.venues.find(x => x.LId === +targetVenue);
+    if (targetVenue !== '0') {
+      if (targetVenue.indexOf('/') >= 0) {
+        const target = targetVenue.split('/');
+        this.toLId = +target[1];
+        this.toLicId = +target[0];
+      } else {
+        this.toVenue = this.venues.find(x => x.LId === +targetVenue);
+        this.toLId = this.toVenue.LId;
+        this.toLicId = this.toVenue.LicId;
+      }
     } else {
       this.toVenue = null;
+      this.toLId = 0;
+      this.toLicId = 0;
     }
   }
 
@@ -211,7 +239,9 @@ export class CopyVenueModalComponent implements OnInit {
           const j = +indexes[2];
           const newFee: any = Object.assign({}, this.venue.FeeGroups[i].Fees[j]);
           const fg = this.fromVenue.FeeGroups.find(x => x.FGId === newFee.FGId);
-          fg.Fees.push(newFee);
+          if (fg !== undefined) {
+            fg.Fees.push(newFee);
+          }
           count++;
         }
         if (key.indexOf('3_Rental-') !== -1) {
@@ -228,7 +258,9 @@ export class CopyVenueModalComponent implements OnInit {
           const j = +indexes[2];
           const newRIFG: any = Object.assign({}, this.venue.RentalItems[i].RentalItemFeeGroups[j]);
           const ri = this.fromVenue.RentalItems.find(x => x.RId === newRIFG.RId);
-          ri.RentalItemFeeGroups.push(newRIFG);
+          if (ri !== undefined) {
+            ri.RentalItemFeeGroups.push(newRIFG);
+          }
           count++;
         }
       }
@@ -248,7 +280,9 @@ export class CopyVenueModalComponent implements OnInit {
     this.fromVenue.RentalItems.forEach(rentalItem => {
       rentalItem.RentalItemFeeGroups.forEach(rifg => {
         const fg = this.fromVenue.FeeGroups.find(x => x.FGId === rifg.FGId);
-        rifg.TempFGId = fg.TempFGId;
+        if (fg !== undefined) {
+          rifg.TempFGId = fg.TempFGId;
+        }
       });
     });
     this.fromVenue.FeeGroups.forEach(feeGroup => {
@@ -261,7 +295,7 @@ export class CopyVenueModalComponent implements OnInit {
       });
       this.toVenue.FeeGroups.push(feeGroup);
       this.sessionService.setSaveState(FormTypes.FeeGroups, true, true);
-    } );
+    });
     this.fromVenue.RentalItems.forEach(rentalItem => {
       rentalItem.LId = LId;
       rentalItem.RId = 0;
@@ -275,17 +309,35 @@ export class CopyVenueModalComponent implements OnInit {
 
   onCopyCmd() {
     const totalSelected = this.gatherFromVenueSelections();
+    let licIndex = 0;
     if (totalSelected > 0) {
-      this.copyFromTo();
-      this.modal.close('Ok');
-      for (let i = 0; i < this.venues.length; i++) {
-        if (this.venues[i].LId === this.toVenue.LId) {
-          this.toVenue.HasVenueDetail = true;
-          this.router.navigate(['licensee/' + 0 + /locations/ + i + '/detail']);
-        }
+      if (this.toLicId !== this.venue.LicId) {
+        this.venueDataService.getVenuesPromise(this.toLicId).then(() => {
+            this.venues = this.venueService.getVenues();
+            this.toVenue = this.venues.find(x => x.LId === this.toLId);
+          licIndex = this.resellerService.getIndexForLicensee(this.toLicId);
+          this.sessionService.licensee = this.licenseeService.getLicensee(licIndex);
+          this.sessionService.LicenseeId = this.sessionService.licensee.LicId;
+            this.completeCopy(licIndex);
+          }
+        );
+      } else {
+        this.toVenue = this.venues.find(x => x.LId === this.toLId);
+        this.completeCopy(licIndex);
       }
     } else {
       this.modal.close('Failed');
+    }
+  }
+
+  completeCopy(licIndex) {
+    this.copyFromTo();
+    this.modal.close('Ok');
+    for (let i = 0; i < this.venues.length; i++) {
+      if (this.venues[i].LId === this.toVenue.LId) {
+        this.toVenue.HasVenueDetail = true;
+        this.router.navigate(['licensee/' + licIndex + /locations/ + i + '/detail']);
+      }
     }
   }
 

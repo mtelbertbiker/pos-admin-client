@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     console.log('HeaderComponent OnInit');
     this.isErrorSubscription = interval(1000).subscribe(count => {
-      console.log('Error check:' + count);
+      // console.log('Error check:' + count);
       if (this.sessionService.Error != null) {
         this.errorUrl = '';
         this.errorCode = '';
@@ -49,8 +49,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.errorCode = this.sessionService.Error.status.toString();
         }
         if (this.errorCode === '401') { // Unauthorized
-          // this.isAuthorized = false;
           this.error = 'Please Login';
+          this.sessionService.isUserAuthorized = false;
         } else {
           if ('message' in this.sessionService.Error) {
             this.error = this.sessionService.Error.message;

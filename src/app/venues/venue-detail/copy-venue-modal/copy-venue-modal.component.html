@@ -84,10 +84,19 @@
           <div class="col-sm-auto">
             <div *ngIf="!sessionService.ResellerId > 0">
               <select id="TargetVenue"
-                      formControlName="TargetVenue">
+                      formControlName="TargetVenue" [value]="0">
                 <option [value]="0">Select Location</option>
                 <option *ngFor="let i of this.targetLicenseeVenueIndexList(); "
                         [value]="venues[i].LId">{{venues[i].Name}}
+                </option>
+              </select>
+            </div>
+            <div *ngIf="sessionService.ResellerId > 0">
+              <select id="TargetVenue"
+                      formControlName="TargetVenue" [value]="0">
+                <option [value]="0">Select Licensee/Location</option>
+                <option *ngFor="let venueInfo of resellerVenuesList; "
+                        [value]="venueInfo.LicId + '/'+ venueInfo.LId">{{venueInfo.LicName}}/{{venueInfo.Name}}
                 </option>
               </select>
             </div>
@@ -98,7 +107,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
-    <button type="button" class="btn btn-" (click)="onCopyCmd()" [disabled]="this.selectedCount == 0 || this.toVenue == null">Copy</button>
+    <button type="button" class="btn btn-" (click)="onCopyCmd()" [disabled]="this.selectedCount == 0 || this.toLId == 0">Copy</button>
   </div>
 </div>
 </form>

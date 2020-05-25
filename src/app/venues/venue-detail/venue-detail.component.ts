@@ -110,13 +110,23 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
   }
 
   onCopy() {
+    let ok = false;
     const copyModal = this.modal.open(this.myModals.copyVenue).result.then((result) => {
-      if (result === 'Ok') {
-      }
-    }, (reason) => {
-      alert('Copy Location Failed/Cancelled: ' + reason);
-    });
+        if (result === 'Ok') {
+          ok = true;
+        }
+      },
+      (reason) => {
+        if ((reason !== 'cancel') && (reason !== 'Cross click')) {
+          ok = false;
+          alert('Copy Location Failed / Cancelled: ' + reason);
+        }
+      });
+    if (ok) {
+      alert('Copy completed.  Be sure to Save your changes!');
+    }
   }
+
   onDeleteLocation(index: number) {
     const licId = this.venue.LicId;
     this.venue = this.venueService.getVenue(index);
@@ -127,7 +137,7 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
           .subscribe(
             val => {
               this.venueService.removeVenue(index);
-              this.router.navigate(['licensee/' + licId + '/detail']);
+              this.router.navigate(['licensee/' + 0 + '/detail']);
               alert('Location Deleted');
             },
             response => {

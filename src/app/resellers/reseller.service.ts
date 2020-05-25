@@ -36,6 +36,45 @@ export class ResellerService {
     return this.venues;
   }
 
+  getResellerLocationNamesAndIds() {
+    const allResellerVenuesList = [];
+    this.licensees.forEach((currLicensee) => {
+      currLicensee.Brands.forEach((currBrand) => {
+        currBrand.Locations.forEach((currVenue) => {
+          const licId = currLicensee.LicId;
+          const licName = currLicensee.Name;
+          const name = currVenue.Name;
+          const lId = currVenue.LId;
+          const venueData = {
+            LicId: licId,
+            LicName: licName,
+            Name: name,
+            LId: lId
+          };
+          allResellerVenuesList.push((venueData));
+        });
+      });
+    });
+    return allResellerVenuesList;
+  }
+
+  getIndexForLicensee(licId) {
+    let i = 0;
+    let found = false;
+    this.licensees.forEach(() => {
+      if (this.licensees[i].LicId === licId) {
+        found = true;
+        return i;
+      }
+      i++;
+    });
+    if (found) {
+      return i;
+    } else {
+      return -1;
+    }
+  }
+
   updateLicensee(index: number, updatedLicensee: Licensee) {
     this.licensees[index].Name = updatedLicensee.Name;
     this.licensees[index].Address1 = updatedLicensee.Address1;

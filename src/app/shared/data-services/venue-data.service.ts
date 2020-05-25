@@ -46,6 +46,30 @@ export class VenueDataService {
       );
   }
 
+  getVenuesPromise(licId: number) {
+    const token = this.oidcSecurityService.getToken();
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`)
+      .set('ClientId', this.session.ClientId);
+    const apiUrl = this.consts.AdminBaseUri +
+      this.consts.AdminLicenseeLocationsUri +
+      licId + '/' +
+      this.session.getBrandId();
+    console.log('getVenuesPromise:' + apiUrl);
+    return this.http.get(apiUrl, {headers: headers})
+      .toPromise().then(response => {
+          this.venues = response;
+          this.venueService.setVenues(this.venues);
+          const venlist = this.venueService.getVenuesForLicensee(licId);
+          console.log('getVenuesPromise found: ' + venlist.length);
+        },
+        error => {
+          console.log(error);
+          this.session.Error = error;
+        }
+      );
+  }
+
   putVenue(venue: Venue) {
     const location = {
       'LicId': this.session.licensee.LicId,
