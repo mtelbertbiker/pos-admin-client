@@ -82,7 +82,7 @@
             <h6>Copy to:</h6>
           </div>
           <div class="col-sm-auto">
-            <div *ngIf="!sessionService.ResellerId > 0">
+            <div *ngIf="!(sessionService.ResellerId > 0)">
               <select id="TargetVenue"
                       formControlName="TargetVenue" [value]="0">
                 <option [value]="0">Select Location</option>

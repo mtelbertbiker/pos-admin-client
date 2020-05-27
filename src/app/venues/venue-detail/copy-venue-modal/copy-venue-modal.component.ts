@@ -33,7 +33,7 @@ export class CopyVenueModalComponent implements OnInit {
 
   constructor(public modal: NgbActiveModal,
               private licenseeService: LicenseeService,
-              private sessionService: SessionService,
+              public sessionService: SessionService,
               private router: Router,
               private resellerService: ResellerService,
               private venueService: VenueService,
