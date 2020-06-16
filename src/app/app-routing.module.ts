@@ -12,8 +12,6 @@ import {FeeItemDetailComponent} from './posconfig/fees/fees/fee-item-detail/fee-
 import {FeeCalcTesterResponseComponent} from './posconfig/fees/feetester/feecalctester-response/feecalctester-response.component';
 import {LicenseeItemDetailComponent} from './posconfig/licensees/licensee-item-detail/licensee-item-detail.component';
 import {RedirectComponent} from './redirect/redirect/redirect.component';
-import {ItemUsageViewerComponent} from './reports/venuereports/itemusageviewer/itemusageviewer.component';
-import {TransactiondetailviewerComponent} from './reports/venuereports/transactiondetailviewer/transactiondetailviewer.component';
 import {LicenseeMasterItemComponent} from './posconfig/licensees/licensee-master-item/licensee-master-item.component';
 import {LicenseeUserListComponent} from './posconfig/licensees/licensee-user-list/licensee-user-list.component';
 import {LicenseeBillingMasterItemComponent} from './posconfig/licensees/licensee-billing-master-item/licensee-billing-master-item.component';
@@ -26,6 +24,7 @@ import {FloorplanListComponent} from './posconfig/floorplans/floorplan-list/floo
 import {FloorplanItemComponent} from './posconfig/floorplans/floorplan/floorplan-item/floorplan-item.component';
 import {FloorplanlistItemComponent} from './posconfig/floorplans/floorplan-list/floorplanlist-item/floorplanlist-item.component';
 import {FloorplanlistItemDetailComponent} from './posconfig/floorplans/floorplan-list/floorplanlist-item-detail/floorplanlist-item-detail.component';
+import {VenueReportsComponent} from './reports/venuereports/venuereports.component';
 
 const appRoutes: Routes = [
   {
@@ -68,8 +67,8 @@ const appRoutes: Routes = [
               {path: 'response', component: FeeCalcTesterResponseComponent}
             ]
           },
-          {path: 'reports/RentalItemUsageReport1', component: ItemUsageViewerComponent},
-          {path: 'reports/ItemUseDetailReport2', component: TransactiondetailviewerComponent},
+          {path: 'reports/RentalItemUsageReport1', component: VenueReportsComponent},
+          {path: 'reports/ItemUseDetailReport2', component: VenueReportsComponent},
         ]
       },
       {

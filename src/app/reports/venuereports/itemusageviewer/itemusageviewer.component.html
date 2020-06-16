@@ -1,9 +1,6 @@
-<link href="http://kendo.cdn.telerik.com/2016.3.914/styles/kendo.common.min.css" rel="stylesheet"/>
-<link href="http://kendo.cdn.telerik.com/2016.3.914/styles/kendo.blueopal.min.css" rel="stylesheet"/>
+<link href="https://kendo.cdn.telerik.com/2016.3.914/styles/kendo.common.min.css" rel="stylesheet"/>
+<link href="https://kendo.cdn.telerik.com/2016.3.914/styles/kendo.blueopal.min.css" rel="stylesheet"/>
 <div class="card bg-light">
-  <div class="page-header">
-    <h6><b>Rental Item Usage</b></h6>
-  </div>
   <div class="card-body">
     <tr-viewer #viewer1
                [containerStyle]="viewerContainerStyle"
@@ -12,11 +9,15 @@
         report:'BizTrans.Reports.Library.RentalItemUsageReport1,BizTrans.Reports.Library',
         parameters: {'licId':venue.LicId,
         'bId':venue.BId,
-        'lId':venue.LId}
+        'lId':venue.LId,
+        'beginDateTime':beginDateTime,
+        'endDateTime':endDateTime
+        }
     }"
                [viewMode]="'INTERACTIVE'"
                [scaleMode]="'SPECIFIC'"
                [ready]=this.ready
+               [persistSession]="false"
                [scale]="1.0"
                [viewerToolTipOpening]=this.viewerToolTipOpening
                [enableAccessibility]="false">

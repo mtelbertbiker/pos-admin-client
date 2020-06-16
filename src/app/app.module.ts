@@ -87,6 +87,7 @@ import {FloorplanRentalListComponent} from './posconfig/floorplans/floorplan/flo
 import {AngularWebStorageModule} from 'angular-web-storage';
 import { ContactusRequestSentComponent } from './core/contactus/contactus-request-sent/contactus-request-sent.component';
 import { CopyVenueModalComponent } from './venues/venue-detail/copy-venue-modal/copy-venue-modal.component';
+import { VenueReportsComponent } from './reports/venuereports/venuereports.component';
 
 export function loadConfig(oidcConfigService: OidcConfigService) {
   console.log('APP_INITIALIZER STARTING');
@@ -157,6 +158,8 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     FloorplanRentalListComponent,
     ContactusRequestSentComponent,
     CopyVenueModalComponent,
+    VenueReportsComponent,
+    VenueReportsComponent,
   ],
   imports: [
     BrowserModule,
@@ -204,15 +207,15 @@ export class AppModule {
     this.oidcConfigService.onConfigurationLoaded.subscribe(() => {
       const openIDImplicitFlowConfiguration = new OpenIDImplicitFlowConfiguration();
       openIDImplicitFlowConfiguration.stsServer = 'https://login.microsoftonline.com/tfp/feemachines.onmicrosoft.com/b2c_1_susin/oauth2/v2.0/';
-      // openIDImplicitFlowConfiguration.redirect_url = 'http://localhost:65328/redirect.html';   // Use for local debugging
-      openIDImplicitFlowConfiguration.redirect_url = 'https://www.feemachine.com/redirect.html'; // Use for Production
+      openIDImplicitFlowConfiguration.redirect_url = 'http://localhost:65328/redirect.html';   // Use for local debugging
+      // openIDImplicitFlowConfiguration.redirect_url = 'https://www.feemachine.com/redirect.html'; // Use for Production
       openIDImplicitFlowConfiguration.client_id = 'e0795570-377a-4064-8678-246db4734c21';
       //      openIDImplicitFlowConfiguration.client_id = 'eb3fb956-a476-4329-99ca-0666bec47d65';
       openIDImplicitFlowConfiguration.response_type = 'id_token token';
       openIDImplicitFlowConfiguration.scope = 'openid https://feemachines.com/posadmin/readPosAdmin https://feemachines.com/posadmin/writePosAdmin'; // 'openid https://fabrikamb2c.onmicrosoft.com/demoapi/demo.read';
-//      openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'http://localhost:65328';
-      openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'http://feemachine.com';
-      openIDImplicitFlowConfiguration.post_login_route = '/';
+      openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'http://localhost:65328';
+//      openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'http://feemachine.com';
+      openIDImplicitFlowConfiguration.post_login_route = '';
       openIDImplicitFlowConfiguration.forbidden_route = '/';
       openIDImplicitFlowConfiguration.unauthorized_route = '/';
       openIDImplicitFlowConfiguration.auto_userinfo = false;
