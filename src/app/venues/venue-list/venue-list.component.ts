@@ -5,6 +5,7 @@ import {SessionService} from '../../shared/data-services/session.service';
 import {VenueService} from '../venue.service';
 import {Licensee} from '../../shared/licensee.model';
 import {LicenseeService} from '../../shared/licensee.service';
+import {LogService} from '../../shared/log.service';
 
 @Component({
   selector: 'app-venue-list',
@@ -20,12 +21,12 @@ export class VenueListComponent implements OnInit {
               private route: ActivatedRoute,
               private sessionService: SessionService,
               private licenseeService: LicenseeService,
+              private log: LogService,
               private venueService: VenueService) {
-    console.log('Starting VenueListComponent');
   }
 
   ngOnInit() {
-    console.log('app-venue-list init');
+    this.log.logTrace('VenueListComponent init');
     this.route.params
       .subscribe(
         (params: Params) => {
@@ -37,7 +38,7 @@ export class VenueListComponent implements OnInit {
   }
 
   onAddLocation() {
-    console.log('onAddLocation');
+    this.log.logTrace('onAddLocation');
     const newVenue = new Venue();
     newVenue.LicId = this.sessionService.getLicenseeId();
     const index = this.venueService.addVenue(newVenue);

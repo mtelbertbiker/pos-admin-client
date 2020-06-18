@@ -6,6 +6,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ConstantsService} from '../../shared/data-services/constants.service';
 import {SessionService} from '../../shared/data-services/session.service';
+import {LogService} from '../../shared/log.service';
 
 @Component({
   selector: 'app-contactus',
@@ -31,6 +32,7 @@ export class ContactusComponent implements OnInit {
   constructor(private modal: NgbModal,
               private http: HttpClient,
               private sessionService: SessionService,
+              private log: LogService,
               private consts: ConstantsService) {
   }
 
@@ -97,7 +99,7 @@ export class ContactusComponent implements OnInit {
         });
       },
       error: error => {
-        console.error('Contact Us form sending error', error)
+        this.log.logError('onSend', error);
         this.sessionService.Error = error;
       }
     });

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {SessionService} from '../../../../../shared/data-services/session.service';
+import {LogService} from '../../../../../shared/log.service';
 
 @Component({
   selector: 'app-licensee-save-cancel-modal',
@@ -23,10 +24,10 @@ import {SessionService} from '../../../../../shared/data-services/session.servic
 export class LicenseeSaveCancelModalComponent implements OnInit {
   changedItems: string[];
 
-  constructor(public modal: NgbActiveModal, private sessionService: SessionService) { }
+  constructor(public modal: NgbActiveModal, private sessionService: SessionService, private log: LogService) { }
 
   ngOnInit() {
-    console.log('Licensee Save Cancel Modal Component onInit');
+    this.log.logTrace('LicenseeSaveCancelModalComponent onInit');
     this.changedItems = this.sessionService.ChangedItems;
   }
 

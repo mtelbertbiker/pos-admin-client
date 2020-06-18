@@ -6,6 +6,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {Licensee} from '../licensee.model';
 import { map } from 'rxjs/operators';
+import {LogService} from '../log.service';
 
 @Injectable()
 export class LicenseeDataService {
@@ -16,7 +17,8 @@ export class LicenseeDataService {
               private licenseeService: LicenseeService,
               private consts: ConstantsService,
               private session: SessionService,
-              private oidcSecurityService: OidcSecurityService) {
+              private oidcSecurityService: OidcSecurityService,
+              private log: LogService) {
   }
 
   getLicensee(licId: number) {
@@ -27,16 +29,16 @@ export class LicenseeDataService {
     const apiUrl = this.consts.AdminBaseUri +
       this.consts.AdminLicenseesUri +
       licId;
-    console.log('getLicensee:' + apiUrl);
+    this.log.logTrace('getLicensee:' + apiUrl);
     this.http.get(apiUrl, {headers: headers})
       .subscribe(
         response => {
           this.licensee = response;
           this.licenseeService.setLicensee(this.licensee);
-          console.log(this.licensee);
+         this.log.logTrace('getLicensee' , this.licensee);
         },
         error => {
-          console.log(error);
+          this.log.logError('getLicensee', error);
           this.session.Error = error;
         }
       );
@@ -49,10 +51,10 @@ export class LicenseeDataService {
       .set('ClientId', this.session.ClientId);
     const apiUrl = this.consts.AdminBaseUri + this.consts.AdminLicenseesUri;
     if (licensee.LicId > 0) {
-      console.log('putLicensee>>');
+      this.log.logTrace('putLicensee');
       return this.http.put(apiUrl, licensee, {headers: headers});
     } else {
-      console.log('postLicensee>>');
+      this.log.logTrace('postLicensee');
       return this.http.post(apiUrl, licensee, {headers: headers});
     }
   }

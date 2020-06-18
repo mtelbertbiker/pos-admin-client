@@ -11,6 +11,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LicenseeSaveCancelModalComponent} from './licensee-save-cancel-modal/licensee-save-cancel-modal.component';
 import {FormTypes} from '../../../../shared/data-services/constants.service';
 import {Subscription} from 'rxjs';
+import {LogService} from '../../../../shared/log.service';
 
 
 @Component({
@@ -35,12 +36,13 @@ export class LicenseeMasterItemNavigationComponent implements OnInit, OnDestroy 
               public sessionService: SessionService,
               private venueService: VenueService,
               private modal: NgbModal,
+              private log: LogService,
               private router: Router) {
   }
 
 
   ngOnInit() {
-    console.log('Licensee Master Item Navigation Component onInit');
+    this.log.logTrace('LicenseeMasterItemNavigationComponent onInit');
     this.route.params
       .subscribe(
         (params: Params) => {
@@ -58,7 +60,7 @@ export class LicenseeMasterItemNavigationComponent implements OnInit, OnDestroy 
   }
 
   onSelectVenue(index: number) {
-    console.log('onSelectVenue:' + index);
+    this.log.logTrace('onSelectVenue:' + index);
     this.vid = index;
     this.sessionService.setCurrentVenueIndex(index);
     this.router.navigate(['licensee/' + this.id + '/locations/' + index + '/detail']);
@@ -66,7 +68,7 @@ export class LicenseeMasterItemNavigationComponent implements OnInit, OnDestroy 
 
 
   onAddVenue() {
-    console.log('onAddVenue');
+    this.log.logTrace('onAddVenue');
     const newVenue = new Venue(0, 0, 0, 'New Location',
       '', '', '', '', '', '', '', 0, '', false, '', false, ''
       , true, [], [], [], [], [], 0, false, '');
@@ -78,7 +80,7 @@ export class LicenseeMasterItemNavigationComponent implements OnInit, OnDestroy 
 
 
   onSave() {
-    console.log('onSave');
+    this.log.logTrace('onSave');
     if ((this.sessionService.ChangedItems.indexOf(FormTypes.Licensees.toString()) > -1) ||
       (this.sessionService.ChangedItems.indexOf(FormTypes.Users.toString()) > -1)) {
       this.sessionService.HideSaveBtn = true;
@@ -89,7 +91,7 @@ export class LicenseeMasterItemNavigationComponent implements OnInit, OnDestroy 
           response => {
             let licensee: any;
             licensee = response;
-            console.log(licensee);
+            this.log.logTrace('onSave response', licensee);
             this.sessionService.setLicensee(licensee);
             this.sessionService.Saving.pop();
             const venue = this.venueService.getVenue(this.vid);
@@ -100,17 +102,19 @@ export class LicenseeMasterItemNavigationComponent implements OnInit, OnDestroy 
                   resp => {
                     let loc: any;
                     loc = resp;
-                    console.log('PutVenue Response:' + loc.toString());
+                    this.log.logTrace('On Save PutVenue-1 Response', resp);
                     this.venueService.putVenue(this.vid, loc);
                     this.sessionService.resetSaveState();
                   },
                   error => {
+                    this.log.logError('On Save PutVenue-1', error);
                     this.sessionService.Error = error;
                   });
             } else {
               this.sessionService.resetSaveState();
             }
           }, error => {
+            this.log.logError('On Save putLicensee', error);
             this.sessionService.Error = error;
           }
         );
@@ -122,12 +126,13 @@ export class LicenseeMasterItemNavigationComponent implements OnInit, OnDestroy 
           resp => {
             let venue: any;
             venue = resp;
-            console.log('PutVenue Response:' + venue.toString());
+            this.log.logTrace('PutVenue-2 Response', resp);
             this.venueService.putVenue(this.vid, venue);
             this.sessionService.resetSaveState();
             this.venues = this.venueService.getVenuesForLicensee(this.licensee.LicId);
           },
           error => {
+            this.log.logError('On Save PutVenue-2', error);
             this.sessionService.Error = error;
           }
         );

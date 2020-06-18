@@ -9,6 +9,7 @@ import {FeecalcDataService} from '../../../shared/data-services/feecalc-data.ser
 import {TimedFeeCalcWebRequest} from '../../../shared/feecalc-models/timedfeecalcwebrequest.model';
 import {SessionService} from '../../../shared/data-services/session.service';
 import {TimedFeeCalcResponse} from '../../../shared/feecalc-models/timedfeecalcresponse.model';
+import {LogService} from '../../../shared/log.service';
 
 @Component({
   selector: 'app-feetester',
@@ -37,6 +38,7 @@ export class FeeTesterComponent implements OnInit, OnDestroy {
   constructor(private venueService: VenueService,
               private feeCalcService: FeecalcDataService,
               private route: ActivatedRoute,
+              private log: LogService,
               private session: SessionService) { }
 
   ngOnInit() {
@@ -146,7 +148,7 @@ export class FeeTesterComponent implements OnInit, OnDestroy {
           this.timedFeeCalcResponse = feeCalcResponse;
         },
         response => {
-          console.log(response);
+          this.log.logError('onTestFeeCalc', response);
           this.session.Error = response;
         }
       );

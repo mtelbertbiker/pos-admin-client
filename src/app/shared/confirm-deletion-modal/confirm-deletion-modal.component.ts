@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {SessionService} from '../data-services/session.service';
+import {LogService} from '../log.service';
 
 @Component({
   selector: 'app-confirm-deletion-modal',
@@ -22,10 +23,10 @@ import {SessionService} from '../data-services/session.service';
 })
 export class ConfirmDeletionModalComponent implements OnInit {
 
-  constructor(public modal: NgbActiveModal, public sessionService: SessionService) { }
+  constructor(public modal: NgbActiveModal, public sessionService: SessionService, private log: LogService) { }
 
   ngOnInit() {
-    console.log('Confirm Deletion Modal Component onInit');
+    this.log.logTrace('ConfirmDeletionModalComponent onInit');
   }
 
 }

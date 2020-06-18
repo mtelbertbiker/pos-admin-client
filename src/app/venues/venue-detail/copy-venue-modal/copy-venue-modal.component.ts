@@ -12,6 +12,7 @@ import {FormTypes} from '../../../shared/data-services/constants.service';
 import {ResellerService} from '../../../resellers/reseller.service';
 import {VenueDataService} from '../../../shared/data-services/venue-data.service';
 import {LicenseeService} from '../../../shared/licensee.service';
+import {LogService} from '../../../shared/log.service';
 
 @Component({
   selector: 'app-copy-venue-modal',
@@ -37,11 +38,12 @@ export class CopyVenueModalComponent implements OnInit {
               private router: Router,
               private resellerService: ResellerService,
               private venueService: VenueService,
+              private log: LogService,
               private venueDataService: VenueDataService) {
   }
 
   ngOnInit() {
-    console.log('Venue Copy onInit');
+    this.log.logTrace('CopyVenueModalComponent onInit');
     this.index = this.sessionService.getCurrentVenueIndex();
     this.venue = this.venueService.getVenue(this.index);
     this.venues = this.venueService.getVenues();
@@ -265,7 +267,7 @@ export class CopyVenueModalComponent implements OnInit {
         }
       }
     });
-    console.log('gatherFromVenueSelections Total Selected: ' + count);
+    this.log.logTrace('gatherFromVenueSelections Total Selected: ' + count);
     return count;
   }
 

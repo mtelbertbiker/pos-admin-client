@@ -10,6 +10,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LicenseeDataService} from '../../../shared/data-services/licensee-data.service';
 import {FormTypes, RegexPatterns} from '../../../shared/data-services/constants.service';
 import {LicenseeService} from '../../../shared/licensee.service';
+import {LogService} from '../../../shared/log.service';
 
 @Component({
   selector: 'app-licensee-item-detail',
@@ -25,10 +26,11 @@ export class LicenseeItemDetailComponent implements OnInit, OnDestroy {
   constructor(private licenseeService: LicenseeService,
               private route: ActivatedRoute,
               private sessionService: SessionService,
+              private log: LogService,
               private router: Router) { }
 
   ngOnInit() {
-    console.log('Licensee Item Detail Component onInit');
+    this.log.logTrace('LicenseeItemDetailComponent onInit');
     this.route.parent.params
       .subscribe(
         (params: Params) => {

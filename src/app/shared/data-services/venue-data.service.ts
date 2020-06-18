@@ -5,6 +5,7 @@ import {SessionService} from './session.service';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Venue} from '../pos-models/venue.model';
+import {LogService} from '../log.service';
 
 @Injectable()
 export class VenueDataService {
@@ -16,6 +17,7 @@ export class VenueDataService {
               private venueService: VenueService,
               private consts: ConstantsService,
               private session: SessionService,
+              private log: LogService,
               private oidcSecurityService: OidcSecurityService) {
   }
 
@@ -28,18 +30,18 @@ export class VenueDataService {
       this.consts.AdminLicenseeLocationsUri +
       licId + '/' +
       this.session.getBrandId();
-    console.log('getVenues:' + apiUrl);
+    this.log.logTrace('getVenues:' + apiUrl);
     this.http.get(apiUrl, {headers: headers})
       .subscribe(
         response => {
           this.venues = response;
           this.venueService.setVenues(this.venues);
           const venlist = this.venueService.getVenuesForLicensee(licId);
-          console.log('getVenues found: ' + venlist.length);
+          this.log.logTrace('getVenues found: ' + venlist.length);
           return this.venues;
         },
         error => {
-          console.log(error);
+          this.log.logTrace('getVenues:' + error);
           this.session.Error = error;
           return [];
         }
@@ -55,16 +57,16 @@ export class VenueDataService {
       this.consts.AdminLicenseeLocationsUri +
       licId + '/' +
       this.session.getBrandId();
-    console.log('getVenuesPromise:' + apiUrl);
+    this.log.logTrace('getVenuesPromise:' + apiUrl);
     return this.http.get(apiUrl, {headers: headers})
       .toPromise().then(response => {
           this.venues = response;
           this.venueService.setVenues(this.venues);
           const venlist = this.venueService.getVenuesForLicensee(licId);
-          console.log('getVenuesPromise found: ' + venlist.length);
+          this.log.logTrace('getVenuesPromise found: ' + venlist.length);
         },
         error => {
-          console.log(error);
+          this.log.logError('getVenuesPromise', error);
           this.session.Error = error;
         }
       );
@@ -97,7 +99,7 @@ export class VenueDataService {
       .set('Authorization', `Bearer ${token}`)
       .set('ClientId', this.session.ClientId);
     const apiUrl = this.consts.AdminBaseUri + this.consts.AdminLocationsUri;
-    console.log('putVenue LId:' + location.LId);
+    this.log.logTrace('putVenue:' + location.LId, location);
     return this.http.put(apiUrl, location, {headers: headers});
   }
 
@@ -116,14 +118,13 @@ export class VenueDataService {
       .subscribe(
         response => {
           this.venue = response;
-          console.log('getVenueDetail - ' + apiUrl);
-          console.log(this.venue);
+          this.log.logTrace('getVenueDetail - ' + apiUrl, response);
           this.venue.HasVenueDetail = true;
           this.venueService.updateVenue(index, this.venue);
           this.venueService.updateVenueDetail(index, this.venue);
           return this.venue;
         },
-        error => console.log(error)
+        error => this.log.logError('getVenueDetail', error)
       );
   }
 

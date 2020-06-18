@@ -10,6 +10,7 @@ import {FormTypes} from '../../shared/data-services/constants.service';
 import {ConfirmDeletionModalComponent} from '../../shared/confirm-deletion-modal/confirm-deletion-modal.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CopyVenueModalComponent} from './copy-venue-modal/copy-venue-modal.component';
+import {LogService} from '../../shared/log.service';
 
 @Component({
   selector: 'app-venue-detail',
@@ -39,11 +40,12 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private router: Router,
               private modal: NgbModal,
+              private log: LogService,
               private sessionService: SessionService) {
   }
 
   ngOnInit() {
-    console.log('Venue Detail Component onInit');
+    this.log.logTrace('VenueDetailComponent onInit');
     this.route.parent.params
       .subscribe(
         (params: Params) => {
@@ -141,7 +143,7 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
               alert('Location Deleted');
             },
             response => {
-              console.log(response);
+              this.log.logError('onDeleteLocation', response);
               alert('Delete Request failed: ' + response.message);
             }
           );

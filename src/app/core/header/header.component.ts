@@ -10,6 +10,7 @@ import {LicenseeService} from '../../shared/licensee.service';
 import { FormTypes, LoginTypes} from '../../shared/data-services/constants.service';
 import {SessionStorageService} from 'angular-web-storage';
 import {VenueDataService} from '../../shared/data-services/venue-data.service';
+import {LogService} from '../../shared/log.service';
 
 
 @Component({
@@ -34,12 +35,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
               public sessionService: SessionService,
               private licenseeService: LicenseeService,
               public  websession: SessionStorageService,
+              private log: LogService,
               private oidcSecurityService: OidcSecurityService) {
     this.session = sessionService;
   }
 
   ngOnInit() {
-    console.log('HeaderComponent OnInit');
+    this.log.logTrace('HeaderComponent OnInit');
     this.isErrorSubscription = interval(1000).subscribe(count => {
       // console.log('Error check:' + count);
       if (this.sessionService.Error != null) {
@@ -131,10 +133,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onHandleError() {
     this.error = null;
     this.sessionService.Error = null;
-  }
-
-  onDuplicateLocation() {
-    console.log('onDuplicateLocation');
   }
 
   ngOnDestroy() {

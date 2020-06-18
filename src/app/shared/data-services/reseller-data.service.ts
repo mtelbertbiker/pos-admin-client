@@ -7,6 +7,7 @@ import {SessionService} from './session.service';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {Venue} from '../pos-models/venue.model';
 import {LicenseeService} from '../licensee.service';
+import {LogService} from '../log.service';
 
 @Injectable()
 export class ResellerDataService {
@@ -18,7 +19,9 @@ export class ResellerDataService {
               private resellerService: ResellerService,
               private licenseeService: LicenseeService,
               private consts: ConstantsService,
-              private session: SessionService, private oidcSecurityService: OidcSecurityService) {
+              private session: SessionService,
+              private log: LogService,
+              private oidcSecurityService: OidcSecurityService) {
   }
 
   getResellerLicensees() {
@@ -35,26 +38,15 @@ export class ResellerDataService {
           this.reseller = response;
           this.resellerService.reseller = this.reseller;
           this.session.ResellerId = this.reseller.Id;
-          console.log('getResellerLicensees(' + this.session.ResellerId + ')');
+          this.log.logTrace('getResellerLicensees(' + this.session.ResellerId + ')');
           this.resellerService.setLicensees(this.reseller.Licensees);
           this.licenseeService.setLicensees(this.reseller.Licensees);
         },
         error => {
-          console.log(error);
+          this.log.logTrace('getResellerLicensees:' + error);
           this.session.Error = error;
         }
       );
-    /*
-    this.http.get<Licensee[]>(apiurl, {headers: headers})
-      .map(
-        (licensees) => {
-          console.log('getResellerLicensees(' + resellerId + ')');
-          console.log(licensees);
-          this.resellerService.setLicensees(licensees);
-          return licensees;
-        }
-      );
-      */
   }
 /*
   getResellerLicenseeLocations(licid: number) {
@@ -78,8 +70,7 @@ export class ResellerDataService {
 */
   putLicensee(index: number) {
     const licensee = this.resellerService.getLicensee(index);
-    console.log('POS Admin PUT Licensee>>');
-    console.log(licensee);
+    this.log.logTrace('putLicensee', licensee);
     if (licensee.LicId > 0) {
       return this.http.put(this.consts.AdminBaseUri + this.consts.AdminLicenseesUri, licensee);
     } else {
@@ -88,7 +79,7 @@ export class ResellerDataService {
   }
 
   assignLicenseeToReseller(rsid: number, licId: number) {
-    console.log('POS Admin PUT assignLicenseeToReseller(' + rsid + '/' + licId + ')');
+    this.log.logTrace('assignLicenseeToReseller(' + rsid + '/' + licId + ')');
     return this.http.put(this.consts.AdminBaseUri + this.consts.AdminResellerLicenseesUri + '/' + rsid + '/' + licId, '');
   }
 }

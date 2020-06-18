@@ -1,4 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {LogService} from '../../shared/log.service';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +7,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() {
+  constructor(private log:  LogService) {
   }
 
   ngOnInit() {
-    console.log('HomeComponent onInit');
+    this.log.logTrace('HomeComponent onInit');
   }
 }

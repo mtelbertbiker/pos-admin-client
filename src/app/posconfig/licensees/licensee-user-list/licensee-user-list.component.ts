@@ -5,6 +5,7 @@ import {LicenseeService} from '../../../shared/licensee.service';
 import {LicenseeUser} from '../../../shared/licensee-user.model';
 import {FormTypes} from '../../../shared/data-services/constants.service';
 import {SessionService} from '../../../shared/data-services/session.service';
+import {LogService} from '../../../shared/log.service';
 
 @Component({
   selector: 'app-licensee-user-list',
@@ -18,10 +19,11 @@ export class LicenseeUserListComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private sessionService: SessionService,
+              private log: LogService,
               private licenseeService: LicenseeService) { }
 
   ngOnInit() {
-    console.log('Licensee User List Component onInit');
+    this.log.logTrace('LicenseeUserListComponent onInit');
     this.route.parent.params
       .subscribe(
         (params: Params) => {

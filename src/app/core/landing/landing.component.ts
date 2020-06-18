@@ -13,6 +13,7 @@ import {Venue} from '../../shared/pos-models/venue.model';
 import {Licensee} from '../../shared/licensee.model';
 import {Subscription} from 'rxjs';
 import {LoginTypes} from '../../shared/data-services/constants.service';
+import {LogService} from '../../shared/log.service';
 
 @Component({
   selector: 'app-landing',
@@ -37,11 +38,12 @@ export class LandingComponent implements OnInit, OnDestroy {
               private resellerService: ResellerService,
               private resellerDataService: ResellerDataService,
               public  websession: SessionStorageService,
+              private log: LogService,
               private oidcSecurityService: OidcSecurityService) {
   }
 
   ngOnInit() {
-    console.log('LandingComponent onInit');
+    this.log.logTrace('LandingComponent onInit');
     this.session = this.sessionService;
     this.sessionService.resetSaveState();
     this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()
@@ -59,9 +61,9 @@ export class LandingComponent implements OnInit, OnDestroy {
     });
     if (this.sessionService.isUserAuthorized) {
       this.sessionService.LoginType = this.websession.get('LoginType');
-      console.log('Login Type:' + this.sessionService.LoginType);
+      this.log.logTrace('Login Type:' + this.sessionService.LoginType);
       if (this.sessionService.LoginType === LoginTypes.Distributor) {
-        console.log('HomeComponent Distributor Login');
+        this.log.logTrace('HomeComponent Distributor Login');
         this.resellerDataService.getResellerLicensees();
         this.resellerSubscription = this.resellerService.licenseesChanged
           .subscribe(
@@ -71,7 +73,7 @@ export class LandingComponent implements OnInit, OnDestroy {
           );
       }
       if (this.sessionService.LoginType === LoginTypes.Operator) {
-        console.log('HomeComponent Operator Login');
+        this.log.logTrace('HomeComponent Operator Login');
         this.licenseeDataService.getLicensee(this.session.LicenseeId);
         this.licenseeSubscription = this.licenseeService.licenseesChanged
           .subscribe(

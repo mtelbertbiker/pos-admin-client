@@ -6,6 +6,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {FormGroup} from '@angular/forms';
 import {Venue} from '../../../shared/pos-models/venue.model';
 import {VenueService} from '../../../venues/venue.service';
+import {LogService} from '../../../shared/log.service';
 
 @Component({
   selector: 'app-licensee-master-item',
@@ -19,11 +20,12 @@ export class LicenseeMasterItemComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private licenseeService: LicenseeService,
+              private log: LogService,
               private venueService: VenueService) {
   }
 
   ngOnInit() {
-    console.log('Licensee Master Item Component onInit');
+    this.log.logTrace('LicenseeMasterItemComponent onInit');
     this.route.params
       .subscribe(
         (params: Params) => {

@@ -3,6 +3,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {VenueService} from '../venue.service';
 import {FormGroup} from '@angular/forms';
 import {Venue} from '../../shared/pos-models/venue.model';
+import {LogService} from '../../shared/log.service';
 
 @Component({
   selector: 'app-venue-master-item',
@@ -51,10 +52,11 @@ export class VenueMasterItemComponent implements OnInit {
 
   constructor(private venueService: VenueService,
               private router: Router,
+              private log: LogService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log('Venue Master Item Component onInit');
+    this.log.logTrace('VenueMasterItemComponent onInit');
     this.route.params
       .subscribe(
         (params: Params) => {

@@ -6,6 +6,7 @@ import {RentalItem} from '../../../../shared/pos-models/rental-item.model';
 import {Venue} from '../../../../shared/pos-models/venue.model';
 import {VenueService} from '../../../../venues/venue.service';
 import {Floorplan} from '../../../../shared/pos-models/floorplan.model';
+import {LogService} from '../../../../shared/log.service';
 
 @Component({
   selector: 'app-floorplanlist-item',
@@ -19,11 +20,11 @@ export class FloorplanlistItemComponent implements OnInit {
   // rentalItem: RentalItem;
   venue: Venue;
 
-  constructor(private venueService: VenueService) { }
+  constructor(private venueService: VenueService, private log:LogService) { }
 
   ngOnInit() {
     this.venue = this.venueService.getVenue(this.vid);
-    console.log('FloorplanlistItemComponent - Init');
+    this.log.logTrace('FloorplanlistItemComponent - Init');
     /*
     const itemId = this.floorplanitem.ItemId;
     this.rentalItem = this.venue.RentalItems.find((function (ri: RentalItem) {

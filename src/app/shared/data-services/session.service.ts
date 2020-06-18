@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { UUID } from 'angular2-uuid';
 import {FormTypes, LoginTypes} from './constants.service';
 import {Observable} from 'rxjs';
+import {LogService} from '../log.service';
 
 @Injectable()
 export class SessionService {
@@ -38,7 +39,8 @@ export class SessionService {
 
   ClientId: string;
 
-  constructor(private cookieService: CookieService) {
+  constructor(private cookieService: CookieService,
+              private log: LogService) {
     this.ClientId = this.cookieService.get('FeeMachineClientId');
     if (this.ClientId.length === 0) {
       this.ClientId = UUID.UUID();
@@ -46,7 +48,7 @@ export class SessionService {
     }
   }
   setSaveState(formType: FormTypes, isValid: boolean, isChanged: boolean) {
-    console.log('SetSaveState ' + formType.valueOf().toString() + ' V: ' + isValid + ' C: ' + isChanged);
+    this.log.logTrace('SetSaveState ' + formType.valueOf().toString() + ' V: ' + isValid + ' C: ' + isChanged);
     if (this.ChangedItems.indexOf(formType.valueOf().toString()) === -1) {
       this.ChangedItems.push(formType.valueOf().toString());
     }

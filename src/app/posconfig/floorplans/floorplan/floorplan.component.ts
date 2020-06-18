@@ -7,6 +7,7 @@ import {VenueService} from '../../../venues/venue.service';
 import {FloorplanItem} from '../../../shared/pos-models/floorplan-item.model';
 import {FormTypes} from '../../../shared/data-services/constants.service';
 import {SessionService} from '../../../shared/data-services/session.service';
+import {LogService} from '../../../shared/log.service';
 
 @Component({
   selector: 'app-floorplan',
@@ -18,7 +19,7 @@ export class FloorplanComponent implements OnInit, OnChanges {
   @Input() venue: Venue;
   offset = { x: 0, y: 0 };
 
-  constructor(private sessionService: SessionService) {}
+  constructor(private sessionService: SessionService, private log: LogService) {}
 
   ngOnInit() {
     this.CheckFloorPlanPositionData();
@@ -41,7 +42,7 @@ export class FloorplanComponent implements OnInit, OnChanges {
     const index = event.source.data;
     this.floorplan.FloorplanItems[index].Position['x'] = this.offset.x;
     this.floorplan.FloorplanItems[index].Position['y'] = this.offset.y;
-    console.log('FloorplanList: New Position for ', index , this.offset);
+    this.log.logTrace('FloorplanList: New Position for ' + index + ' Offset '  + this.offset);
     this.sessionService.setSaveState(FormTypes.FloorPlans, true, true);
   }
 

@@ -5,6 +5,7 @@ import {Licensee} from '../../../shared/licensee.model';
 import {ActivatedRoute, Params} from '@angular/router';
 import {VenueService} from '../../../venues/venue.service';
 import {LicenseeService} from '../../../shared/licensee.service';
+import {LogService} from '../../../shared/log.service';
 
 @Component({
   selector: 'app-licensee-venues',
@@ -19,11 +20,12 @@ export class LicenseeVenuesComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private licenseeService: LicenseeService,
+              private log: LogService,
               private venueService: VenueService
   ) { }
 
   ngOnInit() {
-    console.log('Licensee Venues Component onInit');
+    this.log.logTrace('LicenseeVenuesComponent onInit');
     this.route.params
       .subscribe(
         (params: Params) => {

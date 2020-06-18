@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule, APP_INITIALIZER} from '@angular/core';
+import {NgModule, APP_INITIALIZER, ErrorHandler} from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
@@ -88,9 +88,10 @@ import {AngularWebStorageModule} from 'angular-web-storage';
 import { ContactusRequestSentComponent } from './core/contactus/contactus-request-sent/contactus-request-sent.component';
 import { CopyVenueModalComponent } from './venues/venue-detail/copy-venue-modal/copy-venue-modal.component';
 import { VenueReportsComponent } from './reports/venuereports/venuereports.component';
+import {ErrorHandlerService} from './shared/errorhandler.service';
+import {LogService} from './shared/log.service';
 
 export function loadConfig(oidcConfigService: OidcConfigService) {
-  console.log('APP_INITIALIZER STARTING');
   return () => oidcConfigService.load_using_custom_stsServer('https://login.microsoftonline.com/feemachines.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=b2c_1_susin');
 }
 
@@ -190,6 +191,7 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     LicenseeService,
     CookieService,
     OidcConfigService,
+    { provide: ErrorHandler, useClass: ErrorHandlerService },
     {
       provide: APP_INITIALIZER,
       useFactory: loadConfig,
@@ -201,8 +203,9 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
 })
 export class AppModule {
   constructor(private oidcSecurityService: OidcSecurityService,
+              private log: LogService,
               private oidcConfigService: OidcConfigService) {
-    console.log('Fee Machine Starting...');
+    this.log.logTrace('Fee Machine Starting...');
 
     this.oidcConfigService.onConfigurationLoaded.subscribe(() => {
       const openIDImplicitFlowConfiguration = new OpenIDImplicitFlowConfiguration();
@@ -228,7 +231,7 @@ export class AppModule {
       authWellKnownEndpoints.setWellKnownEndpoints(this.oidcConfigService.wellKnownEndpoints);
 
       this.oidcSecurityService.setupModule(openIDImplicitFlowConfiguration, authWellKnownEndpoints);
-      console.log('Exiting AppModule constructor');
+      this.log.logTrace('Exiting AppModule constructor');
 
     });
   }

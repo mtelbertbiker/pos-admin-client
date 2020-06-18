@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {LogService} from '../../../shared/log.service';
 
 @Component({
   selector: 'app-contactus-request-sent-modal',
@@ -17,10 +18,10 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class ContactusRequestSentComponent implements OnInit {
 
-  constructor(public modal: NgbActiveModal) { }
+  constructor(public modal: NgbActiveModal, private log: LogService) { }
 
   ngOnInit() {
-    console.log('Contact Us Request Sent Modal Component onInit');
+    this.log.logTrace('ContactusRequestSentComponent onInit');
   }
 
 }

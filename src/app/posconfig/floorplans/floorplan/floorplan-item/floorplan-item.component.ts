@@ -3,6 +3,7 @@ import {FloorplanItem} from '../../../../shared/pos-models/floorplan-item.model'
 import {RentalItem} from '../../../../shared/pos-models/rental-item.model';
 import {Venue} from '../../../../shared/pos-models/venue.model';
 import {VenueService} from '../../../../venues/venue.service';
+import {LogService} from '../../../../shared/log.service';
 
 @Component({
   selector: 'app-floorplan-item',
@@ -15,14 +16,14 @@ export class FloorplanItemComponent implements OnInit {
   rentalItem: RentalItem;
 
 
-  constructor(private venueService: VenueService) { }
+  constructor(private venueService: VenueService, private log: LogService) { }
 
   ngOnInit() {
     const itemId = this.floorplanitem.ItemId;
     this.rentalItem = this.venue.RentalItems.find((function (ri: RentalItem) {
       return ri.RId === itemId;
     }));
-    console.log('FloorplanItemComponent init: ' +
+    this.log.logTrace('FloorplanItemComponent init: ' +
       this.rentalItem.Name + ' x:' +
       this.floorplanitem.Position['x'] + ' y:' +
       this.floorplanitem.Position['y']);
