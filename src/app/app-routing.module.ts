@@ -25,6 +25,8 @@ import {FloorplanItemComponent} from './posconfig/floorplans/floorplan/floorplan
 import {FloorplanlistItemComponent} from './posconfig/floorplans/floorplan-list/floorplanlist-item/floorplanlist-item.component';
 import {FloorplanlistItemDetailComponent} from './posconfig/floorplans/floorplan-list/floorplanlist-item-detail/floorplanlist-item-detail.component';
 import {VenueReportsComponent} from './reports/venuereports/venuereports.component';
+import {UnauthorizedComponent} from './core/unauthorized/unauthorized.component';
+import {ForbiddenComponent} from './core/forbidden/forbidden.component';
 
 const appRoutes: Routes = [
   {
@@ -32,6 +34,8 @@ const appRoutes: Routes = [
       {path: '', component: LandingComponent},
       {path: 'contact', component: ContactusComponent},
       {path: 'product', component: ProductsComponent},
+      {path: 'unauthorized', component: UnauthorizedComponent},
+      {path: 'forbidden', component: ForbiddenComponent}
     ]
   },
   {path: 'home', component: HomeComponent},

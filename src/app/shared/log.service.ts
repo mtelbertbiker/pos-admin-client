@@ -19,7 +19,7 @@ export class LogService {
   }
 
   logPageView(name?: string, url?: string) { // option to call manually
-    console.log('PageView:' + name + 'url:' + url);
+    console.log('PAGEVIEW:' + name + '; URL:' + url);
     this.appInsights.trackPageView({
       name: name,
       uri: url
@@ -28,9 +28,9 @@ export class LogService {
 
   logEvent(name: string, properties?: { [key: string]: any }) {
     if (properties) {
-      console.log('Event:' + name + '; PROPERTIES:' + Object.entries(properties));
+      console.log('EVENT:' + name + '; PROPERTIES:' + Object.entries(properties));
     } else {
-      console.log('Event:' + name);
+      console.log('EVENT:' + name);
     }
     this.appInsights.trackEvent({name: name}, properties);
   }

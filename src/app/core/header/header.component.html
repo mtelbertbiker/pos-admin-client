@@ -32,6 +32,7 @@
                   *ngIf="this.sessionService.isUserAuthorized && session.ResellerId == 0 && this.licensees != null"
                   (click)="showLicenseeLocations()">Admin</button>
         </li>
+        <!--
         <li class="list-inline-item">
           <div ngbDropdown *ngIf="!this.sessionService.isUserAuthorized" class="d-inline-block">
             <button class="btn btn-info" id="dropdownLogin" ngbDropdownToggle>Sign-up/Login</button>
@@ -40,12 +41,16 @@
             </div>
           </div>
         </li>
+        -->
+        <li class="list-inline-item">
+          <button class="btn btn-info sign-in" *ngIf="!this.sessionService.isUserAuthorized" (click)="operatorSignIn()">Sign In</button>
+        </li>
         <li class="list-inline-item">
           <button class="btn btn-info edit-profile" disabled *ngIf="this.sessionService.isUserAuthorized">Edit Profile</button>
         </li>
         <li class="list-inline-item"><label class="" *ngIf="this.sessionService.isUserAuthorized">{{this.sessionService.UserName}}</label></li>
         <li class="list-inline-item">
-          <button class="btn btn-info sign-out" *ngIf="this.sessionService.isUserAuthorized" (click)="signOut()">Logout</button>
+          <button class="btn btn-info sign-out" *ngIf="this.sessionService.isUserAuthorized" (click)="signOut()">Sign Out</button>
         </li>
       </ul>
     </div>

@@ -253,6 +253,13 @@
           </table>
         </ng-template>
       </ngb-tab>
+      <ngb-tab *ngIf="this.sessionService.isUserAuthorized">
+        <ng-template ngbTabTitle>Download</ng-template>
+        <ng-template ngbTabContent>
+          <p>Download the Fee Machine POS solution here <b><a href="https://fmprod1storage.blob.core.windows.net/app/MPos.Droid-Signed.apk">Fee Machine POS (Android)</a></b>. Use this link only from an Android Tablet.</p>
+          <p>System Requirements:  Android Tablet running version 7.1 or higher.    Not recommended for Android Phones.</p>
+        </ng-template>
+      </ngb-tab>
       <ngb-tab title="Wireless Light Control">
         <ng-template ngbTabContent>
           <p><img src="../../../assets/images/Lightsmall.png" alt="" style="float: left"><b>Wireless Light Control</b>
@@ -295,7 +302,7 @@
       <ngb-tab title="For Distributors">
         <ng-template ngbTabContent>
           <div class="row">
-            <div class="col-sm-10">
+            <div class="col-sm-9">
               <p>Fee Machine was designed to be distributed and supported by POS Resellers.<br><br>
                 Fee Machine’s cloud portal gives the Reseller the ability to manage all their licensees from anywhere
                 and
@@ -303,9 +310,9 @@
                 If you are a POS Reseller looking to expand your customer base AND enhance monthly revenue by providing
                 value added services to your customers, please contact us about opportunities in your market area.</p>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
               <div *ngIf="!this.sessionService.isUserAuthorized">
-                <button class="btn btn-info" (click)="distributorSignIn()">Distributor Login</button>
+                <button class="btn btn-info" (click)="distributorSignIn()">Distributor Sign In</button>
               </div>
             </div>
           </div>

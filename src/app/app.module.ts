@@ -90,6 +90,8 @@ import { CopyVenueModalComponent } from './venues/venue-detail/copy-venue-modal/
 import { VenueReportsComponent } from './reports/venuereports/venuereports.component';
 import {ErrorHandlerService} from './shared/errorhandler.service';
 import {LogService} from './shared/log.service';
+import { UnauthorizedComponent } from './core/unauthorized/unauthorized.component';
+import { ForbiddenComponent } from './core/forbidden/forbidden.component';
 
 export function loadConfig(oidcConfigService: OidcConfigService) {
   return () => oidcConfigService.load_using_custom_stsServer('https://login.microsoftonline.com/feemachines.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=b2c_1_susin');
@@ -161,6 +163,8 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     CopyVenueModalComponent,
     VenueReportsComponent,
     VenueReportsComponent,
+    UnauthorizedComponent,
+    ForbiddenComponent,
   ],
   imports: [
     BrowserModule,
@@ -219,8 +223,8 @@ export class AppModule {
       openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'http://localhost:65328';
 //      openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'http://feemachine.com';
       openIDImplicitFlowConfiguration.post_login_route = '';
-      openIDImplicitFlowConfiguration.forbidden_route = '/';
-      openIDImplicitFlowConfiguration.unauthorized_route = '/';
+      openIDImplicitFlowConfiguration.forbidden_route = 'forbidden';
+      openIDImplicitFlowConfiguration.unauthorized_route = 'unauthorized';
       openIDImplicitFlowConfiguration.auto_userinfo = false;
       openIDImplicitFlowConfiguration.log_console_warning_active = true;
       openIDImplicitFlowConfiguration.log_console_debug_active = !environment.production;

@@ -37,6 +37,7 @@ export class ContactusComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.log.logPageView('CONTACT');
     this.initForm();
     this.subscription = this.contactForm.valueChanges.subscribe(
       (value) => {
@@ -88,6 +89,7 @@ export class ContactusComponent implements OnInit {
     };
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
+    this.log.logEvent('CONTACTUS', contactUs);
     this.http.post(this.consts.ContactUsLogicAppUri,
       contactUs,
       { headers: headers }).subscribe({
