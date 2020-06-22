@@ -5,16 +5,16 @@ export class ConstantsService {
   // *******************************
   // Local Testing
   // *******************************
-   BaseUri = 'https://localhost';
-   AdminBaseUri = this.BaseUri + ':44318/api';
-   FeeCalcBaseUri = this.BaseUri + ':44318/FeeCalc';  // Connect to Fee Calc API via Web Admin API
-   ReportsUri = 'https://localhost:44318/api/reports';
+  // BaseUri = 'https://localhost';
+  // AdminBaseUri = this.BaseUri + ':44318/api';
+  // FeeCalcBaseUri = this.BaseUri + ':44318/FeeCalc';  // Connect to Fee Calc API via Web Admin API
+  // ReportsUri = 'https://localhost:44318/api/reports';
   // *******************************
   // Cloud
   // *******************************
-  // AdminBaseUri = 'https://fm-posadminprod1.azurewebsites.net/api';
-  // FeeCalcBaseUri = 'https://fm-posadminprod1.azurewebsites.net/FeeCalc';
-  // ReportsUri = 'https://fm-posadminprod1.azurewebsites.net/api/reports';
+  AdminBaseUri = 'https://fm-posadminprod1.azurewebsites.net/api';
+  FeeCalcBaseUri = 'https://fm-posadminprod1.azurewebsites.net/FeeCalc';
+  ReportsUri = 'https://fm-posadminprod1.azurewebsites.net/api/reports';
   // ******************************
   AdminLicenseeLocationsUri = '/Locations/LicenseeLocations/';
   AdminLocationsUri = '/Locations/';
