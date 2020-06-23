@@ -3,6 +3,8 @@ import {NgbDate, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ItemUsageViewerComponent} from './itemusageviewer/itemusageviewer.component';
 import {TransactiondetailviewerComponent} from './transactiondetailviewer/transactiondetailviewer.component';
+import {LogService} from '../../shared/log.service';
+
 
 @Component({
   selector: 'app-venuereports',
@@ -18,7 +20,7 @@ export class VenueReportsComponent implements OnInit {
   @ViewChild(ItemUsageViewerComponent, {read: false, static: false}) itemUsageReport: ItemUsageViewerComponent;
   @ViewChild(TransactiondetailviewerComponent, {read: false, static: false}) transDetailReport: TransactiondetailviewerComponent;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private log: LogService) { }
 
   ngOnInit() {
     const today = new Date();
@@ -32,6 +34,7 @@ export class VenueReportsComponent implements OnInit {
   }
 
   refreshReport() {
+    this.log.logTrace('Refresh Report: ' + this.reportName + 'Begin: ' + this.beginDateTime + '; End: ' + this.endDateTime);
     if (this.reportName === 'RentalItemUsageReport1') {
       this.itemUsageReport.doReportRefresh();
     }
