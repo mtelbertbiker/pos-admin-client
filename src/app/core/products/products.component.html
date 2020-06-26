@@ -256,9 +256,16 @@
       <ngb-tab *ngIf="this.sessionService.isUserAuthorized">
         <ng-template ngbTabTitle>Download</ng-template>
         <ng-template ngbTabContent>
-          <p>Download the Fee Machine POS solution here: <b><a href="https://fmprod1storage.blob.core.windows.net/app/FeeMachine.FeeMachine.apk">Fee Machine POS (Android)</a></b>. Use this link only from an Android Tablet.</p>
+          <br>
+          <p>Download the Fee Machine POS solution here: <b><a
+            href="https://fmprod1storage.blob.core.windows.net/app/FeeMachine.apk">Fee Machine POS
+            (Android)</a></b>. Use this link from an Android Tablet.</p>
           <br>
           <p><b>System Requirements:</b> Android Tablet running version 7.1 or higher.</p>
+          <p><b>Note:</b> Fee Machine is not distributed thru the Google Play App store. Your device will not recognize
+            the source. <i>This is normal.</i> You will be asked to allow apps to be installed from unknown sources. Several
+            pop-ups may occur
+            during the installation process asking your permission to install the app.</p>
           <br>
         </ng-template>
       </ngb-tab>
