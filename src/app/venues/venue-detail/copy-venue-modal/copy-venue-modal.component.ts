@@ -24,6 +24,7 @@ export class CopyVenueModalComponent implements OnInit {
   venue: Venue;
   fromVenue: Venue;
   toLicId: number;
+  toBId: number;
   toLId: number;
   toVenue: Venue;
   venues: Venue[];
@@ -46,11 +47,12 @@ export class CopyVenueModalComponent implements OnInit {
     this.log.logTrace('CopyVenueModalComponent onInit');
     this.index = this.sessionService.getCurrentVenueIndex();
     this.venue = this.venueService.getVenue(this.index);
-    this.venues = this.venueService.getVenues();
     if (this.sessionService.ResellerId > 0) {
+      this.venues = this.resellerService.getLocations();
       this.resellerVenuesList = this.resellerService.getResellerLocationNamesAndIds();
+    } else {
+      this.venues = this.venueService.getVenues();
     }
-    this.toVenue = null;
     this.initForm();
     this.subscription = this.copyVenueForm.valueChanges.subscribe(
       (value) => {
@@ -210,15 +212,18 @@ export class CopyVenueModalComponent implements OnInit {
         const target = targetVenue.split('/');
         this.toLId = +target[1];
         this.toLicId = +target[0];
+        this.toVenue = this.venues.find(x => x.LId === +this.toLId && x.LicId === +this.toLicId);
+        this.toBId = this.toVenue.BId;
       } else {
         this.toVenue = this.venues.find(x => x.LId === +targetVenue);
+        this.toBId = this.toVenue.BId;
         this.toLId = this.toVenue.LId;
         this.toLicId = this.toVenue.LicId;
       }
     } else {
-      this.toVenue = null;
-      this.toLId = 0;
-      this.toLicId = 0;
+     // this.toVenue = null;
+     // this.toLId = 0;
+     // this.toLicId = 0;
     }
   }
 
@@ -273,9 +278,7 @@ export class CopyVenueModalComponent implements OnInit {
 
   copyFromTo() {
     const LId = this.toVenue.LId;
-    //
-    // Need to set a Temp Fee Group Id for each Fee Group and Rental Item Fee Group
-    //
+    this.log.logTrace('copyFromTo - Rental Item Fee Groups');
     this.fromVenue.FeeGroups.forEach(feeGroup => {
       feeGroup.TempFGId = UUID.UUID();
     });
@@ -287,23 +290,29 @@ export class CopyVenueModalComponent implements OnInit {
         }
       });
     });
+    this.log.logTrace('copyFromTo - Fee Groups');
     this.fromVenue.FeeGroups.forEach(feeGroup => {
       feeGroup.LId = LId;
       feeGroup.FGID = 0;
-      feeGroup.Fees.forEach(fee => {
-        fee.LId = LId;
-        fee.FGID = 0;
-        this.sessionService.setSaveState(FormTypes.Fees, true, true);
-      });
+      if (feeGroup.Fees != null) {
+        feeGroup.Fees.forEach(fee => {
+          fee.LId = LId;
+          fee.FGID = 0;
+          this.sessionService.setSaveState(FormTypes.Fees, true, true);
+        });
+      }
       this.toVenue.FeeGroups.push(feeGroup);
       this.sessionService.setSaveState(FormTypes.FeeGroups, true, true);
     });
+    this.log.logTrace('copyFromTo - Rental Items');
     this.fromVenue.RentalItems.forEach(rentalItem => {
       rentalItem.LId = LId;
       rentalItem.RId = 0;
-      rentalItem.RentalItemFeeGroups.forEach(rifg => {
-        rifg.RId = 0;
-      });
+      if (rentalItem.RentalItemFeeGroups != null) {
+        rentalItem.RentalItemFeeGroups.forEach(rifg => {
+          rifg.RId = 0;
+        });
+      }
       this.toVenue.RentalItems.push(rentalItem);
       this.sessionService.setSaveState(FormTypes.Rentals, true, true);
     });
@@ -314,7 +323,7 @@ export class CopyVenueModalComponent implements OnInit {
     let licIndex = 0;
     if (totalSelected > 0) {
       if (this.toLicId !== this.venue.LicId) {
-        this.venueDataService.getVenuesPromise(this.toLicId).then(() => {
+        this.venueDataService.getVenuesPromise(this.toLicId, this.toBId).then(() => {
             this.venues = this.venueService.getVenues();
             this.toVenue = this.venues.find(x => x.LId === this.toLId);
           licIndex = this.resellerService.getIndexForLicensee(this.toLicId);
@@ -324,7 +333,7 @@ export class CopyVenueModalComponent implements OnInit {
           }
         );
       } else {
-        this.toVenue = this.venues.find(x => x.LId === this.toLId);
+        // this.toVenue = this.venues.find(x => x.LId === this.toLId);
         this.completeCopy(licIndex);
       }
     } else {
@@ -338,7 +347,7 @@ export class CopyVenueModalComponent implements OnInit {
     for (let i = 0; i < this.venues.length; i++) {
       if (this.venues[i].LId === this.toVenue.LId) {
         this.toVenue.HasVenueDetail = true;
-        this.router.navigate(['licensee/' + licIndex + /locations/ + i + '/detail']);
+        this.router.navigate(['licensee/' + licIndex + /locations/ + i]);
       }
     }
   }

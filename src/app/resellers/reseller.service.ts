@@ -24,11 +24,20 @@ export class ResellerService {
 
   setLicensees(licensees: Licensee[]) {
     this.licensees = licensees;
+    this.setLocations();
     this.licenseesChanged.next(this.licensees.slice());
   }
 
-  setCurrrentLocations(venues: Venue[]) {
-    this.venues = venues;
+  setLocations() {
+    this.licensees.forEach((currLicensee) => {
+      currLicensee.Brands.forEach((currBrand) => {
+        if (currBrand.Locations != null) {
+          currBrand.Locations.forEach((currVenue) => {
+            this.venues.push(currVenue);
+          });
+        }
+      });
+    });
     this.venuesChanged.next(this.venues.slice());
   }
 
@@ -40,19 +49,21 @@ export class ResellerService {
     const allResellerVenuesList = [];
     this.licensees.forEach((currLicensee) => {
       currLicensee.Brands.forEach((currBrand) => {
-        currBrand.Locations.forEach((currVenue) => {
-          const licId = currLicensee.LicId;
-          const licName = currLicensee.Name;
-          const name = currVenue.Name;
-          const lId = currVenue.LId;
-          const venueData = {
-            LicId: licId,
-            LicName: licName,
-            Name: name,
-            LId: lId
-          };
-          allResellerVenuesList.push((venueData));
-        });
+        if (currBrand.Locations != null) {
+          currBrand.Locations.forEach((currVenue) => {
+            const licId = currLicensee.LicId;
+            const licName = currLicensee.Name;
+            const name = currVenue.Name;
+            const lId = currVenue.LId;
+            const venueData = {
+              LicId: licId,
+              LicName: licName,
+              Name: name,
+              LId: lId
+            };
+            allResellerVenuesList.push((venueData));
+          });
+        }
       });
     });
     return allResellerVenuesList;

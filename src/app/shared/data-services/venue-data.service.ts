@@ -48,15 +48,19 @@ export class VenueDataService {
       );
   }
 
-  getVenuesPromise(licId: number) {
+  getVenuesPromise(licId: number, brandId = 0) {
     const token = this.oidcSecurityService.getToken();
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${token}`)
       .set('ClientId', this.session.ClientId);
+    let targetBrandId = brandId;
+    if (brandId === 0) {
+      targetBrandId = this.session.getBrandId();
+    }
     const apiUrl = this.consts.AdminBaseUri +
       this.consts.AdminLicenseeLocationsUri +
       licId + '/' +
-      this.session.getBrandId();
+      targetBrandId;
     this.log.logTrace('getVenuesPromise:' + apiUrl);
     return this.http.get(apiUrl, {headers: headers})
       .toPromise().then(response => {

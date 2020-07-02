@@ -45,6 +45,7 @@ const appRoutes: Routes = [
       {path: 'detail', component: LicenseeItemDetailComponent},
       {
         path: 'locations/:vid', component: VenueMasterItemComponent, children: [
+          {path: '', component: VenueDetailComponent},
           {path: 'detail', component: VenueDetailComponent},
           {
             path: 'rentals', component: RentalListComponent, children: [
