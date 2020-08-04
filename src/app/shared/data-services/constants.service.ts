@@ -5,16 +5,18 @@ export class ConstantsService {
   // *******************************
   // Local Testing
   // *******************************
-  // BaseUri = 'https://localhost';
-  // AdminBaseUri = this.BaseUri + ':44318/api';
-  // FeeCalcBaseUri = this.BaseUri + ':44318/FeeCalc';  // Connect to Fee Calc API via Web Admin API
+  BaseUri = 'https://localhost';
+  AdminBaseUri = this.BaseUri + ':44318/api';
+  FeeCalcBaseUri = this.BaseUri + ':44318/FeeCalc';  // Connect to Fee Calc API via Web Admin API
+  ReportsUri = this.AdminBaseUri + '/reports';
+  BillingUri = this.AdminBaseUri + '/billing';
   // ReportsUri = 'https://localhost:44318/api/reports';
   // *******************************
   // Cloud
   // *******************************
-  AdminBaseUri = 'https://fm-posadminprod1.azurewebsites.net/api';
-  FeeCalcBaseUri = 'https://fm-posadminprod1.azurewebsites.net/FeeCalc';
-  ReportsUri = 'https://fm-posadminprod1.azurewebsites.net/api/reports';
+  // AdminBaseUri = 'https://fm-posadminprod1.azurewebsites.net/api';
+  // FeeCalcBaseUri = 'https://fm-posadminprod1.azurewebsites.net/FeeCalc';
+  // ReportsUri = 'https://fm-posadminprod1.azurewebsites.net/api/reports';
   // ******************************
   AdminLicenseeLocationsUri = '/Locations/LicenseeLocations/';
   AdminLocationsUri = '/Locations/';
@@ -25,6 +27,33 @@ export class ConstantsService {
   ContactUsLogicAppUri = 'https://prod-28.southcentralus.logic.azure.com:443/workflows/eadeab8822764e1d99c6ca39bb78b720/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=MKD1ouh-wyhfo4QRTrnXLtCVI_W02sRAuFBv4dP6Ca0';
 
   MaxUsers = 199;
+
+  AvailableProducts = [
+    {
+      StripeProductId: 'prod_HbSwHgJz6T7SCm',
+      Name: 'Basic Edition',
+      Desc: 'Core Features needed for small/standalone rental operations - no internet / wireless needed',
+      StripePriceId: 'price_1H2cIdGOAuP3gw61nhlxqDyf',
+      Price: '50.00',
+      DisplayOrder: 1
+    },
+    {
+      StripeProductId: 'prod_HbpykW4dp7OUOd',
+      Name: 'Brewery Edition',
+      Desc: 'Adds features and support needed for larger operators',
+      StripePriceId: 'price_1H2cIdGOAuP3gw61nhlxqDyf',
+      Price: '75.00',
+      DisplayOrder: 2
+    },
+    {
+      StripeProductId: 'prod_HbSy08aOoPphIM',
+      Name: 'Billiard Edition',
+      Desc: 'Full Featured solution designed for Billiard Hall Operators',
+      StripePriceId: 'price_1H2G29GOAuP3gw61OuvlE1RU',
+      Price: '100.00',
+      DisplayOrder: 3
+    },
+  ];
 
   SupportedRentalTypes = [
     {

@@ -7,6 +7,7 @@ import {FormGroup} from '@angular/forms';
 import {Venue} from '../../../shared/pos-models/venue.model';
 import {VenueService} from '../../../venues/venue.service';
 import {LogService} from '../../../shared/log.service';
+import {StripeService} from '../../../shared/data-services/stripe.service';
 
 @Component({
   selector: 'app-licensee-master-item',
@@ -21,6 +22,7 @@ export class LicenseeMasterItemComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private licenseeService: LicenseeService,
               private log: LogService,
+              private stripeService: StripeService,
               private venueService: VenueService) {
   }
 

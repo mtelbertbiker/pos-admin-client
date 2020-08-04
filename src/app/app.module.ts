@@ -68,7 +68,7 @@ import {TransactiondetailviewerComponent} from './reports/venuereports/transacti
 import {LicenseeMasterItemComponent} from './posconfig/licensees/licensee-master-item/licensee-master-item.component';
 import {LicenseeMasterItemNavigationComponent} from './posconfig/licensees/licensee-master-item/licensee-master-item-navigation/licensee-master-item-navigation.component';
 import {LicenseeUserListComponent} from './posconfig/licensees/licensee-user-list/licensee-user-list.component';
-import {LicenseeBillingMasterItemComponent} from './posconfig/licensees/licensee-billing-master-item/licensee-billing-master-item.component';
+import {LicenseeBillingMasterItemComponent} from './posconfig/licensees/billing/licensee-billing-master-item/licensee-billing-master-item.component';
 import {LicenseeVenuesComponent} from './posconfig/licensees/licensee-venues/licensee-venues.component';
 import {VenueMasterItemComponent} from './venues/venue-master-item/venue-master-item.component';
 import {ContactusComponent} from './core/contactus/contactus.component';
@@ -92,6 +92,9 @@ import {ErrorHandlerService} from './shared/errorhandler.service';
 import {LogService} from './shared/log.service';
 import { UnauthorizedComponent } from './core/unauthorized/unauthorized.component';
 import { ForbiddenComponent } from './core/forbidden/forbidden.component';
+import {loadStripe} from '@stripe/stripe-js/pure';
+import { LicenseePricingComponent } from './posconfig/licensees/billing/licensee-pricing/licensee-pricing.component';
+import { LicenseePaymentComponent } from './posconfig/licensees/billing/licensee-payment/licensee-payment.component';
 
 export function loadConfig(oidcConfigService: OidcConfigService) {
   return () => oidcConfigService.load_using_custom_stsServer('https://login.microsoftonline.com/feemachines.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=b2c_1_susin');
@@ -165,6 +168,8 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     VenueReportsComponent,
     UnauthorizedComponent,
     ForbiddenComponent,
+    LicenseePricingComponent,
+    LicenseePaymentComponent,
   ],
   imports: [
     BrowserModule,
@@ -214,8 +219,8 @@ export class AppModule {
     this.oidcConfigService.onConfigurationLoaded.subscribe(() => {
       const openIDImplicitFlowConfiguration = new OpenIDImplicitFlowConfiguration();
       openIDImplicitFlowConfiguration.stsServer = 'https://login.microsoftonline.com/tfp/feemachines.onmicrosoft.com/b2c_1_susin/oauth2/v2.0/';
-      // openIDImplicitFlowConfiguration.redirect_url = 'http://localhost:65328/redirect.html';   // Use for local debugging
-      openIDImplicitFlowConfiguration.redirect_url = 'https://www.feemachine.com/redirect.html'; // Use for Production
+      openIDImplicitFlowConfiguration.redirect_url = 'http://localhost:65328/redirect.html';   // Use for local debugging
+      // openIDImplicitFlowConfiguration.redirect_url = 'https://www.feemachine.com/redirect.html'; // Use for Production
       openIDImplicitFlowConfiguration.client_id = 'e0795570-377a-4064-8678-246db4734c21';
       //      openIDImplicitFlowConfiguration.client_id = 'eb3fb956-a476-4329-99ca-0666bec47d65';
       openIDImplicitFlowConfiguration.response_type = 'id_token token';

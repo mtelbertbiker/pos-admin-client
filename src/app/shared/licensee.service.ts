@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {Licensee} from './licensee.model';
 
@@ -8,7 +8,8 @@ export class LicenseeService {
   licenseesChanged = new Subject<Licensee[]>();
   private licensees: Licensee[] = [];
 
-  constructor() { }
+  constructor() {
+  }
 
   getLicensees() {
     return this.licensees.slice();
@@ -27,15 +28,28 @@ export class LicenseeService {
     this.licenseesChanged.next(this.licensees.slice());
     return this.licensees.length - 1;
   }
+
   setLicensees(theseLicensees: Licensee[]) {
     this.licensees = theseLicensees;
     this.licenseesChanged.next(this.licensees.slice());
   }
+
   getLicensee(index: number) {
     return this.licensees[index];
   }
 
   getLicenseeById(licId: number) {
-    return this.licensees.find( l => l.LicId === licId);
+    return this.licensees.find(l => l.LicId === licId);
+  }
+
+  getBillableCount(licId: number) {
+    const lic = this.licensees.find(l => l.LicId === licId);
+    let count = 0;
+    lic.Brands.forEach(brand => {
+      brand.Locations.forEach(loc => {
+        count = count + 1;
+      });
+    });
+    return count;
   }
 }

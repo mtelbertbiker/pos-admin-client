@@ -1,0 +1,39 @@
+<form id="prices-form" class="sr-payment-summary">
+  <table [style.background]="backgroundColor">
+    <tr>
+      <td>
+        <div class="row">
+          <div [style.background]="backgroundColor" class="col col-sm-4 border"
+               *ngFor="let product of constants.AvailableProducts">
+            <div class="row justify-content-center">
+              <div class="col col-sm-auto"><span><b>{{product.Name}}</b></span></div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col col-sm-auto"><span><b>${{product.Price}}/mo</b></span></div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col col-sm-auto"><p class="text-center">{{product.Desc}}</p></div>
+            </div>
+            <div *ngIf="selectedProductId==product.StripeProductId" class="row justify-content-center">
+              <div class="col col-sm-auto"><b>Locations</b></div>
+            </div>
+            <div *ngIf="selectedProductId==product.StripeProductId" class="row justify-content-center">
+              <button type="button" class="btn btn-primary col-sm-2" (click)="onRemoveLocation()">-</button>
+              <span class="align-middle">&nbsp;&nbsp;<b>{{selectedLocations}}&nbsp;&nbsp;</b></span>
+              <button type="button" class="btn  btn-primary col-sm-2" (click)="onAddLocation()">+</button>
+            </div>
+            <div class="row"><p></p></div>
+            <div class="row justify-content-center">
+              <button type="button" class="btn btn-primary" *ngIf="selectedProductId==product.StripeProductId">Selected
+              </button>
+              <button type="button" class="btn btn-secondary" *ngIf="selectedProductId!=product.StripeProductId"
+                      (click)="onSelectProduct(product.StripeProductId, product.StripePriceId)">
+                Select
+              </button>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+</form>

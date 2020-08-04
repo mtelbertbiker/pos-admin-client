@@ -14,7 +14,7 @@ import {LicenseeItemDetailComponent} from './posconfig/licensees/licensee-item-d
 import {RedirectComponent} from './redirect/redirect/redirect.component';
 import {LicenseeMasterItemComponent} from './posconfig/licensees/licensee-master-item/licensee-master-item.component';
 import {LicenseeUserListComponent} from './posconfig/licensees/licensee-user-list/licensee-user-list.component';
-import {LicenseeBillingMasterItemComponent} from './posconfig/licensees/licensee-billing-master-item/licensee-billing-master-item.component';
+import {LicenseeBillingMasterItemComponent} from './posconfig/licensees/billing/licensee-billing-master-item/licensee-billing-master-item.component';
 import {VenueMasterItemComponent} from './venues/venue-master-item/venue-master-item.component';
 import {ProductsComponent} from './core/products/products.component';
 import {ContactusComponent} from './core/contactus/contactus.component';

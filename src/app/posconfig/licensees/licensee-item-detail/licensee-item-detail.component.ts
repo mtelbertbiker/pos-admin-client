@@ -27,14 +27,15 @@ export class LicenseeItemDetailComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private sessionService: SessionService,
               private log: LogService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.log.logTrace('LicenseeItemDetailComponent onInit');
     this.route.parent.params
       .subscribe(
         (params: Params) => {
-          this.index =  +params['id'];
+          this.index = +params['id'];
           this.licensee = this.licenseeService.getLicensee(this.index);
           this.initForm();
           this.subscription = this.licenseeItemDetailForm.valueChanges.subscribe(
@@ -102,8 +103,8 @@ export class LicenseeItemDetailComponent implements OnInit, OnDestroy {
     this.sessionService.setLicensee(this.licensee);
   }
 
-ngOnDestroy() {
-  this.subscription.unsubscribe();
-}
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
 }
