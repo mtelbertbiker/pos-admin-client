@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {StripeService} from '../../../../shared/data-services/stripe.service';
 import {LogService} from '../../../../shared/log.service';
 
@@ -13,6 +13,16 @@ export class LicenseePaymentComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('LicenseePaymentComponent onInit');
+    this.stripeService.createCustomer()
+      .then(result => {
+        console.log('Retrieved Stripe Customer detail For Licensee:' + result.customer.LicId);
+        this.stripeService.stripeCustomerId = result.customer.StripeBilling.StripeCustomerId;
+        this.setupCardElement();
+      });
+  }
+
+  setupCardElement() {
     if (document.getElementById('card-element')) {
 
       // Card Element styles
@@ -52,7 +62,26 @@ export class LicenseePaymentComponent implements OnInit {
           displayError.textContent = '';
         }
       });
+    }
+  }
 
+  onPaymentSubscribe() {
+    console.log('onPaymentSubscribe');
+    // If a previous payment was attempted, get the latest invoice
+    const latestInvoicePaymentIntentStatus = localStorage.getItem(
+      'latestInvoicePaymentIntentStatus'
+    );
+    if (latestInvoicePaymentIntentStatus === 'requires_payment_method') {
+      const invoiceId = localStorage.getItem('latestInvoiceId');
+      const isPaymentRetry = true;
+      // create new payment method & retry payment on invoice with new payment method
+      this.stripeService.createPaymentMethod({
+        isPaymentRetry,
+        invoiceId,
+      });
+    } else {
+      // create new payment method & create subscription
+      this.stripeService.createPaymentMethod({isPaymentRetry: false, invoiceId: undefined});
     }
 
   }

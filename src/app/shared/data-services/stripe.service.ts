@@ -1,7 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {loadStripe} from '@stripe/stripe-js';
 import {LogService} from '../log.service';
 import {ConstantsService} from './constants.service';
+import {StripeProduct} from '../pos-models/stripe-product.model';
+import {Licensee} from '../licensee.model';
+import {OidcSecurityService} from 'angular-auth-oidc-client';
+import {SessionService} from './session.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,21 +17,31 @@ export class StripeService {
   elements: any;
   card: any;
 
-  seats: number;
-  productId: string;
-  priceId: string;
+  stripeCustomerId: string;
 
-  constructor(private log: LogService, public constants: ConstantsService) {
+  stripeProducts: StripeProduct[];
+  selectedProduct: StripeProduct;
+  licensee: Licensee;
+
+  seats: number;
+  totalPrice: number;
+
+  constructor(private log: LogService,
+              public constants: ConstantsService,
+              private oidcSecurityService: OidcSecurityService,
+              private session: SessionService) {
     this.getConfig();
   }
 
   getConfig() {
     this.log.logTrace('Stripe Service - getConfig');
-   // return fetch('https://localhost:44318/api/Billing/Config', {
+    const token = this.oidcSecurityService.getToken();
     return fetch(this.constants.BillingUri + '/config', {
       method: 'get',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+        'ClientId': this.session.ClientId
       },
     })
       .then((response) => {
@@ -85,59 +99,59 @@ export class StripeService {
         this.displayError(event);
       });*/
 
-      const signupForm = document.getElementById('signup-form');
-      if (signupForm) {
-        signupForm.addEventListener('submit', (evt) => {
-          evt.preventDefault();
-          this.changeLoadingState(true);
-          // Create customer
-          this.createCustomer().then((result) => {
-            const customer = result.customer;
-            window.location.href = '/prices.html?customerId=' + customer.id;
-          });
+    const signupForm = document.getElementById('signup-form');
+    if (signupForm) {
+      signupForm.addEventListener('submit', (evt) => {
+        evt.preventDefault();
+        this.changeLoadingState(true);
+        // Create customer
+        this.createCustomer().then((result) => {
+          const customer = result.customer;
+          window.location.href = '/prices.html?customerId=' + customer.id;
         });
-      }
-
-      const paymentForm = document.getElementById('payment-form');
-      if (paymentForm) {
-        paymentForm.addEventListener('submit', (evt) => {
-          evt.preventDefault();
-          this.changeLoadingStateprices(true);
-
-          // If a previous payment was attempted, get the lastest invoice
-          const latestInvoicePaymentIntentStatus = localStorage.getItem(
-            'latestInvoicePaymentIntentStatus'
-          );
-
-          let invoiceId = undefined;
-          let isPaymentRetry = false;
-          if (latestInvoicePaymentIntentStatus === 'requires_payment_method') {
-            invoiceId = localStorage.getItem('latestInvoiceId');
-            isPaymentRetry = true;
-            // create new payment method & retry payment on invoice with new payment method
-            this.createPaymentMethod({
-              card: this.card,
-              isPaymentRetry,
-              invoiceId,
-            });
-          } else {
-            // create new payment method & create subscription
-            this.createPaymentMethod({card: this.card, isPaymentRetry, invoiceId});
-          }
-        });
-      }
+      });
     }
 
-  createCustomer() {
-    const billingEmail = document.querySelector('#email').nodeValue;
+    const paymentForm = document.getElementById('payment-form');
+    if (paymentForm) {
+      paymentForm.addEventListener('submit', (evt) => {
+        evt.preventDefault();
+        this.changeLoadingStateprices(true);
 
-    return fetch('/create-customer', {
+        // If a previous payment was attempted, get the lastest invoice
+        const latestInvoicePaymentIntentStatus = localStorage.getItem(
+          'latestInvoicePaymentIntentStatus'
+        );
+
+        let invoiceId = undefined;
+        let isPaymentRetry = false;
+        if (latestInvoicePaymentIntentStatus === 'requires_payment_method') {
+          invoiceId = localStorage.getItem('latestInvoiceId');
+          isPaymentRetry = true;
+          // create new payment method & retry payment on invoice with new payment method
+          this.createPaymentMethod({
+            isPaymentRetry,
+            invoiceId,
+          });
+        } else {
+          // create new payment method & create subscription
+          this.createPaymentMethod({isPaymentRetry, invoiceId});
+        }
+      });
+    }
+  }
+
+  createCustomer() {
+    const token = this.oidcSecurityService.getToken();
+    return fetch(this.constants.BillingUri + '/createcustomer', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+        'ClientId': this.session.ClientId
       },
       body: JSON.stringify({
-        email: billingEmail,
+        licId: this.licensee.LicId,
       }),
     })
       .then((response) => {
@@ -148,18 +162,18 @@ export class StripeService {
       });
   }
 
-  createPaymentMethod({card, isPaymentRetry, invoiceId}) {
+  createPaymentMethod({isPaymentRetry, invoiceId}) {
     const params = new URLSearchParams(document.location.search.substring(1));
-    const customerId = params.get('customerId');
+    const customerId = this.stripeCustomerId;
     // Set up payment method for recurring usage
     const billingName = document.querySelector('#name').nodeValue;
 
-    const priceId = document.getElementById('priceId').innerHTML.toUpperCase();
+    const priceId = this.selectedProduct.StripePriceId.toUpperCase();
 
     this.stripe
       .createPaymentMethod({
         type: 'card',
-        card: card,
+        card: this.card,
         billing_details: {
           name: billingName,
         },
@@ -185,57 +199,60 @@ export class StripeService {
   }
 
   createSubscription(customerId, paymentMethodId, priceId) {
-    return (
-      fetch('/create-subscription', {
-        method: 'post',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          customerId: customerId,
+    const token = this.oidcSecurityService.getToken();
+    return fetch(this.constants.BillingUri + '/createsubscription', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+        'ClientId': this.session.ClientId
+      },
+      body: JSON.stringify({
+        licId: this.licensee.LicId,
+        customerId: customerId,
+        paymentMethodId: paymentMethodId,
+        priceId: priceId,
+        productId: this.selectedProduct.StripeProductId
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      // If the card is declined, display an error to the user.
+      .then((result) => {
+        if (result.error) {
+          // The card had an error when trying to attach it to a customer
+          throw result;
+        }
+        return result;
+      })
+      // Normalize the result to contain the object returned
+      // by Stripe. Add the addional details we need.
+      .then((result) => {
+        return {
+          // Use the Stripe 'object' property on the
+          // returned result to understand what object is returned.
+          subscription: result,
           paymentMethodId: paymentMethodId,
           priceId: priceId,
-        }),
+        };
       })
-        .then((response) => {
-          return response.json();
-        })
-        // If the card is declined, display an error to the user.
-        .then((result) => {
-          if (result.error) {
-            // The card had an error when trying to attach it to a customer
-            throw result;
-          }
-          return result;
-        })
-        // Normalize the result to contain the object returned
-        // by Stripe. Add the addional details we need.
-        .then((result) => {
-          return {
-            // Use the Stripe 'object' property on the
-            // returned result to understand what object is returned.
-            subscription: result,
-            paymentMethodId: paymentMethodId,
-            priceId: priceId,
-          };
-        })
-        // Some payment methods require a customer to do additional
-        // authentication with their financial institution.
-        // Eg: 2FA for cards.
-        .then(this.handleCardSetupRequired)
-        .then(this.handlePaymentThatRequiresCustomerAction)
-        // If attaching this card to a Customer object succeeds,
-        // but attempts to charge the customer fail. You will
-        // get a requires_payment_method error.
-        .then(this.handleRequiresPaymentMethod)
-        // No more actions required. Provision your service for the user.
-        .then(this.onSubscriptionComplete)
-        .catch((error) => {
-          // An error has happened. Display the failure to the user here.
-          // We utilize the HTML element we created.
-          this.displayError(error);
-        })
-    );
+      // Some payment methods require a customer to do additional
+      // authentication with their financial institution.
+      // Eg: 2FA for cards.
+      .then(this.handleCardSetupRequired)
+      .then(this.handlePaymentThatRequiresCustomerAction)
+      // If attaching this card to a Customer object succeeds,
+      // but attempts to charge the customer fail. You will
+      // get a requires_payment_method error.
+      .then(this.handleRequiresPaymentMethod)
+      // No more actions required. Provision your service for the user.
+      .then(this.onSubscriptionComplete)
+      .catch((error) => {
+        // An error has happened. Display the failure to the user here.
+        // We utilize the HTML element we created.
+        this.displayError(error);
+      });
   }
 
   handleCardSetupRequired({

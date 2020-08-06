@@ -1,17 +1,17 @@
 <div id="payment-form" class="flex justify-center">
   <div class="w-full inline-block border p-4 rounded-md">
-    <span id="priceId" hidden></span>
-    <span id="subscription-quantity" hidden></span>
+    <span id="priceId" hidden>{{stripeService.selectedProduct.StripePriceId}}</span>
+    <span id="subscription-quantity" hidden>{{stripeService.seats}}</span>
 
     <div class="font-bold text-xl mb-2">
       Enter your card details. <br/>Your subscription will start now.
     </div>
     <p class="text-gray-700 text-base mb-2">
-      → Subscription: <br/>
-      <span id="description"></span>
+      → Subscription:
+      <span id="description">{{stripeService.seats}} x {{stripeService.selectedProduct.Name}} (at {{stripeService.selectedProduct.Price | currency}} / month): {{stripeService.totalPrice | currency}}</span>
     </p>
     <p class="text-gray-700 text-base mb-2 mt-2">
-      → Total due now: <span id="total-due-now">$0.00</span>
+      → Total due now: <span id="total-due-now"><b>{{stripeService.totalPrice | currency}}</b></span>
     </p>
     <div class="w-full">
       <div class="flex flex-wrap -mx-3 mb-2">
@@ -54,7 +54,7 @@
         <button
           id="submit-premium"
           class="w-full bg-pasha hover:bg-white hover:shadow-outline hover:text-pasha hover:border hover:border-black focus:shadow-outline text-white focus:bg-white focus:text-pasha font-light py-2 px-4 rounded-md"
-          type="submit"
+          type="submit" (click)="onPaymentSubscribe()"
         >
           <div class="">
             <div id="loading" class="hidden">Subscribing...</div>

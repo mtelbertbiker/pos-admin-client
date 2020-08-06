@@ -28,33 +28,6 @@ export class ConstantsService {
 
   MaxUsers = 199;
 
-  AvailableProducts = [
-    {
-      StripeProductId: 'prod_HbSwHgJz6T7SCm',
-      Name: 'Basic Edition',
-      Desc: 'Core Features needed for small/standalone rental operations - no internet / wireless needed',
-      StripePriceId: 'price_1H2cIdGOAuP3gw61nhlxqDyf',
-      Price: '50.00',
-      DisplayOrder: 1
-    },
-    {
-      StripeProductId: 'prod_HbpykW4dp7OUOd',
-      Name: 'Brewery Edition',
-      Desc: 'Adds features and support needed for larger operators',
-      StripePriceId: 'price_1H2cIdGOAuP3gw61nhlxqDyf',
-      Price: '75.00',
-      DisplayOrder: 2
-    },
-    {
-      StripeProductId: 'prod_HbSy08aOoPphIM',
-      Name: 'Billiard Edition',
-      Desc: 'Full Featured solution designed for Billiard Hall Operators',
-      StripePriceId: 'price_1H2G29GOAuP3gw61OuvlE1RU',
-      Price: '100.00',
-      DisplayOrder: 3
-    },
-  ];
-
   SupportedRentalTypes = [
     {
       Id: 1,

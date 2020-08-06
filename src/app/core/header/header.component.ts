@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.errorCode = this.sessionService.Error.status.toString();
         }
         if (this.errorCode === '401') { // Unauthorized
-          this.error = 'Please Login';
+          this.error = 'Please Sign In';
           this.sessionService.isUserAuthorized = false;
         } else {
           if ('message' in this.sessionService.Error) {
