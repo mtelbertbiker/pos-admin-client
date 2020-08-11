@@ -18,7 +18,9 @@ export class LicenseePricingComponent implements OnInit {
 
   ngOnInit() {
     this.stripeService.seats = this.selectedLocations;
-    this.selectedProductId = this.stripeService.selectedProduct.StripeProductId;
+    if (this.stripeService.selectedProduct) {
+      this.selectedProductId = this.stripeService.selectedProduct.StripeProductId;
+    }
     this.updateSeats();
     this.updatePrice();
   }
@@ -45,7 +47,9 @@ export class LicenseePricingComponent implements OnInit {
   }
 
   updatePrice() {
-    this.stripeService.totalPrice = this.stripeService.seats * this.stripeService.selectedProduct.Price;
+    if (this.stripeService.selectedProduct) {
+      this.stripeService.totalPrice = this.stripeService.seats * this.stripeService.selectedProduct.Price;
+    }
   }
 
   updateSeats() {

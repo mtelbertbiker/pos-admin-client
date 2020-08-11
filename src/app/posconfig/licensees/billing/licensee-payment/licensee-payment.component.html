@@ -1,12 +1,12 @@
 <div id="payment-form" class="flex justify-center">
   <div class="w-full inline-block border p-4 rounded-md">
-    <span id="priceId" hidden>{{stripeService.selectedProduct.StripePriceId}}</span>
+    <span id="priceId"  *ngIf="stripeService.selectedProduct" hidden>{{stripeService.selectedProduct.StripePriceId}}</span>
     <span id="subscription-quantity" hidden>{{stripeService.seats}}</span>
 
     <div class="font-bold text-xl mb-2">
       Enter your card details. <br/>Your subscription will start now.
     </div>
-    <p class="text-gray-700 text-base mb-2">
+    <p class="text-gray-700 text-base mb-2" *ngIf="stripeService.selectedProduct">
       → Subscription:
       <span id="description">{{stripeService.seats}} x {{stripeService.selectedProduct.Name}} (at {{stripeService.selectedProduct.Price | currency}} / month): {{stripeService.totalPrice | currency}}</span>
     </p>

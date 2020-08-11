@@ -212,6 +212,7 @@ export class StripeService {
         customerId: customerId,
         paymentMethodId: paymentMethodId,
         priceId: priceId,
+        qty: this.seats,
         productId: this.selectedProduct.StripeProductId
       }),
     })
@@ -494,6 +495,10 @@ export class StripeService {
           .classList.remove('invisible');
       }
     }
+  }
+
+  getStripeProducts(): StripeProduct[] {
+    return this.licensee.StripeProducts;
   }
 
   clearCache() {

@@ -1,6 +1,9 @@
 import {Brand} from './brand.model';
 import {Venue} from './pos-models/venue.model';
 import {LicenseeUser} from './licensee-user.model';
+import {StripeProduct} from './pos-models/stripe-product.model';
+import {StripeBilling} from './pos-models/stripe-billing.model';
+
 export class Licensee {
   constructor(public LicId: number,
               public Name: string,
@@ -21,5 +24,8 @@ export class Licensee {
               public LicenseeUsers: LicenseeUser[],
               public ResellerId: number,
               public Disabled: boolean,
+              public StripeBilling: StripeBilling,
+              public StripeProducts: StripeProduct[],
               public UpdatedUtc: string) {}
+
 }

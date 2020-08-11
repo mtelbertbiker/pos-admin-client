@@ -88,7 +88,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onAddLicensee() {
-    const newLicensee = new Licensee(0, 'New Licensee', '', '', '', '', '', '', '', '', '', '', '', '', [], [], [], 0, false, '');
+    const newLicensee = new Licensee(0, 'New Licensee', '', '', '', '', '', '', '', '', '', '', '', '', [], [], [], 0, false, null,[], '');
     newLicensee.Email = this.sessionService.Email;
     newLicensee.ResellerId = this.sessionService.ResellerId;
     const index = this.licenseeService.addLicensee(newLicensee);
