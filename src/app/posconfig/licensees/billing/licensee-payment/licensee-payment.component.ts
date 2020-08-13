@@ -18,7 +18,10 @@ export class LicenseePaymentComponent implements OnInit {
       .then(result => {
         console.log('Retrieved Stripe Customer detail For Licensee:' + result.customer.LicId);
         this.stripeService.stripeCustomerId = result.customer.StripeBilling.StripeCustomerId;
-        this.setupCardElement();
+        this.stripeService.stripeSubscriptionId = result.customer.StripeBilling.StripeSubscriptionId;
+        if (!this.stripeService.stripeSubscriptionId) {
+          this.setupCardElement();
+        }
       });
   }
 

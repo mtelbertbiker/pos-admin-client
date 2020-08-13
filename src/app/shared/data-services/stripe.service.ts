@@ -18,6 +18,7 @@ export class StripeService {
   card: any;
 
   stripeCustomerId: string;
+  stripeSubscriptionId: string;
 
   stripeProducts: StripeProduct[];
   selectedProduct: StripeProduct;
@@ -192,7 +193,10 @@ export class StripeService {
             );
           } else {
             // Create the subscription
-            this.createSubscription(customerId, result.paymentMethod.id, priceId);
+            this.createSubscription(customerId, result.paymentMethod.id, priceId)
+              .then(resp => {
+                console.log('Subscription id:' + resp['subscription'].id);
+              });
           }
         }
       });
@@ -495,6 +499,35 @@ export class StripeService {
           .classList.remove('invisible');
       }
     }
+  }
+
+  cancelSubscription() {
+    const token = this.oidcSecurityService.getToken();
+    // this.changeLoadingStateprices(true);
+    // const params = new URLSearchParams(document.location.search.substring(1));
+    return fetch(this.constants.BillingUri + '/cancelsubscription', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+        'ClientId': this.session.ClientId
+      },
+      body: JSON.stringify({
+        subscriptionId: this.stripeSubscriptionId,
+        licId: this.licensee.LicId
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((cancelSubscriptionResponse) => {
+        return this.subscriptionCancelled(cancelSubscriptionResponse);
+      });
+  }
+
+  subscriptionCancelled(cancelSubscriptionResponse) {
+    document.querySelector('#subscription-cancelled').classList.remove('hidden');
+    document.querySelector('#subscription-settings').classList.add('hidden');
   }
 
   getStripeProducts(): StripeProduct[] {
