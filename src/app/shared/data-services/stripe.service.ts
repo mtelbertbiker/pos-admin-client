@@ -26,6 +26,8 @@ export class StripeService {
 
   seats: number;
   totalPrice: number;
+  cancelInProgress = false;
+  subscribeInProgress = false;
 
   constructor(private log: LogService,
               public constants: ConstantsService,
@@ -203,6 +205,7 @@ export class StripeService {
   }
 
   createSubscription(customerId, paymentMethodId, priceId) {
+    this.subscribeInProgress = true;
     const token = this.oidcSecurityService.getToken();
     return fetch(this.constants.BillingUri + '/createsubscription', {
       method: 'post',
@@ -234,6 +237,7 @@ export class StripeService {
       // Normalize the result to contain the object returned
       // by Stripe. Add the addional details we need.
       .then((result) => {
+        this.subscribeInProgress = false;
         return {
           // Use the Stripe 'object' property on the
           // returned result to understand what object is returned.
@@ -445,9 +449,12 @@ export class StripeService {
   }
 
   displayError(event) {
-    console.log('displayError');
+    console.log('displayError:' + JSON.stringify(event));
     this.changeLoadingStateprices(false);
     const displayError = document.getElementById('card-element-errors');
+    if (Object.keys(event).length === 0) {
+      return;
+    }
     if (event.error) {
       displayError.textContent = event.error.message;
     } else {
@@ -472,13 +479,14 @@ export class StripeService {
 
   // Show a spinner on subscription submission
   changeLoadingStateprices(isLoading) {
-    console.log('changeLoadingStateprices');
+    console.log('changeLoadingStateprices:' + isLoading);
+
     if (isLoading) {
       document.querySelector('#button-text').classList.add('hidden');
       document.querySelector('#loading').classList.remove('hidden');
 
-      document.querySelector('#submit-basic').classList.add('invisible');
-      document.querySelector('#submit-premium').classList.add('invisible');
+      // document.querySelector('#submit-basic').classList.add('invisible');
+      document.querySelector('#submit-premium').classList.add('invisible')
       if (document.getElementById('confirm-price-change-cancel')) {
         document
           .getElementById('confirm-price-change-cancel')
@@ -488,7 +496,7 @@ export class StripeService {
       document.querySelector('#button-text').classList.remove('hidden');
       document.querySelector('#loading').classList.add('hidden');
 
-      document.querySelector('#submit-basic').classList.remove('invisible');
+      // document.querySelector('#submit-basic').classList.remove('invisible');
       document.querySelector('#submit-premium').classList.remove('invisible');
       if (document.getElementById('confirm-price-change-cancel')) {
         document
@@ -502,6 +510,7 @@ export class StripeService {
   }
 
   cancelSubscription() {
+    this.cancelInProgress = true;
     const token = this.oidcSecurityService.getToken();
     // this.changeLoadingStateprices(true);
     // const params = new URLSearchParams(document.location.search.substring(1));
@@ -526,8 +535,12 @@ export class StripeService {
   }
 
   subscriptionCancelled(cancelSubscriptionResponse) {
-    document.querySelector('#subscription-cancelled').classList.remove('hidden');
-    document.querySelector('#subscription-settings').classList.add('hidden');
+    this.stripeSubscriptionId = undefined;
+    console.log('subscriptionCancelled');
+    this.cancelInProgress = false;
+    return true;
+    // document.querySelector('#subscription-cancelled').classList.remove('hidden');
+    // document.querySelector('#subscription-settings').classList.add('hidden');
   }
 
   getStripeProducts(): StripeProduct[] {

@@ -74,8 +74,18 @@
               <div class="">
                 <div id="loading" class="hidden">Subscribing...</div>
                 <span id="button-text" class="">Subscribe</span>
+                <span
+                  *ngIf="this.stripeService.subscribeInProgress" class="spinner-border spinner-border-sm" role="status"
+                  aria-hidden="true"></span>
               </div>
             </button>
+            <!--
+            <div class="row justify-content-center">
+              <button type="button" class="btn btn-primary" (click)="onPaymentSubscribe()">Subscribe <span
+                *ngIf="this.stripeService.subscribeInProgress" class="spinner-border spinner-border-sm" role="status"
+                aria-hidden="true"></span></button>
+            </div>
+            -->
           </form>
         </div>
       </div>
