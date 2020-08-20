@@ -166,6 +166,7 @@ export class StripeService {
   }
 
   createPaymentMethod({isPaymentRetry, invoiceId}) {
+    console.log('createPaymentMethod begin: ' + isPaymentRetry);
     const params = new URLSearchParams(document.location.search.substring(1));
     const customerId = this.stripeCustomerId;
     // Set up payment method for recurring usage
@@ -184,10 +185,11 @@ export class StripeService {
       .then((result) => {
         if (result.error) {
           this.displayError(result.error);
+          return undefined;
         } else {
           if (isPaymentRetry) {
             // Update the payment method and retry invoice payment
-            this.retryInvoiceWithNewPaymentMethod(
+            return this.retryInvoiceWithNewPaymentMethod(
               customerId,
               result.paymentMethod.id,
               invoiceId,
@@ -197,14 +199,17 @@ export class StripeService {
             // Create the subscription
             this.createSubscription(customerId, result.paymentMethod.id, priceId)
               .then(resp => {
-                console.log('Subscription id:' + resp['subscription'].id);
+                console.log('Subscription Created');
+                return resp;
               });
           }
         }
       });
+    return undefined;
   }
 
   createSubscription(customerId, paymentMethodId, priceId) {
+    console.log('createSubscription begin');
     this.subscribeInProgress = true;
     const token = this.oidcSecurityService.getToken();
     return fetch(this.constants.BillingUri + '/createsubscription', {
@@ -256,11 +261,15 @@ export class StripeService {
       // get a requires_payment_method error.
       .then(this.handleRequiresPaymentMethod)
       // No more actions required. Provision your service for the user.
-      .then(this.onSubscriptionComplete)
+ //     .then(this.onSubscriptionComplete)
+      .then((finalResult) => {
+        return this.onSubscriptionComplete(finalResult);
+      })
       .catch((error) => {
         // An error has happened. Display the failure to the user here.
         // We utilize the HTML element we created.
         this.displayError(error);
+        return undefined;
       });
   }
 
@@ -381,15 +390,19 @@ export class StripeService {
   }
 
   onSubscriptionComplete(result) {
-    console.log(result);
+    console.log('onSubscriptionComplete');
+    const id = result.subscription.id;
+    this.stripeSubscriptionId = id;
+    alert('Subscription ' + id + ' created');
     // Payment was successful. Provision access to your service.
     // Remove invoice from localstorage because payment is now complete.
     this.clearCache();
     // Change your UI to show a success message to your customer.
-    this.onSubscriptionComplete(result);
+    // this.onSubscriptionComplete(result);
     // Call your backend to grant access to your service based on
     // the product your customer subscribed to.
     // Get the product by using result.subscription.price.product
+    return result;
   }
 
 
@@ -464,7 +477,7 @@ export class StripeService {
 
   // Show a spinner on subscription submission
   changeLoadingState(isLoading) {
-    console.log('changeLoadingStateprices');
+    console.log('changeLoadingState');
     if (isLoading) {
       document.querySelector('#button-text').classList.add('hidden');
       document.querySelector('#loading').classList.remove('hidden');
@@ -474,6 +487,7 @@ export class StripeService {
       document.querySelector('#loading').classList.add('hidden');
       // document.querySelector('#signup-form button').disabled = false;
     }
+    console.log('changeLoadingState - exiting');
   }
 
 
@@ -507,6 +521,7 @@ export class StripeService {
           .classList.remove('invisible');
       }
     }
+    console.log('changeLoadingStateprices - exiting');
   }
 
   cancelSubscription() {
