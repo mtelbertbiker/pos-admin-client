@@ -94,8 +94,11 @@ import { ForbiddenComponent } from './core/forbidden/forbidden.component';
 import {loadStripe} from '@stripe/stripe-js/pure';
 import { LicenseePricingComponent } from './posconfig/licensees/billing/licensee-pricing/licensee-pricing.component';
 import { LicenseePaymentComponent } from './posconfig/licensees/billing/licensee-payment/licensee-payment.component';
-import {CancelSubscriptionModalComponent} from
-    './posconfig/licensees/billing/cancel-subscription-modal/cancel-subscription-modal.component';
+import {CancelSubscriptionModalComponent} from './posconfig/licensees/billing/cancel-subscription-modal/cancel-subscription-modal.component';
+import { SubscriptionCreatedModalComponent } from './posconfig/licensees/billing/subscription-created-modal/subscription-created-modal.component';
+import { SubscriptionCancelledModalComponent } from './posconfig/licensees/billing/subscription-cancelled-modal/subscription-cancelled-modal.component';
+import { UpdateSubscriptionModalComponent } from './posconfig/licensees/billing/update-subscription-modal/update-subscription-modal.component';
+import { SubscriptionUpdatedModalComponent } from './posconfig/licensees/billing/subscription-updated-modal/subscription-updated-modal.component';
 
 export function loadConfig(oidcConfigService: OidcConfigService) {
   return () => oidcConfigService.load_using_custom_stsServer(
@@ -108,7 +111,11 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     ContactusRequestSentComponent,
     LicenseeSaveCancelModalComponent,
     CopyVenueModalComponent,
-    CancelSubscriptionModalComponent
+    CancelSubscriptionModalComponent,
+    SubscriptionCreatedModalComponent,
+    SubscriptionCancelledModalComponent,
+    UpdateSubscriptionModalComponent,
+    SubscriptionUpdatedModalComponent
   ],
   declarations: [
     AppComponent,
@@ -174,6 +181,10 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     LicenseePricingComponent,
     LicenseePaymentComponent,
     CancelSubscriptionModalComponent,
+    SubscriptionCreatedModalComponent,
+    SubscriptionCancelledModalComponent,
+    UpdateSubscriptionModalComponent,
+    SubscriptionUpdatedModalComponent,
   ],
   imports: [
     BrowserModule,

@@ -6,11 +6,16 @@ import {StripeProduct} from '../pos-models/stripe-product.model';
 import {Licensee} from '../licensee.model';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {SessionService} from './session.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {SubscriptionCreatedModalComponent} from '../../posconfig/licensees/billing/subscription-created-modal/subscription-created-modal.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StripeService {
+  myModals = {
+    created: SubscriptionCreatedModalComponent
+  };
 
   stripePromise: any = null;
   stripe: any = null;
@@ -27,11 +32,14 @@ export class StripeService {
   seats: number;
   totalPrice: number;
   cancelInProgress = false;
+  updateInProgress = false;
+  canUpdate = false;
   subscribeInProgress = false;
 
   constructor(private log: LogService,
               public constants: ConstantsService,
               private oidcSecurityService: OidcSecurityService,
+              private modal: NgbModal,
               private session: SessionService) {
     this.getConfig();
   }
@@ -65,7 +73,7 @@ export class StripeService {
   }
 
   stripeElements() {
-
+    console.log('stripeElements- begin');
     /*
     if (document.getElementById('card-element')) {
       const elements = this.stripe.elements();
@@ -144,6 +152,34 @@ export class StripeService {
     }
   }
 
+  updateSubscription() {
+    this.updateInProgress = true;
+    const token = this.oidcSecurityService.getToken();
+      return fetch(this.constants.BillingUri + '/updatesubscription', {
+      method: 'post',
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+        'ClientId': this.session.ClientId
+      },
+      body: JSON.stringify({
+        licId: this.licensee.LicId,
+        subscriptionId: this.stripeSubscriptionId,
+        newProductId: this.selectedProduct.StripeProductId,
+        newPriceId: this.selectedProduct.StripePriceId,
+        newQty: this.seats,
+      }),
+    })
+      .then((response) => {
+        this.updateInProgress = false;
+        return response.json();
+      })
+      .then((response) => {
+        this.updateInProgress = false;
+        return response;
+      });
+  }
+
   createCustomer() {
     const token = this.oidcSecurityService.getToken();
     return fetch(this.constants.BillingUri + '/createcustomer', {
@@ -167,6 +203,7 @@ export class StripeService {
 
   createPaymentMethod({isPaymentRetry, invoiceId}) {
     console.log('createPaymentMethod begin: ' + isPaymentRetry);
+    this.changeLoadingState(true);
     const params = new URLSearchParams(document.location.search.substring(1));
     const customerId = this.stripeCustomerId;
     // Set up payment method for recurring usage
@@ -185,10 +222,12 @@ export class StripeService {
       .then((result) => {
         if (result.error) {
           this.displayError(result.error);
+          this.changeLoadingState(false);
           return undefined;
         } else {
           if (isPaymentRetry) {
             // Update the payment method and retry invoice payment
+            this.changeLoadingState(false);
             return this.retryInvoiceWithNewPaymentMethod(
               customerId,
               result.paymentMethod.id,
@@ -200,6 +239,7 @@ export class StripeService {
             this.createSubscription(customerId, result.paymentMethod.id, priceId)
               .then(resp => {
                 console.log('Subscription Created');
+                this.changeLoadingState(false);
                 return resp;
               });
           }
@@ -233,7 +273,7 @@ export class StripeService {
       })
       // If the card is declined, display an error to the user.
       .then((result) => {
-        if (result.error) {
+        if (result.Message) {
           // The card had an error when trying to attach it to a customer
           throw result;
         }
@@ -261,7 +301,7 @@ export class StripeService {
       // get a requires_payment_method error.
       .then(this.handleRequiresPaymentMethod)
       // No more actions required. Provision your service for the user.
- //     .then(this.onSubscriptionComplete)
+      //     .then(this.onSubscriptionComplete)
       .then((finalResult) => {
         return this.onSubscriptionComplete(finalResult);
       })
@@ -269,7 +309,7 @@ export class StripeService {
         // An error has happened. Display the failure to the user here.
         // We utilize the HTML element we created.
         this.displayError(error);
-        return undefined;
+        return error;
       });
   }
 
@@ -279,6 +319,7 @@ export class StripeService {
                             priceId,
                             paymentMethodId
                           }) {
+    console.log('At handleCardSetupRequired');
     const setupIntent = subscription.pending_setup_intent;
 
     if (setupIntent && setupIntent.status === 'requires_action') {
@@ -319,6 +360,7 @@ export class StripeService {
                                             paymentMethodId,
                                             isRetry,
                                           }) {
+    console.log('At handlePaymentThatRequiresCustomerAction');
     // If it's a first payment attempt, the payment intent is on the subscription latest invoice.
     // If it's a retry, the payment intent will be on the invoice itself.
     const paymentIntent = invoice
@@ -368,6 +410,7 @@ export class StripeService {
                                 paymentMethodId,
                                 priceId,
                               }) {
+    console.log('At handleRequiresPaymentMethod');
     if (subscription.status === 'active') {
       // subscription is active, no customer actions required.
       return {subscription, priceId, paymentMethodId};
@@ -393,7 +436,9 @@ export class StripeService {
     console.log('onSubscriptionComplete');
     const id = result.subscription.id;
     this.stripeSubscriptionId = id;
-    alert('Subscription ' + id + ' created');
+    this.modal.open(this.myModals.created).result.then(() => {
+    }, (reason) => {
+    });
     // Payment was successful. Provision access to your service.
     // Remove invoice from localstorage because payment is now complete.
     this.clearCache();
@@ -468,14 +513,18 @@ export class StripeService {
     if (Object.keys(event).length === 0) {
       return;
     }
-    if (event.error) {
-      displayError.textContent = event.error.message;
+    if (event.Message) {
+      displayError.textContent = event.Message;
     } else {
-      displayError.textContent = '';
+      if (event.error) {
+        displayError.textContent = event.error.message;
+      } else {
+        displayError.textContent = '';
+      }
     }
   }
 
-  // Show a spinner on subscription submission
+// Show a spinner on subscription submission
   changeLoadingState(isLoading) {
     console.log('changeLoadingState');
     if (isLoading) {
@@ -491,7 +540,7 @@ export class StripeService {
   }
 
 
-  // Show a spinner on subscription submission
+// Show a spinner on subscription submission
   changeLoadingStateprices(isLoading) {
     console.log('changeLoadingStateprices:' + isLoading);
 
@@ -558,7 +607,9 @@ export class StripeService {
     // document.querySelector('#subscription-settings').classList.add('hidden');
   }
 
-  getStripeProducts(): StripeProduct[] {
+  getStripeProducts()
+    :
+    StripeProduct[] {
     return this.licensee.StripeProducts;
   }
 

@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {ConstantsService, FormTypes} from '../../../../shared/data-services/constants.service';
 import {StripeService} from '../../../../shared/data-services/stripe.service';
 import {ActivatedRoute, Params} from '@angular/router';
-import {Licensee} from '../../../../shared/licensee.model';
 import {LicenseeService} from '../../../../shared/licensee.service';
 import {SessionService} from '../../../../shared/data-services/session.service';
 import {LogService} from '../../../../shared/log.service';
-import {StripeProduct} from '../../../../shared/pos-models/stripe-product.model';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CancelSubscriptionModalComponent} from '../cancel-subscription-modal/cancel-subscription-modal.component';
+import {SubscriptionCancelledModalComponent} from '../subscription-cancelled-modal/subscription-cancelled-modal.component';
+import {UpdateSubscriptionModalComponent} from '../update-subscription-modal/update-subscription-modal.component';
+import {SubscriptionUpdatedModalComponent} from '../subscription-updated-modal/subscription-updated-modal.component';
 
 @Component({
   selector: 'app-licensee-billing-master-item',
@@ -19,7 +19,10 @@ export class LicenseeBillingMasterItemComponent implements OnInit {
   selectedLocations = 0;
   index: number;
   myModals = {
-    cancelConfirm: CancelSubscriptionModalComponent
+    cancelConfirm: CancelSubscriptionModalComponent,
+    cancelled: SubscriptionCancelledModalComponent,
+    updateConfirm: UpdateSubscriptionModalComponent,
+    updated: SubscriptionUpdatedModalComponent
   };
 
 
@@ -32,6 +35,7 @@ export class LicenseeBillingMasterItemComponent implements OnInit {
 
   ngOnInit() {
     this.log.logTrace('LicenseeBillingMasterItemComponent onInit');
+    this.stripeService.canUpdate = false;
     this.route.parent.params
       .subscribe(
         (params: Params) => {
@@ -55,6 +59,25 @@ export class LicenseeBillingMasterItemComponent implements OnInit {
         this.stripeService.cancelSubscription()
           .then((cancelResult) => {
             console.log('cancel result:' + cancelResult);
+            this.modal.open(this.myModals.cancelled).result.then(() => {
+            }, (reason) => {
+            });
+          });
+      }
+    }, (reason) => {
+    });
+  }
+
+  onUpdate() {
+    this.modal.open(this.myModals.updateConfirm).result.then((result) => {
+      if (result === 'Ok') {
+        console.log('Update Subscription requested');
+        this.stripeService.updateSubscription()
+          .then((updateResult) => {
+            console.log('update result:' + updateResult);
+            this.modal.open(this.myModals.updated).result.then(() => {
+            }, (reason) => {
+            });
           });
       }
     }, (reason) => {

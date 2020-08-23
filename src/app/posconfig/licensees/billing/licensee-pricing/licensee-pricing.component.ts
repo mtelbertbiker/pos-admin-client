@@ -28,6 +28,7 @@ export class LicenseePricingComponent implements OnInit {
   onRemoveLocation() {
     if (this.selectedLocations > 1) {
       this.selectedLocations = this.selectedLocations - 1;
+      this.stripeService.canUpdate = true;
     }
     this.updateSeats();
     this.updatePrice();
@@ -35,6 +36,7 @@ export class LicenseePricingComponent implements OnInit {
 
   onAddLocation() {
     this.selectedLocations = this.selectedLocations + 1;
+    this.stripeService.canUpdate = true;
     this.updateSeats();
     this.updatePrice();
   }
@@ -42,6 +44,7 @@ export class LicenseePricingComponent implements OnInit {
   onSelectProduct(productId) {
     this.selectedProductId = productId;
     this.stripeService.selectedProduct = this.stripeService.stripeProducts.find(p => p.StripeProductId === productId);
+    this.stripeService.canUpdate = true;
     this.updateSeats();
     this.updatePrice();
   }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {StripeService} from '../../../../shared/data-services/stripe.service';
 import {LogService} from '../../../../shared/log.service';
 
@@ -7,7 +7,7 @@ import {LogService} from '../../../../shared/log.service';
   templateUrl: './licensee-payment.component.html',
   styleUrls: ['../stripeglobal.css', '../normalize.css']
 })
-export class LicenseePaymentComponent implements OnInit {
+export class LicenseePaymentComponent implements OnInit, OnDestroy {
 
   constructor(private stripeService: StripeService, private log: LogService) {
   }
@@ -25,7 +25,15 @@ export class LicenseePaymentComponent implements OnInit {
       });
   }
 
+  ngOnDestroy(): void {
+    console.log('LicenseePaymentComponent - OnDestroy');
+    if (this.stripeService.card) {
+      this.stripeService.card.destroy('card');
+    }
+  }
+
   setupCardElement() {
+    console.log('setupCardElement');
     if (document.getElementById('card-element')) {
 
       // Card Element styles

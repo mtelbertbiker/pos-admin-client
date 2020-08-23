@@ -11,8 +11,12 @@
         <app-licensee-payment></app-licensee-payment>
       </div>
     </div>
+    <div class="row justify-content-center" *ngIf="stripeService.stripeSubscriptionId !== undefined && stripeService.stripeSubscriptionId && stripeService.canUpdate" >
+      <button type="button" class="btn btn-primary" (click)="onUpdate()">Update Subscription <span *ngIf="this.stripeService.updateInProgress" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+    </div>
+    <div class="row"><p> </p></div>
     <div class="row justify-content-center" *ngIf="stripeService.stripeSubscriptionId !== undefined && stripeService.stripeSubscriptionId" >
-      <button type="button" class="btn btn-primary" (click)="onCancel()">Cancel Subscription <span *ngIf="this.stripeService.cancelInProgress" class="spinner-border spinner-border-sm" role="status"
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel Subscription <span *ngIf="this.stripeService.cancelInProgress" class="spinner-border spinner-border-sm" role="status"
                                                                                                    aria-hidden="true"></span></button>
     </div>
   </div>
