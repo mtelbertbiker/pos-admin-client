@@ -30,6 +30,24 @@ export class VenueService {
     this.venuesChanged.next(this.venues.slice());
   }
 
+  getVenueCountForLicensee(licId: number) {
+    const venues = this.venues.filter(v => v.LicId === licId);
+    if (venues) {
+      return venues.length;
+    } else {
+      return 0;
+    }
+  }
+
+  getDisabledVenueCountForLicensee(licId: number) {
+    const venues = this.venues.filter(v => v.LicId === licId  && v.Disabled === true);
+    if (venues) {
+      return venues.length;
+    } else {
+      return 0;
+    }
+  }
+
   updateVenue(index: number, updatedVenue: Venue) {
     this.venues[index].Name = updatedVenue.Name;
     this.venues[index].Address1 = updatedVenue.Address1;

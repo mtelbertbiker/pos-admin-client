@@ -73,7 +73,7 @@ export class StripeService {
   }
 
   stripeElements() {
-    console.log('stripeElements- begin');
+    this.log.logTrace('stripeElements- begin');
     /*
     if (document.getElementById('card-element')) {
       const elements = this.stripe.elements();
@@ -153,6 +153,7 @@ export class StripeService {
   }
 
   updateSubscription() {
+    this.log.logTrace('Begin updateSubscription for LicId ' + this.licensee.LicId);
     this.updateInProgress = true;
     const token = this.oidcSecurityService.getToken();
       return fetch(this.constants.BillingUri + '/updatesubscription', {
@@ -181,6 +182,7 @@ export class StripeService {
   }
 
   createCustomer() {
+    this.log.logTrace('Begin createCustomer for LicId ' + this.licensee.LicId);
     const token = this.oidcSecurityService.getToken();
     return fetch(this.constants.BillingUri + '/createcustomer', {
       method: 'post',
@@ -202,7 +204,7 @@ export class StripeService {
   }
 
   createPaymentMethod({isPaymentRetry, invoiceId}) {
-    console.log('createPaymentMethod begin: ' + isPaymentRetry);
+    this.log.logTrace('Begin createPaymentMethod: ' + isPaymentRetry);
     this.changeLoadingState(true);
     const params = new URLSearchParams(document.location.search.substring(1));
     const customerId = this.stripeCustomerId;
@@ -238,7 +240,7 @@ export class StripeService {
             // Create the subscription
             this.createSubscription(customerId, result.paymentMethod.id, priceId)
               .then(resp => {
-                console.log('Subscription Created');
+                this.log.logTrace('Subscription Created');
                 this.changeLoadingState(false);
                 return resp;
               });
@@ -249,7 +251,7 @@ export class StripeService {
   }
 
   createSubscription(customerId, paymentMethodId, priceId) {
-    console.log('createSubscription begin');
+    this.log.logTrace('begin createSubscription for LicId ' + this.licensee.LicId);
     this.subscribeInProgress = true;
     const token = this.oidcSecurityService.getToken();
     return fetch(this.constants.BillingUri + '/createsubscription', {
@@ -319,7 +321,7 @@ export class StripeService {
                             priceId,
                             paymentMethodId
                           }) {
-    console.log('At handleCardSetupRequired');
+    this.log.logTrace('Begin handleCardSetupRequired for Subscription ' + subscription);
     const setupIntent = subscription.pending_setup_intent;
 
     if (setupIntent && setupIntent.status === 'requires_action') {
@@ -360,7 +362,7 @@ export class StripeService {
                                             paymentMethodId,
                                             isRetry,
                                           }) {
-    console.log('At handlePaymentThatRequiresCustomerAction');
+    this.log.logTrace('Begin handlePaymentThatRequiresCustomerAction for Subscription ' + subscription);
     // If it's a first payment attempt, the payment intent is on the subscription latest invoice.
     // If it's a retry, the payment intent will be on the invoice itself.
     const paymentIntent = invoice
@@ -410,7 +412,7 @@ export class StripeService {
                                 paymentMethodId,
                                 priceId,
                               }) {
-    console.log('At handleRequiresPaymentMethod');
+    this.log.logTrace('Begin handleRequiresPaymentMethod for Subscription ' + subscription);
     if (subscription.status === 'active') {
       // subscription is active, no customer actions required.
       return {subscription, priceId, paymentMethodId};
@@ -433,7 +435,7 @@ export class StripeService {
   }
 
   onSubscriptionComplete(result) {
-    console.log('onSubscriptionComplete');
+    this.log.logTrace('Begin onSubscriptionComplete for Subscription ' + result.subscription.id);
     const id = result.subscription.id;
     this.stripeSubscriptionId = id;
     this.modal.open(this.myModals.created).result.then(() => {
@@ -457,6 +459,7 @@ export class StripeService {
     invoiceId,
     priceId
   ) {
+    this.log.logTrace('Begin retryInvoiceWithNewPaymentMethod for Customer Id ' + customerId);
     return (
       fetch('/retry-invoice', {
         method: 'post',
@@ -507,7 +510,7 @@ export class StripeService {
   }
 
   displayError(event) {
-    console.log('displayError:' + JSON.stringify(event));
+    this.log.logTrace('displayError:' + JSON.stringify(event));
     this.changeLoadingStateprices(false);
     const displayError = document.getElementById('card-element-errors');
     if (Object.keys(event).length === 0) {
@@ -574,6 +577,7 @@ export class StripeService {
   }
 
   cancelSubscription() {
+    this.log.logTrace('Begin cancelSubscription for Licensee id ' + this.licensee.LicId);
     this.cancelInProgress = true;
     const token = this.oidcSecurityService.getToken();
     // this.changeLoadingStateprices(true);
@@ -599,6 +603,7 @@ export class StripeService {
   }
 
   subscriptionCancelled(cancelSubscriptionResponse) {
+    this.log.logTrace('Begin subscriptionCancelled for Licensee id ' + this.licensee.LicId);
     this.stripeSubscriptionId = undefined;
     console.log('subscriptionCancelled');
     this.cancelInProgress = false;
@@ -607,9 +612,7 @@ export class StripeService {
     // document.querySelector('#subscription-settings').classList.add('hidden');
   }
 
-  getStripeProducts()
-    :
-    StripeProduct[] {
+  getStripeProducts(): StripeProduct[] {
     return this.licensee.StripeProducts;
   }
 

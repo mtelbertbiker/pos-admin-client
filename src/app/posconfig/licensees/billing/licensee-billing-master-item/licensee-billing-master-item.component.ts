@@ -9,6 +9,8 @@ import {CancelSubscriptionModalComponent} from '../cancel-subscription-modal/can
 import {SubscriptionCancelledModalComponent} from '../subscription-cancelled-modal/subscription-cancelled-modal.component';
 import {UpdateSubscriptionModalComponent} from '../update-subscription-modal/update-subscription-modal.component';
 import {SubscriptionUpdatedModalComponent} from '../subscription-updated-modal/subscription-updated-modal.component';
+import {Venue} from '../../../../shared/pos-models/venue.model';
+import {VenueService} from '../../../../venues/venue.service';
 
 @Component({
   selector: 'app-licensee-billing-master-item',
@@ -30,6 +32,7 @@ export class LicenseeBillingMasterItemComponent implements OnInit {
               private route: ActivatedRoute,
               private sessionService: SessionService,
               private modal: NgbModal,
+              private venueService: VenueService,
               private log: LogService) {
   }
 
@@ -41,7 +44,7 @@ export class LicenseeBillingMasterItemComponent implements OnInit {
         (params: Params) => {
           this.index = +params['id'];
           this.stripeService.licensee = this.licenseeService.getLicensee(this.index);
-          this.selectedLocations = this.licenseeService.getBillableCount( this.stripeService.licensee.LicId);
+          this.selectedLocations = this.licenseeService.getBillableCount(this.stripeService.licensee.LicId);
           this.stripeService.stripeProducts = this.stripeService.getStripeProducts();
           if (this.stripeService.licensee.StripeBilling.StripeProductId) {
             this.stripeService.selectedProduct =
@@ -55,10 +58,10 @@ export class LicenseeBillingMasterItemComponent implements OnInit {
   onCancel() {
     this.modal.open(this.myModals.cancelConfirm).result.then((result) => {
       if (result === 'Ok') {
-        console.log('Cancel Subscription requested');
+        this.log.logTrace('Cancel Subscription requested');
         this.stripeService.cancelSubscription()
           .then((cancelResult) => {
-            console.log('cancel result:' + cancelResult);
+            this.log.logTrace('Cancel Subscription result:' + cancelResult);
             this.modal.open(this.myModals.cancelled).result.then(() => {
             }, (reason) => {
             });
@@ -71,10 +74,10 @@ export class LicenseeBillingMasterItemComponent implements OnInit {
   onUpdate() {
     this.modal.open(this.myModals.updateConfirm).result.then((result) => {
       if (result === 'Ok') {
-        console.log('Update Subscription requested');
+        this.log.logTrace('Update Subscription requested');
         this.stripeService.updateSubscription()
           .then((updateResult) => {
-            console.log('update result:' + updateResult);
+            this.log.logTrace('Update Subscription result:' + updateResult);
             this.modal.open(this.myModals.updated).result.then(() => {
             }, (reason) => {
             });
@@ -82,6 +85,10 @@ export class LicenseeBillingMasterItemComponent implements OnInit {
       }
     }, (reason) => {
     });
+  }
+
+  getVenueCount() {
+
   }
 
 }
