@@ -9,7 +9,7 @@ import {LogService} from '../../../../shared/log.service';
 })
 export class LicenseePaymentComponent implements OnInit, OnDestroy {
 
-  constructor(private stripeService: StripeService, private log: LogService) {
+  constructor(public stripeService: StripeService, private log: LogService) {
   }
 
   ngOnInit() {

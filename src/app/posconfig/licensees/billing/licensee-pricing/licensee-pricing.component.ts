@@ -14,7 +14,11 @@ export class LicenseePricingComponent implements OnInit {
 
 
   backgroundColor = '#e7e5e5';
-  constructor(public constants: ConstantsService, private stripeService: StripeService, private log: LogService) { }
+
+  constructor(public constants: ConstantsService,
+              public stripeService: StripeService,
+              private log: LogService) {
+  }
 
   ngOnInit() {
     this.stripeService.seats = this.selectedLocations;
