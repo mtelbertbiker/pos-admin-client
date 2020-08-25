@@ -61,7 +61,7 @@ export class LicenseeItemDetailComponent implements OnInit, OnDestroy {
     const contactLastName = this.licensee.ContactLastName;
     const email = this.licensee.Email;
     const website = this.licensee.Website;
-    const disabled = !this.licensee.Disabled;
+    const enabled = !this.licensee.Disabled;
     this.licenseeItemDetailForm = new FormGroup(
       {
         'Name': new FormControl(name, Validators.required),
@@ -75,7 +75,7 @@ export class LicenseeItemDetailComponent implements OnInit, OnDestroy {
         'ContactFirstName': new FormControl(contactFirstName, Validators.required),
         'ContactLastName': new FormControl(contactLastName, Validators.required),
         'Email': new FormControl(email, [Validators.required, Validators.email]),
-        'Disabled': new FormControl(disabled),
+        'Enabled': new FormControl(enabled),
         'Website': new FormControl(website),
       }
     );
@@ -98,7 +98,11 @@ export class LicenseeItemDetailComponent implements OnInit, OnDestroy {
     this.licensee.ContactLastName = updatedLicensee.ContactLastName;
     this.licensee.Email = updatedLicensee.Email;
     this.licensee.Website = updatedLicensee.Website;
-    this.licensee.Disabled = !updatedLicensee.Disabled;
+    if (updatedLicensee['Enabled']) {
+      this.licensee.Disabled = false;
+    } else {
+      this.licensee.Disabled = true;
+    }
     this.licensee.UpdatedUtc = new Date().toDateString();
     this.sessionService.setLicensee(this.licensee);
   }

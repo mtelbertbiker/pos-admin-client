@@ -37,8 +37,6 @@
           <label class="form-check-label" for="Enabled"><input
             type="checkbox"
             id="Enabled"
-            [checked]="!venue.Disabled"
-            (change)="venue.Disabled=!venue.Disabled"
             formControlName="Enabled"> Enabled
             <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
                     ngbTooltip="Enables application at site.  Not billed unless enabled.">?

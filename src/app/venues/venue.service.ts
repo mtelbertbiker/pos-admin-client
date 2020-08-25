@@ -58,7 +58,11 @@ export class VenueService {
     this.venues[index].Phone1 = updatedVenue.Phone1;
     this.venues[index].Phone2 = updatedVenue.Phone2;
     this.venues[index].POSTypeId = updatedVenue.POSTypeId;
-    this.venues[index].Disabled = updatedVenue.Disabled;
+    if (updatedVenue['Enabled']) {
+      this.venues[index].Disabled = false
+    } else {
+      this.venues[index].Disabled = true
+    }
     this.venues[index].LightControlEnabled = updatedVenue.LightControlEnabled;
     this.venues[index].Memo = updatedVenue.Memo;
     this.venues[index].Website = updatedVenue.Website;

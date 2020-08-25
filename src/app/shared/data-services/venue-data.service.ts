@@ -96,7 +96,7 @@ export class VenueDataService {
       'Memo': venue.Memo,
       'POSTypeId': venue.POSTypeId,
       'LightControlEnabled': venue.LightControlEnabled,
-      'Disabled': !venue.Disabled
+      'Disabled': venue.Disabled
     };
     const token = this.oidcSecurityService.getToken();
     const headers = new HttpHeaders()
