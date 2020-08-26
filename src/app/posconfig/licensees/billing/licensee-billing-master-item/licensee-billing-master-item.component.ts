@@ -47,7 +47,7 @@ export class LicenseeBillingMasterItemComponent implements OnInit {
           this.stripeService.licensee = this.licenseeService.getLicensee(this.index);
           this.selectedLocations = this.licenseeService.getBillableCount(this.stripeService.licensee.LicId);
           this.stripeService.stripeProducts = this.stripeService.getStripeProducts();
-          if (this.stripeService.licensee.StripeBilling.StripeProductId) {
+          if (this.stripeService.licensee.StripeBilling && this.stripeService.licensee.StripeBilling.StripeProductId) {
             this.stripeService.selectedProduct =
               this.stripeService.stripeProducts.find(x => x.StripeProductId ===
                 this.stripeService.licensee.StripeBilling.StripeProductId);

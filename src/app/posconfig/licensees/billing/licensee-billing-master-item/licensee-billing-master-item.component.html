@@ -6,13 +6,13 @@
               ngbTooltip="Select your subscription level, number of billable locations, and specify your Payment Method">?</button>
     </div>
     <div>
-      <h6>You currently have {{venueService.getVenueCountForLicensee(stripeService.licensee.LicId)}} Locations defined
-        <span
+      <h6>You currently have {{venueService.getVenueCountForLicensee(stripeService.licensee.LicId)}} Locations defined<span
           *ngIf="venueService.getDisabledVenueCountForLicensee(stripeService.licensee.LicId) > 0"
-        >, {{venueService.getDisabledVenueCountForLicensee(stripeService.licensee.LicId)}} of which are disabled.</span></h6>
+        >, {{venueService.getDisabledVenueCountForLicensee(stripeService.licensee.LicId)}} of which are disabled</span>
+        <span *ngIf="stripeService.licensee?.StripeBilling?.StripeQty"> and {{stripeService.licensee.StripeBilling.StripeQty}} are being billed.</span></h6>
     </div>
   </div>
-  <div class="card-body">
+  <div class="card-body" *ngIf="sessionService.ResellerId === 0">
     <div class="row">
       <div class="col-sm-12">
         <app-licensee-pricing [selectedLocations]="selectedLocations"></app-licensee-pricing>
@@ -27,5 +27,9 @@
       <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel Subscription <span *ngIf="this.stripeService.cancelInProgress" class="spinner-border spinner-border-sm" role="status"
                                                                                                    aria-hidden="true"></span></button>
     </div>
+  </div>
+  <div *ngIf="sessionService.ResellerId > 0">
+    <h5 *ngIf="stripeService.licensee?.StripeBilling?.StripeSubscriptionId" >A <b>{{stripeService.selectedProduct.Name}}</b> Subscription is Enabled for {{stripeService.licensee.StripeBilling.StripeQty}} Locations.</h5>
+    <h5 *ngIf="!stripeService.licensee?.StripeBilling?.StripeSubscriptionId" >No Subscription on File. Please have the Licensee sign-in and start a Subscription.</h5>
   </div>
 </div>

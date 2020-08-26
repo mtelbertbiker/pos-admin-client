@@ -44,6 +44,11 @@ export class LicenseeService {
 
   getBillableCount(licId: number) {
     const lic = this.licensees.find(l => l.LicId === licId);
+    if (lic.StripeBilling) {
+      if (lic.StripeBilling.StripeQty) {
+        return lic.StripeBilling.StripeQty;
+      }
+    }
     let count = 0;
     lic.Brands.forEach(brand => {
       brand.Locations.forEach(loc => {
