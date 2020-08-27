@@ -31,7 +31,7 @@ export class LicenseeBillingMasterItemComponent implements OnInit {
   constructor(public stripeService: StripeService,
               private licenseeService: LicenseeService,
               private route: ActivatedRoute,
-              private sessionService: SessionService,
+              public sessionService: SessionService,
               private modal: NgbModal,
               public venueService: VenueService,
               private log: LogService) {
