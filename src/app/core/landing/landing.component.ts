@@ -26,7 +26,6 @@ export class LandingComponent implements OnInit, OnDestroy {
   licensees: Licensee[] = [];
   licenseeSubscription: Subscription;
   resellerSubscription: Subscription;
-  isAuthorizedSubscription: Subscription;
   session: SessionService;
 
   constructor(private venueDataService: VenueDataService,
@@ -46,56 +45,57 @@ export class LandingComponent implements OnInit, OnDestroy {
     this.log.logTrace('LandingComponent onInit');
     this.session = this.sessionService;
     this.sessionService.resetSaveState();
-    this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()
-      .subscribe(
-        isAuthorized => this.sessionService.isUserAuthorized = isAuthorized
-      );
-    this.oidcSecurityService.getUserData().subscribe(userData => {
-      this.sessionService.userData = userData;
-      if (this.sessionService.userData.hasOwnProperty('emails')) {
-        this.sessionService.Email = this.sessionService.userData['emails'][0];
-      }
-      if (this.sessionService.userData.hasOwnProperty('name')) {
-        this.sessionService.UserName = this.sessionService.userData['name'];
+    this.oidcSecurityService.isAuthenticated$.subscribe((isAuthenticated: boolean) => {
+      this.sessionService.isUserAuthorized = isAuthenticated;
+    });
+    this.oidcSecurityService.userData$.subscribe((userData: any) => {
+      if (userData) {
+        this.sessionService.userData = userData;
+        if (this.sessionService.userData.hasOwnProperty('emails')) {
+          this.sessionService.Email = this.sessionService.userData['emails'][0];
+        }
+        if (this.sessionService.userData.hasOwnProperty('name')) {
+          this.sessionService.UserName = this.sessionService.userData['name'];
+        }
+        if (this.sessionService.isUserAuthorized) {
+          console.log('Authorized User:' + this.sessionService.Email);
+          this.sessionService.LoginType = this.websession.get('LoginType');
+          this.log.logTrace('Login Type:' + this.sessionService.LoginType);
+          if (this.sessionService.LoginType === LoginTypes.Distributor) {
+            this.log.logTrace('HomeComponent Distributor Login');
+            this.resellerDataService.getResellerLicensees();
+            this.resellerSubscription = this.resellerService.licenseesChanged
+              .subscribe(
+                (licensees: Licensee[]) => {
+                  this.licensees = licensees;
+                }
+              );
+          }
+          if (this.sessionService.LoginType === LoginTypes.Operator) {
+            this.log.logTrace('HomeComponent Operator Login');
+            this.licenseeDataService.getLicensee(this.session.LicenseeId);
+            this.licenseeSubscription = this.licenseeService.licenseesChanged
+              .subscribe(
+                (licensees: Licensee[]) => {
+                  this.licensee = licensees[0];
+                  this.session.LicenseeId = this.licensee.LicId;
+                  this.sessionService.setLicensee(this.licensee);
+                  this.venueDataService.getVenues(this.licensee.LicId);
+                }
+              );
+          }
+        }
       }
     });
-    if (this.sessionService.isUserAuthorized) {
-      this.sessionService.LoginType = this.websession.get('LoginType');
-      this.log.logTrace('Login Type:' + this.sessionService.LoginType);
-      if (this.sessionService.LoginType === LoginTypes.Distributor) {
-        this.log.logTrace('HomeComponent Distributor Login');
-        this.resellerDataService.getResellerLicensees();
-        this.resellerSubscription = this.resellerService.licenseesChanged
-          .subscribe(
-            (licensees: Licensee[]) => {
-              this.licensees = licensees;
-            }
-          );
-      }
-      if (this.sessionService.LoginType === LoginTypes.Operator) {
-        this.log.logTrace('HomeComponent Operator Login');
-        this.licenseeDataService.getLicensee(this.session.LicenseeId);
-        this.licenseeSubscription = this.licenseeService.licenseesChanged
-          .subscribe(
-            (licensees: Licensee[]) => {
-              this.licensee = licensees[0];
-              this.session.LicenseeId = this.licensee.LicId;
-              this.sessionService.setLicensee(this.licensee);
-              this.venueDataService.getVenues(this.licensee.LicId);
-            }
-          );
-      }
-    }
   }
 
   ngOnDestroy() {
-    if (this.licenseeSubscription != null) {
+    if (this.licenseeSubscription) {
       this.licenseeSubscription.unsubscribe();
     }
-    if (this.resellerSubscription != null) {
+    if (this.resellerSubscription) {
       this.resellerSubscription.unsubscribe();
     }
-    this.isAuthorizedSubscription.unsubscribe();
   }
 
 }

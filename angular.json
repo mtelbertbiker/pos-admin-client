@@ -11,6 +11,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -19,7 +20,8 @@
             "assets": [
               "src/assets",
               "src/favicon.ico",
-              "src/web.config"
+              "src/web.config",
+              "src/silent-renew.html"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -31,6 +33,12 @@
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -83,7 +91,8 @@
             "assets": [
               "src/assets",
               "src/favicon.ico",
-              "src/web.config"
+              "src/web.config",
+              "src/silent-renew.html"
             ]
           }
         },
@@ -127,7 +136,7 @@
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
-      "styleext": "scss"
+      "style": "scss"
     },
     "@schematics/angular:directive": {
       "prefix": "app"

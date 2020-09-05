@@ -11,6 +11,8 @@ export class RedirectComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('RedirectComponent onInit');
+    /*
     // this.oidcSecurityService.authorizedCallback();
     if (window.location.hash) {
       window.location.hash = decodeURIComponent(window.location.hash);
@@ -19,6 +21,6 @@ export class RedirectComponent implements OnInit {
     } else {
       this.oidcSecurityService.authorize();
     }
+    */
   }
-
 }

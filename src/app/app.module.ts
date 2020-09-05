@@ -46,13 +46,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DemoMaterialModule} from './material-module';
 
 
-import {
-  AuthModule,
-  OidcSecurityService,
-  OpenIDImplicitFlowConfiguration,
-  OidcConfigService,
-  AuthWellKnownEndpoints
-} from 'angular-auth-oidc-client';
+import {AuthModule, LogLevel, OidcConfigService, OidcSecurityService} from 'angular-auth-oidc-client';
 
 import {environment} from './../environments/environment';
 import {RedirectComponent} from './redirect/redirect/redirect.component';
@@ -84,25 +78,47 @@ import {FloorplanItemComponent} from './posconfig/floorplans/floorplan/floorplan
 import {FloorplanlistItemDetailComponent} from './posconfig/floorplans/floorplan-list/floorplanlist-item-detail/floorplanlist-item-detail.component';
 import {FloorplanRentalListComponent} from './posconfig/floorplans/floorplan/floorplan-rental-list/floorplan-rental-list.component';
 import {AngularWebStorageModule} from 'angular-web-storage';
-import { ContactusRequestSentComponent } from './core/contactus/contactus-request-sent/contactus-request-sent.component';
-import { CopyVenueModalComponent } from './venues/venue-detail/copy-venue-modal/copy-venue-modal.component';
-import { VenueReportsComponent } from './reports/venuereports/venuereports.component';
+import {ContactusRequestSentComponent} from './core/contactus/contactus-request-sent/contactus-request-sent.component';
+import {CopyVenueModalComponent} from './venues/venue-detail/copy-venue-modal/copy-venue-modal.component';
+import {VenueReportsComponent} from './reports/venuereports/venuereports.component';
 import {ErrorHandlerService} from './shared/errorhandler.service';
 import {LogService} from './shared/log.service';
-import { UnauthorizedComponent } from './core/unauthorized/unauthorized.component';
-import { ForbiddenComponent } from './core/forbidden/forbidden.component';
+import {UnauthorizedComponent} from './core/unauthorized/unauthorized.component';
+import {ForbiddenComponent} from './core/forbidden/forbidden.component';
 import {loadStripe} from '@stripe/stripe-js/pure';
-import { LicenseePricingComponent } from './posconfig/licensees/billing/licensee-pricing/licensee-pricing.component';
-import { LicenseePaymentComponent } from './posconfig/licensees/billing/licensee-payment/licensee-payment.component';
+import {LicenseePricingComponent} from './posconfig/licensees/billing/licensee-pricing/licensee-pricing.component';
+import {LicenseePaymentComponent} from './posconfig/licensees/billing/licensee-payment/licensee-payment.component';
 import {CancelSubscriptionModalComponent} from './posconfig/licensees/billing/cancel-subscription-modal/cancel-subscription-modal.component';
-import { SubscriptionCreatedModalComponent } from './posconfig/licensees/billing/subscription-created-modal/subscription-created-modal.component';
-import { SubscriptionCancelledModalComponent } from './posconfig/licensees/billing/subscription-cancelled-modal/subscription-cancelled-modal.component';
-import { UpdateSubscriptionModalComponent } from './posconfig/licensees/billing/update-subscription-modal/update-subscription-modal.component';
-import { SubscriptionUpdatedModalComponent } from './posconfig/licensees/billing/subscription-updated-modal/subscription-updated-modal.component';
+import {SubscriptionCreatedModalComponent} from './posconfig/licensees/billing/subscription-created-modal/subscription-created-modal.component';
+import {SubscriptionCancelledModalComponent} from './posconfig/licensees/billing/subscription-cancelled-modal/subscription-cancelled-modal.component';
+import {UpdateSubscriptionModalComponent} from './posconfig/licensees/billing/update-subscription-modal/update-subscription-modal.component';
+import {SubscriptionUpdatedModalComponent} from './posconfig/licensees/billing/subscription-updated-modal/subscription-updated-modal.component';
 
 export function loadConfig(oidcConfigService: OidcConfigService) {
-  return () => oidcConfigService.load_using_custom_stsServer(
-    'https://login.microsoftonline.com/feemachines.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=b2c_1_susin');
+  console.log('loadConfig:' + window.location.origin);
+  return () =>
+    oidcConfigService.withConfig({
+      stsServer: 'https://login.microsoftonline.com/tfp/feemachines.onmicrosoft.com/b2c_1_susin/oauth2/v2.0',
+      authWellknownEndpoint:
+        'https://feemachines.b2clogin.com/feemachines.com/B2C_1_susin/v2.0/.well-known/openid-configuration',
+      redirectUrl: window.location.origin, // 'https://localhost:65328/redirect.html',
+      postLogoutRedirectUri: window.location.origin,
+      clientId: 'e0795570-377a-4064-8678-246db4734c21',
+      // 'eb3fb956-a476-4329-99ca-0666bec47d65',
+      scope: 'openid https://feemachines.com/posadmin/readPosAdmin https://feemachines.com/posadmin/writePosAdmin',
+      responseType: 'id_token token',
+      silentRenew: true,
+      autoUserinfo: false,
+      silentRenewUrl: window.location.origin + '/silent-renew.html',
+      logLevel: LogLevel.Warn,
+      renewTimeBeforeTokenExpiresInSeconds: 60,
+      forbiddenRoute: 'forbidden',
+      unauthorizedRoute: 'unauthorized'
+      // useRefreshToken: true, // for refresh renew, but revocation and one time usage is missing from server impl.
+      // ignoreNonceAfterRefresh: true,
+      // disableRefreshIdTokenAuthTimeValidation: true,
+    });
+
 }
 
 @NgModule({
@@ -199,7 +215,7 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     AppRoutingModule,
     TelerikReportingModule,
     AngularWebStorageModule,
-    NgbModule.forRoot(),
+    NgbModule,
     AuthModule.forRoot(),
   ],
   exports: [],
@@ -215,13 +231,15 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     LicenseeService,
     CookieService,
     OidcConfigService,
-    { provide: ErrorHandler, useClass: ErrorHandlerService },
+    {provide: ErrorHandler, useClass: ErrorHandlerService},
+    OidcSecurityService,
+    OidcConfigService,
     {
       provide: APP_INITIALIZER,
       useFactory: loadConfig,
       deps: [OidcConfigService],
-      multi: true
-    }
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent]
 })
@@ -230,39 +248,8 @@ export class AppModule {
               private log: LogService,
               private oidcConfigService: OidcConfigService) {
     this.log.logTrace('Fee Machine Starting...');
-
-    this.oidcConfigService.onConfigurationLoaded.subscribe(() => {
-      const openIDImplicitFlowConfiguration = new OpenIDImplicitFlowConfiguration();
-      openIDImplicitFlowConfiguration.stsServer
-        = 'https://login.microsoftonline.com/tfp/feemachines.onmicrosoft.com/b2c_1_susin/oauth2/v2.0/';
-      // openIDImplicitFlowConfiguration.redirect_url = 'http://localhost:65328/redirect.html';   // Use for local debugging
-       openIDImplicitFlowConfiguration.redirect_url = 'https://www.feemachine.com/redirect.html'; // Use for Production
-      openIDImplicitFlowConfiguration.client_id = 'e0795570-377a-4064-8678-246db4734c21';
-      //      openIDImplicitFlowConfiguration.client_id = 'eb3fb956-a476-4329-99ca-0666bec47d65';
-      openIDImplicitFlowConfiguration.response_type = 'id_token token';
-      openIDImplicitFlowConfiguration.scope =
-        'openid https://feemachines.com/posadmin/readPosAdmin https://feemachines.com/posadmin/writePosAdmin';
-      // openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'http://localhost:65328';
-      openIDImplicitFlowConfiguration.post_logout_redirect_uri = 'http://feemachine.com';
-      openIDImplicitFlowConfiguration.post_login_route = '';
-      openIDImplicitFlowConfiguration.forbidden_route = 'forbidden';
-      openIDImplicitFlowConfiguration.unauthorized_route = 'unauthorized';
-      openIDImplicitFlowConfiguration.auto_userinfo = false;
-      openIDImplicitFlowConfiguration.log_console_warning_active = true;
-      openIDImplicitFlowConfiguration.log_console_debug_active = !environment.production;
-      openIDImplicitFlowConfiguration.max_id_token_iat_offset_allowed_in_seconds = 30;
-
-      const authWellKnownEndpoints = new AuthWellKnownEndpoints();
-
-      authWellKnownEndpoints.setWellKnownEndpoints(this.oidcConfigService.wellKnownEndpoints);
-
-      this.oidcSecurityService.setupModule(openIDImplicitFlowConfiguration, authWellKnownEndpoints);
-      this.log.logTrace('Exiting AppModule constructor');
-
-    });
-  }
+  };
 }
-
 
 
 // platformBrowserDynamic().bootstrapModule(AppModule);  - Uncommenting this causes duplicate startup calls

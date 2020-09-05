@@ -12,7 +12,7 @@ import {ConstantsService} from '../../../shared/data-services/constants.service'
 export class ItemUsageViewerComponent implements OnInit {
   @Input() beginDateTime: string; // '06/03/2020 00:00';
   @Input()  endDateTime: string; // '06/04/2020 23:59';
-  @ViewChild('viewer1', {read: false, static: false}) childReport;
+  @ViewChild('viewer1', { read: false }) childReport;
   venue: Venue;
   id: number;
   ready = 'ready';

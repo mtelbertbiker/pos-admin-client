@@ -29,7 +29,7 @@
         </li>
         <li class="list-inline-item">
           <button class="btn btn-primary"
-                  *ngIf="this.sessionService.isUserAuthorized && session.ResellerId == 0 && this.licensees != null"
+                  *ngIf="this.sessionService.isUserAuthorized && session.ResellerId == 0 && this.licensees?.length > 0"
                   (click)="showLicenseeLocations()">Admin</button>
         </li>
         <!--

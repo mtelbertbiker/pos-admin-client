@@ -17,8 +17,8 @@ export class VenueReportsComponent implements OnInit {
   beginDateTime: string;
   endDateTime: string;
   reportName: string;
-  @ViewChild(ItemUsageViewerComponent, {read: false, static: false}) itemUsageReport: ItemUsageViewerComponent;
-  @ViewChild(TransactiondetailviewerComponent, {read: false, static: false}) transDetailReport: TransactiondetailviewerComponent;
+  @ViewChild(ItemUsageViewerComponent, { read: false }) itemUsageReport: ItemUsageViewerComponent;
+  @ViewChild(TransactiondetailviewerComponent, { read: false }) transDetailReport: TransactiondetailviewerComponent;
 
   constructor(private router: Router, private log: LogService) { }
 

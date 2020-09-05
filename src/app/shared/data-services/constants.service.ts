@@ -2,22 +2,10 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ConstantsService {
-  // *******************************
-  // Local Testing
-  // *******************************
-  // BaseUri = 'https://localhost';
-  // AdminBaseUri = this.BaseUri + ':44318/api';
-  // FeeCalcBaseUri = this.BaseUri + ':44318/FeeCalc';  // Connect to Fee Calc API via Web Admin API
-  // ReportsUri = this.AdminBaseUri + '/reports';
-  // BillingUri = this.AdminBaseUri + '/billing';
-  // *******************************
-  // Cloud
-  // *******************************
-  AdminBaseUri = 'https://fm-posadminprod1.azurewebsites.net/api';
-  FeeCalcBaseUri = 'https://fm-posadminprod1.azurewebsites.net/FeeCalc';
-  ReportsUri = 'https://fm-posadminprod1.azurewebsites.net/api/reports';
-  BillingUri = this.AdminBaseUri + '/billing';
-  // ******************************
+  AdminBaseUri = '';
+  FeeCalcBaseUri = '';
+  ReportsUri = '';
+  BillingUri = '';
   AdminLicenseeLocationsUri = '/Locations/LicenseeLocations/';
   AdminLocationsUri = '/Locations/';
   AdminLocationDetailUri = '/Locations/LocationDetail/';
@@ -69,6 +57,21 @@ export class ConstantsService {
       Name: 'Nearest 1.00'
     },
   ];
+
+  constructor() {
+    if (window.location.origin.includes('localhost')) {
+      const BaseUri = 'https://localhost';
+      this.AdminBaseUri = BaseUri + ':44318/api';
+      this.FeeCalcBaseUri = BaseUri + ':44318/FeeCalc';  // Connect to Fee Calc API via Web Admin API
+      this.ReportsUri = this.AdminBaseUri + '/reports';
+      this.BillingUri = this.AdminBaseUri + '/billing';
+    } else {
+      this.AdminBaseUri = 'https://fm-posadminprod1.azurewebsites.net/api';
+      this.FeeCalcBaseUri = 'https://fm-posadminprod1.azurewebsites.net/FeeCalc';
+      this.ReportsUri = 'https://fm-posadminprod1.azurewebsites.net/api/reports';
+      this.BillingUri = this.AdminBaseUri + '/billing';
+    }
+  }
 
 }
 
