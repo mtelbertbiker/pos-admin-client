@@ -59,6 +59,7 @@ export class ConstantsService {
   ];
 
   constructor() {
+    // if (false)
     if (window.location.origin.includes('localhost')) {
       const BaseUri = 'https://localhost';
       this.AdminBaseUri = BaseUri + ':44318/api';

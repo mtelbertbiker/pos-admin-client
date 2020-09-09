@@ -156,7 +156,7 @@ export class StripeService {
     this.log.logTrace('Begin updateSubscription for LicId ' + this.licensee.LicId);
     this.updateInProgress = true;
     const token = this.oidcSecurityService.getToken();
-      return fetch(this.constants.BillingUri + '/updatesubscription', {
+    return fetch(this.constants.BillingUri + '/updatesubscription', {
       method: 'post',
       headers: {
         'Content-type': 'application/json',
@@ -209,7 +209,7 @@ export class StripeService {
     const params = new URLSearchParams(document.location.search.substring(1));
     const customerId = this.stripeCustomerId;
     // Set up payment method for recurring usage
-    const billingName = document.querySelector('#name').nodeValue;
+    const billingName = document.querySelector('#card-name').nodeValue;
 
     const priceId = this.selectedProduct.StripePriceId.toUpperCase();
 
@@ -285,13 +285,15 @@ export class StripeService {
       // by Stripe. Add the addional details we need.
       .then((result) => {
         this.subscribeInProgress = false;
-        return {
-          // Use the Stripe 'object' property on the
-          // returned result to understand what object is returned.
-          subscription: result,
-          paymentMethodId: paymentMethodId,
-          priceId: priceId,
-        };
+        console.log('createSubscription - returning here.');  // + JSON.stringify(result));
+        return this.onSubscriptionComplete(result);
+        // return {
+        //   // Use the Stripe 'object' property on the
+        //   // returned result to understand what object is returned.
+        //   subscription: result,
+        //   paymentMethodId: paymentMethodId,
+        //   priceId: priceId,
+        // };
       })
       // Some payment methods require a customer to do additional
       // authentication with their financial institution.
@@ -552,7 +554,7 @@ export class StripeService {
       document.querySelector('#loading').classList.remove('hidden');
 
       // document.querySelector('#submit-basic').classList.add('invisible');
-      document.querySelector('#submit-premium').classList.add('invisible')
+      document.querySelector('#submit-premium').classList.add('invisible');
       if (document.getElementById('confirm-price-change-cancel')) {
         document
           .getElementById('confirm-price-change-cancel')
