@@ -7,7 +7,7 @@ import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {SessionService} from '../../shared/data-services/session.service';
 import {Licensee} from '../../shared/licensee.model';
 import {LicenseeService} from '../../shared/licensee.service';
-import { FormTypes, LoginTypes} from '../../shared/data-services/constants.service';
+import {ConstantsService, FormTypes, LoginTypes, UserFlow} from '../../shared/data-services/constants.service';
 import {SessionStorageService} from 'angular-web-storage';
 import {VenueDataService} from '../../shared/data-services/venue-data.service';
 import {LogService} from '../../shared/log.service';
@@ -18,6 +18,7 @@ import {LogService} from '../../shared/log.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
+
 export class HeaderComponent implements OnInit, OnDestroy {
   licensees: Licensee[];
   venues: Venue[];
@@ -29,6 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   errorUrl: string;
   errorCode: string;
 
+
   constructor(private venueService: VenueService,
               private venueDataService: VenueDataService,
               private router: Router,
@@ -36,6 +38,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private licenseeService: LicenseeService,
               public  websession: SessionStorageService,
               private log: LogService,
+              private consts: ConstantsService,
               private oidcSecurityService: OidcSecurityService) {
     this.session = sessionService;
   }
@@ -88,7 +91,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onAddLicensee() {
-    const newLicensee = new Licensee(0, 'New Licensee', '', '', '', '', '', '', '', '', '', '', '', '', [], [], [], 0, false, null,[], '');
+    const newLicensee = new Licensee(0, 'New Licensee', '', '', '', '', '', '', '', '', '', '', '', '', [], [], [], 0, false, null, [], '');
     newLicensee.Email = this.sessionService.Email;
     newLicensee.ResellerId = this.sessionService.ResellerId;
     const index = this.licenseeService.addLicensee(newLicensee);
@@ -121,10 +124,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
   operatorSignIn() {
     this.sessionService.LoginType = LoginTypes.Operator;
     this.websession.set('LoginType', LoginTypes.Operator);
-    this.oidcSecurityService.authorize();
+    this.log.logEvent('OperatorSignIn');
+    this.sessionService.fmAuthorize(UserFlow.Susi);
+  }
+
+  pswReset() {
+    this.log.logEvent('PasswordReset');
+    this.sessionService.fmAuthorize(UserFlow.ResetPsw);
+  }
+
+  editProfile() {
+    this.log.logEvent('EditProfile');
+    this.sessionService.fmAuthorize(UserFlow.EditProfile);
+  }
+
+  operatorSignUp() {
+    this.log.logEvent('SignUp');
+    this.sessionService.fmAuthorize(UserFlow.SignUp);
   }
 
   signOut() {
+    this.log.logEvent('SignOut');
     this.sessionService.LoginType = LoginTypes.NotSpecified;
     this.websession.set('LoginType', LoginTypes.NotSpecified);
     this.oidcSecurityService.logoff();

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {LoginTypes} from '../../shared/data-services/constants.service';
+import {LoginTypes, UserFlow} from '../../shared/data-services/constants.service';
 import {SessionStorageService} from 'angular-web-storage';
-import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {SessionService} from '../../shared/data-services/session.service';
+import {LogService} from '../../shared/log.service';
 
 @Component({
   selector: 'app-products',
@@ -13,7 +13,7 @@ export class ProductsComponent implements OnInit {
 
   constructor(public sessionService: SessionService,
               public  websession: SessionStorageService,
-              private oidcSecurityService: OidcSecurityService) {
+              private log: LogService) {
   }
 
   ngOnInit() {
@@ -22,7 +22,8 @@ export class ProductsComponent implements OnInit {
   distributorSignIn() {
     this.sessionService.LoginType = LoginTypes.Distributor;
     this.websession.set('LoginType', LoginTypes.Distributor);
-    this.oidcSecurityService.authorize();
+    this.log.logEvent('DistributorSignIn');
+    this.sessionService.fmAuthorize(UserFlow.Susi);
   }
 
 }

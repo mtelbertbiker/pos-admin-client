@@ -113,7 +113,7 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
       logLevel: LogLevel.Warn,
       renewTimeBeforeTokenExpiresInSeconds: 60,
       forbiddenRoute: 'forbidden',
-      unauthorizedRoute: 'unauthorized'
+      unauthorizedRoute: 'unauthorized',
       // useRefreshToken: true, // for refresh renew, but revocation and one time usage is missing from server impl.
       // ignoreNonceAfterRefresh: true,
       // disableRefreshIdTokenAuthTimeValidation: true,
@@ -245,9 +245,8 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
 })
 export class AppModule {
   constructor(private oidcSecurityService: OidcSecurityService,
-              private log: LogService,
-              private oidcConfigService: OidcConfigService) {
-    this.log.logTrace('Fee Machine Starting...');
+              private log: LogService) {
+    this.log.logTrace('Fee Machine Starting with request:' + window.location.href);
   };
 }
 

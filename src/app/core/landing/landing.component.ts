@@ -58,7 +58,7 @@ export class LandingComponent implements OnInit, OnDestroy {
           this.sessionService.UserName = this.sessionService.userData['name'];
         }
         if (this.sessionService.isUserAuthorized) {
-          console.log('Authorized User:' + this.sessionService.Email);
+          this.log.logEvent('SignInCompleted', {user: this.sessionService.Email});
           this.sessionService.LoginType = this.websession.get('LoginType');
           this.log.logTrace('Login Type:' + this.sessionService.LoginType);
           if (this.sessionService.LoginType === LoginTypes.Distributor) {

@@ -22,16 +22,16 @@
 </nav>
 
 <mat-menu #licenseeMenu="matMenu" yPosition="above">
-  <button mat-menu-item (click)="onLicenseeNavigate('detail')">Licensee Info</button>
-  <button mat-menu-item (click)="onLicenseeNavigate('users')">Users</button>
-  <button mat-menu-item (click)="onLicenseeNavigate('billing')">Billing</button>
-  <button mat-menu-item [matMenuTriggerFor]="licenseeLocationsMenu">Locations</button>
+  <button mat-menu-item class="btn btn-info" (click)="onLicenseeNavigate('detail')">Licensee Info</button>
+  <button mat-menu-item class="btn btn-info" (click)="onLicenseeNavigate('users')">Users</button>
+  <button mat-menu-item class="btn btn-info" (click)="onLicenseeNavigate('billing')">Billing</button>
+  <button mat-menu-item class="btn btn-info" [matMenuTriggerFor]="licenseeLocationsMenu">Locations</button>
 </mat-menu>
 <mat-menu #licenseeLocationsMenu="matMenu">
-  <button mat-menu-item *ngFor="let venue of venues; let i = index" (click)="onSelectVenue(i)">
+  <button mat-menu-item class="btn btn-info" *ngFor="let venue of venues; let i = index" (click)="onSelectVenue(i)">
     {{venue.Name}}{{venue.Disabled ? " (Disabled)" : ""}}, {{venue.City}}, {{venue.State}}
   </button>
-  <button mat-menu-item (click)="onAddVenue()">Add Location</button>
+  <button mat-menu-item class="btn btn-success" (click)="onAddVenue()">Add Location</button>
 </mat-menu>
 
 

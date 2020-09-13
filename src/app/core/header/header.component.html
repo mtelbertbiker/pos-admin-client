@@ -42,11 +42,19 @@
           </div>
         </li>
         -->
+        <!--
         <li class="list-inline-item">
           <button class="btn btn-info sign-in" *ngIf="!this.sessionService.isUserAuthorized" (click)="operatorSignIn()">Sign In</button>
         </li>
         <li class="list-inline-item">
-          <button class="btn btn-info edit-profile" disabled *ngIf="this.sessionService.isUserAuthorized">Edit Profile</button>
+          <button class="btn btn-info edit-profile" *ngIf="!this.sessionService.isUserAuthorized" (click)="editProfile()">Edit Profile</button>
+        </li>
+        <li class="list-inline-item">
+          <button class="btn btn-info edit-profile" *ngIf="!this.sessionService.isUserAuthorized" (click)="pswReset()">Reset Password</button>
+        </li>
+        -->
+        <li class="list-inline-item">
+          <button *ngIf="!this.sessionService.isUserAuthorized" class="btn btn-info sign-in" [matMenuTriggerFor]="signInMenu">Sign In</button>
         </li>
         <li class="list-inline-item"><label class="" *ngIf="this.sessionService.isUserAuthorized">{{this.sessionService.UserName}}</label></li>
         <li class="list-inline-item">
@@ -61,5 +69,12 @@
     </div>
   </div><!-- /.container-fluid -->
 </nav>
+
+<mat-menu #signInMenu="matMenu" yPosition="above">
+  <button class="btn btn-primary"  mat-menu-item (click)="operatorSignIn()">Sign In</button>
+  <button class="btn btn-success"  mat-menu-item (click)="operatorSignUp()">Sign Up</button>
+  <button class="btn btn-secondary" mat-menu-item (click)="pswReset()">Reset Password</button>
+  <button class="btn btn-secondary" mat-menu-item (click)="editProfile()">Edit Login Profile</button>
+</mat-menu>
 
 

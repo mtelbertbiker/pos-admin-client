@@ -60,7 +60,8 @@ export class ConstantsService {
 
   constructor() {
     // if (false)
-    if (window.location.origin.includes('localhost')) {
+    if (window.location.origin.includes('localhost'))
+    {
       const BaseUri = 'https://localhost';
       this.AdminBaseUri = BaseUri + ':44318/api';
       this.FeeCalcBaseUri = BaseUri + ':44318/FeeCalc';  // Connect to Fee Calc API via Web Admin API
@@ -80,6 +81,13 @@ export enum LoginTypes {
   NotSpecified,
   Operator,
   Distributor
+}
+
+export enum UserFlow {
+  Susi = 'b2c_1_susin',
+  SignUp = 'B2C_1_signup_fm1',
+  ResetPsw = 'B2C_1_reset_fm1',
+  EditProfile = 'B2C_1_edit_profile_fm1'
 }
 
 export enum FormTypes {

@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import {Licensee} from '../licensee.model';
 import { CookieService } from 'ngx-cookie-service';
 import { UUID } from 'angular2-uuid';
-import {FormTypes, LoginTypes} from './constants.service';
+import {FormTypes, LoginTypes, UserFlow} from './constants.service';
 import {Observable} from 'rxjs';
 import {LogService} from '../log.service';
+import {OidcSecurityService} from 'angular-auth-oidc-client';
 
 @Injectable()
 export class SessionService {
@@ -40,7 +41,8 @@ export class SessionService {
   ClientId: string;
 
   constructor(private cookieService: CookieService,
-              private log: LogService) {
+              private log: LogService,
+              private oidcSecurityService: OidcSecurityService) {
     this.ClientId = this.cookieService.get('FeeMachineClientId');
     if (this.ClientId.length === 0) {
       this.ClientId = UUID.UUID();
@@ -89,5 +91,19 @@ export class SessionService {
 
   getCurrentVenueIndex() {
     return this.vid;
+  }
+
+
+  fmAuthorize(newUserFlow) {
+    // @ts-ignore
+    const cfg = this.oidcSecurityService.storagePersistanceService.read('authWellKnownEndPoints');
+    let oldUserFlow = undefined;
+    for (const thisFlow in UserFlow) {
+      if (cfg.authorizationEndpoint.search(UserFlow[thisFlow].toString()) !== -1) { oldUserFlow = UserFlow[thisFlow].toString() }
+    }
+    cfg.authorizationEndpoint = cfg.authorizationEndpoint.replace(oldUserFlow.toString(), newUserFlow.toString());
+    // @ts-ignore
+    this.oidcSecurityService.storagePersistanceService.write('authWellKnownEndPoints', cfg);
+    this.oidcSecurityService.authorize();
   }
 }
