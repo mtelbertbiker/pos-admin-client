@@ -6,12 +6,12 @@
     <div *ngIf="stripeService.stripeSubscriptionId">
       <p class="text-gray-700 text-base mb-2" *ngIf="stripeService.selectedProduct">
         <b>Current Subscription: </b>
-        <span id="desc">{{stripeService.seats}} x {{stripeService.selectedProduct.Name}}
-          (at {{stripeService.selectedProduct.Price | currency}}
-          / month): {{stripeService.totalPrice | currency}}</span>
+        <span  id="desc">{{stripeService.seats}} x {{stripeService.selectedProduct.Name}}
+          (at <span *ngIf="stripeService.currentPrice === undefined">{{stripeService.selectedProduct.Price | currency}}</span><span *ngIf="stripeService.currentPrice">{{stripeService.currentPrice | currency}}</span>
+          / month): <span *ngIf="stripeService.currentPrice === undefined">{{stripeService.totalPrice | currency}}</span><span *ngIf="stripeService.currentPrice">{{stripeService.currentPrice * stripeService.seats | currency}}</span></span>
       </p>
       <p class="text-gray-700 text-base mb-2 mt-2">
-        <b>Monthly Fee: </b><span id="total-due"><b>{{stripeService.totalPrice | currency}}</b></span>
+        <b>Monthly Fee: </b><span *ngIf="stripeService.currentPrice === undefined" id="total-due"><b>{{stripeService.totalPrice | currency}}</b></span><span *ngIf="stripeService.currentPrice" id="total-due"><b>{{stripeService.currentPrice * stripeService.seats | currency}}</b></span>
       </p>
     </div>
     <div *ngIf="!stripeService.stripeSubscriptionId">

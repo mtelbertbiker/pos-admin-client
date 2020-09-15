@@ -51,6 +51,11 @@ export class LicenseeBillingMasterItemComponent implements OnInit {
             this.stripeService.selectedProduct =
               this.stripeService.stripeProducts.find(x => x.StripeProductId ===
                 this.stripeService.licensee.StripeBilling.StripeProductId);
+            if (this.stripeService.selectedProduct.StripePriceId === this.stripeService.licensee.StripeBilling.StripePriceId) {
+              this.stripeService.currentPrice = undefined;
+            } else {
+              this.stripeService.currentPrice = this.stripeService.licensee.StripeBilling.StripePrice;
+            }
           }
         }
       );

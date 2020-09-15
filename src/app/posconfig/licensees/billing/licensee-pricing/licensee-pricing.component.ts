@@ -26,7 +26,7 @@ export class LicenseePricingComponent implements OnInit {
       this.selectedProductId = this.stripeService.selectedProduct.StripeProductId;
     }
     this.updateSeats();
-    this.updatePrice();
+    this.updatePrice(false);
   }
 
   onRemoveLocation() {
@@ -53,8 +53,11 @@ export class LicenseePricingComponent implements OnInit {
     this.updatePrice();
   }
 
-  updatePrice() {
+  updatePrice(resetCurrentPrice = true) {
     if (this.stripeService.selectedProduct) {
+      if (resetCurrentPrice) {
+        this.stripeService.currentPrice = undefined;
+      }
       this.stripeService.totalPrice = this.stripeService.seats * this.stripeService.selectedProduct.Price;
     }
   }

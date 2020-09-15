@@ -30,6 +30,7 @@ export class StripeService {
   licensee: Licensee;
 
   seats: number;
+  currentPrice: number;
   totalPrice: number;
   cancelInProgress = false;
   updateInProgress = false;
