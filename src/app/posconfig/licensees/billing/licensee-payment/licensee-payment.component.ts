@@ -1,6 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {StripeService} from '../../../../shared/data-services/stripe.service';
 import {LogService} from '../../../../shared/log.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {LicenseAgreementModalComponent} from '../license-agreement-modal/license-agreement-modal.component';
 
 @Component({
   selector: 'app-licensee-payment',
@@ -8,8 +10,13 @@ import {LogService} from '../../../../shared/log.service';
   styleUrls: ['../stripeglobal.css', '../normalize.css']
 })
 export class LicenseePaymentComponent implements OnInit, OnDestroy {
+  myModals = {
+    licenseeAgreementConfirm: LicenseAgreementModalComponent
+  };
 
-  constructor(public stripeService: StripeService, private log: LogService) {
+  canSubscribe = false;
+
+  constructor(public stripeService: StripeService, private log: LogService, private modal: NgbModal) {
   }
 
   ngOnInit() {
@@ -66,11 +73,17 @@ export class LicenseePaymentComponent implements OnInit, OnDestroy {
 
       this.stripeService.card.on('change', function (event) {
         console.log('on card change');
+        const submitpremium = document.getElementById('submit-premium');
+        submitpremium.hidden = true;
         const displayError = document.getElementById('card-element-errors');
         if (event.error) {
           displayError.textContent = event.error.message;
         } else {
           displayError.textContent = '';
+          if (event.complete) {
+            console.log('card is complete');
+            submitpremium.hidden = false;
+          }
         }
       });
     }
@@ -78,22 +91,31 @@ export class LicenseePaymentComponent implements OnInit, OnDestroy {
 
   onPaymentSubscribe() {
     console.log('onPaymentSubscribe');
-    // If a previous payment was attempted, get the latest invoice
-    const latestInvoicePaymentIntentStatus = localStorage.getItem(
-      'latestInvoicePaymentIntentStatus'
-    );
-    if (latestInvoicePaymentIntentStatus === 'requires_payment_method') {
-      const invoiceId = localStorage.getItem('latestInvoiceId');
-      const isPaymentRetry = true;
-      // create new payment method & retry payment on invoice with new payment method
-      this.stripeService.createPaymentMethod({
-        isPaymentRetry,
-        invoiceId,
-      });
-    } else {
-      // create new payment method & create subscription
-      this.stripeService.createPaymentMethod({isPaymentRetry: false, invoiceId: undefined});
-    }
-
+    this.modal.open(this.myModals.licenseeAgreementConfirm, {
+      size: 'lg'
+    }).result.then((result) => {
+      if (result === 'Ok') {
+        this.log.logTrace('License Agreement Confirmed');
+        // If a previous payment was attempted, get the latest invoice
+        const latestInvoicePaymentIntentStatus = localStorage.getItem(
+          'latestInvoicePaymentIntentStatus'
+        );
+        if (latestInvoicePaymentIntentStatus === 'requires_payment_method') {
+          const invoiceId = localStorage.getItem('latestInvoiceId');
+          const isPaymentRetry = true;
+          // create new payment method & retry payment on invoice with new payment method
+          this.stripeService.createPaymentMethod({
+            isPaymentRetry,
+            invoiceId,
+          });
+        } else {
+          // create new payment method & create subscription
+          this.stripeService.createPaymentMethod({isPaymentRetry: false, invoiceId: undefined});
+        }
+      } else {
+        console.log('License Agreement not accepted');
+      }
+    }, (reason) => {
+    });
   }
 }

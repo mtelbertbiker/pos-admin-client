@@ -241,7 +241,7 @@ export class StripeService {
             // Create the subscription
             this.createSubscription(customerId, result.paymentMethod.id, priceId)
               .then(resp => {
-                this.log.logTrace('Subscription Created');
+                this.log.logTrace('Subscription Created:' + JSON.stringify(resp));
                 this.changeLoadingState(false);
                 return resp;
               });
@@ -286,15 +286,15 @@ export class StripeService {
       // by Stripe. Add the addional details we need.
       .then((result) => {
         this.subscribeInProgress = false;
-        console.log('createSubscription - returning here.');  // + JSON.stringify(result));
-        return this.onSubscriptionComplete(result);
-        // return {
+        // console.log('createSubscription - returning here.');  // + JSON.stringify(result));
+        // return this.onSubscriptionComplete(result);
+         return {
         //   // Use the Stripe 'object' property on the
         //   // returned result to understand what object is returned.
-        //   subscription: result,
-        //   paymentMethodId: paymentMethodId,
-        //   priceId: priceId,
-        // };
+           subscription: result,
+           paymentMethodId: paymentMethodId,
+           priceId: priceId,
+         };
       })
       // Some payment methods require a customer to do additional
       // authentication with their financial institution.
@@ -324,7 +324,7 @@ export class StripeService {
                             priceId,
                             paymentMethodId
                           }) {
-    this.log.logTrace('Begin handleCardSetupRequired for Subscription ' + subscription);
+   console.log('Begin handleCardSetupRequired for Subscription ' + subscription);
     const setupIntent = subscription.pending_setup_intent;
 
     if (setupIntent && setupIntent.status === 'requires_action') {
@@ -365,7 +365,7 @@ export class StripeService {
                                             paymentMethodId,
                                             isRetry,
                                           }) {
-    this.log.logTrace('Begin handlePaymentThatRequiresCustomerAction for Subscription ' + subscription);
+    console.log('Begin handlePaymentThatRequiresCustomerAction for Subscription ' + subscription);
     // If it's a first payment attempt, the payment intent is on the subscription latest invoice.
     // If it's a retry, the payment intent will be on the invoice itself.
     const paymentIntent = invoice
@@ -415,7 +415,7 @@ export class StripeService {
                                 paymentMethodId,
                                 priceId,
                               }) {
-    this.log.logTrace('Begin handleRequiresPaymentMethod for Subscription ' + subscription);
+    console.log('Begin handleRequiresPaymentMethod for Subscription ' + subscription);
     if (subscription.status === 'active') {
       // subscription is active, no customer actions required.
       return {subscription, priceId, paymentMethodId};
@@ -438,7 +438,8 @@ export class StripeService {
   }
 
   onSubscriptionComplete(result) {
-    this.log.logTrace('Begin onSubscriptionComplete for Subscription ' + result.subscription.id);
+    console.log('Begin onSubscriptionComplete for Subscription ' + result.subscription.id);
+    // this.log.logTrace('Begin onSubscriptionComplete for Subscription ' + result.subscription.id);
     const id = result.subscription.id;
     this.stripeSubscriptionId = id;
     this.modal.open(this.myModals.created).result.then(() => {
@@ -462,7 +463,7 @@ export class StripeService {
     invoiceId,
     priceId
   ) {
-    this.log.logTrace('Begin retryInvoiceWithNewPaymentMethod for Customer Id ' + customerId);
+    console.log('Begin retryInvoiceWithNewPaymentMethod for Customer Id ' + customerId);
     return (
       fetch('/retry-invoice', {
         method: 'post',

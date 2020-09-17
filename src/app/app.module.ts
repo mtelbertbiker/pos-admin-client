@@ -93,6 +93,7 @@ import {SubscriptionCreatedModalComponent} from './posconfig/licensees/billing/s
 import {SubscriptionCancelledModalComponent} from './posconfig/licensees/billing/subscription-cancelled-modal/subscription-cancelled-modal.component';
 import {UpdateSubscriptionModalComponent} from './posconfig/licensees/billing/update-subscription-modal/update-subscription-modal.component';
 import {SubscriptionUpdatedModalComponent} from './posconfig/licensees/billing/subscription-updated-modal/subscription-updated-modal.component';
+import { LicenseAgreementModalComponent } from './posconfig/licensees/billing/license-agreement-modal/license-agreement-modal.component';
 
 export function loadConfig(oidcConfigService: OidcConfigService) {
   console.log('loadConfig:' + window.location.origin);
@@ -201,6 +202,7 @@ export function loadConfig(oidcConfigService: OidcConfigService) {
     SubscriptionCancelledModalComponent,
     UpdateSubscriptionModalComponent,
     SubscriptionUpdatedModalComponent,
+    LicenseAgreementModalComponent,
   ],
   imports: [
     BrowserModule,
