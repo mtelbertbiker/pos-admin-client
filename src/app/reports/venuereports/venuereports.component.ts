@@ -24,9 +24,7 @@ export class VenueReportsComponent implements OnInit {
 
   ngOnInit() {
     const today = new Date();
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() - 1);
-    this.beginDate = new NgbDate(yesterday.getFullYear(), yesterday.getMonth() + 1, yesterday.getDate());
+    this.beginDate = new NgbDate(today.getFullYear(), today.getMonth() + 1, today.getDate());
     this.endDate = new NgbDate(today.getFullYear(), today.getMonth() + 1, today.getDate());
     this.setReportRange();
     const urlSections = this.router.url.split('/');
