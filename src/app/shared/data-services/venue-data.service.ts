@@ -77,9 +77,13 @@ export class VenueDataService {
   }
 
   putVenue(venue: Venue) {
+    let bId = this.consts.DefaultBrand;
+    if (this.session.licensee?.Brands.length > 0) {
+      bId = this.session.licensee.Brands[0].BId;
+    }
     const location = {
       'LicId': this.session.licensee.LicId,
-      'BId': this.session.licensee.Brands[0].BId,
+      'BId': bId,
       'LId': venue['LId'],
       'Name': venue.Name,
       'Address1': venue.Address1,

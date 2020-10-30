@@ -16,6 +16,8 @@ export class ConstantsService {
 
   MaxUsers = 199;
 
+  DefaultBrand = 1;
+
   SupportedRentalTypes = [
     {
       Id: 1,
@@ -59,8 +61,8 @@ export class ConstantsService {
   ];
 
   constructor() {
-    // if (false)
-    if (window.location.origin.includes('localhost'))
+     if (false)
+    // if (window.location.origin.includes('localhost'))
     {
       const BaseUri = 'https://localhost';
       this.AdminBaseUri = BaseUri + ':44318/api';
