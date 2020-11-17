@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Venue } from '../shared/pos-models/venue.model';
+import {Injectable} from '@angular/core';
+import {Venue} from '../shared/pos-models/venue.model';
 import {Subject} from 'rxjs';
 
 @Injectable()
@@ -7,7 +7,8 @@ export class VenueService {
   venuesChanged = new Subject<Venue[]>();
   private venues: Venue[] = [];
 
-  constructor() { }
+  constructor() {
+  }
 
   getVenues() {
     return this.venues.slice();
@@ -40,7 +41,7 @@ export class VenueService {
   }
 
   getDisabledVenueCountForLicensee(licId: number) {
-    const venues = this.venues.filter(v => v.LicId === licId  && v.Disabled === true);
+    const venues = this.venues.filter(v => v.LicId === licId && v.Disabled === true);
     if (venues) {
       return venues.length;
     } else {
@@ -58,10 +59,12 @@ export class VenueService {
     this.venues[index].Phone1 = updatedVenue.Phone1;
     this.venues[index].Phone2 = updatedVenue.Phone2;
     this.venues[index].POSTypeId = updatedVenue.POSTypeId;
-    if (updatedVenue['Enabled']) {
-      this.venues[index].Disabled = false
-    } else {
-      this.venues[index].Disabled = true
+    if (updatedVenue['Enabled'] !== undefined) {
+      if (updatedVenue['Enabled'] === true) {
+        this.venues[index].Disabled = false;
+      } else {
+        this.venues[index].Disabled = true;
+      }
     }
     this.venues[index].LightControlEnabled = updatedVenue.LightControlEnabled;
     this.venues[index].Memo = updatedVenue.Memo;

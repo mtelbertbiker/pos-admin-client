@@ -121,12 +121,9 @@ export class FeeTesterComponent implements OnInit, OnDestroy {
       stopDateTime = startDateTime + 60000;
     } else {
       if (this.session.FeeCalcTest.endHour < this.session.FeeCalcTest.beginHour) {  // rental ends on next calendar day
-        if (this.session.FeeCalcTest.dayOfWeek === 6) {
-          stopDate = startDate;
-          stopDate.setHours(24);
-          stopDateTime = stopDate.setHours(this.session.FeeCalcTest.endHour, this.session.FeeCalcTest.endMinute, 0, 0);
-        } else {
-        }
+        stopDate = startDate;
+        stopDate.setHours(24);
+        stopDateTime = stopDate.setHours(this.session.FeeCalcTest.endHour, this.session.FeeCalcTest.endMinute, 0, 0);
       } else {
         stopDateTime = startDate.setHours(this.session.FeeCalcTest.endHour, this.session.FeeCalcTest.endMinute, 0, 0);
       }

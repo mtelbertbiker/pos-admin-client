@@ -70,7 +70,11 @@ export class RentalItemDetailComponent implements OnInit, OnDestroy {
   }
 
   isFieldInvalid(fieldName: string) {
-    return this.rentalItemDetailForm.controls[fieldName].invalid;
+    if (fieldName === 'RentalTypeId') {
+      return this.rentalItemDetailForm.controls[fieldName].value === '99'
+    } else {
+      return this.rentalItemDetailForm.controls[fieldName].invalid;
+    }
   }
 
   onSubmit() {

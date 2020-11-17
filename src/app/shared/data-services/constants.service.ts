@@ -34,10 +34,6 @@ export class ConstantsService {
     {
       Id: 4,
       Name: 'Axe Throw'
-    },
-    {
-      Id: 99,
-      Name: 'Not Selected'
     }
   ];
 
@@ -61,8 +57,8 @@ export class ConstantsService {
   ];
 
   constructor() {
-     if (false)
-    // if (window.location.origin.includes('localhost'))
+    // if (false)
+    if (window.location.origin.includes('localhost'))
     {
       const BaseUri = 'https://localhost';
       this.AdminBaseUri = BaseUri + ':44318/api';

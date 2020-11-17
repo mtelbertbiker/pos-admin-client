@@ -38,13 +38,13 @@ export class FeeListComponent implements OnInit {
       new Date(1, 0, 1, 0, 0, 0),
       new Date('0001-01-01 00:00:00 UTC'),
       new Date('0001-01-01 00:00:00 UTC'),
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
       false,
       0,
       0,
@@ -57,6 +57,9 @@ export class FeeListComponent implements OnInit {
       false,
       false,
       0);
+    if (this.venue.FeeGroups[index].Prepaid) {
+      newFee.FlatRate = true;
+    }
     this.venue.FeeGroups[index].Fees.push(newFee);
     this.sessionService.setSaveState(FormTypes.Fees, true, true);
     this.router.navigate([index, this.venue.FeeGroups[index].Fees.length - 1], {relativeTo: this.route});

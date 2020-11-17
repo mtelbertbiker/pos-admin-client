@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Venue} from '../../../shared/pos-models/venue.model';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {VenueService} from '../../../venues/venue.service';
@@ -19,7 +19,8 @@ export class RentalListComponent implements OnInit {
   constructor(private venueService: VenueService,
               private route: ActivatedRoute,
               private sessionService: SessionService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.route.parent.params
@@ -33,9 +34,10 @@ export class RentalListComponent implements OnInit {
 
   onAddRentalItem() {
     this.venue.RentalItems.push(new RentalItem());
-    this.sessionService.setSaveState(FormTypes.Rentals, true, true);
+    this.sessionService.setSaveState(FormTypes.Rentals, false, true);
     this.router.navigate([this.venue.RentalItems.length - 1], {relativeTo: this.route});
   }
+
   drop(event: CdkDragDrop<RentalItem[]>) {
     moveItemInArray(this.venue.RentalItems, event.previousIndex, event.currentIndex);
     let i = 1;
@@ -43,5 +45,6 @@ export class RentalListComponent implements OnInit {
       currRentalItem.DisplayOrder = i;
       i++;
     }
+    this.sessionService.setSaveState(FormTypes.Rentals, true, true);
   }
 }
