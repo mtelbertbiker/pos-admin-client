@@ -48,7 +48,7 @@ export class FeeListComponent implements OnInit {
       false,
       0,
       0,
-      0,
+      60,
       0,
       true,
       0,

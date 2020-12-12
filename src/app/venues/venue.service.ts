@@ -18,6 +18,11 @@ export class VenueService {
     return this.venues[index];
   }
 
+  getVenueForLicLid(licId: number, lId: number) {
+    const i = this.venues.findIndex(x => x.LicId === licId && x.LId === lId);
+    return this.venues[i];
+  }
+
   putVenue(index: number, venue: Venue) {
     this.venues[index] = venue;
   }

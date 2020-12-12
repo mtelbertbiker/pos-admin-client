@@ -66,7 +66,7 @@
               <div class="row" *ngFor="let fgid of rentalItem.RentalItemFeeGroups; let j = index">
                 <div class="col-sm-1"></div>
                 <div class="col-sm-auto">
-                  <input
+                  <input *ngIf="feeGroupName(fgid) !== ''"
                     type="checkbox"
                     formControlName="4_RentalFeeGroup-{{i}}-{{j}}"
                     id="RentalFeeGroup">{{feeGroupName(fgid)}}

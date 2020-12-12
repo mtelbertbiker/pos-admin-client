@@ -106,7 +106,7 @@ export class CopyVenueModalComponent implements OnInit {
     if (fg !== undefined) {
       return fg.Name;
     }
-    return 'N/A';
+    return '';
   }
 
   onFeeGroupSelect(checked, i) {
@@ -221,9 +221,9 @@ export class CopyVenueModalComponent implements OnInit {
         this.toLicId = this.toVenue.LicId;
       }
     } else {
-     // this.toVenue = null;
-     // this.toLId = 0;
-     // this.toLicId = 0;
+      // this.toVenue = null;
+      // this.toLId = 0;
+      // this.toLicId = 0;
     }
   }
 
@@ -310,7 +310,7 @@ export class CopyVenueModalComponent implements OnInit {
       rentalItem.RId = 0;
       if (rentalItem.RentalItemFeeGroups != null) {
         rentalItem.RentalItemFeeGroups.forEach(rifg => {
-          rifg.RId = 0;
+          rifg.FGID = 0;
         });
       }
       this.toVenue.RentalItems.push(rentalItem);
@@ -324,16 +324,15 @@ export class CopyVenueModalComponent implements OnInit {
     if (totalSelected > 0) {
       if (this.toLicId !== this.venue.LicId) {
         this.venueDataService.getVenuesPromise(this.toLicId, this.toBId).then(() => {
-            this.venues = this.venueService.getVenues();
-            this.toVenue = this.venues.find(x => x.LId === this.toLId);
-          licIndex = this.resellerService.getIndexForLicensee(this.toLicId);
-          this.sessionService.licensee = this.licenseeService.getLicensee(licIndex);
-          this.sessionService.LicenseeId = this.sessionService.licensee.LicId;
+            this.toVenue = this.venueService.getVenueForLicLid(this.toLicId, this.venue.LId);
+            licIndex = this.resellerService.getIndexForLicensee(this.toLicId);
+            this.sessionService.licensee = this.licenseeService.getLicensee(licIndex);
+            this.sessionService.LicenseeId = this.sessionService.licensee.LicId;
             this.completeCopy(licIndex);
           }
         );
       } else {
-        // this.toVenue = this.venues.find(x => x.LId === this.toLId);
+        this.toVenue = this.venueService.getVenueForLicLid(this.toLicId, this.toLId);
         this.completeCopy(licIndex);
       }
     } else {
@@ -345,9 +344,13 @@ export class CopyVenueModalComponent implements OnInit {
     this.copyFromTo();
     this.modal.close('Ok');
     for (let i = 0; i < this.venues.length; i++) {
-      if (this.venues[i].LId === this.toVenue.LId) {
+      if ((this.venues[i].LId === this.toVenue.LId) && (this.venues[i].LicId === this.toVenue.LicId)) {
         this.toVenue.HasVenueDetail = true;
-        this.router.navigate(['licensee/' + licIndex + /locations/ + i]);
+        licIndex = this.resellerService.getIndexForLicensee(this.toLicId);
+        const vlist = this.venueService.getVenuesForLicensee(this.toLicId);
+        const locIndex = vlist.findIndex(x => x.LId === this.toVenue.LId);
+        this.router.navigate(['licensee/' + licIndex + /locations/ + locIndex]);
+        return;
       }
     }
   }
