@@ -99,6 +99,7 @@ export class VenueDataService {
       'WebSite': venue.Website,
       'Memo': venue.Memo,
       'POSTypeId': venue.POSTypeId,
+      'EODTime': venue.EODTime,
       'LightControlEnabled': venue.LightControlEnabled,
       'Disabled': venue.Disabled
     };

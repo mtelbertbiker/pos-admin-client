@@ -70,7 +70,7 @@ export class LicenseeMasterItemNavigationComponent implements OnInit, OnDestroy 
   onAddVenue() {
     this.log.logTrace('onAddVenue');
     const newVenue = new Venue(0, 0, 0, 'New Location',
-      '', '', '', '', '', '', '', 0, '', false, '', false, ''
+      '', '', '', '', '', '', '', 0, 0, '', false, '', false, ''
       , true, [], [], [], [], [], 0, false, '');
     newVenue.LicId = this.sessionService.licensee.LicId;
     this.vid = this.venueService.addVenue(newVenue);
@@ -121,7 +121,7 @@ export class LicenseeMasterItemNavigationComponent implements OnInit, OnDestroy 
     } else {
       this.sessionService.Saving.push(FormTypes.Locations.toString());
       this.sessionService.HideSaveBtn = true;
-      this.venueDataService.putVenue(this.venueService.getVenue( this.sessionService.getCurrentVenueIndex()))
+      this.venueDataService.putVenue(this.venueService.getVenue(this.sessionService.getCurrentVenueIndex()))
         .subscribe(
           resp => {
             let venue: any;

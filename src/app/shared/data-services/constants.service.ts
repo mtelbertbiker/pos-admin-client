@@ -58,8 +58,7 @@ export class ConstantsService {
 
   constructor() {
     // if (false)
-    if (window.location.origin.includes('localhost'))
-    {
+    if (window.location.origin.includes('localhost')) {
       const BaseUri = 'https://localhost';
       this.AdminBaseUri = BaseUri + ':44318/api';
       this.FeeCalcBaseUri = BaseUri + ':44318/FeeCalc';  // Connect to Fee Calc API via Web Admin API

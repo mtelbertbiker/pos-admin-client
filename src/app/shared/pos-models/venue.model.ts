@@ -15,6 +15,7 @@ export class Venue {
               public Phone1 = '',
               public Phone2 = '',
               public POSTypeId = 0,
+              public EODTime = 0,
               public Memo  = '',
               public Disabled = false,
               public DisabledReason  = '',

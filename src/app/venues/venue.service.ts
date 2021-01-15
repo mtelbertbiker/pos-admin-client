@@ -64,6 +64,7 @@ export class VenueService {
     this.venues[index].Phone1 = updatedVenue.Phone1;
     this.venues[index].Phone2 = updatedVenue.Phone2;
     this.venues[index].POSTypeId = updatedVenue.POSTypeId;
+    this.venues[index].EODTime = updatedVenue.EODTime;
     if (updatedVenue['Enabled'] !== undefined) {
       if (updatedVenue['Enabled'] === true) {
         this.venues[index].Disabled = false;

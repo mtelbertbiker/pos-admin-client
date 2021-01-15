@@ -23,6 +23,7 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
   id: number;
   subscription: Subscription;
   posType: any;
+  eodTime: any;
   myModals = {
     deleteConfirm: ConfirmDeletionModalComponent,
     copyVenue: CopyVenueModalComponent
@@ -33,6 +34,16 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
     {value: 1, name: 'Aloha Table Service'},
     {value: 2, name: 'Aloha Quick Service'},
     {value: 3, name: 'Micros 3700'},
+  ];
+
+  public eodTimes = [
+    {value: 0, name: 'Midnight'},
+    {value: 60, name: '1am'},
+    {value: 120, name: '2am'},
+    {value: 180, name: '3am'},
+    {value: 240, name: '4am'},
+    {value: 300, name: '5am'},
+    {value: 360, name: '6am'}
   ];
 
   constructor(private venueService: VenueService,
@@ -75,6 +86,12 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
       this.posType = this.posTypes[0];
     }
     this.posType = this.posTypes[0];
+    if (this.venue.EODTime) {
+      const i = this.eodTimes.findIndex((x => x.value === this.venue.EODTime));
+      this.eodTime =  this.eodTimes[i];
+    } else {
+      this.eodTime = this.eodTimes[0];
+    }
     const venueName = this.venue.Name;
     const address1 = this.venue.Address1;
     const address2 = this.venue.Address2;
@@ -86,6 +103,7 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
     const memo = this.venue.Memo;
     const enabled = !this.venue.Disabled;
     const postypeid = this.venue.POSTypeId;
+    const eodTime = this.venue.EODTime;
     const lightsenabled = this.venue.LightControlEnabled;
     const website = this.venue.Website;
     this.venueDetailForm = new FormGroup(
@@ -101,6 +119,7 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
         'Memo': new FormControl(memo),
         'Enabled': new FormControl(enabled),
         'POSTypeId': new FormControl(postypeid),
+        'EODTime': new FormControl(eodTime),
         'LightControlEnabled': new FormControl(lightsenabled),
         'Website': new FormControl(website),
       }
@@ -130,7 +149,6 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
   }
 
   onDeleteLocation(index: number) {
-    const licId = this.venue.LicId;
     this.venue = this.venueService.getVenue(index);
     this.sessionService.DeletedItemName = 'Location ' + this.venue.Name;
     this.modal.open(this.myModals.deleteConfirm).result.then((result) => {
