@@ -9,6 +9,7 @@ import {VenueService} from '../../../../venues/venue.service';
 import {ConstantsService, FormTypes} from '../../../../shared/data-services/constants.service';
 import {ConfirmDeletionModalComponent} from '../../../../shared/confirm-deletion-modal/confirm-deletion-modal.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {FeeGroupWifiLightState} from '../../../../shared/pos-models/fee-group-wifi-lite-state';
 
 @Component({
   selector: 'app-feegroup-detail',
@@ -26,6 +27,10 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
   myModals = {
     deleteConfirm: ConfirmDeletionModalComponent
   };
+  rentalStateAvailableIndex: number;
+  rentalStateBusyIndex: number;
+  rentalStateEndingIndex: number;
+  rentalStateEndedIndex: number;
 
   constructor(private venueService: VenueService,
               private route: ActivatedRoute,
@@ -89,6 +94,9 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
         'RentalEndWarningInterval': new FormControl(RentalEndWarningInterval, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
         'RenterPhoneTrackingEnabled': new FormControl(RenterPhoneTrackingEnabled)
       });
+    this.constantsService.SupportedRentalStates.forEach((rentalState) => {
+      this.feeGroupDetailForm.addControl(rentalState.FormName, new FormControl());
+    });
   }
 
   isMinUserFieldInvalid() {
@@ -160,6 +168,17 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
     this.feeGroup.FirstRentalEndWarning = updatedFeeGroup.FirstRentalEndWarning;
     this.feeGroup.RentalEndWarningInterval = updatedFeeGroup.RentalEndWarningInterval;
     this.feeGroup.RenterPhoneTrackingEnabled = updatedFeeGroup.RenterPhoneTrackingEnabled;
+    if (this.constantsService.SupportedRentalStates[this.constantsService.SupportedRentalStateIndexAvailable].FormName in updatedFeeGroup) {
+      const wifiLiteStateIndex = this.feeGroup.WifiLiteStates.findIndex((x => x.RentalStateId === this.constantsService.SupportedRentalStates[this.constantsService.SupportedRentalStateIndexAvailable].RentalStateId));
+      if (wifiLiteStateIndex === -1) {
+        this.feeGroup.WifiLiteStates.push(new FeeGroupWifiLightState(this.feeGroup.FGId,
+          this.constantsService.SupportedRentalStates[this.constantsService.SupportedRentalStateIndexAvailable].RentalStateId,
+          +updatedFeeGroup[this.constantsService.SupportedRentalStates[this.constantsService.SupportedRentalStateIndexAvailable].FormName]
+        ))
+      } else {
+        this.feeGroup.WifiLiteStates[wifiLiteStateIndex].WifiBulbStateId = this.constantsService.SupportedRentalStates[this.constantsService.SupportedRentalStateIndexAvailable].RentalStateId;
+      }
+    }
     this.venueService.updateVenueDetail(this.vid, this.venue);
   }
 

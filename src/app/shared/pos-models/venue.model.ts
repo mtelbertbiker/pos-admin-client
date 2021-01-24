@@ -2,6 +2,7 @@ import {ItemImage} from './item-image.model';
 import {FeeGroup} from './fee-group.model';
 import {RentalItem} from './rental-item.model';
 import {LocationRentalType} from './location-rental-type.model';
+import {WifiBulbState} from './wifi-bulb-state.model';
 export class Venue {
   constructor(public LicId = 0,
               public BId = 0,
@@ -27,6 +28,7 @@ export class Venue {
               public Floorplans = [],
               public RentalItems = [],
               public LocationRentalTypes = [],
+              public WifiLightBulbStates: WifiBulbState[] = [],
               public UpdateCount = 0,
               public IsChanged = null,
               public LastUpdated = '') {}

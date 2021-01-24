@@ -88,6 +88,7 @@ export class VenueService {
     this.venues[index].RentalItems = updatedVenue.RentalItems;
     this.venues[index].Floorplans = updatedVenue.Floorplans;
     this.venues[index].LocationRentalTypes = updatedVenue.LocationRentalTypes;
+    this.venues[index].WifiLightBulbStates = updatedVenue.WifiLightBulbStates;
     this.venuesChanged.next(this.venues.slice());
   }
 

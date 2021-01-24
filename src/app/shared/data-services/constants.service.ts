@@ -37,6 +37,38 @@ export class ConstantsService {
     }
   ];
 
+  SupportedRentalStateIndexAvailable = 0;
+  SupportedRentalStateIndexBusy = 1;
+  SupportedRentalStateIndexEnding = 2;
+  SupportedRentalStateIndexEnded = 3;
+
+  SupportedRentalStates = [
+    {
+      RentalStateId: 3,
+      Name: 'Available / Not In Use',
+      FormName: 'Available',
+      PrepaidOnly: false,
+    },
+    {
+      RentalStateId: 4,
+      Name: 'Busy / Rented',
+      FormName: 'Busy',
+      PrepaidOnly: false,
+    },
+    {
+      RentalStateId: 5,
+      Name: 'Rental Ending',
+      FormName: 'Ending',
+      PrepaidOnly: true,
+    },
+    {
+      RentalStateId: 6,
+      Name: 'Rental Ended',
+      FormName: 'Ended',
+      PrepaidOnly: true,
+    }
+  ];
+
   FeeRoundingTypes = [
     {
       Id: 0,

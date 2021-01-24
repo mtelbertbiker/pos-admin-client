@@ -19,6 +19,7 @@ export class FeeGroup {
               public Prepaid = false,
               public FirstRentalEndWarning = 0,
               public RentalEndWarningInterval = 0,
-              public RenterPhoneTrackingEnabled = false
-              ) {}
+              public RenterPhoneTrackingEnabled = false,
+              public WifiLiteStates = []
+  ) {}
 }
