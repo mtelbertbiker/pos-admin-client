@@ -95,8 +95,16 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
         'RenterPhoneTrackingEnabled': new FormControl(RenterPhoneTrackingEnabled)
       });
     this.constantsService.SupportedRentalStates.forEach((rentalState) => {
-      this.feeGroupDetailForm.addControl(rentalState.FormName, new FormControl());
+      this.feeGroupDetailForm.addControl(rentalState.FormName, new FormControl(this.currRentalStateWifiState(rentalState)));
     });
+  }
+
+  currRentalStateWifiState(rentalState) {
+    const i = this.feeGroup.FeeGroupWifiLightStates.findIndex((x => x.RentalStateId === rentalState.RentalStateId));
+    if (i !== -1) {
+      return this.feeGroup.FeeGroupWifiLightStates[i].WifiBulbStateId;
+    }
+    return undefined;
   }
 
   isMinUserFieldInvalid() {
@@ -168,18 +176,26 @@ export class FeeGroupDetailComponent implements OnInit, OnDestroy {
     this.feeGroup.FirstRentalEndWarning = updatedFeeGroup.FirstRentalEndWarning;
     this.feeGroup.RentalEndWarningInterval = updatedFeeGroup.RentalEndWarningInterval;
     this.feeGroup.RenterPhoneTrackingEnabled = updatedFeeGroup.RenterPhoneTrackingEnabled;
-    if (this.constantsService.SupportedRentalStates[this.constantsService.SupportedRentalStateIndexAvailable].FormName in updatedFeeGroup) {
-      const wifiLiteStateIndex = this.feeGroup.WifiLiteStates.findIndex((x => x.RentalStateId === this.constantsService.SupportedRentalStates[this.constantsService.SupportedRentalStateIndexAvailable].RentalStateId));
-      if (wifiLiteStateIndex === -1) {
-        this.feeGroup.WifiLiteStates.push(new FeeGroupWifiLightState(this.feeGroup.FGId,
-          this.constantsService.SupportedRentalStates[this.constantsService.SupportedRentalStateIndexAvailable].RentalStateId,
-          +updatedFeeGroup[this.constantsService.SupportedRentalStates[this.constantsService.SupportedRentalStateIndexAvailable].FormName]
+    this.constantsService.SupportedRentalStates.forEach((rentalState) => {
+      this.updateRentalStateWifiState(updatedFeeGroup, rentalState);
+    });
+    this.venueService.updateVenueDetail(this.vid, this.venue);
+  }
+
+  updateRentalStateWifiState(updatedFeeGroup: FeeGroup, rentalState) {
+    if (rentalState.FormName in updatedFeeGroup) {
+      const i = this.feeGroup.FeeGroupWifiLightStates.findIndex((x => x.RentalStateId ===
+        rentalState.RentalStateId));
+      if (i === -1) {
+        this.feeGroup.FeeGroupWifiLightStates.push(new FeeGroupWifiLightState(this.feeGroup.FGId,
+          rentalState.RentalStateId,
+          +updatedFeeGroup[rentalState.FormName]
         ))
       } else {
-        this.feeGroup.WifiLiteStates[wifiLiteStateIndex].WifiBulbStateId = this.constantsService.SupportedRentalStates[this.constantsService.SupportedRentalStateIndexAvailable].RentalStateId;
+        this.feeGroup.FeeGroupWifiLightStates[i].WifiBulbStateId =
+          +updatedFeeGroup[rentalState.FormName];
       }
     }
-    this.venueService.updateVenueDetail(this.vid, this.venue);
   }
 
   onDeleteFeeGroup(index: number) {

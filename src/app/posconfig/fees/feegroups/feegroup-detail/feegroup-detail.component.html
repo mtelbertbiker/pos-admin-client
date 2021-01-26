@@ -229,7 +229,7 @@
                   <select [id]="supportedRentalState.FormName" [formControlName]="supportedRentalState.FormName">
                     <option *ngFor="let liteState of this.venue.WifiLightBulbStates"
                             [value]="liteState.WifiBulbStateId"
-                            [selected]="liteState.WifiBulbStateId == supportedRentalState.RentalStateId">{{liteState.Name}}
+                            [selected]="liteState.WifiBulbStateId === supportedRentalState.RentalStateId">{{liteState.Name}}
                     </option>
                   </select>
 

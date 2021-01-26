@@ -20,6 +20,6 @@ export class FeeGroup {
               public FirstRentalEndWarning = 0,
               public RentalEndWarningInterval = 0,
               public RenterPhoneTrackingEnabled = false,
-              public WifiLiteStates = []
+              public FeeGroupWifiLightStates = []
   ) {}
 }
