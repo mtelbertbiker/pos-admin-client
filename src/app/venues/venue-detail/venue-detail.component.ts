@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {VenueService} from '../venue.service';
 import {Venue} from '../../shared/pos-models/venue.model';
 import {ActivatedRoute, Params, Router} from '@angular/router';
@@ -88,7 +88,7 @@ export class VenueDetailComponent implements OnInit, OnDestroy {
     this.posType = this.posTypes[0];
     if (this.venue.EODTime) {
       const i = this.eodTimes.findIndex((x => x.value === this.venue.EODTime));
-      this.eodTime =  this.eodTimes[i];
+      this.eodTime = this.eodTimes[i];
     } else {
       this.eodTime = this.eodTimes[0];
     }

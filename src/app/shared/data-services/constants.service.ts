@@ -37,11 +37,6 @@ export class ConstantsService {
     }
   ];
 
-  SupportedRentalStateIndexAvailable = 0;
-  SupportedRentalStateIndexBusy = 1;
-  SupportedRentalStateIndexEnding = 2;
-  SupportedRentalStateIndexEnded = 3;
-
   SupportedRentalStates = [
     {
       RentalStateId: 3,
@@ -89,7 +84,7 @@ export class ConstantsService {
   ];
 
   constructor() {
-    // if (false)
+    // if (false) {
     if (window.location.origin.includes('localhost')) {
       const BaseUri = 'https://localhost';
       this.AdminBaseUri = BaseUri + ':44318/api';

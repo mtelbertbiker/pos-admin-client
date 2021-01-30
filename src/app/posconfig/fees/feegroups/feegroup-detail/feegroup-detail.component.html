@@ -214,7 +214,6 @@
         <div class="card-body">
           <div *ngFor="let supportedRentalState of constantsService.SupportedRentalStates">
             <div *ngIf="feeGroup.Prepaid || (!feeGroup.Prepaid && !supportedRentalState.PrepaidOnly)" >
-              <!--<p class="card-text"><b>{{supportedRentalState.Name}}</b></p>-->
 
               <div class="row">
                 <label><b>{{supportedRentalState.Name}}</b></label>
