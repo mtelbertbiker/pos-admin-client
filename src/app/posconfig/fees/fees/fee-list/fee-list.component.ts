@@ -61,6 +61,7 @@ export class FeeListComponent implements OnInit {
       newFee.FlatRate = true;
     }
     this.venue.FeeGroups[index].Fees.push(newFee);
+    this.venueService.updateVenue(this.id, this.venue)
     this.sessionService.setSaveState(FormTypes.Fees, true, true);
     this.router.navigate([index, this.venue.FeeGroups[index].Fees.length - 1], {relativeTo: this.route});
   }

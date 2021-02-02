@@ -120,62 +120,6 @@
   </div>
   <div class="card bg-light">
     <div class="card-header">
-      <label><b>Fee Duration (Minutes)</b></label>
-    </div>
-    <div class="card-body">
-      <div class="form-group row">
-        <label class="col-form-label col-sm-auto" for="IncDur">Increment</label>
-        <div class="col-sm-5">
-          <input
-            type="number"
-            id="IncDur"
-            formControlName="IncDur"
-            class="form-control">
-        </div>
-        <div class="col-sm-auto">
-          <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                  ngbTooltip="The rental time interval that this fee applies.  Example: If this value is 15, and rental time is 45, the fee amount would be applied 3 times.  Use 60 for hourly rates.">
-            ?
-          </button>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-form-label col-sm-auto" for="MinDur">Min</label>
-        <div class="col-sm-5">
-          <input
-            type="number"
-            id="MinDur"
-            formControlName="MinDur"
-            class="form-control">
-        </div>
-        <div class="col-sm-1">
-          <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                  ngbTooltip="The Minimum amount of rental time before this fee applies.">
-            ?
-          </button>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-form-label col-sm-auto" for="MaxDur">Max</label>
-        <div class="col-sm-5">
-          <input
-            type="number"
-            id="MaxDur"
-            formControlName="MaxDur"
-            class="form-control">
-        </div>
-        <div class="col-sm-1">
-          <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                  ngbTooltip="If not zero, if the rental time exceeds this time, the fee is not applied.">
-            ?
-          </button>
-        </div>
-      </div>
-      <div class="alert alert-danger" *ngIf="isMaxDurFieldInvalid()">Max Dur must be >= Min Dur, or 0</div>
-    </div>
-  </div>
-  <div class="card bg-light">
-    <div class="card-header">
       <label><b>Users</b></label>
     </div>
     <div class="card-body">
@@ -309,13 +253,70 @@
           </div>
           <div class="col-sm-1">
             <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
-                    ngbTooltip="The POS Item Id to apply with this fee">
+                    ngbTooltip="The POS Item Id to apply with this fee. Normally 0 - Change this only if you need to override the POS Item Id of the Parent Fee Group">
               ?
             </button>
           </div>
         </div>
       </div>
     </div>
+    <div class="card bg-light">
+      <div class="card-header">
+        <label><b>Fee Duration (Minutes)</b></label>
+      </div>
+      <div class="card-body">
+        <div class="form-group row">
+          <label class="col-form-label col-sm-auto" for="IncDur">Increment</label>
+          <div class="col-sm-5">
+            <input
+              type="number"
+              id="IncDur"
+              formControlName="IncDur"
+              class="form-control">
+          </div>
+          <div class="col-sm-auto">
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="The rental time interval that applies to this fee. Use 60 for hourly rates. Example: If this value is 15, and rental time is 45, the fee amount would be applied 3 times.">
+              ?
+            </button>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-form-label col-sm-auto" for="MinDur">Min</label>
+          <div class="col-sm-5">
+            <input
+              type="number"
+              id="MinDur"
+              formControlName="MinDur"
+              class="form-control">
+          </div>
+          <div class="col-sm-1">
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="The Minimum amount of rental time before this fee applies. Normally 0.">
+              ?
+            </button>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-form-label col-sm-auto" for="MaxDur">Max</label>
+          <div class="col-sm-5">
+            <input
+              type="number"
+              id="MaxDur"
+              formControlName="MaxDur"
+              class="form-control">
+          </div>
+          <div class="col-sm-1">
+            <button type="button" class="btn btn-outline-secondary mr-2" placement="right"
+                    ngbTooltip="If not zero, if the rental time exceeds this time, the fee is not applied.  Normally 0.">
+              ?
+            </button>
+          </div>
+        </div>
+        <div class="alert alert-danger" *ngIf="isMaxDurFieldInvalid()">Max Dur must be >= Min Dur, or 0</div>
+      </div>
+    </div>
+
   </div>
 </form>
 
