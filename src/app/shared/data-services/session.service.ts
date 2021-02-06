@@ -3,7 +3,6 @@ import {Licensee} from '../licensee.model';
 import { CookieService } from 'ngx-cookie-service';
 import { UUID } from 'angular2-uuid';
 import {FormTypes, LoginTypes, UserFlow} from './constants.service';
-import {Observable} from 'rxjs';
 import {LogService} from '../log.service';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
 
@@ -25,7 +24,7 @@ export class SessionService {
   LicenseeId = 0;
 
   FeeCalcTest = {
-    fgid : 0,
+    fgId : 0,
     dayOfWeek : 2,
     users : 2,
     beginHour : 14,

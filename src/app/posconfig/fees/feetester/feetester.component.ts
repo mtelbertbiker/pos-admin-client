@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Venue} from '../../../shared/pos-models/venue.model';
 import {VenueService} from '../../../venues/venue.service';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FeeGroup} from '../../../shared/pos-models/fee-group.model';
 import {Subscription} from 'rxjs';
@@ -26,31 +26,42 @@ export class FeeTesterComponent implements OnInit, OnDestroy {
   timedFeeCalcResponse: TimedFeeCalcResponse;
 
   public dayList = [
-    { value: 0, name: 'Sunday'},
-    { value: 1, name: 'Monday'},
-    { value: 2, name: 'Tuesday'},
-    { value: 3, name: 'Wednesday'},
-    { value: 4, name: 'Thursday'},
-    { value: 5, name: 'Friday'},
-    { value: 6, name: 'Saturday'}
+    {value: 0, name: 'Sunday'},
+    {value: 1, name: 'Monday'},
+    {value: 2, name: 'Tuesday'},
+    {value: 3, name: 'Wednesday'},
+    {value: 4, name: 'Thursday'},
+    {value: 5, name: 'Friday'},
+    {value: 6, name: 'Saturday'}
   ];
 
   constructor(private venueService: VenueService,
               private feeCalcService: FeecalcDataService,
               private route: ActivatedRoute,
               private log: LogService,
-              private session: SessionService) { }
+              private session: SessionService) {
+  }
 
   ngOnInit() {
-    this.timedFeeCalcResponse = { Ok: false, TotalFee: 0, TotalTime: 0, LogMessages: [], FeeList: [], MsgLevel: 0 };
+    this.timedFeeCalcResponse = {Ok: false, TotalFee: 0, TotalTime: 0, LogMessages: [], FeeList: [], MsgLevel: 0};
     this.route.parent.params
       .subscribe(
         (params: Params) => {
           this.id = +params['vid'];
           this.venue = this.venueService.getVenue(this.id);
           if (this.venue.FeeGroups.length > 0) {
-            this.feeGroup = this.venue.FeeGroups[0];
-            this.session.FeeCalcTest.fgid = this.feeGroup.FGId;
+            if (this.session.FeeCalcTest.fgId > 0) {
+              const fgIdx = this.venue.FeeGroups.findIndex(fg => fg.FGId === +this.session.FeeCalcTest.fgId);
+              if (fgIdx > -1) {
+                this.feeGroup = this.venue.FeeGroups[fgIdx];
+              } else {
+                this.feeGroup = this.venue.FeeGroups[0];
+                this.session.FeeCalcTest.fgId = this.feeGroup.FGId;
+              }
+            } else {
+              this.feeGroup = this.venue.FeeGroups[0];
+              this.session.FeeCalcTest.fgId = this.feeGroup.FGId;
+            }
           }
           this.initForm();
           this.subscription = this.feeTesterForm.valueChanges.subscribe(
@@ -61,11 +72,9 @@ export class FeeTesterComponent implements OnInit, OnDestroy {
   }
 
   private initForm() {
-    let feeGroup;
-    if (this.feeGroup != null) {
-      feeGroup = this.feeGroup.FGId;
-    } else {
-      feeGroup = 0;
+    let fgId = this.session.FeeCalcTest.fgId;
+    if (fgId === 0) {
+      fgId = this.feeGroup.FGId;
     }
     const dayOfWeek = this.session.FeeCalcTest.dayOfWeek;
     const users = this.session.FeeCalcTest.users;
@@ -73,7 +82,7 @@ export class FeeTesterComponent implements OnInit, OnDestroy {
     const endTime = {hour: this.session.FeeCalcTest.endHour, minute: this.session.FeeCalcTest.endMinute};
     this.feeTesterForm = new FormGroup(
       {
-        'FeeGroup': new FormControl(feeGroup, Validators.required),
+        'FeeGroup': new FormControl(fgId, Validators.required),
         'DayOfWeek': new FormControl(dayOfWeek, Validators.required),
         'Users': new FormControl(users, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]),
         'BeginTime': new FormControl(beginTime, Validators.required),
@@ -83,14 +92,14 @@ export class FeeTesterComponent implements OnInit, OnDestroy {
   }
 
   updateFeeCalc(feeCalcForm) {
-    this.session.FeeCalcTest.fgid = feeCalcForm.FeeGroup;
+    this.session.FeeCalcTest.fgId = feeCalcForm.FeeGroup;
     this.session.FeeCalcTest.users = feeCalcForm.Users;
     this.session.FeeCalcTest.dayOfWeek = feeCalcForm.DayOfWeek;
     this.session.FeeCalcTest.beginHour = feeCalcForm.BeginTime.hour;
     this.session.FeeCalcTest.beginMinute = feeCalcForm.BeginTime.minute;
     this.session.FeeCalcTest.endHour = feeCalcForm.EndTime.hour;
     this.session.FeeCalcTest.endMinute = feeCalcForm.EndTime.minute;
-    this.feeGroup =  this.venue.FeeGroups.find( x => x.FGId === +feeCalcForm.FeeGroup);
+    this.feeGroup = this.venue.FeeGroups.find(x => x.FGId === +feeCalcForm.FeeGroup);
   }
 
   private getNextWeekDay(d) {
@@ -129,13 +138,13 @@ export class FeeTesterComponent implements OnInit, OnDestroy {
       }
     }
     const timedFeeCalcRequest = new TimedFeeCalcWebRequest({
-      LicenseeId : this.venue.LicId,
-      BrandId : this.venue.BId,
-      LocationId : this.venue.LId,
-      FeeGroupId : this.session.FeeCalcTest.fgid,
-      Users : this.session.FeeCalcTest.users,
-      StartTime : this.apiDateTimeString(new Date(startDateTime)),
-      StopTime : this.apiDateTimeString(new Date(stopDateTime))
+      LicenseeId: this.venue.LicId,
+      BrandId: this.venue.BId,
+      LocationId: this.venue.LId,
+      FeeGroupId: this.session.FeeCalcTest.fgId,
+      Users: this.session.FeeCalcTest.users,
+      StartTime: this.apiDateTimeString(new Date(startDateTime)),
+      StopTime: this.apiDateTimeString(new Date(stopDateTime))
     });
     this.feeCalcService.FeeCalc(timedFeeCalcRequest)
       .subscribe(
