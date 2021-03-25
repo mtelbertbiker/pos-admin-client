@@ -1,38 +1,12 @@
 <form class="form-inline">
-  <!--
-  <div class="form-group row">
-    <label class="col-form-label col-sm-auto" for="beginDate">Begin</label>
-    <div class="col-sm-auto">
-      <div class="input-group">
-        <input class="form-control" placeholder="{{beginDate.year}}-{{beginDate.month}}-{{beginDate.day}}"
-               id="beginDate"
-               name="dp1" [(ngModel)]="beginDate" ngbDatepicker #d1="ngbDatepicker"
-               (dateSelect)="setReportRange()">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"></button>
-        </div>
-      </div>
-    </div>
-    <label class="col-form-label col-sm-auto" for="endDate">End</label>
-    <div class="col-sm-auto">
-      <div class="input-group">
-        <input class="form-control" placeholder="{{endDate.year}}-{{endDate.month}}-{{endDate.day}}" id="endDate"
-               name="dp2" [(ngModel)]="endDate" ngbDatepicker #d2="ngbDatepicker" (dateSelect)="setReportRange()">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-auto">
-      <button class="btn btn-info" (click)="refreshReport()">Refresh</button>
-    </div>
+  <div *ngIf="reportName=='RentalItemUsageReport1'">
+    <app-itemusageviewer [beginDateTime]="beginDateTime" [endDateTime]="endDateTime"></app-itemusageviewer>
+  </div>
+  <div *ngIf="reportName=='ItemUseDetailReport2'">
+    <app-transactiondetailviewer [beginDateTime]="beginDateTime"
+                                 [endDateTime]="endDateTime"></app-transactiondetailviewer>
+  </div>
+  <div *ngIf="reportName=='DailySummaryReport'">
+    <app-dailysummaryviewer [beginDateTime]="beginDateTime" [endDateTime]="endDateTime"></app-dailysummaryviewer>
   </div>
 </form>
--->
-<div *ngIf="reportName=='RentalItemUsageReport1'">
-  <app-itemusageviewer [beginDateTime]="beginDateTime" [endDateTime]="endDateTime"></app-itemusageviewer>
-</div>
-<div *ngIf="reportName=='ItemUseDetailReport2'">
-  <app-transactiondetailviewer [beginDateTime]="beginDateTime" [endDateTime]="endDateTime"></app-transactiondetailviewer>
-</div>
-

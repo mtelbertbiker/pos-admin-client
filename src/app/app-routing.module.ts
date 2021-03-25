@@ -74,6 +74,7 @@ const appRoutes: Routes = [
           },
           {path: 'reports/RentalItemUsageReport1', component: VenueReportsComponent},
           {path: 'reports/ItemUseDetailReport2', component: VenueReportsComponent},
+          {path: 'reports/DailySummaryReport', component: VenueReportsComponent},
         ]
       },
       {

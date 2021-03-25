@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ItemUsageViewerComponent} from './itemusageviewer/itemusageviewer.component';
 import {TransactiondetailviewerComponent} from './transactiondetailviewer/transactiondetailviewer.component';
 import {LogService} from '../../shared/log.service';
+import {DailySummaryViewerComponent} from './dailysummaryviewer/dailysummaryviewer.component';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class VenueReportsComponent implements OnInit {
   reportName: string;
   @ViewChild(ItemUsageViewerComponent, { read: false }) itemUsageReport: ItemUsageViewerComponent;
   @ViewChild(TransactiondetailviewerComponent, { read: false }) transDetailReport: TransactiondetailviewerComponent;
+  @ViewChild(DailySummaryViewerComponent, { read: false }) dailySummaryReport: DailySummaryViewerComponent;
 
   constructor(private router: Router, private log: LogService) { }
 
@@ -38,6 +40,9 @@ export class VenueReportsComponent implements OnInit {
     }
     if (this.reportName === 'ItemUseDetailReport2') {
       this.transDetailReport.doReportRefresh();
+    }
+    if (this.reportName === 'DailySummaryReport') {
+      this.dailySummaryReport.doReportRefresh();
     }
   }
 

@@ -1,0 +1,27 @@
+<link href="https://kendo.cdn.telerik.com/2016.3.914/styles/kendo.common.min.css" rel="stylesheet"/>
+<link href="https://kendo.cdn.telerik.com/2016.3.914/styles/kendo.blueopal.min.css" rel="stylesheet"/>
+<div class="card bg-light">
+  <div class="card-body">
+    <tr-viewer #viewer1
+               [containerStyle]="viewerContainerStyle"
+               [serviceUrl]=this.constantsService.ReportsUri
+               [reportSource]="{
+        report:'BizTrans.Reports.Library.DailySalesSummaryReport,BizTrans.Reports.Library',
+        parameters: {'licId':venue.LicId,
+        'bId':venue.BId,
+        'lId':venue.LId,
+        'beginDate':beginDateTime,
+        'endDate':endDateTime
+        }
+    }"
+               [viewMode]="'INTERACTIVE'"
+               [scaleMode]="'SPECIFIC'"
+               [ready]=this.ready
+               [persistSession]="false"
+               [scale]="1.0"
+               [viewerToolTipOpening]=this.viewerToolTipOpening
+               [parametersAreaPosition]="'TOP'"
+               [enableAccessibility]="false">
+    </tr-viewer>
+  </div>
+</div>
