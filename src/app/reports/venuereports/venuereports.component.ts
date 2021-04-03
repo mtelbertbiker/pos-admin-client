@@ -26,6 +26,7 @@ export class VenueReportsComponent implements OnInit {
 
   ngOnInit() {
     const today = new Date();
+    today.setDate(today.getDate() - 1);
     this.beginDate = new NgbDate(today.getFullYear(), today.getMonth() + 1, today.getDate());
     this.endDate = new NgbDate(today.getFullYear(), today.getMonth() + 1, today.getDate());
     this.setReportRange();
